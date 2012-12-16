@@ -1,0 +1,17 @@
+{
+  "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar",
+    "status": "RESOLVED"
+  },
+  "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl.jar": {
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl.jar\u0027. Neither fingerprint \u0027a84119fc022455c14615bf2de2a8fc5495b6c390\u0027 nor symbolic name \u0027gdx-backend-lwjgl\u0027 are known."
+  },
+  "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/src": {
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Users/AreusAstarte/Documents/Projects/Game/ClientCore/src\u0027. Skipped."
+  }
+}

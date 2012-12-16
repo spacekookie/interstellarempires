@@ -1,0 +1,18 @@
+package bucket.game.client.core;
+
+import bucket.game.client.gui.SplashScreen;
+
+import com.badlogic.gdx.Game;
+
+/**
+ * 
+ * @author: Katharina
+ */
+public class MainClientLauncher extends Game {
+
+	@Override
+	public void create() {
+		setScreen(new SplashScreen());
+	}
+
+}
