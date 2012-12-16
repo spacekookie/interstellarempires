@@ -1,0 +1,26 @@
+package bucket.game.client.core;
+
+import bucket.game.client.gui.SplashScreen;
+
+import com.badlogic.gdx.Game;
+
+/**
+ * Called when the game is created. Initialises the SplashScreen (Basically the
+ * Main Menu) and also handles disposal of that screen. Further functions may be
+ * added in the future
+ * 
+ * @author: ***REMOVED***
+ */
+public class MainClientLauncher extends Game {
+
+	@Override
+	public void create() {
+		setScreen(new SplashScreen());
+	}
+
+	@Override
+	public void dispose() {
+		new SplashScreen().dispose();
+	}
+
+}
