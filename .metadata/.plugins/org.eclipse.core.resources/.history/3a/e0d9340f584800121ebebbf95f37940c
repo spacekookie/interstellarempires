@@ -21,10 +21,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 /**
  * 
@@ -36,24 +33,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 public class SplashScreen implements Screen {
 
   private Stage stage;
-  private Skin skin;
 
   @Override
   public void show() {
 	stage = new Stage();
 	Gdx.input.setInputProcessor(stage);
 
-	Label nameLabel = new Label("Name:", skin);
-	TextField nameText = new TextField("Name", skin);
-	Label addressLabel = new Label("Address:", skin);
-	TextField addressText = new TextField("Adress", skin);
-
 	Table table = new Table();
-	table.add(nameLabel);
-	table.add(nameText).width(100);
-	table.row();
-	table.add(addressLabel);
-	table.add(addressText).width(100);
+	table.setFillParent(true);
+	stage.addActor(table);
+	
+	table.add("Test");
+
+	// TODO: Actually add stuff here
 
   }
 
