@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package core;
+package src.core;
 
 import java.io.IOException;
 

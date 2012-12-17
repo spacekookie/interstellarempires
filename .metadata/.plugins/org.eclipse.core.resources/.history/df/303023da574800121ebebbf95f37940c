@@ -15,16 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package src.main;
+package core;
 
-public class Server {
+import java.io.IOException;
 
-  /**
-   * Start the server from the command line.
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
+import com.esotericsoftware.kryonet.Server;
+
+public class ServerNetworkHandler {
+
+  public void initialize() throws IOException {
+	Server server = new Server();
+	server.start();
+	server.bind(54555, 54777);
 
   }
 
