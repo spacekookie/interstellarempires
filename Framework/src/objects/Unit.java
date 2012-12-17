@@ -22,8 +22,8 @@ package objects;
 
 /**
  * @author Leander
- *
+ * 
  */
-public class Unit extends PlayerObject {
+public class Unit extends MovingObject {
 
 }
