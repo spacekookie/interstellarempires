@@ -1,0 +1,122 @@
+!SESSION 2012-12-16 22:50:07.487 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_37
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -data /Users/AreusAstarte/Documents/Projects/Game -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-12-16 22:50:10.554
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.ui 2 2 2012-12-16 22:52:28.334
+!MESSAGE Invalid preference category path: org.eclipse.wst.html.ui.preferences.web (bundle: org.eclipse.wst.css.ui, page: org.eclipse.wst.css.ui.preferences.css)
+!SESSION 2012-12-16 22:53:47.400 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_37
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -data /Users/AreusAstarte/Documents/Projects/Game -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-12-16 22:53:50.899
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2012-12-16 22:58:09.732 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_37
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-12-16 22:58:13.221
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-12-16 22:58:32.006
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/ClientAndroid/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:341)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:215)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:266)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:249)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:1312)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-12-16 22:58:32.007
+!MESSAGE Resource '/ClientAndroid/res' does not exist.
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2012-12-16 22:58:32.013
+!MESSAGE Error while tracking project-level changes from a change in R/
+!STACK 1
+Java Model Exception: Java Model Status [Unbound classpath container: 'GWT SDK [missing]' in project 'Client-html']
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2007)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.isResourceInAnOutputPath(ProjectChangeTimestampTracker.java:121)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:162)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.resourceChanged(ProjectChangeTimestampTracker.java:181)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+!SUBENTRY 1 org.eclipse.jdt.core 4 963 2012-12-16 22:58:32.013
+!MESSAGE Unbound classpath container: 'GWT SDK [missing]' in project 'Client-html'
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2012-12-16 22:58:32.447
+!MESSAGE Error while tracking project-level changes from a change in R/
+!STACK 1
+Java Model Exception: Java Model Status [Unbound classpath container: 'GWT SDK [missing]' in project 'Client-html']
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2007)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.isResourceInAnOutputPath(ProjectChangeTimestampTracker.java:121)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:162)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.resourceChanged(ProjectChangeTimestampTracker.java:181)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:45)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 963 2012-12-16 22:58:32.448
+!MESSAGE Unbound classpath container: 'GWT SDK [missing]' in project 'Client-html'
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2012-12-16 22:58:33.944
+!MESSAGE Registering: com.google.gwt.eclipse.sdkbundle_2.5.0.v201211121240-rel-r42
+
+!ENTRY com.google.gdt.eclipse.core 1 0 2012-12-16 22:58:35.093
+!MESSAGE Scheduled rebuild of project Client-html because of plugin update (current version: 3.1.2.v201211121240-rel-r42)
+
+!ENTRY com.android.ide.eclipse.adt 1 0 2012-12-16 22:59:14.901
+!MESSAGE com.android.ide.eclipse.adt
+
+!ENTRY org.eclipse.ui 2 2 2012-12-16 23:02:24.617
+!MESSAGE Invalid preference category path: org.eclipse.wst.html.ui.preferences.web (bundle: org.eclipse.wst.css.ui, page: org.eclipse.wst.css.ui.preferences.css)
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-12-16 23:10:05.200
+!MESSAGE Failed to open search index.
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-12-16 23:10:05.841
+!MESSAGE Error while extracting name and version from file: /Users/AreusAstarte/Documents/Projects/Game/Framework/lib/guava-14.0-rc1.jar
+
+!ENTRY com.android.ide.eclipse.adt 1 0 2012-12-16 23:15:30.297
+!MESSAGE No valid Android XML Editor Delegate found for file /ClientCore/src/MainClientLauncher.gwt.xml [Res null, type null]
+!SESSION 2012-12-17 00:07:44.482 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_37
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/AreusAstarte/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-12-17 00:07:48.287
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.ui 2 2 2012-12-17 00:09:34.918
+!MESSAGE Invalid preference category path: org.eclipse.wst.html.ui.preferences.web (bundle: org.eclipse.wst.css.ui, page: org.eclipse.wst.css.ui.preferences.css)

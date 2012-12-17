@@ -1,0 +1,496 @@
+[
+  {
+    "symbolicName": "lzma",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3a0a5c3684e188e6cdd0aff855d4ae0e8940b5f4",
+    "jarFileModificationDate": "2012-12-16T23:37:50+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/lzma.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "tween-engine-api",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8be8beb70b7ccae059d523e56670f6e44fb1821f",
+    "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/tween-engine-api.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2357317d1e1f14937b3bda942c58791ee1dba581",
+    "jarFileModificationDate": "2012-10-05T02:58:00+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f61f71496ffdd90c7b1af3c651a2223e906508a5",
+    "jarFileModificationDate": "2012-10-05T03:03:35+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "tween-engine-api-sources",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b471c161e1bd73eb4a762a35d75b40eb5b4de3a1",
+    "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/tween-engine-api-sources.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c5d7b7bfab9b433c4b62aebbe76a564b6bcf8192",
+    "jarFileModificationDate": "2011-07-14T22:43:57+02:00",
+    "location": "/System/Library/Java/Extensions/mlibwrapper_jai.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ca9e390a18f6bed5719c731eb0a021da33ada472",
+    "jarFileModificationDate": "2011-07-14T21:43:29+02:00",
+    "location": "/System/Library/Java/Extensions/j3dcore.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "bodyeditor-loader",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0d48919f3cab6f37da4073ed6fef9ca93fb887fc",
+    "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/bodyeditor-loader.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "187a3cf6ae2087c1e05147287a8c627acbc4d497",
+    "jarFileModificationDate": "2011-09-03T01:37:04+02:00",
+    "location": "/System/Library/Java/Extensions/AppleScriptEngine.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gdx",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f0f614a284bfd7e57a284289419c649746b1a449",
+    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "TWL",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "747aed4efb4a028ca693afeba957188ee2926fcf",
+    "jarFileModificationDate": "2012-12-16T23:38:05+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/TWL.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "62d773a0551c5161c8b860290f3457cff4e73da5",
+    "jarFileModificationDate": "2012-10-05T03:13:24+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/apple_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "05bce020245e8cd5f353124d2dc1c2e7c08e8e2a",
+    "jarFileModificationDate": "2012-09-07T04:56:15+02:00",
+    "location": "/System/Library/Java/Extensions/QTJava.zip",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "xpp3-1.1.4c",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9b988ea84b9e4e9f1874e390ce099b8ac12cfff5",
+    "jarFileModificationDate": "2012-12-16T23:37:50+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/xpp3-1.1.4c.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "guava-14.0-rc1",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "eba2bde068a2783f73530ee71cb85927b61bacd3",
+    "jarFileModificationDate": "2012-12-15T21:22:37+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/Framework/lib/guava-14.0-rc1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "80a1b59c9a46cd5cd3869637f77eb5261937fd35",
+    "jarFileModificationDate": "2011-07-14T21:43:29+02:00",
+    "location": "/System/Library/Java/Extensions/j3dutils.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.apache.commons.math",
+    "version": {
+      "major": 3,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5f8d1d720333aa9a7dee1c949ea70d9ed7da6106",
+    "jarFileModificationDate": "2012-12-15T21:22:37+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/Framework/lib/commons-math3-3.0.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.apache.commons.math",
+    "version": {
+      "major": 2,
+      "minor": 2,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4877b85d388275f994a5cfc7eceb73a8045d3006",
+    "jarFileModificationDate": "2012-12-15T21:22:37+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/Framework/lib/commons-math-2.2.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1c9b83346ea4d8df982bf46bc7cf34dbb0c889c2",
+    "jarFileModificationDate": "2012-10-05T03:07:19+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "70e3f9e76e3d5884415516c0cee0855295bcb571",
+    "jarFileModificationDate": "2012-10-05T02:58:00+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "TWLEffects",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e53fe010b6b6448dbad6053e5c8134dfd2827947",
+    "jarFileModificationDate": "2012-12-16T23:38:05+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/TWLEffects.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d611b449a93c1013f13b5022390326ba07e82d0e",
+    "jarFileModificationDate": "2012-11-06T20:09:21+01:00",
+    "location": "/System/Library/Java/Extensions/MRJToolkit.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gdx-natives",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7f4e26bb02c6fa5ea7ec7caa1c71df6c93ba3b76",
+    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-natives.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "log4j",
+    "version": {
+      "major": 1,
+      "minor": 2,
+      "micro": 17,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4f90475694c41965c9a0c8bac53ea5c690dea446",
+    "jarFileModificationDate": "2012-12-15T21:22:37+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/Framework/lib/log4j-1.2.17.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "gdx-backend-lwjgl",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a84119fc022455c14615bf2de2a8fc5495b6c390",
+    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "efccebe4458cfb77604b9bb20e476666af2889cf",
+    "jarFileModificationDate": "2012-10-05T03:13:19+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gdx-backend-lwjgl-natives",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c799cbb7a52b1011b32c01393224d4a816dcc858",
+    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl-natives.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0e204c45fd2e7cc8abdc457636f34358cc534e60",
+    "jarFileModificationDate": "2012-10-05T02:58:00+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "dba74e353db1e9431910c44265bd85a4fdb675ae",
+    "jarFileModificationDate": "2012-10-05T03:07:11+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4f8da5f0b2561d280a59a4414c59083dec8e0227",
+    "jarFileModificationDate": "2011-07-14T22:44:11+02:00",
+    "location": "/System/Library/Java/Extensions/jai_codec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.objenesis",
+    "version": {
+      "major": 1,
+      "minor": 2,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4b1b7610c71930a37c9d85ec6290b9868091e3f2",
+    "jarFileModificationDate": "2012-12-15T21:22:37+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/Framework/lib/kryonet-2.18-all.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "34699721120eede31b7fe5140226deedc0b2aab9",
+    "jarFileModificationDate": "2011-07-14T21:43:29+02:00",
+    "location": "/System/Library/Java/Extensions/j3daudio.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "096c07686702497c46affdf25d6559ac10235884",
+    "jarFileModificationDate": "2011-07-14T22:44:11+02:00",
+    "location": "/System/Library/Java/Extensions/jai_core.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "48c1ff3d0b4f292426c69973f8b2fa1a104fcc55",
+    "jarFileModificationDate": "2012-10-05T03:11:14+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gdx-sources",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "cba3e3ff46398059ff408071752bea82089741d6",
+    "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx-sources.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "04197b5f00f1e62412abf5bd0819480cdb7a419f",
+    "jarFileModificationDate": "2012-11-06T20:09:22+01:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0999f1f3951d713e9a0d96f063f6f6e931589cdd",
+    "jarFileModificationDate": "2011-07-14T21:43:29+02:00",
+    "location": "/System/Library/Java/Extensions/vecmath.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0a96b7d4126b3a5e4ac1bfb648ce0a059e03f7de",
+    "jarFileModificationDate": "2012-11-06T20:09:23+01:00",
+    "location": "/System/Library/Java/Extensions/dns_sd.jar",
+    "javaRuntime": true
+  }
+]

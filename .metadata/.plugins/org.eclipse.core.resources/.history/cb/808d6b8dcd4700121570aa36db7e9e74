@@ -1,0 +1,26 @@
+package bucket.game.client;
+
+import bucket.game.client.core.MainClientLauncher;
+
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
+/**
+ * 
+ * Launches the Desktop Application
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public class Main {
+	public static void main(String[] args) {
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		cfg.title = "Client";
+		cfg.useGL20 = false;
+		cfg.resizable = false;
+		cfg.width = 800;
+		cfg.height = 600;
+
+		new LwjglApplication(new MainClientLauncher(), cfg);
+	}
+}
