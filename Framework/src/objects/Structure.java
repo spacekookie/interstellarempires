@@ -15,21 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package map;
+package objects;
 
-import java.util.Set;
-
-import objects.Planet;
-import objects.Structure;
-import objects.Unit;
-
-import players.Player;
-
-public class SolarSystem {
-
-  private Player claimed;
-  private Set<Planet> planets;
-  private Set<Unit> units;
-  private Set<Structure> structures;
+public class Structure extends PlayerObject {
 
 }

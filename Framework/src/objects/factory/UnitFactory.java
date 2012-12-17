@@ -15,21 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package map;
+package objects.factory;
 
-import java.util.Set;
-
-import objects.Planet;
-import objects.Structure;
 import objects.Unit;
 
-import players.Player;
+/**
+ * This class provides static methods to build default units.
+ * 
+ * @author Leander
+ * 
+ */
+public class UnitFactory {
 
-public class SolarSystem {
+  public static enum ShipType {
+	FIGHTER
+  };
 
-  private Player claimed;
-  private Set<Planet> planets;
-  private Set<Unit> units;
-  private Set<Structure> structures;
+  /**
+   * Build a new default unit.
+   * 
+   * @param type
+   * @return
+   */
+  public static Unit buildUnit(ShipType type) {
+	if (type == ShipType.FIGHTER) {
+	  Unit fighter = new Unit();
+	  // Do the proper stuff to build a default fighter
+	  return fighter;
+	}
+	else {
+	  // Log the error
+	  return null;
+	}
+  }
 
 }
