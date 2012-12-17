@@ -15,15 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
 package objects;
 
-/**
- * @author Leander
- *
- */
-public interface Movable {
+public class Planet extends GameObject {
+
+  // The radius at which the planet orbits the star
+  private double radius;
 
 }

@@ -22,8 +22,10 @@ package objects;
 
 /**
  * @author Leander
- *
+ * 
  */
 public abstract class GameObject {
+
+  private double size;
 
 }

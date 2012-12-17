@@ -1,5 +1,3 @@
-package objects;
-
 /* 
  * Copyright (c) 2012 Leander Sabel
  * 
@@ -18,19 +16,49 @@ package objects;
  */
 
 /**
- * @author Leander
- *
+ * 
  */
+package objects;
+
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
- * Ich würde vorschlagen, dass man keine einzelnen Schiffe implimentiert sondern
- * nur Flotten als Arrays von Units. Ein einzelnes Schiff hat dann halt die
- * Arraygröße 1. Aber das macht einiges einfacher, wenn man mit Flotten
- * arbeitet. Thoughts?
- * 
- * @author ***REMOVED***
+ * An object that can be moved by a player
  * 
  */
-public class Ship extends Unit {
+public abstract class MovingObject extends PlayerObject {
+
+  private Vector2D trajectory;
+  private Double speed;
+
+  /**
+   * @return the trajectory
+   */
+  public Vector2D getTrajectory() {
+	return trajectory;
+  }
+
+  /**
+   * @param trajectory
+   *          the trajectory to set
+   */
+  public void setTrajectory(Vector2D trajectory) {
+	this.trajectory = trajectory;
+  }
+
+  /**
+   * @return the speed
+   */
+  public Double getSpeed() {
+	return speed;
+  }
+
+  /**
+   * @param speed
+   *          the speed to set
+   */
+  public void setSpeed(Double speed) {
+	this.speed = speed;
+  }
 
 }
