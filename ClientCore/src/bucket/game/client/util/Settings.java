@@ -18,49 +18,14 @@ package bucket.game.client.util;
  */
 
 /**
- * Initializes the settings for the game. Also responsible for setting new
- * Settings.
+ * Initializes the settings for the game. Also responsible for setting new Settings.
  * 
  * @author: ***REMOVED***
  */
 public class Settings {
 
-	public static int oldWidth = 800;
-	public static int oldHeight = 600;
-	public static int newHeight;
-
-	public static int getOldHeight() {
-		return oldHeight;
-	}
-
-	public static void setOldHeight(int oldHeight) {
-		Settings.oldHeight = oldHeight;
-	}
-
-	public static int getOldWidth() {
-		return oldWidth;
-	}
-
-	public static void setOldWidth(int oldWidth) {
-		Settings.oldWidth = oldWidth;
-	}
-
-	public static int getNewHeight() {
-		return newHeight;
-	}
-
-	public static void setNewHeight(int newHeight) {
-		Settings.newHeight = newHeight;
-	}
-
-	public static int getNewWidth() {
-		return newWidth;
-	}
-
-	public static void setNewWidth(int newWidth) {
-		Settings.newWidth = newWidth;
-	}
-
-	public static int newWidth;
+  public static int OLD_WIDTH = 800;
+  public static int OLD_HEIGHT = 600;
+  public static String SUPERTITLE = "GameClient - Return of the bad programmer";
 
 }

@@ -17,50 +17,67 @@ package bucket.game.client.gui;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
  * 
- * Splash Screen into which the players gets thrown on launch. Yes. THROWN!
- * Violently!
+ * Splash Screen into which the players gets thrown on launch. Yes. THROWN! Violently!
  * 
  * @author: ***REMOVED***
  */
 
 public class SplashScreen implements Screen {
 
-	@Override
-	public void show() {
+  private Stage stage;
 
-	}
+  @Override
+  public void show() {
+	stage = new Stage();
+	Gdx.input.setInputProcessor(stage);
 
-	@Override
-	public void resize(int width, int height) {
-	}
+	Table table = new Table();
+	table.setFillParent(true);
+	stage.addActor(table);
 
-	@Override
-	public void render(float delta) {
+	// TODO: Actually add stuff here
 
-	}
+  }
 
-	@Override
-	public void hide() {
+  @Override
+  public void resize(int width, int height) {
+	stage.setViewport(width, height, true);
+  }
 
-	}
+  @Override
+  public void render(float delta) {
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	stage.act(Gdx.graphics.getDeltaTime());
+	stage.draw();
 
-	@Override
-	public void dispose() {
+	Table.drawDebug(stage);
 
-	}
+  }
 
-	@Override
-	public void pause() {
+  @Override
+  public void hide() {
+  }
 
-	}
+  @Override
+  public void dispose() {
+  }
 
-	@Override
-	public void resume() {
+  @Override
+  public void pause() {
 
-	}
+  }
+
+  @Override
+  public void resume() {
+
+  }
 
 }
