@@ -9,4 +9,8 @@
 <fullyQualifiedTypeName name="com.badlogic.gdx.graphics.GL11"/>
 <fullyQualifiedTypeName name="javax.swing.Renderer"/>
 <fullyQualifiedTypeName name="com.badlogic.gdx.Graphics.DisplayMode"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Gdx"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.GL10"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Color"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.ui.Table"/>
 </qualifiedTypeNameHistroy>

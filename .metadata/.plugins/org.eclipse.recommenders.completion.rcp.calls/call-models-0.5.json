@@ -13,5 +13,10 @@
     "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/src",
     "status": "UNRESOLVED",
     "error": "No class path info available for \u0027/Users/AreusAstarte/Documents/Projects/Game/ClientCore/src\u0027. Skipped."
+  },
+  "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx.jar": {
+    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx.jar\u0027. Neither fingerprint \u0027f0f614a284bfd7e57a284289419c649746b1a449\u0027 nor symbolic name \u0027gdx\u0027 are known."
   }
 }

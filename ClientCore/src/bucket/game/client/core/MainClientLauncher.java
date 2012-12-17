@@ -1,5 +1,10 @@
 package bucket.game.client.core;
 
+import bucket.game.client.util.Settings;
+
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 /* 
  * Copyright (c) 2012 Katharina Fey
  * 
@@ -17,26 +22,20 @@ package bucket.game.client.core;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import bucket.game.client.gui.SplashScreen;
-import com.badlogic.gdx.Game;
-
 /**
- * Called when the game is created. Initializes the SplashScreen (Basically the
- * Main Menu) and also handles disposal of that screen. Further functions may be
- * added in the future
+ * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be added in the future
  * 
  * @author: Katharina
  */
-public class MainClientLauncher extends Game {
+public class MainClientLauncher {
+  public static void main(String[] args) {
+	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+	cfg.title = Settings.SUPERTITLE;
+	cfg.useGL20 = false;
+	cfg.resizable = false;
+	cfg.width = Settings.OLD_WIDTH;
+	cfg.height = Settings.OLD_HEIGHT;
 
-	@Override
-	public void create() {
-		setScreen(new SplashScreen());
-	}
-
-	@Override
-	public void dispose() {
-		new SplashScreen().dispose();
-	}
-
+	new LwjglApplication(new ScreenHandler(), cfg);
+  }
 }
