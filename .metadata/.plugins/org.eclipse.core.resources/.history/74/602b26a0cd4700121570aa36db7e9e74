@@ -1,0 +1,9 @@
+package bucket.game.client.util;
+
+/**
+ *
+ * @author: Katharina
+ */
+public class Settings {
+
+}

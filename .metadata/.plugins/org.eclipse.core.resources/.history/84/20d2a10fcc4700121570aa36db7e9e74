@@ -1,0 +1,5 @@
+package bucket.game.client.gui;
+
+public class SplashScreen {
+
+}

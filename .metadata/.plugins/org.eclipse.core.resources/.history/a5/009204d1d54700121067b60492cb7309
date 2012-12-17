@@ -1,0 +1,47 @@
+package bucket.game.client;
+
+/* 
+ * Copyright (c) 2012 Katharina Fey
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+import java.awt.Component;
+
+import javax.swing.Renderer;
+
+import org.lwjgl.opengl.Display;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.GL11;
+import com.sun.tools.example.debug.gui.GUI;
+
+/**
+ * 
+ * Launches the Desktop Application
+ * 
+ * @author Katharina
+ * 
+ */
+public class Main {
+	public static void main(String[] args) {
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		cfg.title = "Client";
+		cfg.useGL20 = false;
+		cfg.resizable = false;
+		cfg.width = Settings.getOldWidth();
+		cfg.height = Settings.getOldHeight();
+
+		new LwjglApplication(new MainClientLauncher(), cfg);
+	}
+}

@@ -17,6 +17,12 @@
 
 package modules;
 
+/**
+ * WEAPONS TO MAXIMUM!
+ * @author Katharina
+ *
+ */
+
 public class Weapon extends Module {
 
 }

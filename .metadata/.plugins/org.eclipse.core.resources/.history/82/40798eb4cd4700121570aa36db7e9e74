@@ -1,0 +1,11 @@
+package bucket.game.client.util;
+
+/**
+ * Initilizes the settings for the game. Also responsable for setting new
+ * Settings.
+ * 
+ * @author: Katharina
+ */
+public class Settings {
+
+}

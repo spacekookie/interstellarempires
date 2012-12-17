@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="bucket.game.client.gui.SplashScreen"/>
+<fullyQualifiedTypeName name="bucket.game.client.util.Settings"/>
+<fullyQualifiedTypeName name="de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer"/>
+<fullyQualifiedTypeName name="de.matthiasmann.twl.GUI"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.ui.Label"/>
+<fullyQualifiedTypeName name="org.lwjgl.opengl.Display"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.GL11"/>
+<fullyQualifiedTypeName name="javax.swing.Renderer"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Graphics.DisplayMode"/>
+</qualifiedTypeNameHistroy>

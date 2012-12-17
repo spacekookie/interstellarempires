@@ -18,21 +18,22 @@
 package modules;
 
 public abstract class Module {
-  
-  private boolean destroyed;
 
-  /**
-   * @return the destroyed
-   */
-  public boolean isDestroyed() {
-    return destroyed;
-  }
+	private boolean destroyed;
 
-  /**
-   * @param destroyed the destroyed to set
-   */
-  public void setDestroyed(boolean destroyed) {
-    this.destroyed = destroyed;
-  }
+	/**
+	 * @return the destroyed
+	 */
+	public boolean isDestroyed() {
+		return destroyed;
+	}
+
+	/**
+	 * @param destroyed
+	 *            the destroyed to set
+	 */
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
 
 }

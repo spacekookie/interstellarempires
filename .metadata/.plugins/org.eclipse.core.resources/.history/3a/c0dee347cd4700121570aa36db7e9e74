@@ -1,0 +1,16 @@
+package bucket.game.client.core;
+
+import com.badlogic.gdx.Game;
+
+/**
+ * 
+ * @author: Katharina
+ */
+public class MainClientLauncher extends Game {
+
+	@Override
+	public void create() {
+
+	}
+
+}
