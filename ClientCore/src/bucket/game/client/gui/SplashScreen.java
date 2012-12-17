@@ -42,6 +42,8 @@ public class SplashScreen implements Screen {
 	Table table = new Table();
 	table.setFillParent(true);
 	stage.addActor(table);
+	
+	table.add("Test");
 
 	// TODO: Actually add stuff here
 
