@@ -21,14 +21,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 /**
  * 
- * Splash Screen into which the players gets thrown on launch. Yes. THROWN! Violently!
+ * *Splash* is the sound that players make when their faces are thrown into this screen
  * 
  * @author: ***REMOVED***
  */
@@ -37,40 +35,55 @@ public class SplashScreen implements Screen {
 
   private Stage stage;
   private Skin skin;
+  private Table table;
 
   @Override
   public void show() {
 	stage = new Stage();
 	Gdx.input.setInputProcessor(stage);
 
-	Label nameLabel = new Label("Name:", skin);
-	TextField nameText = new TextField("Name", skin);
-	Label addressLabel = new Label("Address:", skin);
-	TextField addressText = new TextField("Adress", skin);
-
-	Table table = new Table();
-	table.add(nameLabel);
-	table.add(nameText).width(100);
-	table.row();
-	table.add(addressLabel);
-	table.add(addressText).width(100);
+	skin = new Skin(Gdx.files.internal("assets/gui/uiskin.json"));
+	table = new Table(skin);
 
   }
+
+  public void render(float delta) {
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	stage.draw();
+	Table.drawDebug(stage);
+  }
+
+  // stage = new Stage();
+  // Gdx.input.setInputProcessor(stage);
+  // getClass();
+  //
+  // table = new Table();
+  // skin = new Skin();
+  //
+  // table.setSkin(skin);
+  // table.defaults().fill();
+  // table.add("north").colspan(3);
+  // table.row();
+  // table.add("west");
+  // table.add("center").expand();
+  // table.add("east");
+  // table.row();
+  // table.add("south").colspan(3);
 
   @Override
   public void resize(int width, int height) {
 	stage.setViewport(width, height, true);
   }
 
-  @Override
-  public void render(float delta) {
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	stage.act(Gdx.graphics.getDeltaTime());
-	stage.draw();
-
-	Table.drawDebug(stage);
-
-  }
+  // @Override
+  // public void render(float delta) {
+  // Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+  // stage.act(Gdx.graphics.getDeltaTime());
+  // stage.draw();
+  //
+  // Table.drawDebug(stage);
+  //
+  // }
 
   @Override
   public void hide() {
