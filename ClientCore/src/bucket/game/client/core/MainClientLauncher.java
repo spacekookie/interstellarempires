@@ -30,7 +30,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class MainClientLauncher {
   public static void main(String[] args) {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = Settings.SUPERTITLE;
+	cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
 	cfg.useGL20 = false;
 	cfg.resizable = false;
 	cfg.width = Settings.OLD_WIDTH;
@@ -38,4 +38,5 @@ public class MainClientLauncher {
 
 	new LwjglApplication(new ScreenHandler(), cfg);
   }
+
 }

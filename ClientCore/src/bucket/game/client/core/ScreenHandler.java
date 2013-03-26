@@ -17,7 +17,7 @@ package bucket.game.client.core;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import bucket.game.client.gui.SplashScreen;
+import bucket.game.client.gui.TweenScreen;
 import com.badlogic.gdx.Game;
 
 /**
@@ -30,13 +30,32 @@ public class ScreenHandler extends Game {
 
   @Override
   public void create() {
-	setScreen(new SplashScreen());
+	setScreen(new TweenScreen(this));
   }
 
-  // TODO: Not sure about this. Maybe each screen disposes itself. Will have to see where everything is going
   @Override
   public void dispose() {
-	new SplashScreen().dispose();
+	super.dispose();
+  }
+
+  @Override
+  public void render() {
+	super.render();
+  }
+
+  @Override
+  public void resize(int width, int height) {
+	super.resize(width, height);
+  }
+
+  @Override
+  public void pause() {
+	super.pause();
+  }
+
+  @Override
+  public void resume() {
+	super.resume();
   }
 
 }
