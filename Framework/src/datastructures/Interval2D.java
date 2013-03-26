@@ -34,6 +34,11 @@ public class Interval2D<Key extends Comparable<Key>> {
 	this.intervalX = intervalX;
 	this.intervalY = intervalY;
   }
+  
+  public Interval2D(Key x1, Key y1, Key x2, Key y2) {
+	intervalX = new Interval<Key>(x1, x2);
+	intervalY = new Interval<Key>(y1, y2);
+  }
 
   /**
    * Does this 2D interval a intersect b?

@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2012 Leander Sabel
+ * Copyright (c) 2013 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,17 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package src.main;
+package test;
 
-public class Server {
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-  /**
-   * Start the server from the command line.
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
-
-  }
+@RunWith(Suite.class)
+@SuiteClasses({})
+public class TestFramework {
 
 }
