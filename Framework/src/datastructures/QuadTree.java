@@ -98,13 +98,13 @@ public class QuadTree<Key extends Comparable<Key>, Value> {
 	if (rect.contains(h.x, h.y))
 	  values.add(h.value);
 	if (less(xmin, h.x) && less(ymin, h.y))
-	  query2D(h.SW, rect);
+	  values.addAll(query2D(h.SW, rect));
 	if (less(xmin, h.x) && !less(ymax, h.y))
-	  query2D(h.NW, rect);
+	  values.addAll(query2D(h.NW, rect));
 	if (!less(xmax, h.x) && less(ymin, h.y))
-	  query2D(h.SE, rect);
+	  values.addAll(query2D(h.SE, rect));
 	if (!less(xmax, h.x) && !less(ymax, h.y))
-	  query2D(h.NE, rect);
+	  values.addAll(query2D(h.NE, rect));
 
 	return values;
   }
