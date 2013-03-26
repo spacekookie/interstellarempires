@@ -17,6 +17,22 @@
 
 package map;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
 public class Location {
+
+  private Vector2D pos;
+
+  public Location(Vector2D pos) {
+	this.pos = pos;
+  }
+
+  public double getX() {
+	return pos.getX();
+  }
+
+  public double getY() {
+	return pos.getY();
+  }
 
 }
