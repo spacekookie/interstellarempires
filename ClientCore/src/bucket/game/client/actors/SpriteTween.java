@@ -1,4 +1,8 @@
-package bucket.game.client.util;
+package bucket.game.client.actors;
+
+import aurelienribon.tweenengine.TweenAccessor;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /* 
  * Copyright (c) 2012 ***REMOVED***
@@ -18,16 +22,39 @@ package bucket.game.client.util;
  */
 
 /**
- * Initializes the settings for the game. Also responsible for setting new Settings.
  * 
  * @author: ***REMOVED***
  */
-public class Settings {
+public class SpriteTween implements TweenAccessor<Sprite> {
 
-  public static int OLD_WIDTH = 1080;
-  public static int OLD_HEIGHT = 768;
-  public static String SUPERTITLE = "GameClient";
-  public static String VERSION_NUMBER = "Prototype 1.0"; // Prototype --> Alpha --> Beta --> Final
-  public final static String LOG = "GameClient";
+  public static final int ALPHA = 1;
+
+  @Override
+  public int getValues(Sprite target, int tweenType, float[] returnValues) {
+
+	switch (tweenType) {
+	case ALPHA:
+	  returnValues[0] = target.getColor().a;
+	  return 1;
+
+	default:
+	  return 0;
+	}
+
+  }
+
+  @Override
+  public void setValues(Sprite target, int tweenType, float[] newValues) {
+
+	switch (tweenType) {
+	case ALPHA:
+	  target.setColor(1, 1, 1, newValues[0]);
+	  break;
+
+	default:
+	  break;
+	}
+
+  }
 
 }

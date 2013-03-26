@@ -1,6 +1,5 @@
 package bucket.game.client.core;
 
-import bucket.game.client.gui.UITest;
 import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -31,12 +30,13 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class MainClientLauncher {
   public static void main(String[] args) {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = Settings.SUPERTITLE;
+	cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
 	cfg.useGL20 = false;
-	cfg.resizable = true;
+	cfg.resizable = false;
 	cfg.width = Settings.OLD_WIDTH;
 	cfg.height = Settings.OLD_HEIGHT;
 
 	new LwjglApplication(new ScreenHandler(), cfg);
   }
+
 }
