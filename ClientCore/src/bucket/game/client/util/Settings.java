@@ -24,8 +24,10 @@ package bucket.game.client.util;
  */
 public class Settings {
 
-  public static int OLD_WIDTH = 800;
-  public static int OLD_HEIGHT = 600;
-  public static String SUPERTITLE = "GameClient - Return of the bad programmer";
+  public static int OLD_WIDTH = 1080;
+  public static int OLD_HEIGHT = 768;
+  public static String SUPERTITLE = "GameClient";
+  public static String VERSION_NUMBER = "Prototype 1.0"; // Prototype --> Alpha --> Beta --> Final
+  public final static String LOG = "GameClient";
 
 }

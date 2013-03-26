@@ -104,19 +104,6 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "gdx-natives",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "7f4e26bb02c6fa5ea7ec7caa1c71df6c93ba3b76",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/temp/gdx-natives.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -153,32 +140,6 @@
     "jarFileFingerprint": "f0f614a284bfd7e57a284289419c649746b1a449",
     "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
     "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/gdx.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "gdx-backend-lwjgl-natives",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "c799cbb7a52b1011b32c01393224d4a816dcc858",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/temp/gdx-backend-lwjgl-natives.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "TWL",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "747aed4efb4a028ca693afeba957188ee2926fcf",
-    "jarFileModificationDate": "2012-12-16T23:38:05+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/TWL.jar",
     "javaRuntime": false
   },
   {
@@ -312,19 +273,6 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "TWLEffects",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "e53fe010b6b6448dbad6053e5c8134dfd2827947",
-    "jarFileModificationDate": "2012-12-16T23:38:05+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/TWLEffects.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -336,19 +284,6 @@
     "jarFileModificationDate": "2012-11-06T20:09:21+01:00",
     "location": "/System/Library/Java/Extensions/MRJToolkit.jar",
     "javaRuntime": true
-  },
-  {
-    "symbolicName": "gdx-natives",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "7f4e26bb02c6fa5ea7ec7caa1c71df6c93ba3b76",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-natives.jar",
-    "javaRuntime": false
   },
   {
     "symbolicName": "log4j",
@@ -377,32 +312,6 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "gdx-backend-lwjgl",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "a84119fc022455c14615bf2de2a8fc5495b6c390",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/temp/gdx-backend-lwjgl.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "gdx-backend-lwjgl",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "a84119fc022455c14615bf2de2a8fc5495b6c390",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -414,19 +323,6 @@
     "jarFileModificationDate": "2012-10-05T03:13:19+02:00",
     "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar",
     "javaRuntime": true
-  },
-  {
-    "symbolicName": "gdx-backend-lwjgl-natives",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "c799cbb7a52b1011b32c01393224d4a816dcc858",
-    "jarFileModificationDate": "2012-12-16T22:58:03+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientDesktop/libs/gdx-backend-lwjgl-natives.jar",
-    "javaRuntime": false
   },
   {
     "symbolicName": "jre",
@@ -452,19 +348,6 @@
     "jarFileFingerprint": "fef18623cd02841cbc98f0000fbbc344615d4544",
     "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
     "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/backend/gdx-backend-lwjgl-sources.jar",
-    "javaRuntime": false
-  },
-  {
-    "symbolicName": "gdx-backend-lwjgl-sources",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "fef18623cd02841cbc98f0000fbbc344615d4544",
-    "jarFileModificationDate": "2012-12-16T22:58:04+01:00",
-    "location": "/Users/AreusAstarte/Documents/Projects/Game/ClientCore/libs/temp/gdx-backend-lwjgl-sources.jar",
     "javaRuntime": false
   },
   {

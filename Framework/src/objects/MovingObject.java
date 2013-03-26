@@ -29,6 +29,8 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 public abstract class MovingObject extends PlayerObject {
 
   private Vector2D trajectory;
+
+  // TODO: LibGDX arbeitet sehr viel mit floats. Sollen wir uns da einreihen und solche Werte auch als floats definieren?
   private Double speed;
 
   /**
