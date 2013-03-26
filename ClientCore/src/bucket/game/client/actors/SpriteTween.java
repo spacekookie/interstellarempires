@@ -1,9 +1,8 @@
-package bucket.game.client.core;
+package bucket.game.client.actors;
 
-import bucket.game.client.util.Settings;
+import aurelienribon.tweenengine.TweenAccessor;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /* 
  * Copyright (c) 2012 Katharina Fey
@@ -23,20 +22,39 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be added in the future
  * 
  * @author: Katharina
  */
-public class MainClientLauncher {
-  public static void main(String[] args) {
-	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
-	cfg.useGL20 = false;
-	cfg.resizable = false;
-	cfg.width = Settings.OLD_WIDTH;
-	cfg.height = Settings.OLD_HEIGHT;
+public class SpriteTween implements TweenAccessor<Sprite> {
 
-	new LwjglApplication(new ScreenHandler(), cfg);
+  public static final int ALPHA = 1;
+
+  @Override
+  public int getValues(Sprite target, int tweenType, float[] returnValues) {
+
+	switch (tweenType) {
+	case ALPHA:
+	  returnValues[0] = target.getColor().a;
+	  return 1;
+
+	default:
+	  return 0;
+	}
+
+  }
+
+  @Override
+  public void setValues(Sprite target, int tweenType, float[] newValues) {
+
+	switch (tweenType) {
+	case ALPHA:
+	  target.setColor(1, 1, 1, newValues[0]);
+	  break;
+
+	default:
+	  break;
+	}
+
   }
 
 }
