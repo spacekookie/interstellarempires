@@ -19,31 +19,26 @@ package map;
 
 import java.util.Set;
 
+import com.google.common.collect.Sets;
+
 import objects.GameObject;
-import datastructures.Interval;
-import datastructures.Interval2D;
-import datastructures.QuadTree;
+import net.sf.javaml.core.kdtree.KDTree;
 
 public class Map {
 
-  private QuadTree<Double, GameObject> objects;
+  private KDTree objects;
 
   public Map() {
-	objects = new QuadTree<Double, GameObject>();
+	objects = new KDTree(2);
   }
 
-  /**
-   * Get all game objects from a given position and range. This will query the map for game objects
-   * from Position - range to Position + range.
-   * 
-   * @param pos
-   * @param radius
-   * @return
-   */
-  public Set<GameObject> getObjects(Location pos, Double range) {
-	Interval<Double> xIntervall = new Interval<Double>(pos.getX() - range, pos.getX() + range);
-	Interval<Double> yIntervall = new Interval<Double>(pos.getY() - range, pos.getY() + range);
-	Interval2D<Double> intervall = new Interval2D<Double>(xIntervall, yIntervall);
-	return objects.query2D(intervall);
+  public Set<GameObject> getObjectsAt(Location location, double range) {
+	double[] lowk = { location.getX() - range, location.getY() - range };
+	double[] uppk = { location.getX() + range, location.getY() + range };
+
+	GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
+	return Sets.newHashSet(obj);
+
   }
+
 }

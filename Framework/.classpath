@@ -19,6 +19,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/javaml-0.1.7.jar" sourcepath="doc/javaml-0.1.7-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="http://java-ml.sourceforge.net/api/0.1.7/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
