@@ -37,96 +37,98 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * 
- * Intro screen to display studio, game and other animations and credits. Can be skipped easily by directly calling @tweenCompleted()
+ * Intro screen to display studio, game and other animations and credits. Can be skipped easily by directly calling
+ * 
+ * @tweenCompleted()
  * 
  * @author: Katharina
  */
 
 public class TweenScreen implements Screen {
 
-  private Texture splashTitle;
-  private Sprite splashSprite;
-  private SpriteBatch batch;
-  private ScreenHandler handler;
-  private TweenManager man;
-  private TweenCallback tc;
+	private Texture splashTitle;
+	private Sprite splashSprite;
+	private SpriteBatch batch;
+	private ScreenHandler handler;
+	private TweenManager man;
+	private TweenCallback tc;
 
-  public TweenScreen(ScreenHandler handler) {
-	this.handler = handler;
-  }
+	public TweenScreen(ScreenHandler handler) {
+		this.handler = handler;
+	}
 
-  @Override
-  public void resize(int w, int h) {
-  }
+	@Override
+	public void resize(int w, int h) {
+	}
 
-  @Override
-  public void show() {
-	splashTitle = new Texture("assets/gui/splash_title.png");
-	splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	@Override
+	public void show() {
+		splashTitle = new Texture("assets/gui/title_graphics/prot-splash-title.png");
+		splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-	splashSprite = new Sprite(splashTitle);
-	splashSprite.setColor(1, 1, 1, 0);
-	splashSprite.setX(Gdx.graphics.getWidth() / 2 - (splashSprite.getWidth() / 2));
-	splashSprite.setY(Gdx.graphics.getHeight() / 2 - (splashSprite.getHeight() / 2));
+		splashSprite = new Sprite(splashTitle);
+		splashSprite.setColor(1, 1, 1, 0);
+		splashSprite.setX(Gdx.graphics.getWidth() / 2 - (splashSprite.getWidth() / 2));
+		splashSprite.setY(Gdx.graphics.getHeight() / 2 - (splashSprite.getHeight() / 2));
 
-	batch = new SpriteBatch();
+		batch = new SpriteBatch();
 
-	Tween.registerAccessor(Sprite.class, new SpriteTween());
+		Tween.registerAccessor(Sprite.class, new SpriteTween());
 
-	man = new TweenManager();
+		man = new TweenManager();
 
-	tc = new TweenCallback() {
+		tc = new TweenCallback() {
 
-	  @Override
-	  public void onEvent(int type, BaseTween<?> source) {
-		// Will be called when Tween is completed
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				// Will be called when Tween is completed
 
-		tweenCompleted();
+				tweenCompleted();
 
-	  }
-	};
+			}
+		};
 
-	Tween.to(splashSprite, SpriteTween.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
-		.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
+		Tween.to(splashSprite, SpriteTween.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
+				.setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
-  }
+	}
 
-  private void tweenCompleted() {
-	handler.setScreen(new MenuScreen(handler));
-  }
+	private void tweenCompleted() {
+		handler.setScreen(new MenuScreen(handler));
+	}
 
-  public void render(float delta) {
+	public void render(float delta) {
 
-	Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	man.update(delta);
+		Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		man.update(delta);
 
-	batch.begin();
+		batch.begin();
 
-	splashSprite.draw(batch);
+		splashSprite.draw(batch);
 
-	batch.end();
+		batch.end();
 
-  }
+	}
 
-  @Override
-  public void hide() {
+	@Override
+	public void hide() {
 
-  }
+	}
 
-  @Override
-  public void dispose() {
+	@Override
+	public void dispose() {
 
-  }
+	}
 
-  @Override
-  public void pause() {
+	@Override
+	public void pause() {
 
-  }
+	}
 
-  @Override
-  public void resume() {
+	@Override
+	public void resume() {
 
-  }
+	}
 
 }
