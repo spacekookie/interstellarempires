@@ -1,7 +1,5 @@
-package bucket.game.client.util;
-
 /* 
- * Copyright (c) 2012 ***REMOVED***
+ * Copyright (c) 2012 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +15,17 @@ package bucket.game.client.util;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- * @author: ***REMOVED***
- */
-public class InputListener {
+package src.main;
+
+public class Server {
+
+  /**
+   * Start the server from the command line.
+   * 
+   * @param args
+   */
+  public static void main(String[] args) {
+
+  }
 
 }

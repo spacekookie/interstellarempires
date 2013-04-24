@@ -29,38 +29,39 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
  * @author: ***REMOVED***
  */
 public class BasicActor extends Actor {
-  TextureRegion region;
+	TextureRegion region;
 
-  private ShapeRenderer renderer;
+	private ShapeRenderer renderer;
 
-  public void draw(SpriteBatch batch, float parentAlpha) {
-	batch.end();
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		batch.end();
 
-	renderer.setProjectionMatrix(batch.getProjectionMatrix());
-	renderer.setTransformMatrix(batch.getTransformMatrix());
-	renderer.translate(getX(), getY(), 0);
+		renderer.setProjectionMatrix(batch.getProjectionMatrix());
+		renderer.setTransformMatrix(batch.getTransformMatrix());
+		renderer.translate(getX(), getY(), 0);
 
-	renderer.begin(ShapeType.Rectangle);
-	renderer.rect(0, 0, getWidth(), getHeight());
-	renderer.end();
+		renderer.begin(ShapeType.Rectangle);
+		renderer.rect(0, 0, getWidth(), getHeight());
+		renderer.end();
 
-	batch.begin();
-  }
+		batch.begin();
+	}
 
-  public BasicActor() {
-	region = new TextureRegion();
-  }
+	public BasicActor() {
+		region = new TextureRegion();
+	}
 
-  public Actor hit(float x, float y, boolean touchable) {
-	if (touchable && getTouchable() != Touchable.enabled)
-	  return null;
-	return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
-  }
+	public Actor hit(float x, float y, boolean touchable) {
+		if (touchable && getTouchable() != Touchable.enabled)
+			return null;
+		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
+	}
 
-  // public void draw(SpriteBatch batch, float parentAlpha) {
-  // Color color = getColor();
-  // batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-  // batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-  // }
+	// public void draw(SpriteBatch batch, float parentAlpha) {
+	// Color color = getColor();
+	// batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+	// batch.draw(region, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(),
+	// getRotation());
+	// }
 
 }

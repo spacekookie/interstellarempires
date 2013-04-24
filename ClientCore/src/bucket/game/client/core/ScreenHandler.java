@@ -17,45 +17,53 @@ package bucket.game.client.core;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import bucket.game.client.gui.MenuScreen;
 import bucket.game.client.gui.TweenScreen;
+import bucket.game.client.util.Settings;
+
 import com.badlogic.gdx.Game;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in
+ * the future
  * 
  * @author: ***REMOVED***
  */
 public class ScreenHandler extends Game {
 
-  @Override
-  public void create() {
-	setScreen(new TweenScreen(this));
-  }
+	@Override
+	public void create() {
 
-  @Override
-  public void dispose() {
-	super.dispose();
-  }
+		if (!Settings.skipIntro)
+			setScreen(new TweenScreen(this));
+		else
+			setScreen(new MenuScreen(this));
+	}
 
-  @Override
-  public void render() {
-	super.render();
-  }
+	@Override
+	public void dispose() {
+		super.dispose();
+	}
 
-  @Override
-  public void resize(int width, int height) {
-	super.resize(width, height);
-  }
+	@Override
+	public void render() {
+		super.render();
+	}
 
-  @Override
-  public void pause() {
-	super.pause();
-  }
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+	}
 
-  @Override
-  public void resume() {
-	super.resume();
-  }
+	@Override
+	public void pause() {
+		super.pause();
+	}
+
+	@Override
+	public void resume() {
+		super.resume();
+	}
 
 }

@@ -1,9 +1,14 @@
 package bucket.game.client.core;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 import bucket.game.client.util.Settings;
 
+import com.apple.eawt.Application;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 
 /* 
  * Copyright (c) 2012 ***REMOVED***
@@ -23,20 +28,30 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be added in the future
+ * Main Launcher for the game. Calls the ScreenHandler to initialize the
+ * SplashScreen! Further functionality might be added in the future
  * 
  * @author: ***REMOVED***
  */
 public class MainClientLauncher {
-  public static void main(String[] args) {
-	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
-	cfg.useGL20 = false;
-	cfg.resizable = false;
-	cfg.width = Settings.OLD_WIDTH;
-	cfg.height = Settings.OLD_HEIGHT;
+	public static void main(String[] args) {
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
+		cfg.useGL20 = false;
+		cfg.resizable = false;
+		cfg.fullscreen = false;
+		cfg.width = Settings.OLD_WIDTH;
+		cfg.height = Settings.OLD_HEIGHT;
+		cfg.initialBackgroundColor = Color.BLACK;
 
-	new LwjglApplication(new ScreenHandler(), cfg);
-  }
+		/** Sets the Application Icon for different operating systems */
+		if (System.getProperty("os.name").equals("Mac OS X")) {
+			Application app = Application.getApplication();
+			Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+			app.setDockIconImage(image);
+		}
 
+		new LwjglApplication(new ScreenHandler(), cfg);
+
+	}
 }
