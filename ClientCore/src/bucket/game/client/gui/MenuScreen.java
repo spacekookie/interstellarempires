@@ -73,13 +73,37 @@ public class MenuScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		Table table = new Table();
+		Table mapTable = new Table();
+
+		Table backToIntro = new Table();
+		backToIntro.setFillParent(true);
+		stage.addActor(backToIntro);
+		TextButton backham = new TextButton("Back to Intro", skin);
+		backham.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				handler.setScreen(new TweenScreen(handler));
+			}
+		});
+
+		backToIntro.add(backham);
+		backToIntro.row();
+		backToIntro.top().left();
+
 		table.setFillParent(true);
+		mapTable.setFillParent(true);
 		stage.addActor(table);
+		stage.addActor(mapTable);
 
-		map = new HexMap(50f, 50f);
+		map = new HexMap(600f, 350f);
 
+		mapTable.add(map);
+		mapTable.center(); // First center it
+		mapTable.setX(-Gdx.graphics.getWidth() / 3); // Then reduce the X value
 		// TODO: Fix this :)
-		// stage.addActor(map);
 
 		settings = new TextButton("Settings", skin);
 		testScreen = new TextButton("TestScreen", skin);

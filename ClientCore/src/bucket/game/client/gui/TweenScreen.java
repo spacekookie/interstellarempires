@@ -20,12 +20,10 @@ package bucket.game.client.gui;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 import bucket.game.client.actors.SpriteTween;
 import bucket.game.client.core.ScreenHandler;
-import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -34,6 +32,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
  * 
@@ -53,16 +57,46 @@ public class TweenScreen implements Screen {
 	private TweenManager man;
 	private TweenCallback tc;
 
+	private Skin skin;
+	private Stage stage;
+
 	public TweenScreen(ScreenHandler handler) {
 		this.handler = handler;
 	}
 
 	@Override
 	public void resize(int w, int h) {
+		if (stage == null)
+			stage = new Stage(w, h, true);
+		stage.clear();
+
+		Gdx.input.setInputProcessor(stage);
+
+		Table backToIntro = new Table();
+
+		stage.addActor(backToIntro);
+		backToIntro.setFillParent(true);
+
+		TextButton backham = new TextButton("SKIP THIS INTRO", skin);
+		backham.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				tweenCompleted();
+			}
+		});
+
+		backToIntro.add(backham);
+		backToIntro.row();
+		backToIntro.bottom().right();
+
 	}
 
 	@Override
 	public void show() {
+		skin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
 		splashTitle = new Texture("assets/gui/title_graphics/prot-splash-title.png");
 		splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -103,6 +137,9 @@ public class TweenScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		man.update(delta);
 
+		stage.act(delta);
+		stage.draw();
+
 		batch.begin();
 
 		splashSprite.draw(batch);
@@ -118,7 +155,6 @@ public class TweenScreen implements Screen {
 
 	@Override
 	public void dispose() {
-
 	}
 
 	@Override
