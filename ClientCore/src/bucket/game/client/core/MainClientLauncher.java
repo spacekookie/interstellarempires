@@ -28,8 +28,8 @@ import com.badlogic.gdx.graphics.Color;
  */
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialize the
- * SplashScreen! Further functionality might be added in the future
+ * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be
+ * added in the future
  * 
  * @author: ***REMOVED***
  */

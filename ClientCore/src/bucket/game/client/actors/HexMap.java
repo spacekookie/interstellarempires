@@ -1,6 +1,10 @@
 package bucket.game.client.actors;
 
+import bucket.game.client.util.ResourcePacker;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -24,22 +28,38 @@ public class HexMap extends Actor implements Disposable {
 
 	/** Actor Stuff here */
 
-	private TextureRegion textures;
+	private TextureAtlas atlas;
+	private TextureRegion hosTile, friendTile, neuTile, playTile;
 	private ShapeRenderer shapeRenderer;
 
 	/**
-	 * Should draw a basic rectangle around the map. Throws nullpointer :(
+	 * Will draw the map. At some point
 	 */
 	public void draw(SpriteBatch batch, float parentAlpha) {
+
+		batch.end();
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-		shapeRenderer.translate(getX(), getY(), 0);
+		shapeRenderer.translate(getX() / 2, getY() / 2, 0);
 
 		shapeRenderer.begin(ShapeType.Rectangle);
-		shapeRenderer.rect(0, 0, getWidth(), getHeight());
+		shapeRenderer.rect(0, 0, sizeX + 20, sizeY);
 		shapeRenderer.end();
-
 		batch.begin();
+
+		// Drawing a few tiles. Not mathematically correct but sue me!
+		for (int n = 0; n <= 3; n++) {
+
+			for (int m = 0; m <= 3; m++)
+				batch.draw(neuTile, (getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), 0, 0, 100, 100, 1, 1, 0);
+		}
+
+		for (int n = 0; n <= 3; n++) {
+
+			for (int m = 0; m <= 2; m++)
+				batch.draw(neuTile, (getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), 0, 0, 100, 100, 1, 1,
+						0);
+		}
 
 	}
 
@@ -48,8 +68,28 @@ public class HexMap extends Actor implements Disposable {
 	public HexMap(float x, float y) {
 		this.sizeX = x;
 		this.sizeY = y;
+		this.tileX = 150;
+		this.tileY = 85;
 
-		this.textures = new TextureRegion();
+		shapeRenderer = new ShapeRenderer();
+
+		loadTextures();
+	}
+
+	/**
+	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker ... for now.
+	 */
+	@Deprecated
+	private void loadTextures() {
+
+		this.atlas = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
+
+		// See what I did there? ;)
+		hosTile = atlas.findRegion("prot-map-tile-hostile");
+		friendTile = atlas.findRegion("prot-map-tile-friend");
+		neuTile = atlas.findRegion("prot-map-tile-neutral");
+		playTile = atlas.findRegion("prot-map-tile-player");
+
 	}
 
 	/**
@@ -58,7 +98,7 @@ public class HexMap extends Actor implements Disposable {
 	public Actor hit(float x, float y, boolean touchable) {
 		if (touchable && getTouchable() != Touchable.enabled)
 			return null;
-		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null; // What's the "? this : null" ?
+		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
 	}
 
 	/**
