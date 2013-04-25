@@ -19,6 +19,7 @@ package bucket.game.client.core;
 
 import bucket.game.client.gui.MenuScreen;
 import bucket.game.client.gui.TweenScreen;
+import bucket.game.client.util.Ally;
 import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.Game;

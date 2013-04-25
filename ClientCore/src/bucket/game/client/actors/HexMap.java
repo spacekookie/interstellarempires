@@ -1,7 +1,5 @@
 package bucket.game.client.actors;
 
-import bucket.game.client.util.ResourcePacker;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -77,7 +75,7 @@ public class HexMap extends Actor implements Disposable {
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker ... for now.
+	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker
 	 */
 	@Deprecated
 	private void loadTextures() {
