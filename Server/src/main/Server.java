@@ -19,13 +19,18 @@ package src.main;
 
 public class Server {
 
-  /**
-   * Start the server from the command line.
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
+	/**
+	 * Start the server from the command line.
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
 
-  }
+		System.out.println("I...am...ALIVE!!!");
+		System.out.println("I am Skynet!");
+		System.out.println();
+		System.out.println(":)");
+
+	}
 
 }

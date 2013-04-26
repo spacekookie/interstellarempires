@@ -1,6 +1,30 @@
 package bucket.game.client.actors;
 
+/* 
+ * Copyright (c) 2012 Katharina Fey
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import org.lwjgl.Sys;
+
+import map.SolarSystem;
+import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.gui.SystemScreen;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,7 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * HexMap implementation...when it grows up some day
+ * HexMap implementation.
  * 
  * @author Katharina
  * 
@@ -20,15 +44,41 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class HexMap extends Actor implements Disposable {
 
-	private float sizeX, sizeY; // Size of the map-actor on screen
-	private Vector2 tileID; // Tile ID on the global map.
-	private float tileX, tileY; // Tile size to let the view know when to stop drawing tiles
+	protected ScreenHandler handler;
+
+	/*
+	 * Size of the map-actor on screen
+	 */
+	private float sizeX, sizeY;
+
+	/*
+	 * Tile ID on the global map.
+	 */
+	private Vector2 tileID;
+
+	/*
+	 * Tile size to let the view know when to stop drawing tiles
+	 */
+	private float tileX, tileY;
+
+	/*
+	 * Number of tiles possible on the screen
+	 */
+	private float vTile, hTile;
+
+	/*
+	 * Absolute position of map origin on screen.
+	 */
+	private float positionX, positionY;
 
 	/** Actor Stuff here */
 
-	private TextureAtlas atlas;
+	private TextureAtlas atlas; // Holds all Tile textures
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
 	private ShapeRenderer shapeRenderer;
+
+	/** New Render stuff here */
+	private OrthographicCamera camera;
 
 	/**
 	 * Will draw the map. At some point
@@ -41,7 +91,7 @@ public class HexMap extends Actor implements Disposable {
 		shapeRenderer.translate(getX() / 2, getY() / 2, 0);
 
 		shapeRenderer.begin(ShapeType.Rectangle);
-		shapeRenderer.rect(0, 0, sizeX + 20, sizeY);
+		shapeRenderer.rect(0, 0, sizeX, sizeY);
 		shapeRenderer.end();
 		batch.begin();
 
@@ -61,13 +111,18 @@ public class HexMap extends Actor implements Disposable {
 
 	}
 
-	private float vTile, hTile; // Number of tiles possible on the screen
-
-	public HexMap(float x, float y) {
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public HexMap(float x, float y, ScreenHandler handler) {
 		this.sizeX = x;
 		this.sizeY = y;
 		this.tileX = 150;
 		this.tileY = 85;
+
+		this.handler = handler;
 
 		shapeRenderer = new ShapeRenderer();
 
@@ -75,7 +130,8 @@ public class HexMap extends Actor implements Disposable {
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker
+	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in
+	 * P-1.0.3.
 	 */
 	@Deprecated
 	private void loadTextures() {
@@ -91,17 +147,47 @@ public class HexMap extends Actor implements Disposable {
 	}
 
 	/**
-	 * Detects if an actor has been clicked
+	 * This will register click and touch events on the actor and return the corresponding
+	 * tile to something that wants it.
+	 * 
+	 * @param x
+	 *          position of mouse on screen.
+	 * 
+	 * @param y
+	 *          position of mouse on screen.
+	 * 
+	 * @param touchable
+	 *          Whether the actor allows touch events.
+	 * 
+	 * @return Actor to be displayed.
 	 */
+	@Override
 	public Actor hit(float x, float y, boolean touchable) {
-		if (touchable && getTouchable() != Touchable.enabled)
-			return null;
-		return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
+
+		if (touchable && getTouchable() == Touchable.enabled) {
+			if (Gdx.input.isTouched(0)) {
+
+				/**
+				 * If click is on map and not outside Actor view.
+				 */
+				if (x > (positionX - (sizeX / 2)) && x < (positionX + (sizeX / 2)) && y > (positionY - (sizeY / 2))
+						&& y < (positionY + (sizeY / 2))) {
+					System.out.println("SUCCESS");
+					handler.setScreen(new SystemScreen(handler, new Vector2(0, 0)));
+				} else {
+					System.out.println("ERROR");
+				}
+
+				return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
+			}
+		}
+		return null;
 	}
 
 	/**
-	 * Usually only called once when creating the application. Players with custom skins and graphic packs may end up
-	 * changing these values. Checking for tile size is done outside this class.
+	 * Usually only called once when creating the application. Players with custom skins and
+	 * graphic packs may end up changing these values. Checking for tile size is done
+	 * outside this class.
 	 * 
 	 * @param x
 	 * @param y
@@ -119,7 +205,7 @@ public class HexMap extends Actor implements Disposable {
 	/**
 	 * Gets the size of a generic tile as a vector.
 	 * 
-	 * @return Vector2 object with tile size as x and y paramenters
+	 * @return Vector2 object with tile size as x and y Parameters.
 	 */
 	public Vector2 getTileSize() {
 
@@ -131,13 +217,14 @@ public class HexMap extends Actor implements Disposable {
 	}
 
 	/**
-	 * Checks if the requested tile should even be displayed or if it is outside the requested view.
+	 * Checks if the requested tile should even be displayed or if it is outside the
+	 * requested view.
 	 * 
 	 * @param tileID
 	 *          Vector ID of the tile in question
 	 * 
-	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen and shouldn't be
-	 *         displayed.
+	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no
+	 *         on screen and shouldn't be displayed.
 	 */
 	public boolean isTileOnScreen(Vector2 tileID) {
 
@@ -146,14 +233,15 @@ public class HexMap extends Actor implements Disposable {
 		// TODO: Get top left tile (Somehow? :s)
 
 		// TODO: Then check
-		// if(dist(topleft --> tileID > hTile || vTile)
+		// if(dist(topleft --> tileID) > hTile || vTile)
 		// ### result --> false
 		// ### else result --> true
 
 		return result;
 	}
 
-	public void getTileWithID(Vector2 tileID) {
+	public SolarSystem getTileWithID(Vector2 tileID) {
+		return null;
 
 		// TODO: This will check the QuadTree for tile info
 
@@ -165,5 +253,8 @@ public class HexMap extends Actor implements Disposable {
 	@Override
 	public void dispose() {
 
+	}
+
+	public void setScreenPosition(float x, float y) {
 	}
 }

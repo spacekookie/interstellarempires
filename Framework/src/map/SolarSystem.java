@@ -20,16 +20,18 @@ package map;
 import java.util.Set;
 
 import objects.Planet;
+import objects.Star;
 import objects.Structure;
 import objects.Unit;
-
 import players.Player;
 
 public class SolarSystem {
 
-  private Player claimed;
-  private Set<Planet> planets;
-  private Set<Unit> units;
-  private Set<Structure> structures;
+	private Player claimed;
+	private Set<Planet> planets;
+	private Set<Unit> units;
+	private Set<Structure> structures;
+	private Star star;
+	private float radius;
 
 }
