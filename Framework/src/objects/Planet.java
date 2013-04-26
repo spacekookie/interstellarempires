@@ -19,7 +19,8 @@ package objects;
 
 public class Planet extends GameObject {
 
-  // The radius at which the planet orbits the star
-  private double radius;
+	// The radius at which the planet orbits the star
+	private double radius;
+	private double mass;
 
 }

@@ -19,6 +19,7 @@ package objects;
 
 public class Star extends GameObject {
 
+	
   
   
 }
