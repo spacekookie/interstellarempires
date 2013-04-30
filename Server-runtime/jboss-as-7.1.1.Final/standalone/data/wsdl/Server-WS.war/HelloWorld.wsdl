@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<wsdl:definitions name="HelloWorld" targetNamespace="http://webservices.samples.jboss.org/HelloWorld" xmlns:ns1="http://webservices.samples.jboss.org/HelloWorld" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.samples.jboss.org/HelloWorld" elementFormDefault="unqualified" targetNamespace="http://webservices.samples.jboss.org/HelloWorld" version="1.0">
+<xs:element name="sayHello" type="tns:sayHello"/>
+<xs:element name="sayHelloResponse" type="tns:sayHelloResponse"/>
+<xs:complexType name="sayHello">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sayHelloResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part name="parameters" element="ns1:sayHelloResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHello">
+    <wsdl:part name="parameters" element="ns1:sayHello">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HelloWorld">
+    <wsdl:operation name="sayHello">
+      <wsdl:input name="sayHello" message="ns1:sayHello">
+    </wsdl:input>
+      <wsdl:output name="sayHelloResponse" message="ns1:sayHelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
