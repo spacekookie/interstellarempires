@@ -13,5 +13,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/backend/gdx-backend-lwjgl.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/backend/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-tools.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Framework"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
