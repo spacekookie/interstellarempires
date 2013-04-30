@@ -1,0 +1,11 @@
+org/jboss/security
+
+META-INF/maven/org.jboss.security/jboss-negotiation-extras
+org/jboss/security/negotiation/spnego
+META-INF/maven
+org/jboss
+org/jboss/security/negotiation
+META-INF/maven/org.jboss.security
+org/jboss/security/negotiation/prototype
+org
+META-INF

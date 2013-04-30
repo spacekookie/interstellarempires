@@ -1,0 +1,11 @@
+
+org/jboss/osgi/repository/core
+org/jboss/osgi/repository
+META-INF/maven
+org/jboss
+META-INF/services
+META-INF/maven/org.jboss.osgi.repository
+org/jboss/osgi
+org
+META-INF
+META-INF/maven/org.jboss.osgi.repository/jbosgi-repository-core

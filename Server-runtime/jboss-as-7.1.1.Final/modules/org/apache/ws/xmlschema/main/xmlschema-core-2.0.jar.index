@@ -1,0 +1,15 @@
+
+META-INF/maven
+org/apache/ws/commons/schema
+org/apache/ws/commons
+org/apache/ws/commons/schema/utils
+org
+META-INF
+org/apache/ws
+org/apache/ws/commons/schema/constants
+org/apache
+org/apache/ws/commons/schema/extensions
+org/apache/ws/commons/schema/resolver
+META-INF/maven/org.apache.ws.xmlschema
+META-INF/maven/org.apache.ws.xmlschema/xmlschema-core
+org/apache/ws/commons/schema/internal

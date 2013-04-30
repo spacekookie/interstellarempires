@@ -1,0 +1,15 @@
+
+org/jboss/as/txn/subsystem
+org/jboss
+META-INF/maven
+org/jboss/as
+org
+org/jboss/as/txn/service
+META-INF
+META-INF/maven/org.jboss.as/jboss-as-transactions
+org/jboss/as/txn
+org/jboss/iiop/tm
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/iiop
+org/jboss/as/txn/deployment

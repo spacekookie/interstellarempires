@@ -1,0 +1,15 @@
+
+org/jboss
+META-INF/maven
+org/jboss/vfs/util
+META-INF/maven/org.jboss
+org/jboss/vfs
+org
+META-INF
+org/jboss/vfs/protocol/vfs
+org/jboss/vfs/protocol/file
+META-INF/maven/org.jboss/jboss-vfs
+META-INF/services
+org/jboss/vfs/util/automount
+org/jboss/vfs/spi
+org/jboss/vfs/protocol

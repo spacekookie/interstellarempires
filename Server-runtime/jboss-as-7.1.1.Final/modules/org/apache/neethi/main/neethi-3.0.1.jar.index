@@ -1,0 +1,12 @@
+
+org/apache
+org/apache/neethi/util
+META-INF/maven
+org/apache/neethi/builders/converters
+org/apache/neethi/builders
+META-INF/maven/org.apache.neethi
+org
+META-INF
+org/apache/neethi/builders/xml
+org/apache/neethi
+META-INF/maven/org.apache.neethi/neethi

@@ -1,0 +1,14 @@
+
+org/jboss
+org/jboss/naming/remote
+META-INF/maven
+org/jboss/naming/remote/client
+org/jboss/naming/remote/protocol/v1
+org/jboss/naming/remote/server
+META-INF/maven/org.jboss
+org
+org/jboss/naming/remote/client/ejb
+META-INF
+org/jboss/naming
+org/jboss/naming/remote/protocol
+META-INF/maven/org.jboss/jboss-remote-naming

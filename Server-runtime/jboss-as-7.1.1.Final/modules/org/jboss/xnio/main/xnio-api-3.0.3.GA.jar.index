@@ -1,0 +1,11 @@
+
+META-INF/maven
+org/xnio
+META-INF/maven/org.jboss.xnio
+org/xnio/channels
+org/xnio/ssl
+org/xnio/streams
+META-INF/maven/org.jboss.xnio/xnio-api
+org/xnio/sasl
+org
+META-INF

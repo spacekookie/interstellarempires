@@ -1,0 +1,12 @@
+
+org/jboss/as/jpa
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.as
+META-INF/maven/org.jboss.as/jboss-as-jpa-hibernate3
+org/jboss/as/jpa/hibernate3
+META-INF/services
+org/jboss/as
+org
+org/jboss/as/jpa/hibernate3/infinispan
+META-INF

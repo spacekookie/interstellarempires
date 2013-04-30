@@ -1,0 +1,14 @@
+
+META-INF/maven/org.infinispan
+META-INF/maven
+org/infinispan/loaders/jdbc/connectionfactory
+org/infinispan/loaders/jdbc
+org/infinispan/loaders/jdbc/stringbased
+org
+META-INF
+META-INF/maven/org.infinispan/infinispan-cachestore-jdbc
+org/infinispan/loaders/jdbc/mixed
+org/infinispan/loaders/jdbc/logging
+org/infinispan/loaders
+org/infinispan/loaders/jdbc/binary
+org/infinispan

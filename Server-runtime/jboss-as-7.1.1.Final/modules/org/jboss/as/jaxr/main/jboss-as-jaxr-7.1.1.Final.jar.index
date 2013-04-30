@@ -1,0 +1,12 @@
+
+org/jboss/as/jaxr
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/jaxr/service
+META-INF/maven/org.jboss.as/jboss-as-jaxr
+org/jboss/as
+org
+org/jboss/as/jaxr/extension
+META-INF

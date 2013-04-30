@@ -1,0 +1,12 @@
+
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.as
+org/jboss/as/messaging
+META-INF/services
+META-INF/maven/org.jboss.as/jboss-as-messaging
+org/jboss/as
+org/jboss/as/messaging/deployment
+org
+org/jboss/as/messaging/jms
+META-INF

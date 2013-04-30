@@ -1,0 +1,15 @@
+
+org/jboss
+META-INF/maven
+META-INF/maven/org.jboss.metadata/jboss-metadata-appclient
+org
+META-INF
+META-INF/maven/org.jboss.metadata
+org/jboss/metadata/appclient/parser/jboss
+org/jboss/metadata
+schema
+org/jboss/metadata/appclient
+org/jboss/metadata/appclient/jboss
+org/jboss/metadata/appclient/parser
+org/jboss/metadata/appclient/spec
+org/jboss/metadata/appclient/parser/spec

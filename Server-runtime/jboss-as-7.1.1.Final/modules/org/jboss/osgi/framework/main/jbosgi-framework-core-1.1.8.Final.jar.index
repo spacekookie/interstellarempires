@@ -1,0 +1,17 @@
+
+org/jboss/osgi/framework/internal
+org/osgi
+META-INF/maven
+org/jboss
+org/osgi/util/tracker
+org
+org/jboss/osgi
+META-INF
+META-INF/maven/org.jboss.osgi.framework
+org/osgi/util/xml
+org/jboss/osgi/framework/util
+org/osgi/util
+org/jboss/osgi/modules
+META-INF/services
+META-INF/maven/org.jboss.osgi.framework/jbosgi-framework-core
+org/jboss/osgi/framework

@@ -1,0 +1,13 @@
+
+org/jboss/as/server
+org/jboss/as/server/deployment
+org/jboss
+META-INF/maven
+org/jboss/as/server/deployment/scanner
+org/jboss/as
+org
+META-INF
+META-INF/maven/org.jboss.as/jboss-as-deployment-scanner
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/server/deployment/scanner/api

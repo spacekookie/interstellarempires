@@ -1,0 +1,13 @@
+
+schemas
+org/apache/cxf/tools/wsdlto
+META-INF/maven
+org/apache/cxf/tools
+org/apache/cxf/tools/plugin
+org/apache/cxf/tools/wsdlto/core
+META-INF/maven/org.apache.cxf/cxf-tools-wsdlto-core
+org
+META-INF
+org/apache/cxf
+org/apache
+META-INF/maven/org.apache.cxf

@@ -1,0 +1,11 @@
+
+META-INF/maven
+org/jboss/resteasy/plugins/server/servlet
+org/jboss
+org/jboss/resteasy/plugins
+META-INF/maven/org.jboss.resteasy/async-http-servlet-3.0
+META-INF/maven/org.jboss.resteasy
+org/jboss/resteasy/plugins/server
+org
+META-INF
+org/jboss/resteasy

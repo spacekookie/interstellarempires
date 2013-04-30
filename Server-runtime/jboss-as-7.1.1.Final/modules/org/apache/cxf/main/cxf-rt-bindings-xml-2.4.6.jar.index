@@ -1,0 +1,17 @@
+
+schemas
+org/apache/cxf/binding/xml/interceptor
+org/apache/cxf/bindings/xformat
+META-INF/maven
+META-INF/cxf
+META-INF/maven/org.apache.cxf/cxf-rt-bindings-xml
+org
+META-INF
+schemas/wsdl
+org/apache/cxf/binding/xml
+org/apache/cxf/binding/xml/wsdl11
+org/apache/cxf/bindings
+org/apache/cxf
+org/apache
+META-INF/maven/org.apache.cxf
+org/apache/cxf/binding

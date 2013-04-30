@@ -1,0 +1,12 @@
+org/jboss/osgi/spi
+
+META-INF/maven
+org/jboss/osgi/spi/framework
+org/jboss
+META-INF/maven/org.jboss.osgi.spi/jbosgi-spi
+META-INF/maven/org.jboss.osgi.spi
+org/jboss/osgi
+org
+org/jboss/osgi/spi/util
+META-INF
+org/jboss/osgi/spi/internal

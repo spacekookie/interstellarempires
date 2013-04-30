@@ -1,0 +1,13 @@
+
+org/jboss/as/domain/http/server/multipart
+org/jboss/as/domain
+org/jboss
+org/jboss/as/domain/http/server/security
+META-INF/maven
+META-INF/maven/org.jboss.as/jboss-as-domain-http-interface
+org/jboss/as
+org
+META-INF
+META-INF/maven/org.jboss.as
+org/jboss/as/domain/http
+org/jboss/as/domain/http/server

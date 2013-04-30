@@ -1,0 +1,11 @@
+
+org/apache/commons
+org/apache
+META-INF/maven
+META-INF/services
+META-INF/maven/org.slf4j/jcl-over-slf4j
+META-INF/maven/org.slf4j
+org/apache/commons/logging/impl
+org
+org/apache/commons/logging
+META-INF

@@ -1,0 +1,11 @@
+
+org/jboss/resteasy/plugins/providers
+META-INF/maven
+org/jboss
+org/jboss/resteasy/plugins
+META-INF/services
+META-INF/maven/org.jboss.resteasy
+org
+META-INF/maven/org.jboss.resteasy/resteasy-yaml-provider
+META-INF
+org/jboss/resteasy

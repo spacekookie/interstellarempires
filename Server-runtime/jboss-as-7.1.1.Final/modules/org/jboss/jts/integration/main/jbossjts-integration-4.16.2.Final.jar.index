@@ -1,0 +1,16 @@
+
+com/arjuna/ats/internal/jbossatx/jts/jca
+com
+com/arjuna/ats/internal
+com/arjuna/ats
+com/arjuna/ats/jbossatx/jta
+com/arjuna/ats/jbossatx/logging
+META-INF
+com/arjuna/ats/jbossatx
+com/arjuna/ats/internal/jbossatx/jts
+com/arjuna/ats/internal/jbossatx/jta
+com/arjuna
+com/arjuna/ats/jbossatx/jts
+META-INF/services
+com/arjuna/ats/internal/jbossatx
+com/arjuna/ats/internal/jbossatx/jta/jca

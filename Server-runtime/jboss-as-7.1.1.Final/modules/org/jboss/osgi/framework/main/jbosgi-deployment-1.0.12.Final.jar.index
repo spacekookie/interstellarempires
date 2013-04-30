@@ -1,0 +1,12 @@
+
+META-INF/maven/org.jboss.osgi.deployment/jbosgi-deployment
+org/jboss/osgi/deployment/internal
+META-INF/maven/org.jboss.osgi.deployment
+META-INF/maven
+org/jboss
+org/jboss/osgi/deployment/interceptor
+org/jboss/osgi/deployment/deployer
+org/jboss/osgi
+org
+META-INF
+org/jboss/osgi/deployment

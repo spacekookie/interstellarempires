@@ -1,0 +1,17 @@
+
+org/apache/juddi/v3/client/config
+org/apache/juddi/v3
+META-INF/maven
+org/apache/juddi/v3/client/transport
+org/apache/juddi
+org/apache/juddi/v3/client/mapping
+META-INF/maven/org.apache.juddi
+org/apache/juddi/v3/client/i18n
+org
+META-INF
+org/apache/juddi/v3/client/embed
+org/apache
+org/apache/juddi/v3/client/transport/wrapper
+META-INF/maven/org.apache.juddi/juddi-client
+org/apache/juddi/v3/annotations
+org/apache/juddi/v3/client

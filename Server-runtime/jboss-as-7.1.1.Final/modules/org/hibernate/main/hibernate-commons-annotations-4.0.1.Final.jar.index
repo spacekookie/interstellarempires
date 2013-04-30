@@ -1,0 +1,15 @@
+
+org/hibernate
+org/hibernate/annotations/common/reflection/java/generics
+META-INF/maven/org.hibernate.common/hibernate-commons-annotations
+org/hibernate/annotations/common/annotationfactory
+META-INF/maven
+org/hibernate/annotations/common/reflection/java
+org
+META-INF
+org/hibernate/annotations/common/util
+org/hibernate/annotations/common/util/impl
+META-INF/maven/org.hibernate.common
+org/hibernate/annotations/common
+org/hibernate/annotations/common/reflection
+org/hibernate/annotations

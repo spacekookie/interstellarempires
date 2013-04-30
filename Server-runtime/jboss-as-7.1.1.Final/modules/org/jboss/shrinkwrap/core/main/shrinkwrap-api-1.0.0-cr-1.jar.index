@@ -1,0 +1,17 @@
+
+META-INF/maven/org.jboss.shrinkwrap/shrinkwrap-api
+org/jboss/shrinkwrap/api/formatter
+META-INF/maven
+org/jboss
+org/jboss/shrinkwrap/api/exporter
+org
+META-INF
+org/jboss/shrinkwrap/api/spec
+org/jboss/shrinkwrap/api/asset
+org/jboss/shrinkwrap/api
+org/jboss/shrinkwrap
+org/jboss/shrinkwrap/api/importer
+org/jboss/shrinkwrap/api/classloader
+org/jboss/shrinkwrap/api/serialization
+META-INF/maven/org.jboss.shrinkwrap
+org/jboss/shrinkwrap/api/container

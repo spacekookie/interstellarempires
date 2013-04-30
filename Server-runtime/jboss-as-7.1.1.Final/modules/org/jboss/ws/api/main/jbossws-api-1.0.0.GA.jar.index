@@ -1,0 +1,16 @@
+
+org/jboss/ws/api/handler
+org/jboss/ws/api/addressing
+META-INF/maven
+org/jboss
+org/jboss/ws/api/util
+org/jboss/ws/api/annotation
+org/jboss/ws
+org
+META-INF
+org/jboss/ws/api/binding
+org/jboss/ws/api/tools
+org/jboss/ws/api/monitoring
+META-INF/maven/org.jboss.ws/jbossws-api
+org/jboss/ws/api
+META-INF/maven/org.jboss.ws

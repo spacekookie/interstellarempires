@@ -1,0 +1,11 @@
+
+org/apache/cxf
+org/apache
+org/apache/cxf/transport
+META-INF/maven
+META-INF/maven/org.apache.cxf/cxf-rt-transports-common
+META-INF/maven/org.apache.cxf
+org/apache/cxf/transport/common
+org
+org/apache/cxf/transport/common/gzip
+META-INF

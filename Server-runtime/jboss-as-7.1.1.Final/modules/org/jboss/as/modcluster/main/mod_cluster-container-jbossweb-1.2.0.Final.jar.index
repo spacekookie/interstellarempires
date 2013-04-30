@@ -1,0 +1,11 @@
+
+META-INF/maven/org.jboss.mod_cluster
+org/jboss/modcluster/container/jbossweb
+META-INF/maven/org.jboss.mod_cluster/mod_cluster-container-jbossweb
+META-INF/maven
+org/jboss
+org/jboss/modcluster/container
+META-INF/services
+org
+META-INF
+org/jboss/modcluster
