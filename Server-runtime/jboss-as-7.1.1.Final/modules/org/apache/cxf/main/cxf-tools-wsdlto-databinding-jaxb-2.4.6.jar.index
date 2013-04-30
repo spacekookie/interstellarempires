@@ -1,0 +1,12 @@
+
+org/apache/cxf
+META-INF/maven/org.apache.cxf/cxf-tools-wsdlto-databinding-jaxb
+org/apache
+org/apache/cxf/tools/wsdlto
+META-INF/maven
+org/apache/cxf/tools
+org/apache/cxf/tools/wsdlto/databinding
+META-INF/maven/org.apache.cxf
+org
+org/apache/cxf/tools/wsdlto/databinding/jaxb
+META-INF

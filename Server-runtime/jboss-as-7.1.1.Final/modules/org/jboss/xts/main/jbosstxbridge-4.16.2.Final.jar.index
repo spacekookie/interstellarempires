@@ -1,0 +1,9 @@
+org/jboss/jbossts/txbridge/outbound
+
+org/jboss/jbossts/txbridge
+org/jboss
+org/jboss/jbossts/txbridge/inbound
+org/jboss/jbossts/txbridge/utils
+org
+org/jboss/jbossts
+META-INF

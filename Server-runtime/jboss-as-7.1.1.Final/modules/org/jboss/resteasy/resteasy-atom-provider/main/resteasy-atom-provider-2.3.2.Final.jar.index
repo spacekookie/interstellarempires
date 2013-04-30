@@ -1,0 +1,12 @@
+
+META-INF/maven/org.jboss.resteasy/resteasy-atom-provider
+org/jboss/resteasy/plugins/providers
+META-INF/maven
+org/jboss
+org/jboss/resteasy/plugins
+META-INF/services
+org/jboss/resteasy/plugins/providers/atom
+META-INF/maven/org.jboss.resteasy
+org
+META-INF
+org/jboss/resteasy

@@ -1,0 +1,14 @@
+
+org/apache/cxf/jaxb/io
+META-INF/cxf
+META-INF/maven
+META-INF/maven/org.apache.cxf/cxf-rt-databinding-jaxb
+org
+META-INF
+org/apache/cxf
+org/apache/cxf/jaxb/attachment
+org/apache
+org/apache/cxf/jaxb
+META-INF/maven/org.apache.cxf
+org/apache/cxf/endpoint/dynamic
+org/apache/cxf/endpoint

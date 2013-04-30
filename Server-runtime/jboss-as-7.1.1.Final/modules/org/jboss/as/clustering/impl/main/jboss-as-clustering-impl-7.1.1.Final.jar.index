@@ -1,0 +1,12 @@
+
+org/jboss/as/clustering
+org/jboss/as/clustering/lock/impl
+org/jboss/as/clustering/lock
+META-INF/maven
+org/jboss/as/clustering/impl
+org/jboss
+META-INF/maven/org.jboss.as
+META-INF/maven/org.jboss.as/jboss-as-clustering-impl
+org/jboss/as
+org
+META-INF

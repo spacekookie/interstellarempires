@@ -1,0 +1,10 @@
+org/jboss/security
+
+META-INF/maven
+org/jboss
+org/jboss/security/negotiation
+META-INF/maven/org.jboss.security
+org/jboss/security/negotiation/net
+META-INF/maven/org.jboss.security/jboss-negotiation-net
+org
+META-INF

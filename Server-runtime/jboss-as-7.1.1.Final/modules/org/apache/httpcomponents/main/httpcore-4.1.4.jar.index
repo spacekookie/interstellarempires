@@ -1,0 +1,17 @@
+
+org/apache/http/impl/io
+META-INF/maven/org.apache.httpcomponents/httpcore
+META-INF/maven
+org
+META-INF/maven/org.apache.httpcomponents
+META-INF
+org/apache/http/message
+org/apache/http
+org/apache/http/io
+org/apache
+org/apache/http/entity
+org/apache/http/impl
+org/apache/http/util
+org/apache/http/protocol
+org/apache/http/impl/entity
+org/apache/http/params

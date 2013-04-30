@@ -1,0 +1,16 @@
+
+org/jboss/as/appclient/logging
+META-INF/maven
+org/jboss
+org/jboss/as/appclient/deployment
+org/jboss/as
+org
+META-INF
+META-INF/maven/org.jboss.as/jboss-as-appclient
+org/jboss/as/appclient/subsystem
+META-INF/maven/org.jboss.as
+org/jboss/as/appclient
+META-INF/services
+org/jboss/as/appclient/service
+org/jboss/as/appclient/component
+org/jboss/as/appclient/subsystem/parsing

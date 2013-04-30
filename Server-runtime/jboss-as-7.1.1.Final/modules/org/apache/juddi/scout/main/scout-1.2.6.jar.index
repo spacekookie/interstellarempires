@@ -1,0 +1,16 @@
+
+org/apache/ws/scout/util
+META-INF/maven
+org/apache/ws/scout/model/uddi
+org
+META-INF
+org/apache/ws
+org/apache/ws/scout/registry
+META-INF/maven/org.apache.juddi.scout
+org/apache/ws/scout/registry/infomodel
+org/apache
+META-INF/maven/org.apache.juddi.scout/scout
+org/apache/ws/scout/transport
+org/apache/ws/scout/model/uddi/v2
+org/apache/ws/scout/model
+org/apache/ws/scout

@@ -1,0 +1,13 @@
+
+org/jboss
+META-INF/maven
+org/jboss/as/pojo/descriptor
+org/jboss/as
+org
+org/jboss/as/pojo/service
+META-INF
+META-INF/maven/org.jboss.as/jboss-as-pojo
+org/jboss/as/pojo
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/pojo/api

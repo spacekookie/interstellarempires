@@ -1,0 +1,10 @@
+
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.osgi.resolver
+META-INF/maven/org.jboss.osgi.resolver/jbosgi-resolver-spi
+org/jboss/osgi
+org
+org/jboss/osgi/resolver/spi
+META-INF
+org/jboss/osgi/resolver

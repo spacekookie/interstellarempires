@@ -1,0 +1,14 @@
+
+META-INF/maven/org.jboss.ws.cxf/jbossws-cxf-transports-httpserver
+org/jboss/wsf/stack/cxf/addons/transports/httpserver
+META-INF/cxf
+org/jboss
+META-INF/maven
+org
+META-INF
+org/jboss/wsf/stack/cxf/addons
+org/jboss/wsf/stack/cxf/addons/transports
+org/jboss/wsf
+org/jboss/wsf/stack
+META-INF/maven/org.jboss.ws.cxf
+org/jboss/wsf/stack/cxf

@@ -1,0 +1,13 @@
+
+org/jboss
+META-INF/maven
+org/jboss/as/jsr77/ejb
+org/jboss/as
+org
+META-INF
+org/jboss/as/jsr77/managedobject
+META-INF/maven/org.jboss.as/jboss-as-jsr77
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/jsr77/subsystem
+org/jboss/as/jsr77

@@ -1,0 +1,15 @@
+
+org/jboss/interceptor/reader/cache
+org/jboss
+org/jboss/interceptor
+META-INF/maven
+org/jboss/interceptor/proxy/javassist
+org
+META-INF
+org/jboss/interceptor/builder
+org/jboss/interceptor/proxy
+META-INF/maven/org.jboss.interceptor/jboss-interceptor-core
+org/jboss/interceptor/util
+META-INF/maven/org.jboss.interceptor
+org/jboss/interceptor/reader
+org/jboss/interceptor/util/proxy

@@ -1,0 +1,13 @@
+
+META-INF/maven/org.jboss/jboss-ejb-client
+org/jboss
+META-INF/maven
+org/jboss/ejb/client/naming/ejb
+org/jboss/ejb/client/remoting
+META-INF/maven/org.jboss
+org
+org/jboss/ejb/client/naming
+META-INF
+org/jboss/ejb/client
+META-INF/services
+org/jboss/ejb

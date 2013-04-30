@@ -1,0 +1,16 @@
+
+META-INF/maven/org.jboss.sasl/jboss-sasl
+org/jboss/sasl/clienttoken
+org/jboss/sasl/util
+org/jboss/sasl/plain
+META-INF/maven
+org/jboss
+org
+org/jboss/sasl/digest
+META-INF
+org/jboss/sasl/localuser
+META-INF/maven/org.jboss.sasl
+org/jboss/sasl
+org/jboss/sasl/anonymous
+META-INF/services
+org/jboss/sasl/callback

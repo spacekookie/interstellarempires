@@ -1,0 +1,16 @@
+
+org/jboss/as/security/remoting
+org/jboss/as/security
+META-INF/maven
+org/jboss
+org/jboss/as
+org
+META-INF
+org/jboss/as/security/deployment
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/security/context
+org/jboss/as/security/plugins
+org/jboss/as/security/service
+META-INF/maven/org.jboss.as/jboss-as-security
+org/jboss/as/security/vault

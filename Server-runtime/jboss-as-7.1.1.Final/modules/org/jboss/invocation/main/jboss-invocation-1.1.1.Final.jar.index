@@ -1,0 +1,11 @@
+
+org/jboss/invocation/proxy/reflection
+META-INF/maven/org.jboss.invocation/jboss-invocation
+org/jboss/invocation/proxy
+META-INF/maven
+org/jboss
+org/jboss/invocation/proxy/classloading
+META-INF/maven/org.jboss.invocation
+org
+META-INF
+org/jboss/invocation

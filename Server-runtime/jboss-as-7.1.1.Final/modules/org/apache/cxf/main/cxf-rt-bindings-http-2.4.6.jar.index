@@ -1,0 +1,13 @@
+
+META-INF/cxf
+org/apache/cxf/binding/http
+META-INF/maven
+META-INF/maven/org.apache.cxf/cxf-rt-bindings-http
+org
+META-INF
+org/apache/cxf
+org/apache
+org/apache/cxf/binding/http/interceptor
+META-INF/maven/org.apache.cxf
+org/apache/cxf/binding/http/strategy
+org/apache/cxf/binding

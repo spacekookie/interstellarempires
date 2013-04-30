@@ -1,0 +1,12 @@
+
+org/jboss/as/configadmin/parser
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.as
+META-INF/services
+org/jboss/as/configadmin/service
+org/jboss/as/configadmin
+org/jboss/as
+org
+META-INF/maven/org.jboss.as/jboss-as-configadmin
+META-INF

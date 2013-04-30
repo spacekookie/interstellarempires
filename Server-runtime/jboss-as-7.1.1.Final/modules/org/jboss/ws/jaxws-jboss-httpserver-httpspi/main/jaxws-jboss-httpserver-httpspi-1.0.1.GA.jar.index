@@ -1,0 +1,9 @@
+
+META-INF/maven
+org/jboss
+org/jboss/ws
+META-INF/maven/org.jboss.ws.projects
+org/jboss/ws/httpserver_httpspi
+org
+META-INF
+META-INF/maven/org.jboss.ws.projects/jaxws-jboss-httpserver-httpspi

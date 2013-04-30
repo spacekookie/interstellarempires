@@ -1,0 +1,16 @@
+META-INF/maven/org.apache.cxf/cxf-rt-bindings-coloc
+
+schemas
+META-INF/maven
+org/apache/cxf/binding/coloc/blueprint
+org/apache/cxf/binding/coloc/feature
+OSGI-INF
+org
+META-INF
+OSGI-INF/blueprint
+org/apache/cxf
+org/apache
+org/apache/cxf/binding/coloc
+META-INF/maven/org.apache.cxf
+org/apache/cxf/binding
+org/apache/cxf/binding/coloc/spring

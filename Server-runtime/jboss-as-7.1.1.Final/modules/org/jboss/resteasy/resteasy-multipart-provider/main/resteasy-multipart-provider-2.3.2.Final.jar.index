@@ -1,0 +1,15 @@
+
+org/jboss/resteasy/plugins/providers
+org/jboss/resteasy/plugins/providers/multipart
+org/jboss/resteasy/annotations/providers/multipart
+org/jboss
+META-INF/maven
+org/jboss/resteasy/annotations/providers
+org
+META-INF
+org/jboss/resteasy/annotations
+META-INF/services
+org/jboss/resteasy/plugins
+META-INF/maven/org.jboss.resteasy
+org/jboss/resteasy
+META-INF/maven/org.jboss.resteasy/resteasy-multipart-provider

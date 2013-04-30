@@ -1,0 +1,13 @@
+
+org/jboss/logmanager/errormanager
+org/jboss/logmanager/formatters
+org/jboss
+META-INF/maven
+org/jboss/logmanager/filters
+org
+META-INF
+org/jboss/logmanager
+META-INF/maven/org.jboss.logmanager
+META-INF/maven/org.jboss.logmanager/jboss-logmanager
+META-INF/services
+org/jboss/logmanager/handlers

@@ -1,0 +1,11 @@
+
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.as
+org/jboss/as/management/client
+META-INF/maven/org.jboss.as/jboss-as-management-client-content
+org/jboss/as/management/client/content
+org/jboss/as/management
+org/jboss/as
+org
+META-INF

@@ -1,0 +1,9 @@
+
+org/jboss/shrinkwrap
+META-INF/maven
+org/jboss
+META-INF/maven/org.jboss.shrinkwrap
+org/jboss/shrinkwrap/spi
+META-INF/maven/org.jboss.shrinkwrap/shrinkwrap-spi
+org
+META-INF

@@ -1,0 +1,13 @@
+
+org/jboss/as/clustering/subsystem
+org/jboss/as/clustering/subsystem/validators
+org/jboss
+META-INF/maven
+META-INF/maven/org.jboss.as/jboss-as-clustering-common
+org/jboss/as
+org
+org/jboss/as/clustering/concurrent
+META-INF
+org/jboss/as/clustering/msc
+org/jboss/as/clustering
+META-INF/maven/org.jboss.as

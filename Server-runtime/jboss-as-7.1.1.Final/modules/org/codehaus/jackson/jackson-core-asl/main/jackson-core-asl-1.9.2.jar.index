@@ -1,0 +1,12 @@
+
+org/codehaus/jackson/format
+org/codehaus/jackson/io
+org/codehaus/jackson/impl
+org/codehaus/jackson/util
+org/codehaus
+org
+org/codehaus/jackson/type
+META-INF
+org/codehaus/jackson/annotate
+org/codehaus/jackson
+org/codehaus/jackson/sym

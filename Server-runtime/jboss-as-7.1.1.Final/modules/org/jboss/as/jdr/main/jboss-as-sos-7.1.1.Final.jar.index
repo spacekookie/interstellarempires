@@ -1,0 +1,11 @@
+simplejson
+
+sos/policies
+sos/plugins
+META-INF/maven
+sos/po
+META-INF/maven/org.jboss.as
+simplejson/tests
+META-INF
+META-INF/maven/org.jboss.as/jboss-as-sos
+sos
