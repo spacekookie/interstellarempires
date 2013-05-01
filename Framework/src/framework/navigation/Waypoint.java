@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package navigation;
+package framework.navigation;
 
-import java.util.ArrayList;
+public class Waypoint {
 
-public class Route {
-
-  ArrayList<Waypoint> route;
-  
 }

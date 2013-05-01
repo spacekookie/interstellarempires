@@ -15,23 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package map;
+package framework.modules;
 
-import java.util.Set;
+public abstract class Module {
 
-import objects.Planet;
-import objects.Star;
-import objects.Structure;
-import objects.Unit;
-import players.Player;
+	private boolean destroyed;
 
-public class SolarSystem {
+	/**
+	 * @return the destroyed
+	 */
+	public boolean isDestroyed() {
+		return destroyed;
+	}
 
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Unit> units;
-	private Set<Structure> structures;
-	private Star star;
-	private float radius;
+	/**
+	 * @param destroyed
+	 *            the destroyed to set
+	 */
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
 
 }

@@ -15,17 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package objects;
+package framework.map;
 
-/**
- * @author Leander
- * 
- */
-public abstract class GameObject {
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-  private double size;
+public class Location {
+
+  private Vector2D pos;
+
+  public Location(Vector2D pos) {
+	this.pos = pos;
+  }
+
+  public double getX() {
+	return pos.getX();
+  }
+
+  public double getY() {
+	return pos.getY();
+  }
 
 }

@@ -15,11 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package objects;
+/**
+ * 
+ */
+package framework.objects;
 
-public class Star extends GameObject {
+/**
+ * @author Leander
+ * 
+ */
+public abstract class GameObject {
 
-	
-  
-  
+  private double size;
+
 }

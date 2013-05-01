@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2013 Leander Sabel
+ * Copyright (c) 2012 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package interfaces;
+/**
+ * 
+ */
+package framework.objects;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+/**
+ * @author Leander
+ *
+ */
+public class PlayerObject extends GameObject {
 
-@WebService(targetNamespace = "http://webservices.samples.jboss.org/HelloWorld")
-public interface HelloWorld {
-
-  @WebMethod
-  public String sayHello(String name);
-  
 }

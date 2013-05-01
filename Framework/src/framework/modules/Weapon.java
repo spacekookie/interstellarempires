@@ -15,25 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package modules;
+package framework.modules;
 
-public abstract class Module {
+/**
+ * WEAPONS TO MAXIMUM!
+ * @author Katharina
+ *
+ */
 
-	private boolean destroyed;
-
-	/**
-	 * @return the destroyed
-	 */
-	public boolean isDestroyed() {
-		return destroyed;
-	}
-
-	/**
-	 * @param destroyed
-	 *            the destroyed to set
-	 */
-	public void setDestroyed(boolean destroyed) {
-		this.destroyed = destroyed;
-	}
+public class Weapon extends Module {
 
 }

@@ -18,7 +18,7 @@
 /**
  * 
  */
-package objects;
+package framework.objects;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 

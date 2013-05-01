@@ -15,14 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package modules;
+/**
+ * 
+ */
+package framework.objects;
 
 /**
- * WEAPONS TO MAXIMUM!
- * @author Katharina
- *
+ * @author Leander
+ * 
  */
-
-public class Weapon extends Module {
+public class Unit extends MovingObject {
 
 }
