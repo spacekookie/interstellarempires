@@ -15,11 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package objects;
+package framework.map;
 
-public class Star extends GameObject {
+import java.util.Set;
 
-	
-  
-  
+import framework.objects.Planet;
+import framework.objects.Star;
+import framework.objects.Structure;
+import framework.objects.Unit;
+import framework.players.Player;
+
+
+public class SolarSystem {
+
+	private Player claimed;
+	private Set<Planet> planets;
+	private Set<Unit> units;
+	private Set<Structure> structures;
+	private Star star;
+	private float radius;
+
 }

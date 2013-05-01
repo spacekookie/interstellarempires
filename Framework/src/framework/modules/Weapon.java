@@ -15,17 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package objects;
+package framework.modules;
 
 /**
- * @author Leander
- * 
+ * WEAPONS TO MAXIMUM!
+ * @author ***REMOVED***
+ *
  */
-public abstract class GameObject {
 
-  private double size;
+public class Weapon extends Module {
 
 }

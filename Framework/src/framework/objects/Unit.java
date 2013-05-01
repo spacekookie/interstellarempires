@@ -15,25 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package modules;
+/**
+ * 
+ */
+package framework.objects;
 
-public abstract class Module {
-
-	private boolean destroyed;
-
-	/**
-	 * @return the destroyed
-	 */
-	public boolean isDestroyed() {
-		return destroyed;
-	}
-
-	/**
-	 * @param destroyed
-	 *            the destroyed to set
-	 */
-	public void setDestroyed(boolean destroyed) {
-		this.destroyed = destroyed;
-	}
+/**
+ * @author Leander
+ * 
+ */
+public class Unit extends MovingObject {
 
 }

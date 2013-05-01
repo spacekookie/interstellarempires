@@ -15,14 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package modules;
+package framework.objects;
 
-/**
- * WEAPONS TO MAXIMUM!
- * @author ***REMOVED***
- *
- */
+public class Planet extends GameObject {
 
-public class Weapon extends Module {
+	// The radius at which the planet orbits the star
+	private double radius;
+	private double mass;
 
 }

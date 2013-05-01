@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package navigation;
+package framework.modules;
 
-import java.util.ArrayList;
+public class Propulsion extends Module {
 
-public class Route {
-
-  ArrayList<Waypoint> route;
-  
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package players;
+package framework.players;
 
 import java.util.HashSet;
 import java.util.Map;

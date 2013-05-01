@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2012 Leander Sabel
+ * Copyright (c) 2013 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,38 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package objects.factory;
+package server.ws.interfaces;
 
-import objects.Unit;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
-/**
- * This class provides static methods to build default units.
- * 
- * @author Leander
- * 
- */
-public class UnitFactory {
+@WebService(targetNamespace = "http://webservices.samples.jboss.org/HelloWorld")
+public interface HelloWorld {
 
-  public static enum ShipType {
-	FIGHTER
-  };
-
-  /**
-   * Build a new default unit.
-   * 
-   * @param type
-   * @return
-   */
-  public static Unit buildUnit(ShipType type) {
-	if (type == ShipType.FIGHTER) {
-	  Unit fighter = new Unit();
-	  // Do the proper stuff to build a default fighter
-	  return fighter;
-	}
-	else {
-	  // Log the error
-	  return null;
-	}
-  }
-
+  @WebMethod
+  public String sayHello(String name);
+  
 }

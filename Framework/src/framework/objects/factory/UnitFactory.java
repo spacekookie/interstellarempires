@@ -15,12 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package objects;
+package framework.objects.factory;
 
-public class Planet extends GameObject {
+import framework.objects.Unit;
 
-	// The radius at which the planet orbits the star
-	private double radius;
-	private double mass;
+/**
+ * This class provides static methods to build default units.
+ * 
+ * @author Leander
+ * 
+ */
+public class UnitFactory {
+
+  public static enum ShipType {
+	FIGHTER
+  };
+
+  /**
+   * Build a new default unit.
+   * 
+   * @param type
+   * @return
+   */
+  public static Unit buildUnit(ShipType type) {
+	if (type == ShipType.FIGHTER) {
+	  Unit fighter = new Unit();
+	  // Do the proper stuff to build a default fighter
+	  return fighter;
+	}
+	else {
+	  // Log the error
+	  return null;
+	}
+  }
 
 }

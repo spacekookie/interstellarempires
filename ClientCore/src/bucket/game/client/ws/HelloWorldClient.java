@@ -18,10 +18,11 @@
 package bucket.game.client.ws;
 
 
-import interfaces.HelloWorld;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
+import server.ws.interfaces.HelloWorld;
 
 import java.net.MalformedURLException;
 import java.net.URL;

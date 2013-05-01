@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package modules;
+package framework.navigation;
 
-public class Propulsion extends Module {
+public class Waypoint {
 
 }

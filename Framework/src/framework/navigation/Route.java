@@ -15,15 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package objects;
+package framework.navigation;
 
-/**
- * @author Leander
- * 
- */
-public class Unit extends MovingObject {
+import java.util.ArrayList;
 
+public class Route {
+
+  ArrayList<Waypoint> route;
+  
 }
