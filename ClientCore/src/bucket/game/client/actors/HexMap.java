@@ -17,7 +17,7 @@ package bucket.game.client.actors;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import map.SolarSystem;
+import framework.map.SolarSystem;
 import bucket.game.client.core.ScreenHandler;
 import bucket.game.client.util.Ally;
 

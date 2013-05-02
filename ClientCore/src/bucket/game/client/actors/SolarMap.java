@@ -18,8 +18,8 @@ package bucket.game.client.actors;
 
 import java.util.Set;
 
-import map.SolarSystem;
-import objects.GameObject;
+import framework.map.SolarSystem;
+import framework.objects.GameObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
