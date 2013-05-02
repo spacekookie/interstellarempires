@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="src" path="/Framework"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Server"/>
+	<classpathentry kind="lib" path="/Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/jboss-as-7.1.1.Final/modules/javax/ejb/api/main/jboss-ejb-api_3.1_spec-1.0.1.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
