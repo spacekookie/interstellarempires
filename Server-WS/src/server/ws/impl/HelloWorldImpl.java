@@ -1,11 +1,11 @@
-package org.jboss.samples.webservices;
+package server.ws.impl;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import server.ws.interfaces.HelloWorld;
 
-@WebService()
+@WebService(serviceName = "HelloWorld", endpointInterface = "server.ws.interfaces.HelloWorld", targetNamespace = "http://leandersabel.de/")
 public class HelloWorldImpl implements HelloWorld {
 
   @WebMethod()

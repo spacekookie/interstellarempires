@@ -20,7 +20,7 @@ package server.ws.interfaces;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-@WebService(targetNamespace = "http://webservices.samples.jboss.org/HelloWorld")
+@WebService(targetNamespace = "http://leandersabel.de")
 public interface HelloWorld {
 
   @WebMethod

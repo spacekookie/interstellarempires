@@ -11,7 +11,7 @@
   </welcome-file-list>
     <servlet>
         <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>org.jboss.samples.webservices.HelloWorldImpl</servlet-class>
+        <servlet-class>de.leandersabel.HelloWorldImpl</servlet-class>
     </servlet>
   <servlet-mapping>
     <servlet-name>HelloWorld</servlet-name>
