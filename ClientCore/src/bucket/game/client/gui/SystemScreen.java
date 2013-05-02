@@ -61,9 +61,9 @@ public class SystemScreen implements Screen {
 	public SystemScreen(ScreenHandler handler, Vector2 tileID) {
 		this.handler = handler;
 		this.tileID = tileID;
-		// fleetPosition = new Vector2();
-		// fleetPosition.x = (Gdx.graphics.getWidth() / 2) - 300;
-		// fleetPosition.y = (Gdx.graphics.getHeight() / 2) - 150;
+		fleetPosition = new Vector2();
+		fleetPosition.x = (Gdx.graphics.getWidth() / 2) - 300;
+		fleetPosition.y = (Gdx.graphics.getHeight() / 2) - 150;
 	}
 
 	@Override
@@ -79,14 +79,14 @@ public class SystemScreen implements Screen {
 		// batch.draw(fleet, fleetPosition.x, fleetPosition.y, 0, 0, 128, 128, 1, 1, 0);
 		batch.end();
 
-		// if (Gdx.input.isKeyPressed(Keys.RIGHT))
-		// fleetPosition.x += 2;
-		// if (Gdx.input.isKeyPressed(Keys.LEFT))
-		// fleetPosition.x -= 2;
-		// if (Gdx.input.isKeyPressed(Keys.UP))
-		// fleetPosition.y += 2;
-		// if (Gdx.input.isKeyPressed(Keys.DOWN))
-		// fleetPosition.y -= 2;
+		if (Gdx.input.isKeyPressed(Keys.RIGHT))
+			fleetPosition.x += 2;
+		if (Gdx.input.isKeyPressed(Keys.LEFT))
+			fleetPosition.x -= 2;
+		if (Gdx.input.isKeyPressed(Keys.UP))
+			fleetPosition.y += 2;
+		if (Gdx.input.isKeyPressed(Keys.DOWN))
+			fleetPosition.y -= 2;
 
 		// if (Gdx.input.isButtonPressed(0)) {
 		// System.out.println(Gdx.input.getX(0) + "," + Gdx.input.getY(0));
