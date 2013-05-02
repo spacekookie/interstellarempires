@@ -17,10 +17,9 @@ package bucket.game.client.actors;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import org.lwjgl.Sys;
-
+import map.SolarSystem;
 import bucket.game.client.core.ScreenHandler;
-import bucket.game.client.gui.SystemScreen;
+import bucket.game.client.util.Ally;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,20 +29,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
-import framework.map.SolarSystem;
-
 /**
- * HexMap implementation.
+ * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
+ * actors.
  * 
  * @author ***REMOVED***
  * 
  */
 
-public class HexMap extends Actor implements Disposable {
+public class HexMap extends Group implements Disposable {
 
 	protected ScreenHandler handler;
 
@@ -80,6 +78,7 @@ public class HexMap extends Actor implements Disposable {
 
 	/** New Render stuff here */
 	private OrthographicCamera camera;
+	private Stage stage;
 
 	/**
 	 * Will draw the map. At some point
@@ -96,19 +95,26 @@ public class HexMap extends Actor implements Disposable {
 		shapeRenderer.end();
 		batch.begin();
 
+		if (stage == null)
+			stage = new Stage();
+
+		stage.clear();
+		Gdx.input.setInputProcessor(stage);
+
+		// for (int n = 0; n < 5; n++) {
+		// stage.addActor(new GenericMapTile(n * 150, 0, null, n));
+		// }
+		for (int n = 0; n <= 3; n++)
+			for (int m = 0; m <= 3; m++) {
+				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), null, n));
+				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), null, n));
+			}
+
+		stage.draw();
+
 		// Drawing a few tiles. Not mathematically correct but sue me!
-		for (int n = 0; n <= 3; n++) {
 
-			for (int m = 0; m <= 3; m++)
-				batch.draw(neuTile, (getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), 0, 0, 100, 100, 1, 1, 0);
-		}
-
-		for (int n = 0; n <= 3; n++) {
-
-			for (int m = 0; m <= 2; m++)
-				batch.draw(neuTile, (getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), 0, 0, 100, 100, 1, 1,
-						0);
-		}
+		//
 
 	}
 
@@ -131,8 +137,7 @@ public class HexMap extends Actor implements Disposable {
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in
-	 * P-1.0.3.
+	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in P-1.0.3.
 	 */
 	@Deprecated
 	private void loadTextures() {
@@ -152,43 +157,44 @@ public class HexMap extends Actor implements Disposable {
 	 * tile to something that wants it.
 	 * 
 	 * @param x
-	 *          position of mouse on screen.
+	 *         position of mouse on screen.
 	 * 
 	 * @param y
-	 *          position of mouse on screen.
+	 *         position of mouse on screen.
 	 * 
 	 * @param touchable
-	 *          Whether the actor allows touch events.
+	 *         Whether the actor allows touch events.
 	 * 
 	 * @return Actor to be displayed.
 	 */
-	@Override
-	public Actor hit(float x, float y, boolean touchable) {
-
-		if (touchable && getTouchable() == Touchable.enabled) {
-			if (Gdx.input.isTouched(0)) {
-
-				/**
-				 * If click is on map and not outside Actor view.
-				 */
-				if (x > (positionX - (sizeX / 2)) && x < (positionX + (sizeX / 2)) && y > (positionY - (sizeY / 2))
-						&& y < (positionY + (sizeY / 2))) {
-					System.out.println("SUCCESS");
-					handler.setScreen(new SystemScreen(handler, new Vector2(0, 0)));
-				} else {
-					System.out.println("ERROR");
-				}
-
-				return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
-			}
-		}
-		return null;
-	}
+	// @Override
+	// public Actor hit(float x, float y, boolean touchable) {
+	//
+	// if (touchable && getTouchable() == Touchable.enabled) {
+	// if (Gdx.input.isTouched(0)) {
+	//
+	// /**
+	// * If click is on map and not outside Actor view.
+	// */
+	// if (x > (positionX - (sizeX / 2)) && x < (positionX + (sizeX / 2)) && y > (positionY -
+	// (sizeY / 2))
+	// && y < (positionY + (sizeY / 2))) {
+	// System.out.println("In bounds");
+	// handler.setScreen(new SystemScreen(handler, new Vector2(0, 0)));
+	// } else {
+	// System.out.println("Out of bounds");
+	// }
+	//
+	// return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
+	// }
+	// }
+	// return null;
+	// }
 
 	/**
 	 * Usually only called once when creating the application. Players with custom skins and
-	 * graphic packs may end up changing these values. Checking for tile size is done
-	 * outside this class.
+	 * graphic packs may end up changing these values. Checking for tile size is done outside
+	 * this class.
 	 * 
 	 * @param x
 	 * @param y
@@ -222,7 +228,7 @@ public class HexMap extends Actor implements Disposable {
 	 * requested view.
 	 * 
 	 * @param tileID
-	 *          Vector ID of the tile in question
+	 *         Vector ID of the tile in question
 	 * 
 	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no
 	 *         on screen and shouldn't be displayed.
@@ -241,6 +247,13 @@ public class HexMap extends Actor implements Disposable {
 		return result;
 	}
 
+	/**
+	 * MIGHT be used later on.
+	 * 
+	 * @param tileID
+	 * @return
+	 */
+	@Deprecated
 	public SolarSystem getTileWithID(Vector2 tileID) {
 		return null;
 

@@ -18,9 +18,11 @@ package bucket.game.client.gui;
  */
 
 import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.util.AppSettingsHelper;
 import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -53,8 +55,7 @@ public class SettingsScreen implements Screen {
 
 	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics
-				.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SETTINGS);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SETTINGS);
 	}
 
 	@Override
@@ -62,12 +63,8 @@ public class SettingsScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		Table.drawDebug(stage);
-		table.debug();
-
 		stage.act(delta);
 		stage.draw();
-
 	}
 
 	@Override
@@ -108,13 +105,10 @@ public class SettingsScreen implements Screen {
 		table.setFillParent(true);
 
 		skipIntro = new CheckBox("", skin);
-		introLabel = new Label(
-				"Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, ",
-				skin);
-		introLabel.setWrap(true);
+		introLabel = new Label(" Skip the intro.", skin);
 
 		table.add(skipIntro);
-		table.add(introLabel).width(100f);
+		table.add(introLabel);
 		table.row();
 		table.center();
 		stage.addActor(table);
