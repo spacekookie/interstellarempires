@@ -1,5 +1,3 @@
-package bucket.game.client.util;
-
 /* 
  * Copyright (c) 2013 Katharina Fey
  * 
@@ -17,23 +15,33 @@ package bucket.game.client.util;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package bucket.game.client.util;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+
 /**
- * Initializes the settings for the game. Also responsible for setting new Settings.
+ * You should know this from my Android applications. Will handle the SharedPreferences
+ * databases and the setter/ getter in this instance.
  * 
- * @author: Katharina
+ * @author Katharina
+ * 
  */
-public class Settings {
+public class AppSettingsHelper {
 
-	// Trying to be 16:9 here
-	public static int OLD_WIDTH = 1080;
-	public static int OLD_HEIGHT = 600;
-	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.0.2"; // Prototype --> Alpha --> Beta --> Final
-	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
-	public static final String SCREENTITLE_HOME = "HOME";
-	public static final String SCREENTITLE_TEST = "TESTING";
+	Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
 
-	public final static String LOG = "GameClient";
-	public static boolean skipIntro = true;
+	public AppSettingsHelper() {
+		
+	}
+
+	public void setExample(boolean value) {
+		Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+		prefs.putBoolean("intro", value);
+	}
+
+	public boolean getExample() {
+		return prefs.getBoolean("intro");
+	}
 
 }

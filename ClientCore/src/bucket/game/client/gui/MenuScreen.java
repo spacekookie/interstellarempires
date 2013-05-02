@@ -25,16 +25,15 @@ import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 /**
  * For now the only menu screen with buttons and a scrollable map view. Hopefully :)
@@ -48,16 +47,13 @@ public class MenuScreen implements Screen {
 	private Stage stage;
 	private Skin skin;
 	private TextButton settings;
-	private TextButton testScreen;
 	private TextButton exitGame;
-	private Coordinator cord;
 
 	private HexMap map;
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_HOME);
-		cord = new Coordinator();
 	}
 
 	@Override
@@ -77,7 +73,6 @@ public class MenuScreen implements Screen {
 
 		// Collect touchdown events
 		Gdx.input.setInputProcessor(stage);
-		// Gdx.input.setInputProcessor(cord); // Will ignore all other input.
 
 		Table table = new Table();
 		Table mapTable = new Table();
@@ -109,17 +104,13 @@ public class MenuScreen implements Screen {
 
 		mapTable.add(map);
 		mapTable.center(); // First center it
-		// mapTable.setX(-300); // Then reduce the X value Gdx.graphics.getWidth() / 3
-		System.out.println(mapTable.getX() + " " + mapTable.getY());
+		mapTable.setX(-300); // Then reduce the X value // Gdx.graphics.getWidth() / 3
 		map.setScreenPosition(mapTable.getX(), mapTable.getY());
 
 		settings = new TextButton("Settings", skin);
-		testScreen = new TextButton("View Solarsystem", skin);
 		exitGame = new TextButton("Exit Game", skin);
 
 		table.add(settings).width(200);
-		table.row();
-		table.add(testScreen).width(200);
 		table.row();
 		table.add(exitGame).width(200);
 		table.top().right();
@@ -133,17 +124,6 @@ public class MenuScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				handler.setScreen(new SettingsScreen(handler));
-			}
-		});
-
-		testScreen.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				handler.setScreen(new SystemScreen(handler, new Vector2(0, 0)));
-
 			}
 		});
 

@@ -16,16 +16,18 @@
  */
 package bucket.game.client.actors;
 
+import java.util.Set;
+
+import map.SolarSystem;
+import objects.GameObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
-
-import framework.map.SolarSystem;
 
 /**
  * Counterpart to the @HexMap. Will display a solarsystem to the player
@@ -33,7 +35,7 @@ import framework.map.SolarSystem;
  * @author Katharina
  * 
  */
-public class SolarMap extends Actor implements Disposable {
+public class SolarMap extends Group implements Disposable {
 
 	private Vector2 tileID;
 	private SolarSystem system;
@@ -50,6 +52,7 @@ public class SolarMap extends Actor implements Disposable {
 	public SolarMap(Vector2 tileID, SolarSystem system) {
 		this.tileID = tileID;
 		this.system = system;
+
 	}
 
 	public SolarMap(Vector2 tileID) {
@@ -65,6 +68,16 @@ public class SolarMap extends Actor implements Disposable {
 		batch.begin();
 		if (tileID.equals(new Vector2(0, 0)))
 			batch.draw(fleet, 200, 200, 200, 200, 128, 128, 1, 1, 0);
+	}
+
+	/**
+	 * Will be called to update the map view with current data.
+	 * 
+	 * @param o
+	 *          A set of all @GameObject instances in the system.
+	 */
+	public void updateData(Set<GameObject> o) {
+
 	}
 
 	@Override
