@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2013 Leander Sabel
+ * Copyright (c) 2012 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.core;
+package framework.players;
 
+public class Player {
 
-import org.apache.log4j.Logger;
-
-import framework.util.UtilFactory;
-
-
-
-public class Server {
-
-	private final Logger log = UtilFactory.createLogger(this);
-
-	public Server() {
-		log.info("Creating main server class");
-	}
+	private boolean isPony;
 
 }

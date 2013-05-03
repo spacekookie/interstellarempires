@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2013 Leander Sabel
+ * Copyright (c) 2013 ***REMOVED***
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.core;
+package client.settings;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 
-import org.apache.log4j.Logger;
+/**
+ * You should know this from my Android applications. Will handle the SharedPreferences
+ * databases and the setter/ getter in this instance.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public class AppSettingsHelper {
 
-import framework.util.UtilFactory;
+	Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
 
+	public AppSettingsHelper() {
+		
+	}
 
+	public void setExample(boolean value) {
+		Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+		prefs.putBoolean("intro", value);
+	}
 
-public class Server {
-
-	private final Logger log = UtilFactory.createLogger(this);
-
-	public Server() {
-		log.info("Creating main server class");
+	public boolean getExample() {
+		return prefs.getBoolean("intro");
 	}
 
 }
