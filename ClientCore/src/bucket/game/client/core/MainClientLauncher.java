@@ -19,7 +19,7 @@ package bucket.game.client.core;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import bucket.game.client.util.Settings;
+import bucket.game.client.settings.Settings;
 
 import com.apple.eawt.Application;
 import com.badlogic.gdx.Gdx;

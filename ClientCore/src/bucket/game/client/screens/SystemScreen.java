@@ -1,4 +1,4 @@
-package bucket.game.client.gui;
+package bucket.game.client.screens;
 
 /* 
  * Copyright (c) 2012 ***REMOVED***
@@ -17,8 +17,8 @@ package bucket.game.client.gui;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import bucket.game.client.actors.SolarMap;
 import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.objects.groups.SolarMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -46,17 +46,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class SystemScreen implements Screen {
 
-	Skin skin;
-	SpriteBatch batch;
-	TextureAtlas atlas;
-	TextureRegion star, fleet;
-	Stage stage;
-	ScreenHandler handler;
-	Vector2 fleetPosition;
-	Table back;
-	TextButton backToMap;
-	Vector2 tileID;
-	SolarMap map;
+	private Skin skin;
+	private SpriteBatch batch;
+	private TextureAtlas atlas;
+	private TextureRegion star, fleet;
+	private Stage stage;
+	private ScreenHandler handler;
+	private Vector2 fleetPosition;
+	private Table back;
+	private TextButton backToMap;
+	private Vector2 tileID;
+	private SolarMap map;
 
 	public SystemScreen(ScreenHandler handler, Vector2 tileID) {
 		this.handler = handler;
@@ -98,11 +98,9 @@ public class SystemScreen implements Screen {
 		if (stage == null)
 			stage = new Stage(width, height, true);
 		stage.clear();
-
 		Gdx.input.setInputProcessor(stage);
 
 		map = new SolarMap(tileID);
-
 		stage.addActor(map);
 
 		back = new Table();

@@ -1,4 +1,4 @@
-package bucket.game.client.gui;
+package bucket.game.client.screens;
 
 /* 
  * Copyright (c) 2012 ***REMOVED***
@@ -18,8 +18,8 @@ package bucket.game.client.gui;
  */
 
 import bucket.game.client.core.ScreenHandler;
-import bucket.game.client.util.AppSettingsHelper;
-import bucket.game.client.util.Settings;
+import bucket.game.client.settings.AppSettingsHelper;
+import bucket.game.client.settings.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

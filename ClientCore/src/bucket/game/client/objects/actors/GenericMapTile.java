@@ -15,14 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bucket.game.client.actors;
+package bucket.game.client.objects.actors;
 
-import bucket.game.client.util.Ally;
+import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.screens.SystemScreen;
+import bucket.game.client.types.Ally;
+import bucket.game.client.types.IntVec2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
@@ -34,7 +38,7 @@ public class GenericMapTile extends Actor implements Disposable {
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
 	private float tileX, tileY;
 	private float sizeX, sizeY;
-	private int tileID;
+	private IntVec2 tileID;
 
 	/**
 	 * The constructor will set up the coordinates on which the tile will then be drawn. It's
@@ -47,7 +51,7 @@ public class GenericMapTile extends Actor implements Disposable {
 	 * @param alliance
 	 *         of the tile: player, hostile, neutral and friendly.
 	 */
-	public GenericMapTile(float x, float y, Ally a, int id) {
+	public GenericMapTile(float x, float y, Ally a, IntVec2 id) {
 		loadTextures();
 		tileX = x;
 		tileY = y;
@@ -97,8 +101,8 @@ public class GenericMapTile extends Actor implements Disposable {
 
 		if (touchable && getTouchable() == Touchable.enabled) {
 			if (Gdx.input.isTouched(0)) {
-
-				System.out.println("TileID: " + tileID);
+				ScreenHandler.getHandler().setScreen(new SystemScreen(ScreenHandler.getHandler(), new Vector2(0, 0)));
+				System.out.println("TileID: " + this.tileID);
 			}
 		}
 
@@ -107,6 +111,7 @@ public class GenericMapTile extends Actor implements Disposable {
 
 	@Override
 	public void dispose() {
+
 	}
 
 }

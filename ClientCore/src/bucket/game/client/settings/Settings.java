@@ -1,4 +1,4 @@
-package bucket.game.client.util;
+package bucket.game.client.settings;
 
 /* 
  * Copyright (c) 2013 ***REMOVED***
@@ -28,7 +28,8 @@ public class Settings {
 	public static int OLD_WIDTH = 1080;
 	public static int OLD_HEIGHT = 600;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.0.2"; // Prototype --> Alpha --> Beta --> Final
+	public static String VERSION_NUMBER = "Prototype 1.0.5"; // Prototype --> Alpha --> Beta
+																																																										// --> Final
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_TEST = "TESTING";

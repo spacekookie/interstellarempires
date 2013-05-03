@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2012 Leander Sabel
+ * Copyright (c) 2013 ***REMOVED***
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,28 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+package bucket.game.client.objects.actors;
 
-import java.util.Set;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-import framework.objects.Planet;
-import framework.objects.Star;
-import framework.objects.Structure;
-import framework.objects.Unit;
-import framework.players.Player;
+import framework.players.Alliance;
 
-public class SolarSystem {
+public class GenericSolarObject extends Actor implements Disposable {
 
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Unit> units;
-	private Set<Structure> structures;
-	private Star star;
-	private int radius;
+	/** The absolute position of the actor */
+	private float posX, posY;
+	private Alliance alliance;
 
-	/** @return: the systems radius for rendering and maths */
-	public int getRadius() {
-		return radius;
+	public GenericSolarObject(float x, float y, Alliance alliance) {
+
+	}
+
+	@Override
+	public void dispose() {
 	}
 
 }
