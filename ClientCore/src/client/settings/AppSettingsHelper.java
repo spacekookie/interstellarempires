@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2012 Leander Sabel
+ * Copyright (c) 2013 Katharina Fey
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,36 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+package client.settings;
 
-import java.util.Set;
-import framework.objects.Planet;
-import framework.objects.Star;
-import framework.objects.Structure;
-import framework.objects.Unit;
-import framework.players.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 
 /**
- * Object holding solar-system information.
- * 
- * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable
- * inside.
+ * You should know this from my Android applications. Will handle the SharedPreferences
+ * databases and the setter/ getter in this instance.
  * 
  * @author Katharina
  * 
  */
-public class SolarSystem {
+public class AppSettingsHelper {
 
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Unit> units;
-	private Set<Structure> structures;
-	private Star star;
-	private int radius;
+	Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
 
-	/** @return: the systems radius for rendering and maths */
-	public int getRadius() {
-		return radius;
+	public AppSettingsHelper() {
+		
+	}
+
+	public void setExample(boolean value) {
+		Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+		prefs.putBoolean("intro", value);
+	}
+
+	public boolean getExample() {
+		return prefs.getBoolean("intro");
 	}
 
 }

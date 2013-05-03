@@ -25,11 +25,11 @@ import framework.util.UtilFactory;
 
 
 public class Server {
-  
-  private final Logger log = UtilFactory.createLogger(this);
-  
-  public Server() {
-	log.info("Creating main server class");
-  }
+
+	private final Logger log = UtilFactory.createLogger(this);
+
+	public Server() {
+		log.info("Creating main server class");
+	}
 
 }

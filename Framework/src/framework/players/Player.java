@@ -15,36 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+package framework.players;
 
-import java.util.Set;
-import framework.objects.Planet;
-import framework.objects.Star;
-import framework.objects.Structure;
-import framework.objects.Unit;
-import framework.players.Player;
+public class Player {
 
-/**
- * Object holding solar-system information.
- * 
- * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable
- * inside.
- * 
- * @author Katharina
- * 
- */
-public class SolarSystem {
-
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Unit> units;
-	private Set<Structure> structures;
-	private Star star;
-	private int radius;
-
-	/** @return: the systems radius for rendering and maths */
-	public int getRadius() {
-		return radius;
-	}
+	private boolean isPony;
 
 }
