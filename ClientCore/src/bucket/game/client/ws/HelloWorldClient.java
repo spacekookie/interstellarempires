@@ -17,8 +17,6 @@
 
 package bucket.game.client.ws;
 
-
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -28,32 +26,32 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HelloWorldClient implements HelloWorld {
-  private HelloWorld helloWorldService;
+	private HelloWorld helloWorldService;
 
-  /**
-   * Default constructor
-   * 
-   * @param url
-   *          The URL to the Hello World WSDL endpoint.
-   */
-  public HelloWorldClient(final URL wsdlUrl) {
-	QName serviceName = new QName("http://leandersabel.de/", "HelloWorld");
+	/**
+	 * Default constructor
+	 * 
+	 * @param url
+	 *         The URL to the Hello World WSDL endpoint.
+	 */
+	public HelloWorldClient(final URL wsdlUrl) {
+		QName serviceName = new QName("http://leandersabel.de/", "HelloWorld");
 
-	Service service = Service.create(wsdlUrl, serviceName);
-	helloWorldService = service.getPort(HelloWorld.class);
-	assert (helloWorldService != null);
-	
-	System.out.println(helloWorldService.sayHello("Bob"));
-  }
+		Service service = Service.create(wsdlUrl, serviceName);
+		helloWorldService = service.getPort(HelloWorld.class);
+		assert (helloWorldService != null);
 
-  @Override
-  public String sayHello(String name) {
-	// TODO Auto-generated method stub
-	return null;
-  }
-  
-  public static void main(String[] args) throws MalformedURLException {
-	HelloWorldClient client = new HelloWorldClient(new URL("http://localhost:8080/Server-WS/HelloWorld?wsdl"));
-  }
+		System.out.println(helloWorldService.sayHello("Bob"));
+	}
+
+	@Override
+	public String sayHello(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static void main(String[] args) throws MalformedURLException {
+		HelloWorldClient client = new HelloWorldClient(new URL("http://localhost:8080/Server-WS/HelloWorld?wsdl"));
+	}
 
 }

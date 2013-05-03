@@ -1,4 +1,4 @@
-package bucket.game.client.gui;
+package bucket.game.client.screens;
 
 /* 
  * Copyright (c) 2012 Katharina Fey
@@ -22,8 +22,8 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
-import bucket.game.client.actors.SpriteTween;
 import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.objects.SpriteTween;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

@@ -1,8 +1,8 @@
-package bucket.game.client.gui;
+package bucket.game.client.screens;
+
 /* 
  * Copyright (c) 2012 Katharina Fey
  * 
- package bucket.game.client.gui;
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -16,71 +16,80 @@ package bucket.game.client.gui;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import bucket.game.client.core.ScreenHandler;
-import bucket.game.client.util.Settings;
+import bucket.game.client.settings.AppSettingsHelper;
+import bucket.game.client.settings.Settings;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
-public class TestScreen implements Screen {
+/**
+ * This screen will enable the user to change stuff about their game client
+ * 
+ * @author Katharina
+ * 
+ */
+public class SettingsScreen implements Screen {
 
+	/** Container and Backends */
 	private ScreenHandler handler;
 	private Stage stage;
 	private Skin skin;
-	private Skin cSkin;
+	private TextButton button;
 	private Table table;
-	private Table backbutton;
-	private CheckBox box;
-	private Label boxLable;
-	private TextButton back;
+	private Table navigation;
 
-	public TestScreen(ScreenHandler handler) {
+	private CheckBox skipIntro;
+	private Label introLabel;
+
+	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_TEST);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SETTINGS);
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
 
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		if (stage == null)
+			stage = new Stage(width, height, true);
+		stage.clear();
 
-		/** Setting up the Stage */
-		stage = new Stage();
+		// Collect touchdown events
 		Gdx.input.setInputProcessor(stage);
 		stage.setViewport(width, height, true);
 
-		Table navigation = new Table();
+		navigation = new Table();
 		navigation.setFillParent(true);
 		stage.addActor(navigation);
-		back = new TextButton("Back to main screen", skin);
+		button = new TextButton("Back to main screen", skin);
 
-		navigation.add(back).width(200);
+		navigation.add(button).width(200);
 		navigation.row();
 
 		navigation.top().right();
 
-		stage.addActor(back);
+		stage.addActor(button);
 
-		back.addListener(new InputListener() {
+		button.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
@@ -90,21 +99,26 @@ public class TestScreen implements Screen {
 			}
 		});
 
-	}
+		/** Settings Table */
 
-	@Override
-	public void dispose() {
-		stage.dispose();
+		table = new Table();
+		table.setFillParent(true);
+
+		skipIntro = new CheckBox("", skin);
+		introLabel = new Label(" Skip the intro.", skin);
+
+		table.add(skipIntro);
+		table.add(introLabel);
+		table.row();
+		table.center();
+		stage.addActor(table);
+
 	}
 
 	@Override
 	public void show() {
 		skin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
 
-		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("assets/gui/buttons/alpha-generic-checkbox.pack"));
-
-		cSkin = new Skin();
-		cSkin.addRegions(atlas);
 	}
 
 	@Override
@@ -120,6 +134,12 @@ public class TestScreen implements Screen {
 	@Override
 	public void resume() {
 
+	}
+
+	@Override
+	public void dispose() {
+		skin.dispose();
+		stage.dispose();
 	}
 
 }

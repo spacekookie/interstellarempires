@@ -17,24 +17,37 @@ package bucket.game.client.core;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import bucket.game.client.gui.MenuScreen;
-import bucket.game.client.gui.TweenScreen;
-import bucket.game.client.util.Ally;
-import bucket.game.client.util.Settings;
+import bucket.game.client.screens.MenuScreen;
+import bucket.game.client.screens.TweenScreen;
+import bucket.game.client.settings.Settings;
 
 import com.badlogic.gdx.Game;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in
- * the future
+ * Called when the game is created. Handles all Screen activity for the game. Further
+ * functionality might be added in the future
  * 
  * @author: Katharina
  */
 public class ScreenHandler extends Game {
 
+	static ScreenHandler handler;
+
+	/**
+	 * 
+	 * Returns The Games screenhandler to start new screens from actors, groups and
+	 * sub-classes. Accessed in a static way.
+	 * 
+	 * @return The main Screenhandler
+	 */
+	public static ScreenHandler getHandler() {
+		return handler;
+	}
+
 	@Override
 	public void create() {
+		handler = this;
 
 		if (!Settings.skipIntro)
 			setScreen(new TweenScreen(this));

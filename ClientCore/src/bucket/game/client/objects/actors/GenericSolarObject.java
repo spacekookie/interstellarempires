@@ -15,33 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bucket.game.client.util;
+package bucket.game.client.objects.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-/**
- * You should know this from my Android applications. Will handle the SharedPreferences
- * databases and the setter/ getter in this instance.
- * 
- * @author Katharina
- * 
- */
-public class AppSettingsHelper {
+import framework.players.Alliance;
 
-	Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+public class GenericSolarObject extends Actor implements Disposable {
 
-	public AppSettingsHelper() {
-		
+	/** The absolute position of the actor */
+	private float posX, posY;
+	private Alliance alliance;
+
+	public GenericSolarObject(float x, float y, Alliance alliance) {
+
 	}
 
-	public void setExample(boolean value) {
-		Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
-		prefs.putBoolean("intro", value);
-	}
-
-	public boolean getExample() {
-		return prefs.getBoolean("intro");
+	@Override
+	public void dispose() {
 	}
 
 }

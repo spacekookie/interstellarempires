@@ -1,7 +1,7 @@
-package bucket.game.client.actors;
+package bucket.game.client.objects.groups;
 
 /* 
- * Copyright (c) 2012 Katharina Fey
+ * Copyright (c) 2013 Katharina Fey
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,9 @@ package bucket.game.client.actors;
 
 import framework.map.SolarSystem;
 import bucket.game.client.core.ScreenHandler;
-import bucket.game.client.util.Ally;
+import bucket.game.client.objects.actors.GenericMapTile;
+import bucket.game.client.types.Ally;
+import bucket.game.client.types.IntVec2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -101,20 +103,14 @@ public class HexMap extends Group implements Disposable {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		// for (int n = 0; n < 5; n++) {
-		// stage.addActor(new GenericMapTile(n * 150, 0, null, n));
-		// }
 		for (int n = 0; n <= 3; n++)
 			for (int m = 0; m <= 3; m++) {
-				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), null, n));
-				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), null, n));
+				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), null, new IntVec2(n, m)));
+				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), null,
+						new IntVec2(n, m)));
 			}
 
 		stage.draw();
-
-		// Drawing a few tiles. Not mathematically correct but sue me!
-
-		//
 
 	}
 
@@ -137,7 +133,8 @@ public class HexMap extends Group implements Disposable {
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in P-1.0.3.
+	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in
+	 * Prototype 1.0.5.
 	 */
 	@Deprecated
 	private void loadTextures() {

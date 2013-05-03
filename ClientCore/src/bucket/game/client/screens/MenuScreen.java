@@ -1,4 +1,4 @@
-package bucket.game.client.gui;
+package bucket.game.client.screens;
 
 /* 
  * Copyright (c) 2012 Katharina Fey
@@ -18,10 +18,10 @@ package bucket.game.client.gui;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import bucket.game.client.actors.HexMap;
 import bucket.game.client.core.ScreenHandler;
+import bucket.game.client.objects.groups.HexMap;
+import bucket.game.client.settings.Settings;
 import bucket.game.client.util.Coordinator;
-import bucket.game.client.util.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -163,7 +163,6 @@ public class MenuScreen implements Screen {
 	public void dispose() {
 		stage.dispose();
 		map.dispose();
-
 	}
 
 }

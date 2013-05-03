@@ -1,4 +1,4 @@
-package bucket.game.client.util;
+package bucket.game.client.types;
 
 /* 
  * Copyright (c) 2012 Katharina Fey

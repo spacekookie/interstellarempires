@@ -25,7 +25,6 @@ import framework.objects.Structure;
 import framework.objects.Unit;
 import framework.players.Player;
 
-
 public class SolarSystem {
 
 	private Player claimed;
@@ -33,6 +32,11 @@ public class SolarSystem {
 	private Set<Unit> units;
 	private Set<Structure> structures;
 	private Star star;
-	private float radius;
+	private int radius;
+
+	/** @return: the systems radius for rendering and maths */
+	public int getRadius() {
+		return radius;
+	}
 
 }
