@@ -44,28 +44,19 @@ public class HelloWorldClient implements HelloWorld {
 
 		System.out.println(helloWorldService.sayHello("Bob"));
 		
-		System.out.println("Your session ID is: ");
-		System.out.println(helloWorldService.registerUser("Bob"));
+		System.out.println(helloWorldService.sayHello("Steve"));
 		
-		System.out.println("Your session ID is: ");
-		System.out.println(helloWorldService.registerUser("Steve"));
 	}
 
 	@Override
 	public String sayHello(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return helloWorldService.sayHello("Bob");
 	}
 
 	public static void main(String[] args) throws MalformedURLException {
 		HelloWorldClient client = new HelloWorldClient(new URL("http://localhost:8080/Server-WS/HelloWorld?wsdl"));
 	}
 
-	@Override
-	@WebMethod
-	public Integer registerUser(String username) {
-	  // TODO Auto-generated method stub
-	  return null;
-	}
+
 
 }

@@ -17,10 +17,10 @@ package client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import client.core.ScreenHandler;
 import client.settings.AppSettingsHelper;
 import client.settings.Settings;
+import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -50,6 +50,7 @@ public class SettingsScreen implements Screen {
 	private TextButton button;
 	private Table table;
 	private Table navigation;
+	private Preferences prefs;
 
 	private CheckBox skipIntro;
 	private Label introLabel;
@@ -57,6 +58,12 @@ public class SettingsScreen implements Screen {
 	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SETTINGS);
+		prefs = Gdx.app.getPreferences("my-application");
+		ResourcePacker res = new ResourcePacker();
+
+		skipIntro = new CheckBox("", res.getUiSkin());
+		if (prefs.contains("intro"))
+			skipIntro.setChecked(prefs.getBoolean("intro"));
 	}
 
 	@Override
@@ -66,6 +73,17 @@ public class SettingsScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
+
+		if (skipIntro.isChecked())
+			{
+				prefs.putBoolean("intro", true);
+			} else
+			{
+				prefs.putBoolean("intro", false);
+			}
+
+		skipIntro.setChecked(prefs.getBoolean("intro"));
+
 	}
 
 	@Override
@@ -105,7 +123,6 @@ public class SettingsScreen implements Screen {
 		table = new Table();
 		table.setFillParent(true);
 
-		skipIntro = new CheckBox("", skin);
 		introLabel = new Label(" Skip the intro.", skin);
 
 		table.add(skipIntro);

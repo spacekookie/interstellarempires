@@ -117,6 +117,7 @@ public class IntVec2 {
 	 * 
 	 * @return This vector for chaining
 	 */
+	@Deprecated
 	public IntVec2 normalize() {
 		int length = (int) length();
 		if (length != 0)

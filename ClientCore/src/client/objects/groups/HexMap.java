@@ -52,11 +52,6 @@ public class HexMap extends Group implements Disposable {
 	private float sizeX, sizeY;
 
 	/*
-	 * Tile ID on the global map.
-	 */
-	private Vector2 tileID;
-
-	/*
 	 * Tile size to let the view know when to stop drawing tiles
 	 */
 	private float tileX, tileY;
@@ -66,14 +61,7 @@ public class HexMap extends Group implements Disposable {
 	 */
 	private float vTile, hTile;
 
-	/*
-	 * Absolute position of map origin on screen.
-	 */
-	private float positionX, positionY;
-
-	private TextureAtlas atlas; // Holds all Tile textures
 	private ShapeRenderer shapeRenderer;
-	private MenuScreen parent;
 
 	private Stage stage;
 
@@ -114,6 +102,7 @@ public class HexMap extends Group implements Disposable {
 
 		stage.clear();
 
+		// Static drawing for now.
 		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
 		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
 		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
@@ -121,6 +110,7 @@ public class HexMap extends Group implements Disposable {
 
 	}
 
+	/** Called from parent when mouse position over map */
 	public void setInputToChild() {
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -176,20 +166,6 @@ public class HexMap extends Group implements Disposable {
 		// ### else result --> true
 
 		return result;
-	}
-
-	/**
-	 * MIGHT be used later on.
-	 * 
-	 * @param tileID
-	 * @return
-	 */
-	@Deprecated
-	public SolarSystem getTileWithID(Vector2 tileID) {
-		return null;
-
-		// TODO: This will check the QuadTree for tile info
-
 	}
 
 	@Override

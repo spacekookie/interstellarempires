@@ -17,6 +17,7 @@
 
 package client.objects.groups;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import client.objects.actors.GenericMapObject;
@@ -57,6 +58,8 @@ public class SolarMap extends Group implements Disposable {
 	private ResourcePacker res;
 	private Stage stage;
 	private Set<Unit> units;
+	private boolean selected;
+	private Set<GenericMapObject> localGameObjects;
 
 		/**
 		 * Stuff that needs to be done no matter what constructor is called ^_^
@@ -76,8 +79,9 @@ public class SolarMap extends Group implements Disposable {
 	 * @param system
 	 *         The absolute solarsystem data from the framework.
 	 */
-	public SolarMap(IntVec2 tileID, SolarSystem solar) {
+	public SolarMap(IntVec2 tileID, SolarSystem solar, Set<GenericMapObject> localGameObjects) {
 		this.tileID = tileID;
+		this.localGameObjects = localGameObjects;
 		if (solar != null)
 			{
 				system = solar;
@@ -104,7 +108,11 @@ public class SolarMap extends Group implements Disposable {
 			stage = new Stage();
 		stage.clear();
 
-		stage.addActor(new GenericMapObject(200f, 200f, TYPE.FLEET, "SampleFleet", null, null));
+		for (GenericMapObject object : localGameObjects)
+			{
+				stage.addActor(object);
+			}
+
 		stage.draw();
 
 		batch.end();

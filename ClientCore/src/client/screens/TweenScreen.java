@@ -123,13 +123,13 @@ public class TweenScreen implements Screen {
 			}
 		};
 
-		Tween.to(splashSprite, HorrorAtmosphereCreator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
-				.setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE).start(man);
+		Tween.to(splashSprite, HorrorAtmosphereCreator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
+				.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
 	}
 
 	private void tweenCompleted() {
-		handler.setScreen(new MenuScreen(handler));
+		handler.setScreen(new LoginScreen(handler));
 	}
 
 	public void render(float delta) {

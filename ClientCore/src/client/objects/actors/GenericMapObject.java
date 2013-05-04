@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
+import framework.objects.GameObject;
 import framework.objects.Star.STARTYPE;
 import framework.objects.Unit.TYPE;
 import framework.players.Alliance;
@@ -94,7 +95,7 @@ public class GenericMapObject extends Actor implements Disposable {
 		batch.begin();
 		if (selected)
 			{
-				batch.draw(res.getFrame(), posX, posY, 0, 0, 64, 64, 1, 1, 0);
+				batch.draw(res.getFrame(), posX - 3, posY - 3, 0, 0, 70, 70, 1, 1, 0);
 			}
 
 		switch (type) {
@@ -108,7 +109,7 @@ public class GenericMapObject extends Actor implements Disposable {
 		}
 
 		// TODO:
-		batch.draw(res.getFrame(), posX - 3, posY - 3, 0, 0, 70, 70, 1, 1, 0);
+		// batch.draw(res.getFrame(), posX - 3, posY - 3, 0, 0, 70, 70, 1, 1, 0);
 	}
 
 	/**
@@ -135,6 +136,9 @@ public class GenericMapObject extends Actor implements Disposable {
 							{
 								selected = true;
 								System.out.println("Selected: " + selected);
+							} else
+							{
+								selected = false;
 							}
 					}
 			}
