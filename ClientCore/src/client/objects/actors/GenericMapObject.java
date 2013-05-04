@@ -17,10 +17,15 @@
 
 package client.objects.actors;
 
+import client.util.ResourcePacker;
+import client.util.ResourcePacker.RENDER;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 
+import framework.objects.Unit.TYPE;
 import framework.players.Alliance;
+import framework.players.Player;
 
 /**
  * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for specific shapes, sizes and
@@ -37,12 +42,20 @@ public class GenericMapObject extends Actor implements Disposable {
 	/** Alliance of the object relative to the player */
 	private Alliance alliance;
 
+	private ResourcePacker res;
+
 	public GenericMapObject(float x, float y, Alliance alliance) {
+		res = new ResourcePacker();
+		res.loadTextures(RENDER.FLEET);
+	}
+
+	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim) {
 
 	}
 
 	@Override
 	public void dispose() {
+		res.dispose();
 	}
 
 }

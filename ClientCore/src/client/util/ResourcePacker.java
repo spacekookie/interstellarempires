@@ -17,6 +17,8 @@
 
 package client.util;
 
+import javax.tools.Diagnostic;
+
 import client.core.ScreenHandler;
 
 import com.badlogic.gdx.Gdx;
@@ -24,6 +26,7 @@ import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Global resource loader for the game client. Will initialise and distribute all texture files.
@@ -32,11 +35,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  * 
  */
 @SuppressWarnings("unused")
-public class ResourcePacker {
+public class ResourcePacker implements Disposable {
 
 	private ScreenHandler handler;
 	private TextureAtlas hexmap, solarmap;
 	private Skin uiSkin;
+
+	public enum RENDER {
+		HEXTILE, STARS, FLEET, GUI;
+	}
 
 	/** Tile regions */
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
@@ -65,23 +72,32 @@ public class ResourcePacker {
 	 * Loads textures from atlas files. TODO: Replace with smart algorithm. TODO: Why do I have to call this method over and over
 	 * again?
 	 */
-	public void loadTextures() {
+	public void loadTextures(RENDER r) {
 
 		// Tile regions //
-		hosTile = hexmap.findRegion("prot-map-tile-hostile");
-		friendTile = hexmap.findRegion("prot-map-tile-friend");
-		neuTile = hexmap.findRegion("prot-map-tile-neutral");
-		playTile = hexmap.findRegion("prot-map-tile-player");
+		if (r.equals(RENDER.HEXTILE))
+			{
+				hosTile = hexmap.findRegion("prot-map-tile-hostile");
+				friendTile = hexmap.findRegion("prot-map-tile-friend");
+				neuTile = hexmap.findRegion("prot-map-tile-neutral");
+				playTile = hexmap.findRegion("prot-map-tile-player");
+			}
 
 		// Fleet regions //
-		fighterAlly = solarmap.findRegion("prot-fleet-fighter-ally");
-		fighterHostile = solarmap.findRegion("prot-fleet-fighter-hostile");
-		fighterPlayer = solarmap.findRegion("prot-fleet-fighter-player");
+		if (r.equals(RENDER.FLEET))
+			{
+				fighterAlly = solarmap.findRegion("prot-fleet-fighter-ally");
+				fighterHostile = solarmap.findRegion("prot-fleet-fighter-hostile");
+				fighterPlayer = solarmap.findRegion("prot-fleet-fighter-player");
+			}
 
 		// Star regions //
-		starBrownDwarf = solarmap.findRegion("prot-star-browndwarf");
-		starRedDwarf = solarmap.findRegion("prot-star-reddwarf");
-		starNeutron = solarmap.findRegion("prot-star-neutron");
+		if (r.equals(RENDER.STARS))
+			{
+				starBrownDwarf = solarmap.findRegion("prot-star-browndwarf");
+				starRedDwarf = solarmap.findRegion("prot-star-reddwarf");
+				starNeutron = solarmap.findRegion("prot-star-neutron");
+			}
 	}
 
 	public Skin getUiSkin() {
@@ -126,6 +142,13 @@ public class ResourcePacker {
 
 	public TextureRegion getStarNeutron() {
 		return starNeutron;
+	}
+
+	@Override
+	public void dispose() {
+		hexmap.dispose();
+		solarmap.dispose();
+		uiSkin.dispose();
 	}
 
 }

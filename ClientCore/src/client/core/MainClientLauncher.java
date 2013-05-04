@@ -21,18 +21,18 @@ import java.awt.Toolkit;
 
 import client.settings.Settings;
 import client.types.IntVec2;
-import client.util.Find;
-import client.util.ResourcePacker;
 
 import com.apple.eawt.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
 import framework.map.SolarSystem;
 import framework.objects.Star;
-import framework.objects.Star.StarType;
+import framework.objects.Star.STARTYPE;
+import framework.objects.Unit;
+import framework.objects.Unit.TYPE;
+import framework.players.Player;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be added in the
@@ -70,18 +70,20 @@ public class MainClientLauncher {
 	static SolarSystem s2;
 	static SolarSystem s3;
 
+	static Unit sampleFleet;
+
 	void initSystems() {
 		s1 = new SolarSystem();
 		s1.setStar(new Star());
-		s1.getStar().setType(StarType.BROWNDWARF);
-		s1.setRadius(150);
+		s1.getStar().setType(STARTYPE.BROWNDWARF);
+		s1.setRadius(180);
 		s1.setSovereignty(null);
 
 		/** 2nd system */
 
 		s2 = new SolarSystem();
 		s2.setStar(new Star());
-		s2.getStar().setType(StarType.BLUEGIANT);
+		s2.getStar().setType(STARTYPE.BLUEGIANT);
 		s2.setRadius(280);
 		s2.setSovereignty(null);
 
@@ -89,16 +91,26 @@ public class MainClientLauncher {
 
 		s3 = new SolarSystem();
 		s3.setStar(new Star());
-		s3.getStar().setType(StarType.REDDWARF);
+		s3.getStar().setType(STARTYPE.REDDWARF);
 		s3.setRadius(220);
 		s3.setSovereignty(null);
+
+		/** Sample fleet */
+		sampleFleet = new Unit();
+		sampleFleet.setType(TYPE.FLEET);
+		sampleFleet.setSpeed(50.0);
+		sampleFleet.setFlag("SampleFleet");
+		sampleFleet.setClaim(new Player("KateTheAwesome"));
+
+		s2.addSingleUnit(sampleFleet);
+
 	}
 
 	public static SolarSystem getSystemWithID(IntVec2 systemID) {
 		if (systemID.equals(new IntVec2(0, 0)))
 			{
 				return s1;
-			} else if (systemID.equals(new IntVec2(0, 1)))
+			} else if (systemID.equals(new IntVec2(1, 0)))
 			{
 				return s2;
 			} else
