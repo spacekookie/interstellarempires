@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import framework.players.Alliance.Allegiance;
 
-public class GenericMapTile extends Actor implements Disposable {
+public class GenericMapTile extends Actor {
 
 	private TextureAtlas atlas; // Holds all Tile textures
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
@@ -77,6 +77,8 @@ public class GenericMapTile extends Actor implements Disposable {
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
+
+		// Debug frame
 		batch.end();
 		renderer.setProjectionMatrix(batch.getProjectionMatrix());
 		renderer.setTransformMatrix(batch.getTransformMatrix());
@@ -85,7 +87,6 @@ public class GenericMapTile extends Actor implements Disposable {
 		renderer.begin(ShapeType.Rectangle);
 		renderer.rect(posX, posY, sizeX, sizeY);
 		renderer.end();
-
 		batch.begin();
 
 		switch (ally) {
@@ -149,15 +150,13 @@ public class GenericMapTile extends Actor implements Disposable {
 							{
 								System.out.println(tileID);
 								ScreenHandler.getInstance().setScreen(new SystemScreen(ScreenHandler.getInstance(), tileID));
+							} else
+							{
+								Gdx.app.log(Settings.LOG, "Off Map");
 							}
 					}
 			}
 		return null;
-	}
-
-	@Override
-	public void dispose() {
-
 	}
 
 }

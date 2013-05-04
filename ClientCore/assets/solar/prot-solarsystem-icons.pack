@@ -35,8 +35,8 @@ prot-star-neutron
   rotate: false
   xy: 521, 1
   size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
+  orig: 64, 64
+  offset: 64, 64
   index: -1
 prot-star-reddwarf
   rotate: false

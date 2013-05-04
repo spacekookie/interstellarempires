@@ -18,21 +18,17 @@ package client.objects.groups;
 
 import java.util.Set;
 
-import client.core.ScreenHandler;
-import client.screens.TestScreen;
 import client.settings.Settings;
 import client.types.IntVec2;
 import client.util.Find;
+import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 import framework.map.SolarSystem;
 import framework.objects.GameObject;
@@ -49,11 +45,10 @@ public class SolarMap extends Group implements Disposable {
 
 	private IntVec2 tileID;
 	private SolarSystem system;
-	private TextureAtlas atlas;
-	private TextureRegion star;
 	private ShapeRenderer renderer;
 	private int offset;
 	private StarType starType;
+	private ResourcePacker res;
 
 		/**
 		 * Stuff that needs to be done no matter what constructor is called ^_^
@@ -61,8 +56,8 @@ public class SolarMap extends Group implements Disposable {
 		{
 			offset = 100;
 			renderer = new ShapeRenderer();
-			atlas = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
-			star = atlas.findRegion("prot-star-browndwarf"); // TODO: Change this to respond to the @starType.
+			res = new ResourcePacker();
+			res.loadTextures();
 		}
 
 	/**
@@ -77,7 +72,6 @@ public class SolarMap extends Group implements Disposable {
 		if (solar != null)
 			{
 				system = solar;
-
 				starType = solar.getStar().getType();
 
 			} else
@@ -105,17 +99,28 @@ public class SolarMap extends Group implements Disposable {
 
 		switch (starType) {
 			case BROWNDWARF:
-				batch.draw(star, Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 50, 50, 1, 1, 0);
+				batch.draw(res.getStarBrownDwarf(), Find.getCenter().x - 20 - offset, Find.getCenter().y - 20, 0, 0, 40, 40, 1, 1, 0);
 				break;
 
 			case BLUEGIANT:
-				batch.draw(star, Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 75, 75, 1, 1, 0);
+				batch.draw(res.getStarNeutron(), Find.getCenter().x - 50 - offset, Find.getCenter().y - 50, 0, 0, 100, 100, 1, 1, 0);
+				break;
+
+			case NEUTRON:
+				batch.draw(res.getStarNeutron(), Find.getCenter().x - 12.5f - offset, Find.getCenter().y - 12.5f, 0, 0, 25, 25, 1, 1, 0);
+				break;
+
+			case REDDWARF:
+				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 128, 128, 1, 1, 0);
+				break;
+
+			case REDGIANT:
+				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 128, 128, 1, 1, 0);
 				break;
 
 			default:
 				break;
 		}
-
 	}
 
 	/**

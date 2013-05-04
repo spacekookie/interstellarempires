@@ -24,7 +24,7 @@ import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import client.core.ScreenHandler;
-import client.objects.animators.SpriteTween;
+import client.objects.animators.HorrorAtmosphereCreator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -108,7 +108,7 @@ public class TweenScreen implements Screen {
 
 		batch = new SpriteBatch();
 
-		Tween.registerAccessor(Sprite.class, new SpriteTween());
+		Tween.registerAccessor(Sprite.class, new HorrorAtmosphereCreator());
 
 		man = new TweenManager();
 
@@ -123,7 +123,7 @@ public class TweenScreen implements Screen {
 			}
 		};
 
-		Tween.to(splashSprite, SpriteTween.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
+		Tween.to(splashSprite, HorrorAtmosphereCreator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
 				.setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
 	}

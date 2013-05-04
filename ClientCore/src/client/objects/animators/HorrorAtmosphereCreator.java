@@ -26,7 +26,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * 
  * @author: ***REMOVED***
  */
-public class SpriteTween implements TweenAccessor<Sprite> {
+public class HorrorAtmosphereCreator implements TweenAccessor<Sprite> {
 
 	public static final int ALPHA = 1;
 
