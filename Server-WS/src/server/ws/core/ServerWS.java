@@ -28,10 +28,11 @@ import org.apache.log4j.Logger;
 import framework.util.UtilFactory;
 
 import server.core.Server;
+import server.ws.interfaces.ServerWSLocal;
 
 @Startup
 @Singleton
-public class ServerWS {
+public class ServerWS implements ServerWSLocal {
 
   /** Private fields **/
   private final Logger log = UtilFactory.createLogger(this);
@@ -54,12 +55,12 @@ public class ServerWS {
   }
 
   @PostConstruct
-  public void start() {
+  private void start() {
 	log.info("Starting main server web service");	
   }
 
   public void test() {
-	log.debug("Test function");
+	log.info("Test function");
   }
 
 }
