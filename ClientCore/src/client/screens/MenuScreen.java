@@ -22,7 +22,7 @@ import client.core.ScreenHandler;
 import client.objects.groups.HexMap;
 import client.settings.Settings;
 import client.util.Coordinator;
-import client.util.ResourcePacker;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -50,14 +50,12 @@ public class MenuScreen implements Screen {
 	private TextButton settings;
 	private TextButton exitGame;
 	private Table mapTable;
-	private ResourcePacker res;
 
 	private HexMap map;
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_HOME);
-		res = new ResourcePacker();
 	}
 
 	@Override
@@ -90,7 +88,7 @@ public class MenuScreen implements Screen {
 		Table backToIntro = new Table();
 		backToIntro.setFillParent(true);
 		stage.addActor(backToIntro);
-		TextButton backham = new TextButton("Back to Intro", res.getUiSkin());
+		TextButton backham = new TextButton("Back to Intro", ResPack.UI_SKIN);
 		backham.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
@@ -116,8 +114,8 @@ public class MenuScreen implements Screen {
 		mapTable.center(); // First center it
 		mapTable.setX(-300); // Then reduce the X value /**/ TODO: Gdx.graphics.getWidth() / 3
 
-		settings = new TextButton("Settings", res.getUiSkin());
-		exitGame = new TextButton("Exit Game", res.getUiSkin());
+		settings = new TextButton("Settings", ResPack.UI_SKIN);
+		exitGame = new TextButton("Exit Game", ResPack.UI_SKIN);
 
 		table.add(settings).width(200);
 		table.row();
@@ -171,7 +169,6 @@ public class MenuScreen implements Screen {
 	public void dispose() {
 		map.dispose();
 		stage.dispose();
-		res.dispose();
 	}
 
 }
