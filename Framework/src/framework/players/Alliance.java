@@ -29,7 +29,7 @@ import java.util.Set;
  */
 public class Alliance {
 
-	public enum Allegiance {
+	public enum ALLEGIANCE {
 		PLAYER, HOSTILE, NEUTRAL, FRIENDLY, UNKNOWN;
 	}
 
@@ -41,7 +41,7 @@ public class Alliance {
 
 	private String tag;
 
-	private Allegiance allegiance; // Only used by game client.
+	private ALLEGIANCE allegiance; // Only used by game client.
 
 	/**
 	 * Create a new alliance.
@@ -60,7 +60,7 @@ public class Alliance {
 	 * @param a
 	 *         object allegiance relative to the player.
 	 */
-	public Alliance(Allegiance a) {
+	public Alliance(ALLEGIANCE a) {
 		this.allegiance = a;
 	}
 
@@ -69,7 +69,7 @@ public class Alliance {
 	 * 
 	 * @return object allegiance, relative to the player.
 	 */
-	public Allegiance getAllegiance() {
+	public ALLEGIANCE getAllegiance() {
 		return allegiance;
 	}
 

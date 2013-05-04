@@ -38,7 +38,7 @@ import com.badlogic.gdx.utils.Disposable;
 public class ResourcePacker implements Disposable {
 
 	private ScreenHandler handler;
-	private TextureAtlas hexmap, solarmap;
+	private TextureAtlas hexmap, solarmap, selected;
 	private Skin uiSkin;
 
 	public enum RENDER {
@@ -51,11 +51,13 @@ public class ResourcePacker implements Disposable {
 	/** Solar regions */
 	private TextureRegion fighterAlly, fighterHostile, fighterPlayer;
 	private TextureRegion starBrownDwarf, starRedDwarf, starNeutron;
+	private TextureRegion frame;
 
 		{
 			uiSkin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
 			hexmap = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
 			solarmap = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
+			selected = new TextureAtlas(Gdx.files.internal("assets/gui/prot-selected.atlas"));
 		}
 
 	/** ScreenHandler for constructor */
@@ -89,6 +91,7 @@ public class ResourcePacker implements Disposable {
 				fighterAlly = solarmap.findRegion("prot-fleet-fighter-ally");
 				fighterHostile = solarmap.findRegion("prot-fleet-fighter-hostile");
 				fighterPlayer = solarmap.findRegion("prot-fleet-fighter-player");
+				frame = selected.findRegion("selected");
 			}
 
 		// Star regions //
@@ -98,6 +101,14 @@ public class ResourcePacker implements Disposable {
 				starRedDwarf = solarmap.findRegion("prot-star-reddwarf");
 				starNeutron = solarmap.findRegion("prot-star-neutron");
 			}
+	}
+
+	public TextureRegion getFrame() {
+		return frame;
+	}
+
+	public void setFrame(TextureRegion frame) {
+		this.frame = frame;
 	}
 
 	public Skin getUiSkin() {

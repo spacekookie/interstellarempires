@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2012 Leander Sabel
+ * Copyright (c) 2013 ***REMOVED***
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,28 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package framework.objects;
-
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+package client.util;
 
 /**
- * @author Leander
+ * Utility methods to translate beautiful radial coordinates into absolute pixel on screen coordinates.
+ * 
+ * @author ***REMOVED***
  * 
  */
-public abstract class GameObject {
-
-	private double size;
-	private Vector2D position;
-
-	public Vector2D getPosition() {
-		return position;
-	}
-
-	public void setPosition(Vector2D vec) {
-		this.position = vec;
-	}
+public class Translator {
 
 }
