@@ -33,7 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 import framework.map.SolarSystem;
-import framework.players.Alliance.Allegiance;
+import framework.players.Alliance.ALLEGIANCE;
 
 /**
  * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile actors.
@@ -114,9 +114,9 @@ public class HexMap extends Group implements Disposable {
 
 		stage.clear();
 
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), Allegiance.PLAYER, new IntVec2(0, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), Allegiance.NEUTRAL, new IntVec2(1, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), Allegiance.HOSTILE, new IntVec2(2, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
 		stage.draw();
 
 	}

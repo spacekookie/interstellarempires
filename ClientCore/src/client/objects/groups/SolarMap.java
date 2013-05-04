@@ -38,6 +38,7 @@ import framework.map.SolarSystem;
 import framework.objects.Star.STARTYPE;
 import framework.objects.Unit;
 import framework.objects.Unit.TYPE;
+import framework.players.Alliance.ALLEGIANCE;
 
 /**
  * Counterpart to the @HexMap. Will display a solarsystem to the player. Extending the Group instead of the Actor to hold own
@@ -66,7 +67,6 @@ public class SolarMap extends Group implements Disposable {
 			res = new ResourcePacker();
 			res.loadTextures(RENDER.STARS);
 			res.loadTextures(RENDER.FLEET);
-			stage = new Stage();
 		}
 
 	/**
@@ -94,7 +94,18 @@ public class SolarMap extends Group implements Disposable {
 		this.tileID = tileID;
 	}
 
+	public void setInputToChild() {
+		Gdx.input.setInputProcessor(stage);
+	}
+
 	public void draw(SpriteBatch batch, float parentAlpha) {
+
+		if (stage == null)
+			stage = new Stage();
+		stage.clear();
+
+		stage.addActor(new GenericMapObject(200f, 200f, TYPE.FLEET, "SampleFleet", null, null));
+		stage.draw();
 
 		batch.end();
 		renderer.setProjectionMatrix(batch.getProjectionMatrix());
@@ -132,13 +143,16 @@ public class SolarMap extends Group implements Disposable {
 				break;
 		}
 
-		Stage stage = new Stage();
+		// if (tileID.equals(new IntVec2(1, 0)))
 
 		/** Draw units in units-set */
-		for (Unit item : units)
-			{
-				stage.addActor(new GenericMapObject(200, 200, TYPE.FLEET, "SampleFleet", null));
-			}
+		// for (Unit item : units)
+		// {
+		// float x = (float) item.getPosition().getX();
+		// float y = (float) item.getPosition().getY();
+		// stage.addActor(new GenericMapObject(x, y, item.getType(), item.getFlag(), item.getClaim(), ALLEGIANCE.FRIENDLY));
+		//
+		// }
 
 	}
 

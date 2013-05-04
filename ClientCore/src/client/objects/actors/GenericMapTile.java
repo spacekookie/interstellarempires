@@ -34,7 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
-import framework.players.Alliance.Allegiance;
+import framework.players.Alliance.ALLEGIANCE;
 
 public class GenericMapTile extends Actor implements Disposable {
 
@@ -43,7 +43,7 @@ public class GenericMapTile extends Actor implements Disposable {
 	private float posX, posY;
 	private float sizeX, sizeY;
 	private IntVec2 tileID;
-	private Allegiance ally;
+	private ALLEGIANCE ally;
 	private ShapeRenderer renderer;
 	private ResourcePacker res;
 
@@ -66,8 +66,7 @@ public class GenericMapTile extends Actor implements Disposable {
 	 * @param alliance
 	 *         of the tile: player, hostile, neutral and friendly.
 	 */
-	public GenericMapTile(float x, float y, Allegiance a, IntVec2 id) {
-		loadTextures();
+	public GenericMapTile(float x, float y, ALLEGIANCE a, IntVec2 id) {
 		posX = x;
 		posY = y;
 		tileID = id;
@@ -111,19 +110,6 @@ public class GenericMapTile extends Actor implements Disposable {
 				Gdx.app.log(Settings.LOG, "Error displaying MapTile");
 				break;
 		}
-	}
-
-	/**
-	 * Moved to the @ResourcePacker with Version P1.0.6
-	 */
-	@Deprecated
-	private void loadTextures() {
-
-		this.atlas = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
-		hosTile = atlas.findRegion("prot-map-tile-hostile");
-		friendTile = atlas.findRegion("prot-map-tile-friend");
-		neuTile = atlas.findRegion("prot-map-tile-neutral");
-		playTile = atlas.findRegion("prot-map-tile-player");
 	}
 
 	/**

@@ -51,6 +51,8 @@ public class SystemScreen implements Screen {
 	private IntVec2 tileID;
 	private SolarMap map;
 
+	private int radius;
+
 	/** IMPORTANT **/
 	private ResourcePacker res;
 	private final String wallofText = "This is an example of how Textwrapping works!";
@@ -61,6 +63,7 @@ public class SystemScreen implements Screen {
 		this.tileID = tileID;
 		res = new ResourcePacker();
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR + ": " + tileID);
+		radius = MainClientLauncher.getSystemWithID(tileID).getRadius();
 	}
 
 	@Override
@@ -69,6 +72,20 @@ public class SystemScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+
+		// if (Gdx.input.isButtonPressed(0))
+		// {
+		// System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
+		// }
+
+		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20 && Gdx.input.getY() < 580)
+			{
+				map.setInputToChild();
+			} else
+			{
+				Gdx.input.setInputProcessor(stage);
+			}
+
 	}
 
 	@Override
