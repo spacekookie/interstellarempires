@@ -20,6 +20,7 @@ package client.util;
 import client.core.ScreenHandler;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -61,7 +62,8 @@ public class ResourcePacker {
 	}
 
 	/**
-	 * Loads textures from atlas files. TODO: Replace with smart algorithm
+	 * Loads textures from atlas files. TODO: Replace with smart algorithm. TODO: Why do I have to call this method over and over
+	 * again?
 	 */
 	public void loadTextures() {
 

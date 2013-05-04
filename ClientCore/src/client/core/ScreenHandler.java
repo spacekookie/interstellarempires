@@ -23,6 +23,8 @@ import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 
 /**
  * 
@@ -32,7 +34,7 @@ import com.badlogic.gdx.Gdx;
  */
 public class ScreenHandler extends Game {
 
-	protected static ScreenHandler handler;
+	private static ScreenHandler handler;
 
 	/**
 	 * 

@@ -18,13 +18,13 @@ package client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import client.core.ScreenHandler;
 import client.objects.groups.HexMap;
 import client.settings.Settings;
 import client.util.Coordinator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
@@ -49,6 +49,7 @@ public class MenuScreen implements Screen {
 	private Skin skin;
 	private TextButton settings;
 	private TextButton exitGame;
+	private Table mapTable;
 
 	private HexMap map;
 
@@ -64,6 +65,15 @@ public class MenuScreen implements Screen {
 
 		stage.act(delta);
 		stage.draw();
+
+		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720 && Gdx.input.getY() > 100 && Gdx.input.getY() < 450)
+			{
+				map.setInputToChild();
+			} else
+			{
+				Gdx.input.setInputProcessor(stage);
+			}
+
 	}
 
 	@Override
@@ -72,11 +82,8 @@ public class MenuScreen implements Screen {
 			stage = new Stage(width, height, true);
 		stage.clear();
 
-		// Collect touchdown events
-		Gdx.input.setInputProcessor(stage);
-
 		Table table = new Table();
-		Table mapTable = new Table();
+		mapTable = new Table();
 
 		Table backToIntro = new Table();
 		backToIntro.setFillParent(true);
@@ -162,8 +169,8 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
 		map.dispose();
+		stage.dispose();
 	}
 
 }

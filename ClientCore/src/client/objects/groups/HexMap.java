@@ -19,13 +19,12 @@ package client.objects.groups;
 
 import client.core.ScreenHandler;
 import client.objects.actors.GenericMapTile;
+import client.screens.MenuScreen;
 import client.types.IntVec2;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -74,10 +73,25 @@ public class HexMap extends Group implements Disposable {
 
 	private TextureAtlas atlas; // Holds all Tile textures
 	private ShapeRenderer shapeRenderer;
+	private MenuScreen parent;
 
 	private Stage stage;
 
-	private IntVec2 counter = new IntVec2(0, 0);
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public HexMap(float x, float y, ScreenHandler handler) {
+		this.sizeX = x;
+		this.sizeY = y;
+		this.tileX = 150;
+		this.tileY = 85;
+
+		this.handler = handler;
+
+		shapeRenderer = new ShapeRenderer();
+	}
 
 	/**
 	 * Will draw the map. At some point
@@ -99,7 +113,6 @@ public class HexMap extends Group implements Disposable {
 			stage = new Stage();
 
 		stage.clear();
-		Gdx.input.setInputProcessor(stage);
 
 		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), Allegiance.PLAYER, new IntVec2(0, 0)));
 		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), Allegiance.NEUTRAL, new IntVec2(0, 1)));
@@ -108,20 +121,8 @@ public class HexMap extends Group implements Disposable {
 
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public HexMap(float x, float y, ScreenHandler handler) {
-		this.sizeX = x;
-		this.sizeY = y;
-		this.tileX = 150;
-		this.tileY = 85;
-
-		this.handler = handler;
-
-		shapeRenderer = new ShapeRenderer();
+	public void setInputToChild() {
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	/**
@@ -151,7 +152,6 @@ public class HexMap extends Group implements Disposable {
 		Vector2 size = new Vector2();
 		size.x = tileX;
 		size.y = tileY;
-		counter = new IntVec2(0, 0);
 
 		return size;
 	}
@@ -197,7 +197,7 @@ public class HexMap extends Group implements Disposable {
 	 */
 	@Override
 	public void dispose() {
-
+		stage.dispose();
 	}
 
 	public void setScreenPosition(float x, float y) {

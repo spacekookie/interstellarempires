@@ -52,7 +52,6 @@ import framework.objects.Star.StarType;
  */
 public class SystemScreen implements Screen {
 
-	private SpriteBatch batch;
 	private Stage stage;
 	private ScreenHandler handler;
 	private Table back;
@@ -67,7 +66,7 @@ public class SystemScreen implements Screen {
 		this.handler = handler;
 		this.tileID = tileID;
 		res = new ResourcePacker();
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR + ": " + tileID);
 	}
 
 	@Override
@@ -143,7 +142,7 @@ public class SystemScreen implements Screen {
 
 	@Override
 	public void dispose() {
-
+		map.dispose();
+		stage.dispose();
 	}
-
 }
