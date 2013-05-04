@@ -115,8 +115,8 @@ public class HexMap extends Group implements Disposable {
 		stage.clear();
 
 		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), Allegiance.PLAYER, new IntVec2(0, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), Allegiance.NEUTRAL, new IntVec2(0, 1)));
-
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), Allegiance.NEUTRAL, new IntVec2(1, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), Allegiance.HOSTILE, new IntVec2(2, 0)));
 		stage.draw();
 
 	}
@@ -192,9 +192,6 @@ public class HexMap extends Group implements Disposable {
 
 	}
 
-	/**
-	 * Am I supposed to do something with this stub? :|
-	 */
 	@Override
 	public void dispose() {
 		stage.dispose();

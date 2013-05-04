@@ -22,6 +22,7 @@ import client.screens.SystemScreen;
 import client.settings.Settings;
 import client.types.IntVec2;
 import client.util.ResourcePacker;
+import client.util.ResourcePacker.RENDER;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,7 +36,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import framework.players.Alliance.Allegiance;
 
-public class GenericMapTile extends Actor {
+public class GenericMapTile extends Actor implements Disposable {
 
 	private TextureAtlas atlas; // Holds all Tile textures
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
@@ -51,7 +52,7 @@ public class GenericMapTile extends Actor {
 		/** Loads textures */
 		{
 			res = new ResourcePacker();
-			res.loadTextures();
+			res.loadTextures(RENDER.HEXTILE);
 		}
 
 	/**
@@ -157,6 +158,11 @@ public class GenericMapTile extends Actor {
 					}
 			}
 		return null;
+	}
+
+	@Override
+	public void dispose() {
+		res.dispose();
 	}
 
 }

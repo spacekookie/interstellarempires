@@ -20,5 +20,18 @@ package framework.players;
 public class Player {
 
 	private boolean isPony;
+	private String name;
+
+	public Player(String name) {
+		this.name = name;
+	}
+
+	public void setPony(boolean pony) {
+		this.isPony = pony;
+	}
+
+	public boolean isPony() {
+		return isPony;
+	}
 
 }

@@ -23,25 +23,17 @@ import client.core.ScreenHandler;
 import client.objects.groups.SolarMap;
 import client.settings.Settings;
 import client.types.IntVec2;
-import client.util.Find;
 import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import framework.map.SolarSystem;
-import framework.objects.Star;
-import framework.objects.Star.StarType;
 
 /**
  * This class will be called when the player clicked on a tile on the @HexMap. In the constructor the relevant data to identify a
@@ -61,6 +53,8 @@ public class SystemScreen implements Screen {
 
 	/** IMPORTANT **/
 	private ResourcePacker res;
+	private final String wallofText = "This is an example of how Textwrapping works!";
+	private final String wallofText2 = "To the left you see the solar map. It will display all actions in the selected solar system. On the right you will have several buttons that might come in handy when working with your units.";
 
 	public SystemScreen(ScreenHandler handler, IntVec2 tileID) {
 		this.handler = handler;
@@ -84,7 +78,7 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID));
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID)); // TODO: Replace with server request!
 		stage.addActor(map);
 
 		back = new Table();
@@ -100,11 +94,20 @@ public class SystemScreen implements Screen {
 		elements.setFillParent(true);
 		stage.addActor(elements);
 
-		TextButton kill = new TextButton("Destroy everything!", res.getUiSkin());
-		TextButton pointless = new TextButton("Pointless Button", res.getUiSkin());
+		TextButton kill = new TextButton("Destroy everything", res.getUiSkin());
+		TextButton refresh = new TextButton("Refresh", res.getUiSkin());
+		Label wall = new Label(wallofText, res.getUiSkin());
+		Label wall2 = new Label(wallofText2, res.getUiSkin());
+		wall.setWrap(true);
+		wall2.setWrap(true);
+
 		elements.add(kill).width(250);
 		elements.row();
-		elements.add(pointless).width(250);
+		elements.add(refresh).width(250);
+		elements.row();
+		elements.add(wall).width(250);
+		elements.row();
+		elements.add(wall2).width(250);
 		elements.row();
 		elements.top().right();
 		elements.setX(-50);

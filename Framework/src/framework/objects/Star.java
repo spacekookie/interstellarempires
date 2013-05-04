@@ -20,14 +20,14 @@ package framework.objects;
 public class Star extends GameObject {
 
 	/** Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy, it'll just become fat */
-	public enum StarType {
+	public enum STARTYPE {
 		BROWNDWARF, REDDWARF, WHITEDWARF, REDGIANT, BLUEGIANT, NEUTRON, BLACKHOLE, GIANTSPACEPUDDING;
 	}
 
-	private StarType type;
+	private STARTYPE type;
 
 	/** @return: the stars type */
-	public StarType getType() {
+	public STARTYPE getType() {
 		return type;
 	}
 
@@ -35,7 +35,7 @@ public class Star extends GameObject {
 	 * @param type
 	 *         The type of star we're dealing with here
 	 */
-	public void setType(StarType type) {
+	public void setType(STARTYPE type) {
 		this.type = type;
 	}
 

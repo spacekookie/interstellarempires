@@ -48,7 +48,6 @@ public class ScreenHandler extends Game {
 
 	private void loadAssets() {
 		ResourcePacker pack = new ResourcePacker();
-		pack.loadTextures();
 		Gdx.app.log(Settings.LOG, "Textures loaded");
 	}
 

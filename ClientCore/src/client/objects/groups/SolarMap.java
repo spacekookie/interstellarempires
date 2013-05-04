@@ -14,25 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package client.objects.groups;
 
 import java.util.Set;
 
+import client.objects.actors.GenericMapObject;
 import client.settings.Settings;
 import client.types.IntVec2;
 import client.util.Find;
 import client.util.ResourcePacker;
+import client.util.ResourcePacker.RENDER;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 import framework.map.SolarSystem;
-import framework.objects.GameObject;
-import framework.objects.Star.StarType;
+import framework.objects.Star.STARTYPE;
+import framework.objects.Unit;
+import framework.objects.Unit.TYPE;
 
 /**
  * Counterpart to the @HexMap. Will display a solarsystem to the player. Extending the Group instead of the Actor to hold own
@@ -47,8 +52,10 @@ public class SolarMap extends Group implements Disposable {
 	private SolarSystem system;
 	private ShapeRenderer renderer;
 	private int offset;
-	private StarType starType;
+	private STARTYPE starType;
 	private ResourcePacker res;
+	private Stage stage;
+	private Set<Unit> units;
 
 		/**
 		 * Stuff that needs to be done no matter what constructor is called ^_^
@@ -57,7 +64,9 @@ public class SolarMap extends Group implements Disposable {
 			offset = 100;
 			renderer = new ShapeRenderer();
 			res = new ResourcePacker();
-			res.loadTextures();
+			res.loadTextures(RENDER.STARS);
+			res.loadTextures(RENDER.FLEET);
+			stage = new Stage();
 		}
 
 	/**
@@ -73,6 +82,7 @@ public class SolarMap extends Group implements Disposable {
 			{
 				system = solar;
 				starType = solar.getStar().getType();
+				units = solar.getUnits();
 
 			} else
 			{
@@ -111,7 +121,7 @@ public class SolarMap extends Group implements Disposable {
 				break;
 
 			case REDDWARF:
-				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 128, 128, 1, 1, 0);
+				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 35 - offset, Find.getCenter().y - 35, 0, 0, 70, 70, 1, 1, 0);
 				break;
 
 			case REDGIANT:
@@ -121,22 +131,21 @@ public class SolarMap extends Group implements Disposable {
 			default:
 				break;
 		}
-	}
 
-	/**
-	 * Will be called to update the map view with current data.
-	 * 
-	 * @param o
-	 *         A set of all @GameObject instances in the system.
-	 */
-	public void updateData(Set<GameObject> o) {
+		Stage stage = new Stage();
+
+		/** Draw units in units-set */
+		for (Unit item : units)
+			{
+				stage.addActor(new GenericMapObject(200, 200, TYPE.FLEET, "SampleFleet", null));
+			}
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		stage.dispose();
+		res.dispose();
 	}
 
 }

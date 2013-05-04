@@ -27,5 +27,6 @@ package framework.objects;
 public abstract class GameObject {
 
   private double size;
+  
 
 }

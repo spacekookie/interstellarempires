@@ -17,7 +17,9 @@
 
 package framework.map;
 
+import java.util.HashSet;
 import java.util.Set;
+
 import framework.objects.Planet;
 import framework.objects.Star;
 import framework.objects.Structure;
@@ -40,6 +42,13 @@ public class SolarSystem {
 	private Set<Structure> structures;
 	private Star star;
 	private int radius;
+
+	/** Initialises the Sets */
+	public SolarSystem() {
+		units = new HashSet<Unit>();
+		planets = new HashSet<Planet>();
+		structures = new HashSet<Structure>();
+	}
 
 	/** @return: the systems radius for rendering and calculations. */
 	public int getRadius() {
@@ -88,5 +97,25 @@ public class SolarSystem {
 	 */
 	public void setSovereignty(Player p) {
 		this.claimed = p;
+	}
+
+	/**
+	 * To add an entire set of units into the solar system
+	 * 
+	 * @param units
+	 *         set of units
+	 */
+	public void addUnits(Set<Unit> units) {
+		this.units = units;
+	}
+
+	/** @return: get all units in this solar system */
+	public Set<Unit> getUnits() {
+		return units;
+	}
+
+	/** DEBUG ONLY */
+	public void addSingleUnit(Unit unit) {
+		units.add(unit);
 	}
 }

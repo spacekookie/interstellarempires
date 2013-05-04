@@ -1,4 +1,5 @@
 /* 
+
  * Copyright (c) 2012 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -20,10 +21,45 @@
  */
 package framework.objects;
 
+import framework.players.Player;
+
 /**
  * @author Leander
  * 
  */
 public class Unit extends MovingObject {
+
+	/** For testing only */
+	public enum TYPE {
+		FLEET, SHIP, DEBRIS, PONY;
+	}
+
+	private TYPE type;
+	private String flag;
+	private Player claim;
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public Player getClaim() {
+		return claim;
+	}
+
+	public void setClaim(Player claim) {
+		this.claim = claim;
+	}
+
+	public TYPE getType() {
+		return type;
+	}
+
+	public void setType(TYPE type) {
+		this.type = type;
+	}
 
 }
