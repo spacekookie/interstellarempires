@@ -1,5 +1,3 @@
-package client.objects.animators;
-
 /* 
  * Copyright (c) 2013 Katharina Fey
  * 
@@ -17,11 +15,14 @@ package client.objects.animators;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package client.objects.animators;
+
 import aurelienribon.tweenengine.TweenAccessor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
+ * Intro animation.
  * 
  * @author: Katharina
  */
@@ -33,12 +34,12 @@ public class SpriteTween implements TweenAccessor<Sprite> {
 	public int getValues(Sprite target, int tweenType, float[] returnValues) {
 
 		switch (tweenType) {
-		case ALPHA:
-			returnValues[0] = target.getColor().a;
-			return 1;
+			case ALPHA:
+				returnValues[0] = target.getColor().a;
+				return 1;
 
-		default:
-			return 0;
+			default:
+				return 0;
 		}
 
 	}
@@ -47,12 +48,12 @@ public class SpriteTween implements TweenAccessor<Sprite> {
 	public void setValues(Sprite target, int tweenType, float[] newValues) {
 
 		switch (tweenType) {
-		case ALPHA:
-			target.setColor(1, 1, 1, newValues[0]);
-			break;
+			case ALPHA:
+				target.setColor(1, 1, 1, newValues[0]);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 	}

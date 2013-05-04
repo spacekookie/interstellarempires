@@ -17,11 +17,8 @@ package client.objects.groups;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import framework.map.SolarSystem;
-
 import client.core.ScreenHandler;
 import client.objects.actors.GenericMapTile;
-import client.types.Ally;
 import client.types.IntVec2;
 
 import com.badlogic.gdx.Gdx;
@@ -36,9 +33,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
+import framework.map.SolarSystem;
+import framework.players.Alliance.Allegiance;
+
 /**
- * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
- * actors.
+ * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile actors.
  * 
  * @author Katharina
  * 
@@ -73,21 +72,19 @@ public class HexMap extends Group implements Disposable {
 	 */
 	private float positionX, positionY;
 
-	/** Actor Stuff here */
-
 	private TextureAtlas atlas; // Holds all Tile textures
-	private TextureRegion hosTile, friendTile, neuTile, playTile;
 	private ShapeRenderer shapeRenderer;
 
-	/** New Render stuff here */
-	private OrthographicCamera camera;
 	private Stage stage;
+
+	private IntVec2 counter = new IntVec2(0, 0);
 
 	/**
 	 * Will draw the map. At some point
 	 */
 	public void draw(SpriteBatch batch, float parentAlpha) {
 
+		// Debug frame.
 		batch.end();
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
@@ -104,12 +101,8 @@ public class HexMap extends Group implements Disposable {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		for (int n = 0; n <= 3; n++)
-			for (int m = 0; m <= 3; m++) {
-				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX), (getY() / 2) + (m * tileY), null, new IntVec2(n, m)));
-				stage.addActor(new GenericMapTile((getX() / 2) + (n * tileX + 75), (getY() / 2) + (m * tileY + 42.5f), null,
-						new IntVec2(n, m)));
-			}
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), Allegiance.PLAYER, new IntVec2(0, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), Allegiance.NEUTRAL, new IntVec2(0, 1)));
 
 		stage.draw();
 
@@ -129,70 +122,11 @@ public class HexMap extends Group implements Disposable {
 		this.handler = handler;
 
 		shapeRenderer = new ShapeRenderer();
-
-		loadTextures();
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker in
-	 * Prototype 1.0.5.
-	 */
-	@Deprecated
-	private void loadTextures() {
-
-		this.atlas = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
-
-		// See what I did there? ;)
-		hosTile = atlas.findRegion("prot-map-tile-hostile");
-		friendTile = atlas.findRegion("prot-map-tile-friend");
-		neuTile = atlas.findRegion("prot-map-tile-neutral");
-		playTile = atlas.findRegion("prot-map-tile-player");
-
-	}
-
-	/**
-	 * This will register click and touch events on the actor and return the corresponding
-	 * tile to something that wants it.
-	 * 
-	 * @param x
-	 *         position of mouse on screen.
-	 * 
-	 * @param y
-	 *         position of mouse on screen.
-	 * 
-	 * @param touchable
-	 *         Whether the actor allows touch events.
-	 * 
-	 * @return Actor to be displayed.
-	 */
-	// @Override
-	// public Actor hit(float x, float y, boolean touchable) {
-	//
-	// if (touchable && getTouchable() == Touchable.enabled) {
-	// if (Gdx.input.isTouched(0)) {
-	//
-	// /**
-	// * If click is on map and not outside Actor view.
-	// */
-	// if (x > (positionX - (sizeX / 2)) && x < (positionX + (sizeX / 2)) && y > (positionY -
-	// (sizeY / 2))
-	// && y < (positionY + (sizeY / 2))) {
-	// System.out.println("In bounds");
-	// handler.setScreen(new SystemScreen(handler, new Vector2(0, 0)));
-	// } else {
-	// System.out.println("Out of bounds");
-	// }
-	//
-	// return x >= 0 && x < getWidth() && y >= 0 && y < getHeight() ? this : null;
-	// }
-	// }
-	// return null;
-	// }
-
-	/**
-	 * Usually only called once when creating the application. Players with custom skins and
-	 * graphic packs may end up changing these values. Checking for tile size is done outside
-	 * this class.
+	 * Usually only called once when creating the application. Players with custom skins and graphic packs may end up changing these
+	 * values. Checking for tile size is done outside this class.
 	 * 
 	 * @param x
 	 * @param y
@@ -217,19 +151,18 @@ public class HexMap extends Group implements Disposable {
 		Vector2 size = new Vector2();
 		size.x = tileX;
 		size.y = tileY;
+		counter = new IntVec2(0, 0);
 
 		return size;
 	}
 
 	/**
-	 * Checks if the requested tile should even be displayed or if it is outside the
-	 * requested view.
+	 * Checks if the requested tile should even be displayed or if it is outside the requested view.
 	 * 
 	 * @param tileID
 	 *         Vector ID of the tile in question
 	 * 
-	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no
-	 *         on screen and shouldn't be displayed.
+	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen and shouldn't be displayed.
 	 */
 	public boolean isTileOnScreen(Vector2 tileID) {
 

@@ -18,18 +18,20 @@ package client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import client.core.MainClientLauncher;
 import client.core.ScreenHandler;
 import client.objects.groups.SolarMap;
+import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.Find;
+import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -37,61 +39,43 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import framework.map.SolarSystem;
+import framework.objects.Star;
+import framework.objects.Star.StarType;
+
 /**
- * This class will be called when the player clicked on a tile on the @HexMap. In the
- * constructor the relevant data to identify a solar system will be passed on as well as
- * creating a layout around a solar system view.
+ * This class will be called when the player clicked on a tile on the @HexMap. In the constructor the relevant data to identify a
+ * solar system will be passed on as well as creating a layout around a solar system view.
  * 
  * @author Katharina
  * 
  */
 public class SystemScreen implements Screen {
 
-	private Skin skin;
 	private SpriteBatch batch;
-	private TextureAtlas atlas;
-	private TextureRegion star, fleet;
 	private Stage stage;
 	private ScreenHandler handler;
-	private Vector2 fleetPosition;
 	private Table back;
 	private TextButton backToMap;
-	private Vector2 tileID;
+	private IntVec2 tileID;
 	private SolarMap map;
 
-	public SystemScreen(ScreenHandler handler, Vector2 tileID) {
+	/** IMPORTANT **/
+	private ResourcePacker res;
+
+	public SystemScreen(ScreenHandler handler, IntVec2 tileID) {
 		this.handler = handler;
 		this.tileID = tileID;
-		fleetPosition = new Vector2();
-		fleetPosition.x = (Gdx.graphics.getWidth() / 2) - 300;
-		fleetPosition.y = (Gdx.graphics.getHeight() / 2) - 150;
+		res = new ResourcePacker();
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR);
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); // This cryptic line clears the screen.
-
-		batch.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
-
-		// batch.draw(star, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0, 0,
-		// 128, 128, 1, 1, 0);
-
-		// batch.draw(fleet, fleetPosition.x, fleetPosition.y, 0, 0, 128, 128, 1, 1, 0);
-		batch.end();
-
-		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			fleetPosition.x += 2;
-		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			fleetPosition.x -= 2;
-		if (Gdx.input.isKeyPressed(Keys.UP))
-			fleetPosition.y += 2;
-		if (Gdx.input.isKeyPressed(Keys.DOWN))
-			fleetPosition.y -= 2;
-
-		// if (Gdx.input.isButtonPressed(0)) {
-		// System.out.println(Gdx.input.getX(0) + "," + Gdx.input.getY(0));
-		// }
 	}
 
 	@Override
@@ -101,18 +85,31 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID);
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID));
 		stage.addActor(map);
 
 		back = new Table();
 		back.setFillParent(true);
 		stage.addActor(back);
-		backToMap = new TextButton("BACK", skin);
-
+		backToMap = new TextButton("BACK", res.getUiSkin());
 		back.add(backToMap).width(150);
 		back.row();
-
 		back.top().left();
+
+		/** Example for system gui */
+		Table elements = new Table();
+		elements.setFillParent(true);
+		stage.addActor(elements);
+
+		TextButton kill = new TextButton("Destroy everything!", res.getUiSkin());
+		TextButton pointless = new TextButton("Pointless Button", res.getUiSkin());
+		elements.add(kill).width(250);
+		elements.row();
+		elements.add(pointless).width(250);
+		elements.row();
+		elements.top().right();
+		elements.setX(-50);
+		elements.setY(-50);
 
 		back.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -128,11 +125,6 @@ public class SystemScreen implements Screen {
 
 	@Override
 	public void show() {
-		skin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
-		atlas = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
-		star = atlas.findRegion("prot-star-browndwarf");
-		fleet = atlas.findRegion("prot-fleet-fighter-player");
-		batch = new SpriteBatch();
 	}
 
 	@Override

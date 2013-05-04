@@ -1,4 +1,5 @@
 package client.screens;
+
 /* 
  * Copyright (c) 2012 Katharina Fey
  * 
@@ -49,7 +50,6 @@ public class TestScreen implements Screen {
 
 	public TestScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_TEST);
 	}
 
 	@Override

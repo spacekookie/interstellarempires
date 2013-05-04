@@ -1,5 +1,3 @@
-package client.core;
-
 /* 
  * Copyright (c) 2013 Katharina Fey
  * 
@@ -16,18 +14,19 @@ package client.core;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+package client.core;
 
 import client.screens.MenuScreen;
 import client.screens.TweenScreen;
 import client.settings.Settings;
+import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game.
- * Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in the future
  * 
  * @author: Katharina
  */
@@ -37,18 +36,25 @@ public class ScreenHandler extends Game {
 
 	/**
 	 * 
-	 * Returns The Games screenhandler to start new screens from actors, groups
-	 * and sub-classes. Accessed in a static way.
+	 * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
 	 * 
-	 * @return The main Screenhandler
+	 * @return The main Screenhandler.
 	 */
-	public static ScreenHandler getHandler() {
+	public static ScreenHandler getInstance() {
 		return handler;
+	}
+
+	private void loadAssets() {
+		ResourcePacker pack = new ResourcePacker();
+		pack.loadTextures();
+		Gdx.app.log(Settings.LOG, "Textures loaded");
 	}
 
 	@Override
 	public void create() {
 		handler = this;
+
+		this.loadAssets();
 
 		if (!Settings.skipIntro)
 			setScreen(new TweenScreen(this));

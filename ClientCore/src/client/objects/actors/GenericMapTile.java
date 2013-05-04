@@ -17,100 +17,141 @@
 
 package client.objects.actors;
 
-
 import client.core.ScreenHandler;
 import client.screens.SystemScreen;
-import client.types.Ally;
+import client.settings.Settings;
 import client.types.IntVec2;
+import client.util.ResourcePacker;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
-@SuppressWarnings("unused")
+import framework.players.Alliance.Allegiance;
+
 public class GenericMapTile extends Actor implements Disposable {
 
 	private TextureAtlas atlas; // Holds all Tile textures
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
-	private float tileX, tileY;
+	private float posX, posY;
 	private float sizeX, sizeY;
 	private IntVec2 tileID;
+	private Allegiance ally;
+	private ShapeRenderer renderer;
+	private ResourcePacker res;
+
+	protected IntVec2 id = null;
+
+		/** Loads textures */
+		{
+			res = new ResourcePacker();
+			res.loadTextures();
+		}
 
 	/**
-	 * The constructor will set up the coordinates on which the tile will then
-	 * be drawn. It's not so difficult O.o. Also includes the alliance of the
-	 * tile.
+	 * The constructor will set up the coordinates on which the tile will then be drawn. It's not so difficult O.o. Also includes the
+	 * alliance of the tile.
 	 * 
 	 * @param x
-	 *            coordinate of the requested tile.
+	 *         coordinate of the requested tile.
 	 * @param y
-	 *            coordinate of the requested tile.
+	 *         coordinate of the requested tile.
 	 * @param alliance
-	 *            of the tile: player, hostile, neutral and friendly.
+	 *         of the tile: player, hostile, neutral and friendly.
 	 */
-	public GenericMapTile(float x, float y, Ally a, IntVec2 id) {
+	public GenericMapTile(float x, float y, Allegiance a, IntVec2 id) {
 		loadTextures();
-		tileX = x;
-		tileY = y;
+		posX = x;
+		posY = y;
 		tileID = id;
+		sizeX = sizeY = 100; // Tile size.
+		ally = a;
+		renderer = new ShapeRenderer();
+		// System.out.println("Position: " + posX + " " + posY);
 	}
 
-	/**
-	 * Will draw the map. At some point
-	 */
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.end();
+		renderer.setProjectionMatrix(batch.getProjectionMatrix());
+		renderer.setTransformMatrix(batch.getTransformMatrix());
+		renderer.translate(getX() / 2, getY() / 2, 0);
+
+		renderer.begin(ShapeType.Rectangle);
+		renderer.rect(posX, posY, sizeX, sizeY);
+		renderer.end();
+
 		batch.begin();
-		batch.draw(friendTile, tileX, tileY, 0, 0, 100, 100, 1, 1, 0);
+
+		switch (ally) {
+			case FRIENDLY:
+				batch.draw(res.getFriendTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case HOSTILE:
+				batch.draw(res.getHosTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case NEUTRAL:
+				batch.draw(res.getNeuTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case PLAYER:
+				batch.draw(res.getPlayTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			default:
+				Gdx.app.log(Settings.LOG, "Error displaying MapTile");
+				break;
+		}
 	}
 
 	/**
-	 * Loads the Tile TextureRegions from the atlas. Moved to the @ResourcePacker
-	 * in Prototype 1.0.5. Will eventually take care of all resource management.
+	 * Moved to the @ResourcePacker with Version P1.0.6
 	 */
 	@Deprecated
 	private void loadTextures() {
 
-		this.atlas = new TextureAtlas(
-				Gdx.files.internal("assets/map/prot-map-tiles.pack"));
+		this.atlas = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
 		hosTile = atlas.findRegion("prot-map-tile-hostile");
 		friendTile = atlas.findRegion("prot-map-tile-friend");
 		neuTile = atlas.findRegion("prot-map-tile-neutral");
 		playTile = atlas.findRegion("prot-map-tile-player");
-
 	}
 
 	/**
 	 * This will register clicks on the corresponding tile actor.
 	 * 
 	 * @param x
-	 *            position of mouse on screen.
+	 *         position of mouse on screen.
 	 * 
 	 * @param y
-	 *            position of mouse on screen.
+	 *         position of mouse on screen.
 	 * 
 	 * @param touchable
-	 *            Whether the actor allows touch events.
+	 *         Whether the actor allows touch events.
 	 * 
-	 * @return Actor to be displayed.
+	 * @return null
 	 */
 	@Override
 	public Actor hit(float x, float y, boolean touchable) {
 
-		if (touchable && getTouchable() == Touchable.enabled) {
-			if (Gdx.input.isTouched(0)) {
-				ScreenHandler.getHandler().setScreen(
-						new SystemScreen(ScreenHandler.getHandler(),
-								new Vector2(0, 0)));
-				System.out.println("TileID: " + this.tileID);
+		if (touchable && getTouchable() == Touchable.enabled)
+			{
+				if (Gdx.input.isTouched(0))
+					{
+						if (x > (this.posX - (this.sizeX)) && x < (this.posX + (this.sizeX)) && y > (this.posY - (this.sizeY)) && y < (this.posY + (this.sizeY)))
+							{
+								System.out.println(tileID);
+								ScreenHandler.getInstance().setScreen(new SystemScreen(ScreenHandler.getInstance(), tileID));
+							}
+					}
 			}
-		}
-
 		return null;
 	}
 
