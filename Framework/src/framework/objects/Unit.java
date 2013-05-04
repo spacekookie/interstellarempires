@@ -34,9 +34,46 @@ public class Unit extends MovingObject {
 		FLEET, SHIP, DEBRIS, PONY;
 	}
 
+	public static enum SIZE {
+		TINY, SMALL, MEDIUM, LARGE, MASSIVE;
+	}
+
 	private TYPE type;
 	private String flag;
 	private Player claim;
+	private int count;
+
+	public Unit() {
+		count = 1;
+	}
+
+	/**
+	 * Determines what icon size will be used for rendering.
+	 * 
+	 * @return enum for fleet SIZE.
+	 */
+	public SIZE getFleetSize() {
+		if (count < 10)
+			return SIZE.TINY;
+		if (count < 25)
+			return SIZE.SMALL;
+		if (count < 50)
+			return SIZE.MEDIUM;
+		if (count < 100)
+			return SIZE.LARGE;
+		if (count < 500)
+			return SIZE.MASSIVE;
+		else
+			return null;
+	}
+
+	public void addShip() {
+		count++;
+	}
+
+	public int getCount() {
+		return count;
+	}
 
 	public String getFlag() {
 		return flag;

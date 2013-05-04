@@ -21,8 +21,7 @@ import client.core.ScreenHandler;
 import client.screens.SystemScreen;
 import client.settings.Settings;
 import client.types.IntVec2;
-import client.util.ResourcePacker;
-import client.util.ResourcePacker.RENDER;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,15 +44,8 @@ public class GenericMapTile extends Actor implements Disposable {
 	private IntVec2 tileID;
 	private ALLEGIANCE ally;
 	private ShapeRenderer renderer;
-	private ResourcePacker res;
 
 	protected IntVec2 id = null;
-
-		/** Loads textures */
-		{
-			res = new ResourcePacker();
-			res.loadTextures(RENDER.HEXTILE);
-		}
 
 	/**
 	 * The constructor will set up the coordinates on which the tile will then be drawn. It's not so difficult O.o. Also includes the
@@ -91,19 +83,19 @@ public class GenericMapTile extends Actor implements Disposable {
 
 		switch (ally) {
 			case FRIENDLY:
-				batch.draw(res.getFriendTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.HEX_TILE_FRIEND, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case HOSTILE:
-				batch.draw(res.getHosTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.HEX_TILE_ENEMY, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case NEUTRAL:
-				batch.draw(res.getNeuTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.HEX_TILE_NEUTRAL, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case PLAYER:
-				batch.draw(res.getPlayTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.HEX_TILE_PLAYER, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			default:
@@ -148,7 +140,6 @@ public class GenericMapTile extends Actor implements Disposable {
 
 	@Override
 	public void dispose() {
-		res.dispose();
 	}
 
 }

@@ -20,7 +20,7 @@ import client.screens.LoginScreen;
 import client.screens.MenuScreen;
 import client.screens.TweenScreen;
 import client.settings.Settings;
-import client.util.ResourcePacker;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -48,7 +48,7 @@ public class ScreenHandler extends Game {
 	}
 
 	private void loadAssets() {
-		ResourcePacker pack = new ResourcePacker();
+		ResPack pack = new ResPack();
 		Gdx.app.log(Settings.LOG, "Textures loaded");
 	}
 

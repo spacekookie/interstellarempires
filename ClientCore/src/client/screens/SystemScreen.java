@@ -27,7 +27,7 @@ import client.objects.actors.GenericMapObject;
 import client.objects.groups.SolarMap;
 import client.settings.Settings;
 import client.types.IntVec2;
-import client.util.ResourcePacker;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -42,8 +42,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import framework.objects.Unit.TYPE;
 
 /**
- * This class will be called when the player clicked on a tile on the @HexMap. In the constructor the relevant data to identify a
- * solar system will be passed on as well as creating a layout around a solar system view.
+ * This class will be called when the player clicked on a tile on the @HexMap. In the constructor
+ * the relevant data to identify a solar system will be passed on as well as creating a layout
+ * around a solar system view.
  * 
  * @author ***REMOVED***
  * 
@@ -58,18 +59,19 @@ public class SystemScreen implements Screen {
 	private SolarMap map;
 	private Set<GenericMapObject> localGameObjects;
 
-	private int radius;
+	private float radius;
 
 	/** IMPORTANT **/
-	private ResourcePacker res;
 	private final String wallofText = "This is an example of how Textwrapping works!";
-	private final String wallofText2 = "To the left you see the solar map. It will display all actions in the selected solar system. On the right you will have several buttons that might come in handy when working with your units.";
+	private final String wallofText2 = "To the left you see the solar map. It will display all actions "
+			+ "in the selected solar system. On the right you will have several buttons that might come in handy"
+			+ " when working with your units.";
 
 	public SystemScreen(ScreenHandler handler, IntVec2 tileID) {
 		this.handler = handler;
 		this.tileID = tileID;
-		res = new ResourcePacker();
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR + ": " + tileID);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR
+				+ ": " + tileID);
 		// TODO: get System with ID
 		radius = MainClientLauncher.getSystemWithID(tileID).getRadius();
 
@@ -86,11 +88,6 @@ public class SystemScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
-
-		// if (Gdx.input.isButtonPressed(0))
-		// {
-		// System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
-		// }
 
 		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20 && Gdx.input.getY() < 580)
 			{
@@ -109,13 +106,17 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO: Replace with server request!
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO:
+																																																																																												// Replace
+																																																																																												// with
+																																																																																												// server
+																																																																																												// request!
 		stage.addActor(map);
 
 		back = new Table();
 		back.setFillParent(true);
 		stage.addActor(back);
-		backToMap = new TextButton("BACK", res.getUiSkin());
+		backToMap = new TextButton("BACK", ResPack.UI_SKIN);
 		back.add(backToMap).width(150);
 		back.row();
 		back.top().left();
@@ -125,10 +126,10 @@ public class SystemScreen implements Screen {
 		elements.setFillParent(true);
 		stage.addActor(elements);
 
-		TextButton kill = new TextButton("Destroy everything", res.getUiSkin());
-		TextButton refresh = new TextButton("Refresh", res.getUiSkin());
-		Label wall = new Label(wallofText, res.getUiSkin());
-		Label wall2 = new Label(wallofText2, res.getUiSkin());
+		TextButton kill = new TextButton("Destroy everything", ResPack.UI_SKIN);
+		TextButton refresh = new TextButton("Refresh", ResPack.UI_SKIN);
+		Label wall = new Label(wallofText, ResPack.UI_SKIN);
+		Label wall2 = new Label(wallofText2, ResPack.UI_SKIN);
 		wall.setWrap(true);
 		wall2.setWrap(true);
 

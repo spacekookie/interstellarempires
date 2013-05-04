@@ -20,7 +20,7 @@ package client.screens;
 import java.awt.Label;
 
 import client.core.ScreenHandler;
-import client.util.ResourcePacker;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -56,9 +56,9 @@ public class LoginScreen implements Screen {
 		table.setFillParent(true);
 		stage.addActor(table);
 
-		TextButton login = new TextButton("LOGIN", ResourcePacker.UI_SKIN);
-		TextField user = new TextField("User", ResourcePacker.UI_SKIN);
-		TextField pw = new TextField("PW", ResourcePacker.UI_SKIN);
+		TextButton login = new TextButton("LOGIN", ResPack.UI_SKIN);
+		TextField user = new TextField("User", ResPack.UI_SKIN);
+		TextField pw = new TextField("PW", ResPack.UI_SKIN);
 		pw.setPasswordMode(false);
 
 		table.add(user).width(200f);

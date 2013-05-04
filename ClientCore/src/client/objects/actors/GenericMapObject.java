@@ -17,31 +17,25 @@
 
 package client.objects.actors;
 
-import client.core.ScreenHandler;
-import client.screens.SystemScreen;
 import client.settings.Settings;
-import client.util.Find;
-import client.util.ResourcePacker;
-import client.util.ResourcePacker.RENDER;
+import client.util.ResPack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
-import framework.objects.GameObject;
-import framework.objects.Star.STARTYPE;
 import framework.objects.Unit.TYPE;
 import framework.players.Alliance;
 import framework.players.Alliance.ALLEGIANCE;
 import framework.players.Player;
 
 /**
- * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for specific shapes, sizes and
- * habits of objects.
+ * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for
+ * specific shapes, sizes and habits of objects.
  * 
  * @author ***REMOVED***
  * 
@@ -62,13 +56,14 @@ public class GenericMapObject extends Actor implements Disposable {
 	private ALLEGIANCE allegiance;
 	private boolean selected;
 
-	private ResourcePacker res;
+	/** Unit movement */
+	private Vector2 target, trajectory;
+
 	private ShapeRenderer renderer;
 
 		{
 			renderer = new ShapeRenderer();
-			res = new ResourcePacker();
-			res.loadTextures(RENDER.FLEET);
+			target = new Vector2();
 		}
 
 	public GenericMapObject getInstance() {
@@ -76,13 +71,13 @@ public class GenericMapObject extends Actor implements Disposable {
 	}
 
 	public GenericMapObject(float x, float y) {
-		this.posX = x;
-		this.posY = y;
+		this.target.x = x;
+		this.target.y = y;
 	}
 
 	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim, ALLEGIANCE allegience) {
-		this.posX = x;
-		this.posY = y;
+		this.target.x = x;
+		this.target.y = y;
 		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
@@ -95,12 +90,14 @@ public class GenericMapObject extends Actor implements Disposable {
 		batch.begin();
 		if (selected)
 			{
-				batch.draw(res.getFrame(), posX - 3, posY - 3, 0, 0, 70, 70, 1, 1, 0);
+				batch.draw(ResPack.GUI_SELECTION_BOX, target.x - 2, target.y - 2, 0, 0, ResPack.GUI_ELEMENT_SELECTION_SMALL,
+						ResPack.GUI_ELEMENT_SELECTION_SMALL, 1, 1, 0);
 			}
 
 		switch (type) {
 			case FLEET:
-				batch.draw(res.getFighterPlayer(), posX, posY, 0, 0, 64, 64, 1, 1, 0);
+				batch.draw(ResPack.FLEET_FIGHTER_PLAYER, target.x, target.y, 0, 0, ResPack.FLEET_FIGHTER_SIZE_SMALL,
+						ResPack.FLEET_FIGHTER_SIZE_SMALL, 1, 1, 0);
 				break;
 
 			default:
@@ -130,12 +127,22 @@ public class GenericMapObject extends Actor implements Disposable {
 	public Actor hit(float x, float y, boolean touchable) {
 		if (touchable && getTouchable() == Touchable.enabled)
 			{
-				if (Gdx.input.isTouched(0))
+				if (Gdx.input.isButtonPressed(1))
 					{
-						if (x > (this.posX - 64) && x < (this.posX + 64) && y > (this.posY - 64) && y < (this.posY + 64))
+						if (selected)
+							{
+								target.x = Gdx.input.getX();
+								target.y = Gdx.input.getY();
+								moveLocally();
+							}
+					} else if (Gdx.input.isTouched(0))
+					{
+						if (x > (this.target.x - ResPack.GUI_ELEMENT_SELECTION_SMALL)
+								&& x < (this.target.x + ResPack.GUI_ELEMENT_SELECTION_SMALL)
+								&& y > (this.target.y - ResPack.GUI_ELEMENT_SELECTION_SMALL)
+								&& y < (this.target.y + ResPack.GUI_ELEMENT_SELECTION_SMALL))
 							{
 								selected = true;
-								System.out.println("Selected: " + selected);
 							} else
 							{
 								selected = false;
@@ -145,9 +152,15 @@ public class GenericMapObject extends Actor implements Disposable {
 		return null;
 	}
 
+	private void moveLocally() {
+		Vector2 position = new Vector2(this.posX, this.posY);
+		trajectory = new Vector2(target.sub(position));
+		trajectory.nor();
+		position.add(trajectory.x, -trajectory.y);
+	}
+
 	@Override
 	public void dispose() {
-		res.dispose();
 	}
 
 }
