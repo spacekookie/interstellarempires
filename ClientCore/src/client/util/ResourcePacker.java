@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * Global resource loader for the game client. Will initialise and distribute all texture files.
+ * Global resource loader for the game client. Will initialize and distribute all texture files.
  * 
  * @author ***REMOVED***
  * 
@@ -40,7 +40,17 @@ public class ResourcePacker implements Disposable {
 	private ScreenHandler handler;
 	private TextureAtlas hexmap, solarmap;
 	private Skin uiSkin;
+	
+	/**
+     * Thats how I would do this class. @author Leander
+     * begin{example}
+	 */
+	private static final TextureAtlas hexmapEXAMPLE = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
 
+	public static final TextureRegion hosTileEXAMPLE = hexmapEXAMPLE.findRegion("prot-map-tile-hostile");
+	// ...
+	/** end{example} */
+	
 	public enum RENDER {
 		HEXTILE, STARS, FLEET, GUI;
 	}
