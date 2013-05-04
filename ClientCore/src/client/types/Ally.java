@@ -17,12 +17,13 @@ package client.types;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * This will be used by the client to determine how to colour code items on maps for the
- * player.
+ * This will be used by the client to determine how to colour code items on maps for the player. Moved to
+ * @Framework.Player.Alliance
  * 
  * @author ***REMOVED***
  * 
  */
+@Deprecated
 public class Ally {
 
 	private enum alliance {
@@ -32,8 +33,8 @@ public class Ally {
 	private alliance a;
 
 	/**
-	 * Will set the enum to @UNKNOWN which might occur in strange cases where the player has
-	 * been sent data by the server that he/she wasn't supposed to get.
+	 * Will set the enum to @UNKNOWN which might occur in strange cases where the player has been sent data by the server that he/she
+	 * wasn't supposed to get.
 	 */
 	public Ally() {
 		a = alliance.UNKNOWN;

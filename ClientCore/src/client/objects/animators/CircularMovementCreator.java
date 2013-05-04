@@ -15,34 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package client.objects.actors;
+package client.objects.animators;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
+import aurelienribon.tweenengine.TweenAccessor;
 
-import framework.players.Alliance;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for specific shapes, sizes and
- * habits of objects.
+ * Creates circular movement for celestial bodies and space stations.
  * 
  * @author ***REMOVED***
  * 
  */
-public class GenericMapObject extends Actor implements Disposable {
+public class CircularMovementCreator implements TweenAccessor<Sprite> {
 
-	/** The absolute position of the actor */
-	private float posX, posY;
-
-	/** Alliance of the object relative to the player */
-	private Alliance alliance;
-
-	public GenericMapObject(float x, float y, Alliance alliance) {
-
+	@Override
+	public int getValues(Sprite target, int tweenType, float[] returnValues) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public void dispose() {
+	public void setValues(Sprite target, int tweenType, float[] newValues) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

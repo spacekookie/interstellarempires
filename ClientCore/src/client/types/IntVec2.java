@@ -21,8 +21,8 @@ import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.utils.NumberUtils;
 
 /**
- * My own integer implementation of the Vector2 class from LibGDX. And my
- * professors told me my vector skills were insufficiant :')
+ * My own integer implementation of the Vector2 class from LibGDX. And my professors told me my vector skills were insufficiant
+ * :')
  * 
  * @author ***REMOVED***
  * 
@@ -42,9 +42,9 @@ public class IntVec2 {
 	 * Constructs a vector with the given components
 	 * 
 	 * @param x
-	 *            The x-component
+	 *         The x-component
 	 * @param y
-	 *            The y-component
+	 *         The y-component
 	 */
 	public IntVec2(int x, int y) {
 		this.x = x;
@@ -55,7 +55,7 @@ public class IntVec2 {
 	 * Constructs a vector from the given vector
 	 * 
 	 * @param v
-	 *            The vector
+	 *         The vector
 	 */
 	public IntVec2(IntVec2 v) {
 		set(v);
@@ -75,7 +75,7 @@ public class IntVec2 {
 	 * Sets this vector from the given vector
 	 * 
 	 * @param v
-	 *            The vector
+	 *         The vector
 	 * @return This vector for chaining
 	 */
 	public IntVec2 set(IntVec2 v) {
@@ -88,9 +88,9 @@ public class IntVec2 {
 	 * Sets the components of this vector
 	 * 
 	 * @param x
-	 *            The x-component
+	 *         The x-component
 	 * @param y
-	 *            The y-component
+	 *         The y-component
 	 * @return This vector for chaining
 	 */
 	public IntVec2 set(int x, int y) {
@@ -103,7 +103,7 @@ public class IntVec2 {
 	 * Substracts the given vector from this vector.
 	 * 
 	 * @param v
-	 *            The vector
+	 *         The vector
 	 * @return This vector for chaining
 	 */
 	public IntVec2 substract(IntVec2 v) {
@@ -119,10 +119,11 @@ public class IntVec2 {
 	 */
 	public IntVec2 normalize() {
 		int length = (int) length();
-		if (length != 0) {
-			x /= length;
-			y /= length;
-		}
+		if (length != 0)
+			{
+				x /= length;
+				y /= length;
+			}
 		return this;
 	}
 
@@ -130,7 +131,7 @@ public class IntVec2 {
 	 * Adds the given vector to this vector
 	 * 
 	 * @param v
-	 *            The vector
+	 *         The vector
 	 * @return This vector for chaining
 	 */
 	public IntVec2 add(IntVec2 v) {
@@ -143,9 +144,9 @@ public class IntVec2 {
 	 * Adds the given components to this vector
 	 * 
 	 * @param x
-	 *            The x-component
+	 *         The x-component
 	 * @param y
-	 *            The y-component
+	 *         The y-component
 	 * @return This vector for chaining
 	 */
 	public IntVec2 add(int x, int y) {
@@ -156,7 +157,7 @@ public class IntVec2 {
 
 	/**
 	 * @param v
-	 *            The other vector
+	 *         The other vector
 	 * @return The dot product between this and the other vector
 	 */
 	public float dot(IntVec2 v) {
@@ -167,7 +168,7 @@ public class IntVec2 {
 	 * Multiplies this vector by a scalar
 	 * 
 	 * @param scalar
-	 *            The scalar
+	 *         The scalar
 	 * @return This vector for chaining
 	 */
 	public IntVec2 mult(int scalar) {
@@ -200,16 +201,16 @@ public class IntVec2 {
 	}
 
 	public String toString() {
-		return "[" + x + "|" + y + "]";
+		return "[" + x + " | " + y + "]";
 	}
 
 	/**
 	 * Substracts the other vector from this vector.
 	 * 
 	 * @param x
-	 *            The x-component of the other vector
+	 *         The x-component of the other vector
 	 * @param y
-	 *            The y-component of the other vector
+	 *         The y-component of the other vector
 	 * @return This vector for chaining
 	 */
 	public IntVec2 substract(float x, float y) {
@@ -222,7 +223,7 @@ public class IntVec2 {
 	 * Multiplies this vector by the given matrix
 	 * 
 	 * @param mat
-	 *            the matrix
+	 *         the matrix
 	 * @return this vector
 	 */
 	public IntVec2 mult(Matrix3 mat) {
@@ -237,7 +238,7 @@ public class IntVec2 {
 	 * Calculates the cross product between this and the given vector.
 	 * 
 	 * @param v
-	 *            the other vector
+	 *         the other vector
 	 * @return the cross product
 	 */
 	public float cross(IntVec2 v) {
@@ -248,9 +249,9 @@ public class IntVec2 {
 	 * Calculates the cross product between this and the given vector.
 	 * 
 	 * @param x
-	 *            the x-coordinate of the other vector
+	 *         the x-coordinate of the other vector
 	 * @param y
-	 *            the y-coordinate of the other vector
+	 *         the y-coordinate of the other vector
 	 * @return the cross product
 	 */
 	public float cross(int x, int y) {
@@ -266,11 +267,9 @@ public class IntVec2 {
 		if (getClass() != obj.getClass())
 			return false;
 		IntVec2 other = (IntVec2) obj;
-		if (NumberUtils.floatToIntBits(x) != NumberUtils
-				.floatToIntBits(other.x))
+		if (NumberUtils.floatToIntBits(x) != NumberUtils.floatToIntBits(other.x))
 			return false;
-		if (NumberUtils.floatToIntBits(y) != NumberUtils
-				.floatToIntBits(other.y))
+		if (NumberUtils.floatToIntBits(y) != NumberUtils.floatToIntBits(other.y))
 			return false;
 		return true;
 	}

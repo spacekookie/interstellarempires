@@ -20,17 +20,23 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.Find;
+import client.util.ResourcePacker;
 
 import com.apple.eawt.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
+import framework.map.SolarSystem;
+import framework.objects.Star;
+import framework.objects.Star.StarType;
+
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialise the
- * SplashScreen! Further functionality might be added in the future
+ * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be added in the
+ * future
  * 
  * @author: ***REMOVED***
  */
@@ -46,14 +52,58 @@ public class MainClientLauncher {
 		cfg.initialBackgroundColor = Color.BLACK;
 
 		/** Sets the Application Icon for different operating systems */
-		if (System.getProperty("os.name").equals("Mac OS X")) {
-			Application app = Application.getApplication();
-			Image image = Toolkit.getDefaultToolkit().getImage(
-					"assets/icons/launcher.png");
-			app.setDockIconImage(image);
-		}
+		if (System.getProperty("os.name").equals("Mac OS X"))
+			{
+				Application app = Application.getApplication();
+				Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+				app.setDockIconImage(image);
+			}
 
 		new LwjglApplication(new ScreenHandler(), cfg);
+		MainClientLauncher m = new MainClientLauncher();
+		m.initSystems();
+	}
 
+	/** Creating two example solar systems */
+
+	static SolarSystem s1;
+	static SolarSystem s2;
+	static SolarSystem s3;
+
+	void initSystems() {
+		s1 = new SolarSystem();
+		s1.setStar(new Star());
+		s1.getStar().setType(StarType.BROWNDWARF);
+		s1.setRadius(150);
+		s1.setSovereignty(null);
+
+		/** 2nd system */
+
+		s2 = new SolarSystem();
+		s2.setStar(new Star());
+		s2.getStar().setType(StarType.BLUEGIANT);
+		s2.setRadius(280);
+		s2.setSovereignty(null);
+
+		/** 3nd system */
+
+		s3 = new SolarSystem();
+		s3.setStar(new Star());
+		s3.getStar().setType(StarType.REDDWARF);
+		s3.setRadius(220);
+		s3.setSovereignty(null);
+	}
+
+	public static SolarSystem getSystemWithID(IntVec2 systemID) {
+		if (systemID.equals(new IntVec2(0, 0)))
+			{
+				return s1;
+			} else if (systemID.equals(new IntVec2(0, 1)))
+			{
+				return s2;
+			} else
+			{
+				return s3;
+			}
 	}
 }

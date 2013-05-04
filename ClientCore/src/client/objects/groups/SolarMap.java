@@ -18,8 +18,11 @@ package client.objects.groups;
 
 import java.util.Set;
 
-import framework.map.SolarSystem;
-import framework.objects.GameObject;
+import client.core.ScreenHandler;
+import client.screens.TestScreen;
+import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.Find;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,44 +30,64 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
+import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
+
+import framework.map.SolarSystem;
+import framework.objects.GameObject;
+import framework.objects.Star.StarType;
 
 /**
- * Counterpart to the @HexMap. Will display a solarsystem to the player.
- * Extending the Group instead of the Actor to hold own Actor instances
+ * Counterpart to the @HexMap. Will display a solarsystem to the player. Extending the Group instead of the Actor to hold own
+ * Actor instances
  * 
  * @author ***REMOVED***
  * 
  */
 public class SolarMap extends Group implements Disposable {
 
-	private Vector2 tileID;
+	private IntVec2 tileID;
 	private SolarSystem system;
 	private TextureAtlas atlas;
-	private TextureRegion fleet;
+	private TextureRegion star;
 	private ShapeRenderer renderer;
+	private int offset;
+	private StarType starType;
+
+		/**
+		 * Stuff that needs to be done no matter what constructor is called ^_^
+		 */
+		{
+			offset = 100;
+			renderer = new ShapeRenderer();
+			atlas = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
+			star = atlas.findRegion("prot-star-browndwarf"); // TODO: Change this to respond to the @starType.
+		}
 
 	/**
 	 * 
 	 * @param TileID
-	 *            The id of the tile in the map as a 2-dimensional vector
+	 *         The id of the tile in the map as a 2-dimensional vector
 	 * @param system
-	 *            The absolute solarsystem data from the framework.
+	 *         The absolute solarsystem data from the framework.
 	 */
-	public SolarMap(Vector2 tileID, SolarSystem system) {
+	public SolarMap(IntVec2 tileID, SolarSystem solar) {
 		this.tileID = tileID;
-		this.system = system;
-		renderer = new ShapeRenderer();
+		if (solar != null)
+			{
+				system = solar;
+
+				starType = solar.getStar().getType();
+
+			} else
+			{
+				Gdx.app.log(Settings.LOG, "FATAL ERROR RECEIVING MAP INFORMATION: " + tileID);
+			}
 	}
 
-	public SolarMap(Vector2 tileID) {
+	public SolarMap(IntVec2 tileID) {
 		this.tileID = tileID;
-		atlas = new TextureAtlas(
-				Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
-		fleet = atlas.findRegion("prot-fleet-fighter-player");
-		renderer = new ShapeRenderer();
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -72,23 +95,34 @@ public class SolarMap extends Group implements Disposable {
 		batch.end();
 		renderer.setProjectionMatrix(batch.getProjectionMatrix());
 		renderer.setTransformMatrix(batch.getTransformMatrix());
-		// renderer.translate(getX() / 2, getY() / 2, 0);
+		renderer.translate(getX() / 2, getY() / 2, 0);
 
 		renderer.begin(ShapeType.Circle);
-		renderer.circle(500, 400, 500); // TODO: Get solarsystem radius
-		// from Framework. Somehow.
+
+		renderer.circle((Gdx.graphics.getWidth() / 2) - offset, Gdx.graphics.getHeight() / 2, system.getRadius());
 		renderer.end();
 		batch.begin();
 
-		if (tileID.equals(new Vector2(0, 0)))
-			batch.draw(fleet, 200, 200, 200, 200, 128, 128, 1, 1, 0);
+		switch (starType) {
+			case BROWNDWARF:
+				batch.draw(star, Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 50, 50, 1, 1, 0);
+				break;
+
+			case BLUEGIANT:
+				batch.draw(star, Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 75, 75, 1, 1, 0);
+				break;
+
+			default:
+				break;
+		}
+
 	}
 
 	/**
 	 * Will be called to update the map view with current data.
 	 * 
 	 * @param o
-	 *            A set of all @GameObject instances in the system.
+	 *         A set of all @GameObject instances in the system.
 	 */
 	public void updateData(Set<GameObject> o) {
 

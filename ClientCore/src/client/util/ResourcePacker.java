@@ -1,7 +1,5 @@
-package client.util;
-
 /* 
- * Copyright (c) 2012 ***REMOVED***
+ * Copyright (c) 2013 ***REMOVED***
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +15,8 @@ package client.util;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package client.util;
+
 import client.core.ScreenHandler;
 
 import com.badlogic.gdx.Gdx;
@@ -24,44 +24,106 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+/**
+ * Global resource loader for the game client. Will initialise and distribute all texture files.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+@SuppressWarnings("unused")
 public class ResourcePacker {
 
 	private ScreenHandler handler;
-	private TextureAtlas atlas;
+	private TextureAtlas hexmap, solarmap;
 	private Skin uiSkin;
 
+	/** Tile regions */
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
 
-	/**
-	 * Initialises the types
-	 * 
-	 * @param handler
-	 */
+	/** Solar regions */
+	private TextureRegion fighterAlly, fighterHostile, fighterPlayer;
+	private TextureRegion starBrownDwarf, starRedDwarf, starNeutron;
+
+		{
+			uiSkin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
+			hexmap = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
+			solarmap = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
+		}
+
+	/** ScreenHandler for constructor */
 	public ResourcePacker(ScreenHandler handler) {
 		this.handler = handler;
-		uiSkin = new Skin();
 	}
 
+	/** Empty constructor */
 	public ResourcePacker() {
-
-		atlas = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
-	}
-
-	public void loadTextures() {
-
-		// See what I did there? ;)
-		hosTile = atlas.findRegion("prot-map-tile-hostile");
-		friendTile = atlas.findRegion("prot-map-tile-friend");
-		neuTile = atlas.findRegion("prot-map-tile-neutral");
-		playTile = atlas.findRegion("prot-map-tile-player");
 
 	}
 
 	/**
-	 * Loads all resources from files
+	 * Loads textures from atlas files. TODO: Replace with smart algorithm
 	 */
-	public void loadResources() {
+	public void loadTextures() {
 
+		// Tile regions //
+		hosTile = hexmap.findRegion("prot-map-tile-hostile");
+		friendTile = hexmap.findRegion("prot-map-tile-friend");
+		neuTile = hexmap.findRegion("prot-map-tile-neutral");
+		playTile = hexmap.findRegion("prot-map-tile-player");
+
+		// Fleet regions //
+		fighterAlly = solarmap.findRegion("prot-fleet-fighter-ally");
+		fighterHostile = solarmap.findRegion("prot-fleet-fighter-hostile");
+		fighterPlayer = solarmap.findRegion("prot-fleet-fighter-player");
+
+		// Star regions //
+		starBrownDwarf = solarmap.findRegion("prot-star-browndwarf");
+		starRedDwarf = solarmap.findRegion("prot-star-reddwarf");
+		starNeutron = solarmap.findRegion("prot-star-neutron");
+	}
+
+	public Skin getUiSkin() {
+		return uiSkin;
+	}
+
+	public TextureRegion getHosTile() {
+		return hosTile;
+	}
+
+	public TextureRegion getFriendTile() {
+		return friendTile;
+	}
+
+	public TextureRegion getNeuTile() {
+		return neuTile;
+	}
+
+	public TextureRegion getPlayTile() {
+		return playTile;
+	}
+
+	public TextureRegion getFighterAlly() {
+		return fighterAlly;
+	}
+
+	public TextureRegion getFighterHostile() {
+		return fighterHostile;
+	}
+
+	public TextureRegion getFighterPlayer() {
+		return fighterPlayer;
+	}
+
+	public TextureRegion getStarBrownDwarf() {
+		return starBrownDwarf;
+	}
+
+	public TextureRegion getStarRedDwarf() {
+		return starRedDwarf;
+	}
+
+	public TextureRegion getStarNeutron() {
+		return starNeutron;
 	}
 
 }

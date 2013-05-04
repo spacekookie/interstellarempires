@@ -29,91 +29,118 @@ import java.util.Set;
  */
 public class Alliance {
 
-  private Set<Player> members;
-
-  private String name;
-
-  private Map<Role, Set<Player>> permissions;
-
-  private String tag;
-
-  /**
-   * Create a new alliance.
-   * 
-   * @param name
-   * @param tag
-   */
-  public Alliance(String name, String tag) {
-	this.name = name;
-	this.tag = tag;
-  }
-
-  /**
-   * Add a new player to the alliance.
-   * 
-   * @param player
-   */
-  public void addPlayer(Player player) {
-	members.add(player);
-  }
-
-  /**
-   * Add a player to an existing rule. Make sure the rule exits
-   * 
-   * @param player
-   * @param role
-   */
-  public void addPlayerToRole(Player player, Role role) {
-	if (permissions.containsKey(role)) {
-	  permissions.get(role).add(player);
+	public enum Allegiance {
+		PLAYER, HOSTILE, NEUTRAL, FRIENDLY, UNKNOWN;
 	}
-	else {
-	  // Log the failed attempt to add a player to a role that did not exist.
+
+	private Set<Player> members;
+
+	private String name;
+
+	private Map<Role, Set<Player>> permissions;
+
+	private String tag;
+
+	private Allegiance allegiance; // Only used by game client.
+
+	/**
+	 * Create a new alliance.
+	 * 
+	 * @param name
+	 * @param tag
+	 */
+	public Alliance(String name, String tag) {
+		this.name = name;
+		this.tag = tag;
 	}
-  }
 
-  /**
-   * Add a new possible role to the alliance
-   * 
-   * @param role
-   */
-  public void addRole(Role role) {
-	if (!permissions.containsKey(role)) {
-	  permissions.put(role, new HashSet<Player>());
+	/**
+	 * Debugging contructor
+	 * 
+	 * @param a
+	 *         object allegiance relative to the player.
+	 */
+	public Alliance(Allegiance a) {
+		this.allegiance = a;
 	}
-	else {
-	  // Log the failed attempt to add an existing rule.
+
+	/**
+	 * Debug method.
+	 * 
+	 * @return object allegiance, relative to the player.
+	 */
+	public Allegiance getAllegiance() {
+		return allegiance;
 	}
-  }
 
-  /**
-   * @return the name
-   */
-  public String getName() {
-	return name;
-  }
+	/**
+	 * Add a new player to the alliance.
+	 * 
+	 * @param player
+	 */
+	public void addPlayer(Player player) {
+		members.add(player);
+	}
 
-  /**
-   * @return the tag
-   */
-  public String getTag() {
-	return tag;
-  }
+	/**
+	 * Add a player to an existing rule. Make sure the rule exits
+	 * 
+	 * @param player
+	 * @param role
+	 */
+	public void addPlayerToRole(Player player, Role role) {
+		if (permissions.containsKey(role))
+			{
+				permissions.get(role).add(player);
+			} else
+			{
+				// Log the failed attempt to add a player to a role that did not exist.
+			}
+	}
 
-  /**
-   * @param name
-   *          the name to set
-   */
-  public void setName(String name) {
-	this.name = name;
-  }
+	/**
+	 * Add a new possible role to the alliance
+	 * 
+	 * @param role
+	 */
+	public void addRole(Role role) {
+		if (!permissions.containsKey(role))
+			{
+				permissions.put(role, new HashSet<Player>());
+			} else
+			{
+				// Log the failed attempt to add an existing rule.
+			}
+	}
 
-  /**
-   * @param tag
-   *          the tag to set
-   */
-  public void setTag(String tag) {
-	this.tag = tag;
-  }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the tag
+	 */
+	public String getTag() {
+		return tag;
+	}
+
+	/**
+	 * @param name
+	 *         the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param tag
+	 *         the tag to set
+	 */
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 }

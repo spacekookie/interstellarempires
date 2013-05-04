@@ -27,8 +27,7 @@ import framework.players.Player;
 /**
  * Object holding solar-system information.
  * 
- * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable
- * inside.
+ * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable inside.
  * 
  * @author ***REMOVED***
  * 
@@ -42,9 +41,52 @@ public class SolarSystem {
 	private Star star;
 	private int radius;
 
-	/** @return: the systems radius for rendering and maths */
+	/** @return: the systems radius for rendering and calculations. */
 	public int getRadius() {
 		return radius;
 	}
 
+	/**
+	 * Sets the radius.
+	 * 
+	 * @param r
+	 *         the systems radius for rendering and calculations.
+	 */
+	public void setRadius(int r) {
+		this.radius = r;
+	}
+
+	/** @return: the systems star details. */
+	public Star getStar() {
+		return star;
+	}
+
+	/**
+	 * Sets the star.
+	 * 
+	 * @param s
+	 *         the systems star details.
+	 */
+	public void setStar(Star s) {
+		this.star = s;
+	}
+
+	/** @return: the systems owner if exists. */
+	public Player getSovereignty() {
+		// TODO: Kann man das in eine Zeile abkürzen? Mir irgendwelchem fancy Syntax? :P
+		if (claimed != null)
+			return claimed;
+		else
+			return null;
+	}
+
+	/**
+	 * Sets the owning player of a system.
+	 * 
+	 * @param p
+	 *         the owning player. @Null if system is neutral.
+	 */
+	public void setSovereignty(Player p) {
+		this.claimed = p;
+	}
 }
