@@ -18,8 +18,12 @@ package client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.HashSet;
+import java.util.Set;
+
 import client.core.MainClientLauncher;
 import client.core.ScreenHandler;
+import client.objects.actors.GenericMapObject;
 import client.objects.groups.SolarMap;
 import client.settings.Settings;
 import client.types.IntVec2;
@@ -34,6 +38,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import framework.objects.Unit.TYPE;
 
 /**
  * This class will be called when the player clicked on a tile on the @HexMap. In the constructor the relevant data to identify a
@@ -50,6 +56,7 @@ public class SystemScreen implements Screen {
 	private TextButton backToMap;
 	private IntVec2 tileID;
 	private SolarMap map;
+	private Set<GenericMapObject> localGameObjects;
 
 	private int radius;
 
@@ -63,7 +70,14 @@ public class SystemScreen implements Screen {
 		this.tileID = tileID;
 		res = new ResourcePacker();
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR + ": " + tileID);
+		// TODO: get System with ID
 		radius = MainClientLauncher.getSystemWithID(tileID).getRadius();
+
+		// TODO: Set<Unit> = solar.getUnits();
+
+		localGameObjects = new HashSet<GenericMapObject>();
+		localGameObjects.add(new GenericMapObject(200f, 200f, TYPE.FLEET, "SampleFleet", null, null));
+
 	}
 
 	@Override
@@ -95,7 +109,7 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID)); // TODO: Replace with server request!
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO: Replace with server request!
 		stage.addActor(map);
 
 		back = new Table();
@@ -129,6 +143,16 @@ public class SystemScreen implements Screen {
 		elements.top().right();
 		elements.setX(-50);
 		elements.setY(-50);
+
+		kill.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				localGameObjects.clear();
+			}
+		});
 
 		back.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

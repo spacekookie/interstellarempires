@@ -40,17 +40,19 @@ public class ResourcePacker implements Disposable {
 	private ScreenHandler handler;
 	private TextureAtlas hexmap, solarmap, selected;
 	private Skin uiSkin;
-	
+
 	/**
-     * Thats how I would do this class. @author Leander
-     * begin{example}
+	 * Thats how I would do this class. @author Leander begin{example}
 	 */
 	private static final TextureAtlas hexmapEXAMPLE = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
 
 	public static final TextureRegion hosTileEXAMPLE = hexmapEXAMPLE.findRegion("prot-map-tile-hostile");
-	// ...
+
+	public static final Skin UI_SKIN = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
+
+	// TODO: stuff
 	/** end{example} */
-	
+
 	public enum RENDER {
 		HEXTILE, STARS, FLEET, GUI;
 	}

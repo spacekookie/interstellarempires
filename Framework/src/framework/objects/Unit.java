@@ -30,7 +30,7 @@ import framework.players.Player;
 public class Unit extends MovingObject {
 
 	/** For testing only */
-	public enum TYPE {
+	public static enum TYPE {
 		FLEET, SHIP, DEBRIS, PONY;
 	}
 

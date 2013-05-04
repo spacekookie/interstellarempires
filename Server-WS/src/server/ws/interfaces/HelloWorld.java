@@ -26,7 +26,5 @@ public interface HelloWorld {
   @WebMethod
   public String sayHello(String name);
   
-  @WebMethod 
-  public Integer registerUser(String username);
   
 }

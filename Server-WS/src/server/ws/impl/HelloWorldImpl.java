@@ -30,10 +30,5 @@ public class HelloWorldImpl implements HelloWorld {
 
   }
 
-  @Override
-  @WebMethod
-  public Integer registerUser(String username) {
-	Integer session = sessionManager.registerSession(new Player(username));
-	return session;
-  }
+ 
 }

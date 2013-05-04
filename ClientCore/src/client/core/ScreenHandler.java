@@ -16,6 +16,7 @@
  */
 package client.core;
 
+import client.screens.LoginScreen;
 import client.screens.MenuScreen;
 import client.screens.TweenScreen;
 import client.settings.Settings;
@@ -60,7 +61,7 @@ public class ScreenHandler extends Game {
 		if (!Settings.skipIntro)
 			setScreen(new TweenScreen(this));
 		else
-			setScreen(new MenuScreen(this));
+			setScreen(new LoginScreen(this));
 	}
 
 	@Override
