@@ -25,6 +25,8 @@ import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import server.ws.interfaces.SessionManagerLocal;
+
 import framework.players.Player;
 
 /**
@@ -35,7 +37,7 @@ import framework.players.Player;
  */
 @Startup
 @Singleton
-public class SessionManager {
+public class SessionManager implements SessionManagerLocal {
 
   private Integer nextFree;
   private PriorityQueue<Integer> freeIDs;

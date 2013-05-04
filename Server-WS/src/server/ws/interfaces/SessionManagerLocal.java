@@ -17,16 +17,19 @@
 
 package server.ws.interfaces;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import server.ws.core.SessionManager;
+import framework.players.Player;
 
-@WebService(targetNamespace = "http://leandersabel.de")
-public interface HelloWorld {
+/**
+ * Local Interface to {@link SessionManager}.
+ * 
+ * @author Leander
+ * 
+ */
+public interface SessionManagerLocal {
 
-  @WebMethod
-  public String sayHello(String name);
-  
-  @WebMethod 
-  public Integer registerUser(String username);
-  
+  public Integer registerSession(Player player);
+
+  public boolean unregisterSession(Integer sessionID);
+
 }
