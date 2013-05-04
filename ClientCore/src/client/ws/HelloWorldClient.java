@@ -41,6 +41,7 @@ public class HelloWorldClient implements HelloWorld {
 		Service service = Service.create(wsdlUrl, serviceName);
 		helloWorldService = service.getPort(HelloWorld.class);
 		assert (helloWorldService != null);
+		
 
 		System.out.println(helloWorldService.sayHello("Bob"));
 		
