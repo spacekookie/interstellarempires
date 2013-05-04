@@ -17,6 +17,7 @@
 
 package client.ws;
 
+import javax.jws.WebMethod;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -42,6 +43,12 @@ public class HelloWorldClient implements HelloWorld {
 		assert (helloWorldService != null);
 
 		System.out.println(helloWorldService.sayHello("Bob"));
+		
+		System.out.println("Your session ID is: ");
+		System.out.println(helloWorldService.registerUser("Bob"));
+		
+		System.out.println("Your session ID is: ");
+		System.out.println(helloWorldService.registerUser("Steve"));
 	}
 
 	@Override
@@ -52,6 +59,13 @@ public class HelloWorldClient implements HelloWorld {
 
 	public static void main(String[] args) throws MalformedURLException {
 		HelloWorldClient client = new HelloWorldClient(new URL("http://localhost:8080/Server-WS/HelloWorld?wsdl"));
+	}
+
+	@Override
+	@WebMethod
+	public Integer registerUser(String username) {
+	  // TODO Auto-generated method stub
+	  return null;
 	}
 
 }
