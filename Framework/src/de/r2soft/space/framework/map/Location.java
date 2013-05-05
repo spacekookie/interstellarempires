@@ -15,8 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.modules;
+package de.r2soft.space.framework.map;
 
-public class Propulsion extends Module {
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+public class Location {
+
+  private Vector2D pos;
+
+  public Location(Vector2D pos) {
+	this.pos = pos;
+  }
+
+  public double getX() {
+	return pos.getX();
+  }
+
+  public double getY() {
+	return pos.getY();
+  }
 
 }

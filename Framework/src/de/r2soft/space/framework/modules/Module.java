@@ -15,8 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.objects;
+package de.r2soft.space.framework.modules;
 
-public class Structure extends PlayerObject {
+public abstract class Module {
+
+	private boolean destroyed;
+
+	/**
+	 * @return the destroyed
+	 */
+	public boolean isDestroyed() {
+		return destroyed;
+	}
+
+	/**
+	 * @param destroyed
+	 *            the destroyed to set
+	 */
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
 
 }

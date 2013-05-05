@@ -24,8 +24,9 @@ import javax.ejb.Startup;
 
 import org.apache.log4j.Logger;
 
+import de.r2soft.space.framework.util.UtilFactory;
 
-import framework.util.UtilFactory;
+
 
 import server.core.Server;
 import server.ws.interfaces.ServerWSLocal;

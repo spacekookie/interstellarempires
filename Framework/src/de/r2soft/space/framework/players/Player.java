@@ -15,24 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+package de.r2soft.space.framework.players;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+public class Player {
 
-public class Location {
+	private boolean admin;
+	private String name;
 
-  private Vector2D pos;
+	public Player(String name) {
+		this.name = name;
+	}
 
-  public Location(Vector2D pos) {
-	this.pos = pos;
-  }
+	public void setPony(boolean admin) {
+		this.admin = admin;
+	}
 
-  public double getX() {
-	return pos.getX();
-  }
-
-  public double getY() {
-	return pos.getY();
-  }
+	public boolean isAdmin() {
+		return admin;
+	}
 
 }

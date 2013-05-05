@@ -15,14 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.modules;
+package de.r2soft.space.framework.modules;
 
-/**
- * WEAPONS TO MAXIMUM!
- * @author Katharina
- *
- */
-
-public class Weapon extends Module {
+public class Propulsion extends Module {
 
 }

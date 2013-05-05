@@ -17,8 +17,6 @@
 
 package de.r2soft.space.client.screens;
 
-import java.awt.Label;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;

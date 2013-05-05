@@ -19,9 +19,9 @@
 /**
  * 
  */
-package framework.objects;
+package de.r2soft.space.framework.objects;
 
-import framework.players.Player;
+import de.r2soft.space.framework.players.Player;
 
 /**
  * @author Leander

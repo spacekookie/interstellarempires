@@ -25,9 +25,10 @@ import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import de.r2soft.space.framework.players.Player;
+
 import server.ws.interfaces.SessionManagerLocal;
 
-import framework.players.Player;
 
 /**
  * This class manages the sessions used for connecting users.

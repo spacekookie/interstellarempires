@@ -20,7 +20,8 @@ package server.core;
 
 import org.apache.log4j.Logger;
 
-import framework.util.UtilFactory;
+import de.r2soft.space.framework.util.UtilFactory;
+
 
 
 

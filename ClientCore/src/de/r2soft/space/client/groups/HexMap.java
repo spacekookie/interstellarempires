@@ -32,9 +32,9 @@ import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.screens.MenuScreen;
 import de.r2soft.space.client.types.IntVec2;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 
-import framework.map.SolarSystem;
-import framework.players.Alliance.ALLEGIANCE;
 
 /**
  * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile

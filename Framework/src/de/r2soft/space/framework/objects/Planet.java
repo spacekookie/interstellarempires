@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2013 Leander Sabel
+ * Copyright (c) 2012 Leander Sabel
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.util;
+package de.r2soft.space.framework.objects;
 
-import org.apache.log4j.Logger;
+public class Planet extends GameObject {
 
-
-public class UtilFactory {
-
-  /**
-   * Create a simple logger for the given object.
-   * 
-   * @param obj
-   * @return
-   */
-  public static Logger createLogger(Object obj) {
-	return Logger.getLogger(obj.getClass().getName());
-  }
+	// The radius at which the planet orbits the star
+	private double radius;
+	private double mass;
 
 }

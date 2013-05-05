@@ -18,49 +18,25 @@
 /**
  * 
  */
-package framework.objects;
+package de.r2soft.space.framework.objects;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
- * An object that can be moved by a player
+ * @author Leander
  * 
  */
-public abstract class MovingObject extends PlayerObject {
+public abstract class GameObject {
 
-  private Vector2D trajectory;
+	private double size;
+	private Vector2D position;
 
-  // TODO: LibGDX arbeitet sehr viel mit floats. Sollen wir uns da einreihen und solche Werte auch als floats definieren?
-  private Double speed;
+	public Vector2D getPosition() {
+		return position;
+	}
 
-  /**
-   * @return the trajectory
-   */
-  public Vector2D getTrajectory() {
-	return trajectory;
-  }
-
-  /**
-   * @param trajectory
-   *          the trajectory to set
-   */
-  public void setTrajectory(Vector2D trajectory) {
-	this.trajectory = trajectory;
-  }
-
-  /**
-   * @return the speed
-   */
-  public Double getSpeed() {
-	return speed;
-  }
-
-  /**
-   * @param speed
-   *          the speed to set
-   */
-  public void setSpeed(Double speed) {
-	this.speed = speed;
-  }
+	public void setPosition(Vector2D vec) {
+		this.position = vec;
+	}
 
 }

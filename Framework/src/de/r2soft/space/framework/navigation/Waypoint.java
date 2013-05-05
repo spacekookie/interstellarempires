@@ -15,15 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package framework.objects;
+package de.r2soft.space.framework.navigation;
 
-/**
- * @author Leander
- *
- */
-public class PlayerObject extends GameObject {
+public class Waypoint {
 
 }

@@ -15,28 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package framework.objects;
+package de.r2soft.space.framework.navigation;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import java.util.ArrayList;
 
-/**
- * @author Leander
- * 
- */
-public abstract class GameObject {
+public class Route {
 
-	private double size;
-	private Vector2D position;
-
-	public Vector2D getPosition() {
-		return position;
-	}
-
-	public void setPosition(Vector2D vec) {
-		this.position = vec;
-	}
-
+  ArrayList<Waypoint> route;
+  
 }
