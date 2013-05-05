@@ -17,7 +17,6 @@
 
 package de.r2soft.space.client.actors;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,11 +32,9 @@ import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.client.util.ResPack.RENDER;
-
 import framework.players.Alliance.ALLEGIANCE;
 
-public class GenericMapTile extends Actor implements Disposable {
+public class GenericMapTile extends Actor {
 
 	private TextureAtlas atlas; // Holds all Tile textures
 	private TextureRegion hosTile, friendTile, neuTile, playTile;
@@ -50,15 +47,9 @@ public class GenericMapTile extends Actor implements Disposable {
 
 	protected IntVec2 id = null;
 
-		/** Loads textures */
-		{
-			res = new ResPack();
-			res.loadTextures(RENDER.HEXTILE);
-		}
-
 	/**
-	 * The constructor will set up the coordinates on which the tile will then be drawn. It's not so
-	 * difficult O.o. Also includes the alliance of the tile.
+	 * The constructor will set up the coordinates on which the tile will then be
+	 * drawn. It's not so difficult O.o. Also includes the alliance of the tile.
 	 * 
 	 * @param x
 	 *         coordinate of the requested tile.
@@ -92,19 +83,19 @@ public class GenericMapTile extends Actor implements Disposable {
 
 		switch (ally) {
 			case FRIENDLY:
-				batch.draw(res.getFriendTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.TILE_HEX_FRIEND, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case HOSTILE:
-				batch.draw(res.getHosTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.TILE_HEX_ENEMY, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case NEUTRAL:
-				batch.draw(res.getNeuTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.TILE_HEX_NEUTRAL, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			case PLAYER:
-				batch.draw(res.getPlayTile(), posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				batch.draw(ResPack.TILE_HEX_PLAYER, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
 			default:
@@ -134,11 +125,12 @@ public class GenericMapTile extends Actor implements Disposable {
 			{
 				if (Gdx.input.isTouched(0))
 					{
-						if (x > (this.posX - (this.sizeX)) && x < (this.posX + (this.sizeX)) && y > (this.posY - (this.sizeY))
-								&& y < (this.posY + (this.sizeY)))
+						if (x > (this.posX - (this.sizeX)) && x < (this.posX + (this.sizeX))
+								&& y > (this.posY - (this.sizeY)) && y < (this.posY + (this.sizeY)))
 							{
 								System.out.println(tileID);
-								ScreenHandler.getInstance().setScreen(new SystemScreen(ScreenHandler.getInstance(), tileID));
+								ScreenHandler.getInstance()
+										.setScreen(new SystemScreen(ScreenHandler.getInstance(), tileID));
 							} else
 							{
 								Gdx.app.log(Settings.LOG, "Off Map");
@@ -146,11 +138,6 @@ public class GenericMapTile extends Actor implements Disposable {
 					}
 			}
 		return null;
-	}
-
-	@Override
-	public void dispose() {
-		res.dispose();
 	}
 
 }

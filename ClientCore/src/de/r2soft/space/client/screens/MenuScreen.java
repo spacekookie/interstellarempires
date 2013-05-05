@@ -18,7 +18,6 @@ package de.r2soft.space.client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -39,7 +38,8 @@ import de.r2soft.space.client.util.Coordinator;
 import de.r2soft.space.client.util.ResPack;
 
 /**
- * For now the only menu screen with buttons and a scrollable map view. Hopefully :)
+ * For now the only menu screen with buttons and a scrollable map view.
+ * Hopefully :)
  * 
  * @author: ***REMOVED***
  */
@@ -57,7 +57,8 @@ public class MenuScreen implements Screen {
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_HOME);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
+				+ Settings.SCREENTITLE_HOME);
 		res = new ResPack();
 	}
 
@@ -69,7 +70,8 @@ public class MenuScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720 && Gdx.input.getY() > 100 && Gdx.input.getY() < 450)
+		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720 && Gdx.input.getY() > 100
+				&& Gdx.input.getY() < 450)
 			{
 				map.setInputToChild();
 			} else
@@ -91,7 +93,7 @@ public class MenuScreen implements Screen {
 		Table backToIntro = new Table();
 		backToIntro.setFillParent(true);
 		stage.addActor(backToIntro);
-		TextButton backham = new TextButton("Back to Intro", res.getUiSkin());
+		TextButton backham = new TextButton("Back to Intro", ResPack.UI_SKIN);
 		backham.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
@@ -115,10 +117,11 @@ public class MenuScreen implements Screen {
 
 		mapTable.add(map);
 		mapTable.center(); // First center it
-		mapTable.setX(-300); // Then reduce the X value /**/ TODO: Gdx.graphics.getWidth() / 3
+		mapTable.setX(-300); // Then reduce the X value /**/ TODO:
+																							// Gdx.graphics.getWidth() / 3
 
-		settings = new TextButton("Settings", res.getUiSkin());
-		exitGame = new TextButton("Exit Game", res.getUiSkin());
+		settings = new TextButton("Settings", ResPack.UI_SKIN);
+		exitGame = new TextButton("Exit Game", ResPack.UI_SKIN);
 
 		table.add(settings).width(200);
 		table.row();
@@ -172,7 +175,6 @@ public class MenuScreen implements Screen {
 	public void dispose() {
 		map.dispose();
 		stage.dispose();
-		res.dispose();
 	}
 
 }

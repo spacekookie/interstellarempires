@@ -21,7 +21,6 @@ package de.r2soft.space.client.screens;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -43,8 +42,9 @@ import de.r2soft.space.client.util.ResPack;
 import framework.objects.Unit.TYPE;
 
 /**
- * This class will be called when the player clicked on a tile on the @HexMap. In the constructor the relevant data to identify a
- * solar system will be passed on as well as creating a layout around a solar system view.
+ * This class will be called when the player clicked on a tile on the @HexMap.
+ * In the constructor the relevant data to identify a solar system will be
+ * passed on as well as creating a layout around a solar system view.
  * 
  * @author ***REMOVED***
  * 
@@ -70,7 +70,8 @@ public class SystemScreen implements Screen {
 		this.handler = handler;
 		this.tileID = tileID;
 		res = new ResPack();
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR + ": " + tileID);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
+				+ Settings.SCREENTITLE_SOLAR + ": " + tileID);
 		// TODO: get System with ID
 		radius = MainClientLauncher.getSystemWithID(tileID).getRadius();
 
@@ -93,7 +94,8 @@ public class SystemScreen implements Screen {
 		// System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
 		// }
 
-		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20 && Gdx.input.getY() < 580)
+		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20
+				&& Gdx.input.getY() < 580)
 			{
 				map.setInputToChild();
 			} else
@@ -110,13 +112,17 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO: Replace with server request!
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO:
+																																																																																												// Replace
+																																																																																												// with
+																																																																																												// server
+																																																																																												// request!
 		stage.addActor(map);
 
 		back = new Table();
 		back.setFillParent(true);
 		stage.addActor(back);
-		backToMap = new TextButton("BACK", res.getUiSkin());
+		backToMap = new TextButton("BACK", ResPack.UI_SKIN);
 		back.add(backToMap).width(150);
 		back.row();
 		back.top().left();
@@ -126,10 +132,10 @@ public class SystemScreen implements Screen {
 		elements.setFillParent(true);
 		stage.addActor(elements);
 
-		TextButton kill = new TextButton("Destroy everything", res.getUiSkin());
-		TextButton refresh = new TextButton("Refresh", res.getUiSkin());
-		Label wall = new Label(wallofText, res.getUiSkin());
-		Label wall2 = new Label(wallofText2, res.getUiSkin());
+		TextButton kill = new TextButton("Destroy everything", ResPack.UI_SKIN);
+		TextButton refresh = new TextButton("Refresh", ResPack.UI_SKIN);
+		Label wall = new Label(wallofText, ResPack.UI_SKIN);
+		Label wall2 = new Label(wallofText2, ResPack.UI_SKIN);
 		wall.setWrap(true);
 		wall2.setWrap(true);
 
