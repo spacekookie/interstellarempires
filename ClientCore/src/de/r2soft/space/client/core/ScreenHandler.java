@@ -16,29 +16,16 @@
  */
 package de.r2soft.space.client.core;
 
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/core/ScreenHandler.java
-=======
-import client.screens.LoginScreen;
-import client.screens.MenuScreen;
-import client.screens.TweenScreen;
-import client.settings.Settings;
-import client.util.ResPack;
->>>>>>> develop:ClientCore/src/client/core/ScreenHandler.java
-
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 
 import de.r2soft.space.client.screens.LoginScreen;
-import de.r2soft.space.client.screens.MenuScreen;
 import de.r2soft.space.client.screens.TweenScreen;
 import de.r2soft.space.client.settings.Settings;
-import de.r2soft.space.client.util.ResPack;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game.
+ * Further functionality might be added in the future
  * 
  * @author: ***REMOVED***
  */
@@ -48,7 +35,8 @@ public class ScreenHandler extends Game {
 
 	/**
 	 * 
-	 * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
+	 * Returns The Games screenhandler to start new screens from actors, groups and
+	 * sub-classes. Accessed in a static way.
 	 * 
 	 * @return The main Screenhandler.
 	 */
@@ -56,16 +44,9 @@ public class ScreenHandler extends Game {
 		return handler;
 	}
 
-	private void loadAssets() {
-		ResPack pack = new ResPack();
-		Gdx.app.log(Settings.LOG, "Textures loaded");
-	}
-
 	@Override
 	public void create() {
 		handler = this;
-
-		this.loadAssets();
 
 		if (!Settings.skipIntro)
 			setScreen(new TweenScreen(this));
