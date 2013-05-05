@@ -17,6 +17,14 @@ package de.r2soft.space.client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SettingsScreen.java
+=======
+import client.core.ScreenHandler;
+import client.settings.AppSettingsHelper;
+import client.settings.Settings;
+import client.util.ResPack;
+
+>>>>>>> develop:ClientCore/src/client/screens/SettingsScreen.java
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -46,7 +54,6 @@ public class SettingsScreen implements Screen {
 	/** Container and Backends */
 	private ScreenHandler handler;
 	private Stage stage;
-	private Skin skin;
 	private TextButton button;
 	private Table table;
 	private Table navigation;
@@ -60,7 +67,10 @@ public class SettingsScreen implements Screen {
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
 				+ Settings.SCREENTITLE_SETTINGS);
 		prefs = Gdx.app.getPreferences("my-application");
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SettingsScreen.java
 		ResPack res = new ResPack();
+=======
+>>>>>>> develop:ClientCore/src/client/screens/SettingsScreen.java
 
 		skipIntro = new CheckBox("", ResPack.UI_SKIN);
 		if (prefs.contains("intro"))
@@ -100,7 +110,7 @@ public class SettingsScreen implements Screen {
 		navigation = new Table();
 		navigation.setFillParent(true);
 		stage.addActor(navigation);
-		button = new TextButton("Back to main screen", skin);
+		button = new TextButton("Back to main screen", ResPack.UI_SKIN);
 
 		navigation.add(button).width(200);
 		navigation.row();
@@ -124,7 +134,7 @@ public class SettingsScreen implements Screen {
 		table = new Table();
 		table.setFillParent(true);
 
-		introLabel = new Label(" Skip the intro.", skin);
+		introLabel = new Label(" Skip the intro.", ResPack.UI_SKIN);
 
 		table.add(skipIntro);
 		table.add(introLabel);
@@ -136,7 +146,6 @@ public class SettingsScreen implements Screen {
 
 	@Override
 	public void show() {
-		skin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
 
 	}
 
@@ -157,7 +166,6 @@ public class SettingsScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		skin.dispose();
 		stage.dispose();
 	}
 

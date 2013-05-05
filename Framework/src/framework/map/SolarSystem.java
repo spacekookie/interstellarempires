@@ -41,7 +41,7 @@ public class SolarSystem {
 	private Set<Unit> units;
 	private Set<Structure> structures;
 	private Star star;
-	private int radius;
+	private float radius;
 
 	/** Initialises the Sets */
 	public SolarSystem() {
@@ -51,18 +51,18 @@ public class SolarSystem {
 	}
 
 	/** @return: the systems radius for rendering and calculations. */
-	public int getRadius() {
+	public float getRadius() {
 		return radius;
 	}
 
 	/**
 	 * Sets the radius.
 	 * 
-	 * @param r
+	 * @param systemSizeBlueGiant
 	 *         the systems radius for rendering and calculations.
 	 */
-	public void setRadius(int r) {
-		this.radius = r;
+	public void setRadius(float systemSizeBlueGiant) {
+		this.radius = systemSizeBlueGiant;
 	}
 
 	/** @return: the systems star details. */
