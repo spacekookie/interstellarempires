@@ -17,7 +17,6 @@ package de.r2soft.space.client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -58,11 +57,12 @@ public class SettingsScreen implements Screen {
 
 	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SETTINGS);
+		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
+				+ Settings.SCREENTITLE_SETTINGS);
 		prefs = Gdx.app.getPreferences("my-application");
 		ResPack res = new ResPack();
 
-		skipIntro = new CheckBox("", res.getUiSkin());
+		skipIntro = new CheckBox("", ResPack.UI_SKIN);
 		if (prefs.contains("intro"))
 			skipIntro.setChecked(prefs.getBoolean("intro"));
 	}

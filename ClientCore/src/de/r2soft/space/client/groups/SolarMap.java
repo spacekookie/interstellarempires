@@ -33,7 +33,6 @@ import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.Find;
 import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.client.util.ResPack.RENDER;
 
 import framework.map.SolarSystem;
 import framework.objects.Star.STARTYPE;
@@ -42,8 +41,8 @@ import framework.objects.Unit.TYPE;
 import framework.players.Alliance.ALLEGIANCE;
 
 /**
- * Counterpart to the @HexMap. Will display a solarsystem to the player. Extending the Group instead
- * of the Actor to hold own Actor instances
+ * Counterpart to the @HexMap. Will display a solarsystem to the player.
+ * Extending the Group instead of the Actor to hold own Actor instances
  * 
  * @author Katharina
  * 
@@ -55,7 +54,6 @@ public class SolarMap extends Group implements Disposable {
 	private ShapeRenderer renderer;
 	private int offset;
 	private STARTYPE starType;
-	private ResPack res;
 	private Stage stage;
 	private Set<Unit> units;
 	private boolean selected;
@@ -67,9 +65,6 @@ public class SolarMap extends Group implements Disposable {
 		{
 			offset = 100;
 			renderer = new ShapeRenderer();
-			res = new ResPack();
-			res.loadTextures(RENDER.STARS);
-			res.loadTextures(RENDER.FLEET);
 		}
 
 	/**
@@ -122,29 +117,43 @@ public class SolarMap extends Group implements Disposable {
 
 		renderer.begin(ShapeType.Circle);
 
-		renderer.circle((Gdx.graphics.getWidth() / 2) - offset, Gdx.graphics.getHeight() / 2, system.getRadius());
+		renderer.circle((Gdx.graphics.getWidth() / 2) - offset, Gdx.graphics.getHeight() / 2,
+				system.getRadius());
 		renderer.end();
 		batch.begin();
 
 		switch (starType) {
 			case BROWNDWARF:
-				batch.draw(res.getStarBrownDwarf(), Find.getCenter().x - 20 - offset, Find.getCenter().y - 20, 0, 0, 40, 40, 1, 1, 0);
+				batch.draw(ResPack.STARS_BROWN_DWARF, Find.getCenter().x
+						- (ResPack.SIZE_CELESTIAL_BROWN_DWARF / 2) - offset, Find.getCenter().y
+						- (ResPack.SIZE_CELESTIAL_BROWN_DWARF / 2), 0, 0, ResPack.SIZE_CELESTIAL_BROWN_DWARF,
+						ResPack.SIZE_CELESTIAL_BROWN_DWARF, 1, 1, 0);
 				break;
 
 			case BLUEGIANT:
-				batch.draw(res.getStarNeutron(), Find.getCenter().x - 50 - offset, Find.getCenter().y - 50, 0, 0, 100, 100, 1, 1, 0);
+				batch.draw(ResPack.STARS_BLUE_GIANT, Find.getCenter().x
+						- (ResPack.SIZE_CELESTIAL_BLUE_GIANT / 2) - offset, Find.getCenter().y
+						- (ResPack.SIZE_CELESTIAL_BLUE_GIANT / 2), 0, 0, ResPack.SIZE_CELESTIAL_BLUE_GIANT,
+						ResPack.SIZE_CELESTIAL_BLUE_GIANT, 1, 1, 0);
 				break;
 
 			case NEUTRON:
-				batch.draw(res.getStarNeutron(), Find.getCenter().x - 12.5f - offset, Find.getCenter().y - 12.5f, 0, 0, 25, 25, 1, 1, 0);
+				batch.draw(ResPack.STARS_BLUE_DWARF, Find.getCenter().x
+						- (ResPack.SIZE_CELESTIAL_BLUE_DWARF / 2) - offset, Find.getCenter().y
+						- (ResPack.SIZE_CELESTIAL_BLUE_DWARF / 2), 0, 0, ResPack.SIZE_CELESTIAL_BLUE_DWARF,
+						ResPack.SIZE_CELESTIAL_BLUE_DWARF, 1, 1, 0);
 				break;
 
 			case REDDWARF:
-				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 35 - offset, Find.getCenter().y - 35, 0, 0, 70, 70, 1, 1, 0);
+				batch.draw(ResPack.STARS_RED_DWARF, Find.getCenter().x - (ResPack.SIZE_CELESTIAL_RED_DWARF / 2)
+						- offset, Find.getCenter().y - (ResPack.SIZE_CELESTIAL_RED_DWARF / 2), 0, 0,
+						ResPack.SIZE_CELESTIAL_RED_DWARF, ResPack.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
 				break;
 
 			case REDGIANT:
-				batch.draw(res.getStarRedDwarf(), Find.getCenter().x - 25 - offset, Find.getCenter().y - 25, 0, 0, 128, 128, 1, 1, 0);
+				batch.draw(ResPack.STARS_RED_GIANT, Find.getCenter().x - (ResPack.SIZE_CELESTIAL_RED_GIANT / 2)
+						- offset, Find.getCenter().y - (ResPack.SIZE_CELESTIAL_RED_GIANT / 2), 0, 0,
+						ResPack.SIZE_CELESTIAL_RED_GIANT, ResPack.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
 				break;
 
 			default:
@@ -158,7 +167,8 @@ public class SolarMap extends Group implements Disposable {
 		// {
 		// float x = (float) item.getPosition().getX();
 		// float y = (float) item.getPosition().getY();
-		// stage.addActor(new GenericMapObject(x, y, item.getType(), item.getFlag(), item.getClaim(),
+		// stage.addActor(new GenericMapObject(x, y, item.getType(), item.getFlag(),
+		// item.getClaim(),
 		// ALLEGIANCE.FRIENDLY));
 		//
 		// }
@@ -168,7 +178,6 @@ public class SolarMap extends Group implements Disposable {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		res.dispose();
 	}
 
 }

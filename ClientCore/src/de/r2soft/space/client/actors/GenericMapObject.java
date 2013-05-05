@@ -17,7 +17,6 @@
 
 package de.r2soft.space.client.actors;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -35,8 +34,8 @@ import framework.players.Alliance.ALLEGIANCE;
 import framework.players.Player;
 
 /**
- * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for
- * specific shapes, sizes and habits of objects.
+ * A generic MapObject that will be drawn onto the screen in the Solarmap. May
+ * call sub-actors for specific shapes, sizes and habits of objects.
  * 
  * @author Katharina
  * 
@@ -79,7 +78,8 @@ public class GenericMapObject extends Actor implements Disposable {
 		this.target.y = y;
 	}
 
-	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim, ALLEGIANCE allegience) {
+	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim,
+			ALLEGIANCE allegience) {
 		this.position.x = x;
 		this.position.y = y;
 		this.type = type;
@@ -94,14 +94,16 @@ public class GenericMapObject extends Actor implements Disposable {
 		batch.begin();
 		if (selected)
 			{
-				batch.draw(ResPack.GUI_SELECTION_BOX, position.x - 2, position.y - 2, 0, 0, ResPack.GUI_ELEMENT_SELECTION_SMALL,
-						ResPack.GUI_ELEMENT_SELECTION_SMALL, 1, 1, 0);
+				batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
+						- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
+						- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
+						ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
 			}
 
 		switch (type) {
 			case FLEET:
-				batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0, ResPack.FLEET_FIGHTER_SIZE_SMALL,
-						ResPack.FLEET_FIGHTER_SIZE_SMALL, 1, 1, 0);
+				batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0,
+						ResPack.SIZE_FLEET_MEDIUM, ResPack.SIZE_FLEET_MEDIUM, 1, 1, 0);
 				break;
 
 			default:
@@ -139,10 +141,10 @@ public class GenericMapObject extends Actor implements Disposable {
 							}
 					} else if (Gdx.input.isTouched(0))
 					{
-						if (x > (this.position.x - ResPack.GUI_ELEMENT_SELECTION_SMALL)
-								&& x < (this.position.x + ResPack.GUI_ELEMENT_SELECTION_SMALL)
-								&& y > (this.position.y - ResPack.GUI_ELEMENT_SELECTION_SMALL)
-								&& y < (this.position.y + ResPack.GUI_ELEMENT_SELECTION_SMALL))
+						if (x > (this.position.x - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+								&& x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+								&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+								&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM))
 							{
 								selected = true;
 							} else
