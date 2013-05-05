@@ -1,0 +1,90 @@
+<xml:comment>
+	Copyright (c) 2013 Random Robot Softworks
+	This program is free
+	software:
+	you can redistribute it and/or modify
+	it under the terms of the GNU
+	General Public License as published by the
+	Free Software Foundation,
+	either version 3 of the License, or (at your
+	option)
+	any later version.
+	This program is distributed in the hope that it will be
+	useful, but
+	WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+	Public License
+	for
+	more details.
+	You should have received a copy of the
+	GNU General Public
+	License along
+	with this program. If not, see
+	<http: / www.gnu.org / licenses />
+</xml:comment>
+
+<!-- String name conventions -->
+<!-- EXAMPLE : SCREEN_PANNEL_CHILD_TAG -->
+
+<!-- Screens refer to a context in which the string is being displayed (quite 
+	straight forward actually) -->
+<!-- Multiple screens: GLB -->
+<!-- LoginScreen: LOG -->
+<!-- MapScreen: MAP -->
+<!-- SettingsScreen: SET -->
+<!-- SolarScreen: SYS -->
+<!-- PlayerScreen: PLR -->
+
+<!-- Pannels refer to a subarea on the screen. Some screens only have on 
+	pannel, others will have more. They are being logically referred to as -->
+
+<!-- Navigation: NAVI -->
+<!-- Maps: HMAP/SMAP (For HexMap and SolarMap) -->
+<!-- Play content: CONT -->
+
+<!-- Children refer to actual ui objects such as buttons, textfields, maps, 
+	pictures and more. Here are some classifications: -->
+
+<!-- TextFields & Labels: FIELD +(_HINT) if needed -->
+<!-- Buttons: BUTT --> <!-- Im so immature -->
+<!-- Checkbox Text: CHECK -->
+
+<!-- ### END ### -->
+<!-- @author: Katharina -->
+
+
+</xsl:comment>
+
+<resources> <!-- LoginScren -->
+	<string name="LOG_CONT_FIELD_NAME_HINT">Your Username</string>
+	<string name="LOG_CONT_FIELD_PASW_HINT">Your Password</string>
+	<string name="LOG_CONT_BUTTON_LOGIN">Login</string>
+</resources>
+
+<resources> <!-- Global strings -->
+	<string name="GLB_NAVI_BUTTON_QUIT">Exit Game</string>
+	<string name="GLB_NAVI_BUTTON_QUIT_LOGOUT">Logout & Quit</string>
+	<string name="GLB_NAVI_BUTTON_LOGOUT">Logout</string>
+</resources>
+
+<resources> <!-- MapScreen -->
+</resources>
+
+<resources> <!-- SolarScreen -->
+	<string name="SYS_CONT_FIELD_EXPLAN_ONE">This is an example of how Textwrapping works!
+	</string>
+	<string name="SYS_CONT_FIELD_EXPLAN_TWO">To the left you see the solar map. It will display
+		all actions "
+		+ "in the selected solar system. On the right you will
+		have several
+		buttons that might come in handy" + " when working with
+		your units.
+	</string>
+	<string name="SYS_CONT_BUTTON_CLEAR_SYSTEM">Destroy everything</string>
+	<string name="SYS_CONT_BUTTON_POINTLESS">Pointless button</string>
+</resources>
+
+<resources> <!-- SettingScreen -->
+	<string name="SET_CONT_CHECK_INTRO">Skip intro on launch</string>
+</resources>

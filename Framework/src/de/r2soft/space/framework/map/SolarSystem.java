@@ -26,7 +26,6 @@ import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Player;
 
-
 /**
  * Object holding solar-system information.
  * 
@@ -35,88 +34,100 @@ import de.r2soft.space.framework.players.Player;
  * @author Katharina
  * 
  */
+@SuppressWarnings("unused")
 public class SolarSystem {
 
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Unit> units;
-	private Set<Structure> structures;
-	private Star star;
-	private float radius;
+  private IntVec2 id;
+  private Player claimed;
+  private Set<Planet> planets;
+  private Set<Unit> units;
+  private Set<Structure> structures;
+  private Star star;
+  private float radius;
 
-	/** Initialises the Sets */
-	public SolarSystem() {
-		units = new HashSet<Unit>();
-		planets = new HashSet<Planet>();
-		structures = new HashSet<Structure>();
-	}
+  /** @return: Systems (x,y) id on haxmap */
+  public IntVec2 getId() {
+	return id;
+  }
 
-	/** @return: the systems radius for rendering and calculations. */
-	public float getRadius() {
-		return radius;
-	}
+  /**
+   * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative = negative)
+   * 
+   * @param id
+   *          system id on map.
+   */
+  public void setId(IntVec2 id) {
+	this.id = id;
+  }
 
-	/**
-	 * Sets the radius.
-	 * 
-	 * @param systemSizeBlueGiant
-	 *         the systems radius for rendering and calculations.
-	 */
-	public void setRadius(float systemSizeBlueGiant) {
-		this.radius = systemSizeBlueGiant;
-	}
+  /** Initializes the Sets */
+  public SolarSystem() {
+	units = new HashSet<Unit>();
+	planets = new HashSet<Planet>();
+	structures = new HashSet<Structure>();
+  }
 
-	/** @return: the systems star details. */
-	public Star getStar() {
-		return star;
-	}
+  /** @return: the systems radius for rendering and calculations. */
+  public float getRadius() {
+	return radius;
+  }
 
-	/**
-	 * Sets the star.
-	 * 
-	 * @param s
-	 *         the systems star details.
-	 */
-	public void setStar(Star s) {
-		this.star = s;
-	}
+  /**
+   * Sets the radius.
+   * 
+   * @param systemSizeBlueGiant
+   *          the systems radius for rendering and calculations.
+   */
+  public void setRadius(float systemSizeBlueGiant) {
+	this.radius = systemSizeBlueGiant;
+  }
 
-	/** @return: the systems owner if exists. */
-	public Player getSovereignty() {
-		// TODO: Kann man das in eine Zeile abk??rzen? Mir irgendwelchem fancy Syntax? :P
-		if (claimed != null)
-			return claimed;
-		else
-			return null;
-	}
+  /** @return: the systems star details. */
+  public Star getStar() {
+	return star;
+  }
 
-	/**
-	 * Sets the owning player of a system.
-	 * 
-	 * @param p
-	 *         the owning player. @Null if system is neutral.
-	 */
-	public void setSovereignty(Player p) {
-		this.claimed = p;
-	}
+  /**
+   * @param s
+   *          the systems star.
+   */
+  public void setStar(Star s) {
+	this.star = s;
+  }
 
-	/**
-	 * To add an entire set of units into the solar system
-	 * 
-	 * @param units
-	 *         set of units
-	 */
-	public void addUnits(Set<Unit> units) {
-		this.units = units;
-	}
+  /** @return: the systems owner if exists. */
+  public Player getSovereignty() {
+	// TODO: Impliment neutral as a player and return here.
+	return claimed != null ? claimed : null;
+  }
 
-	/** @return: get all units in this solar system */
-	public Set<Unit> getUnits() {
-		return units;
-	}
+  /**
+   * Sets the owning player of a system.
+   * 
+   * @param p
+   *          the owning player. @Null if system is neutral.
+   */
+  public void setSovereignty(Player p) {
+	this.claimed = p;
+  }
 
-	/** DEBUG ONLY */
-	public void addSingleUnit(Unit unit) {
-		units.add(unit);
-	}
+  /**
+   * To add an entire set of units into the solar system
+   * 
+   * @param units
+   *          set of units
+   */
+  public void addUnits(Set<Unit> units) {
+	this.units = units;
+  }
+
+  /** @return: get all units in this solar system */
+  public Set<Unit> getUnits() {
+	return units;
+  }
+
+  /** DEBUG ONLY */
+  public void addSingleUnit(Unit unit) {
+	units.add(unit);
+  }
 }

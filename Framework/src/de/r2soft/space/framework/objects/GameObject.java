@@ -20,7 +20,7 @@
  */
 package de.r2soft.space.framework.objects;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * @author Leander
@@ -28,15 +28,23 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  */
 public abstract class GameObject {
 
-	private double size;
-	private Vector2D position;
+	private float size;
+	private Vector2 position;
 
-	public Vector2D getPosition() {
+	public Vector2 getPosition() {
 		return position;
 	}
 
-	public void setPosition(Vector2D vec) {
+	public void setPosition(Vector2 vec) {
 		this.position = vec;
+	}
+
+	public float getSize() {
+		return size;
+	}
+
+	public void setSize(float size) {
+		this.size = size;
 	}
 
 }

@@ -1,6 +1,5 @@
-/* 
-
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +13,9 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
  * 
- */
+ ######################################################################### */
+
 package de.r2soft.space.framework.objects;
 
 import de.r2soft.space.framework.players.Player;
@@ -34,7 +31,7 @@ public class Unit extends MovingObject {
 		FLEET, SHIP, DEBRIS, PONY;
 	}
 
-	public static enum SIZE {
+	public static enum FLEET_SIZE {
 		TINY, SMALL, MEDIUM, LARGE, MASSIVE;
 	}
 
@@ -52,19 +49,23 @@ public class Unit extends MovingObject {
 	 * 
 	 * @return enum for fleet SIZE.
 	 */
-	public SIZE getFleetSize() {
+	public FLEET_SIZE getFleetSize() {
 		if (count < 10)
-			return SIZE.TINY;
+			return FLEET_SIZE.TINY;
 		if (count < 25)
-			return SIZE.SMALL;
+			return FLEET_SIZE.SMALL;
 		if (count < 50)
-			return SIZE.MEDIUM;
+			return FLEET_SIZE.MEDIUM;
 		if (count < 100)
-			return SIZE.LARGE;
+			return FLEET_SIZE.LARGE;
 		if (count < 500)
-			return SIZE.MASSIVE;
+			return FLEET_SIZE.MASSIVE;
 		else
 			return null;
+	}
+
+	public void setShipCount(int count) {
+		this.count = count;
 	}
 
 	public void addShip() {

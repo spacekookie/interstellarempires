@@ -19,22 +19,17 @@ package de.r2soft.space.client.screens;
  */
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.HexMap;
 import de.r2soft.space.client.settings.Settings;
-import de.r2soft.space.client.util.Coordinator;
 import de.r2soft.space.client.util.ResPack;
 
 /**
@@ -91,18 +86,19 @@ public class MenuScreen implements Screen {
 		Table backToIntro = new Table();
 		backToIntro.setFillParent(true);
 		stage.addActor(backToIntro);
-		TextButton backham = new TextButton("Back to Intro", ResPack.UI_SKIN);
+		TextButton backham = new TextButton("Logout", ResPack.UI_SKIN);
 		backham.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				handler.setScreen(new TweenScreen(handler));
+				handler.setScreen(new LoginScreen(handler));
+				// TODO: server logout?
 			}
 		});
 
-		backToIntro.add(backham);
+		backToIntro.add(backham).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
 		backToIntro.row();
 		backToIntro.top().left();
 
@@ -119,11 +115,11 @@ public class MenuScreen implements Screen {
 																							// Gdx.graphics.getWidth() / 3
 
 		settings = new TextButton("Settings", ResPack.UI_SKIN);
-		exitGame = new TextButton("Exit Game", ResPack.UI_SKIN);
+		exitGame = new TextButton("Logout & Quit", ResPack.UI_SKIN);
 
-		table.add(settings).width(200);
+		table.add(settings).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
 		table.row();
-		table.add(exitGame).width(200);
+		table.add(exitGame).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
 		table.top().right();
 
 		/** OnClickListener */

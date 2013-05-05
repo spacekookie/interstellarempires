@@ -15,19 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.ws.interfaces;
+package de.r2soft.space.server.ws.interfaces;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 @WebService(targetNamespace = "http://leandersabel.de")
-public interface ConnectionService {
+public interface HelloWorld {
 
   @WebMethod
-  public Integer connect(String username, String password);
-
-  @WebMethod
-  public boolean disconnect(Integer sessionID);
+  public String sayHello(String name);
   
-
+  
 }

@@ -15,18 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.ws.interfaces;
+package de.r2soft.space.server.core;
 
-import server.ws.core.ServerWS;
 
-/**
- * Local Interface to {@link ServerWS}.
- * 
- * @author Leander
- * 
- */
-public interface ServerWSLocal {
+import org.apache.log4j.Logger;
 
-  public void test();
+import de.r2soft.space.framework.util.UtilFactory;
+
+
+
+
+public class Server {
+
+	private final Logger log = UtilFactory.createLogger(this);
+
+	public Server() {
+		log.info("Creating main server class");
+	}
 
 }

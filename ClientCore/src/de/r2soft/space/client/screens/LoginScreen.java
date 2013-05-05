@@ -19,8 +19,10 @@ package de.r2soft.space.client.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -35,11 +37,21 @@ public class LoginScreen implements Screen {
 
 	private ScreenHandler handler;
 
+	/** UI elements */
 	private Skin skin;
 	private Stage stage;
+	private Table intro, outro;
+	private TextField userField, passField;
+	private TextButton login, exit;
+
+	/** Background stuff */
+	private String name_clear, password_clear;
 
 	public LoginScreen(ScreenHandler handler) {
 		this.handler = handler;
+		login = new TextButton("LOGIN", ResPack.UI_SKIN);
+		passField = new TextField("", ResPack.UI_SKIN);
+		userField = new TextField("", ResPack.UI_SKIN);
 	}
 
 	@Override
@@ -50,38 +62,56 @@ public class LoginScreen implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		Table table = new Table();
-		table.setFillParent(true);
-		stage.addActor(table);
+		intro = new Table();
+		intro.setFillParent(true);
+		outro = new Table();
+		outro.setFillParent(true);
 
-		TextButton login = new TextButton("LOGIN", ResPack.UI_SKIN);
-		TextField user = new TextField("User", ResPack.UI_SKIN);
-		TextField pw = new TextField("PW", ResPack.UI_SKIN);
-		pw.setPasswordMode(false);
+		// Exiting the game
+		exit = new TextButton("Exit Game", ResPack.UI_SKIN);
+		outro.add(exit).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		outro.row();
+		outro.top().left();
 
-		table.add(user).width(200f);
-		table.row();
-		table.add(pw).width(200f);
-		table.row();
-		table.add(login).width(200f);
-		table.row();
+		userField.setMessageText("Your username");
+		passField.setMessageText("Your password");
+		passField.setPasswordCharacter('*');
+		passField.setPasswordMode(true);
+
+		intro.add(userField).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.row();
+		intro.add(passField).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.row();
+		intro.add(login).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.row();
 
 		login.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				handler.setScreen(new MenuScreen(handler));
+				scheduleLogin();
 			}
 		});
 
+		exit.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				Gdx.app.exit();
+			}
+		});
+
+		stage.addActor(outro);
+		stage.addActor(intro);
 	}
 
 	@Override
 	public void show() {
 
-	}
-
-	private void loginCompleted() {
-		handler.setScreen(new MenuScreen(handler));
 	}
 
 	public void render(float delta) {
@@ -94,6 +124,15 @@ public class LoginScreen implements Screen {
 
 	}
 
+	private void scheduleLogin() {
+		name_clear = userField.getText().toString();
+		password_clear = passField.getText().toString();
+
+		// TODO: encrypt password and request Login from server.
+		handler.setScreen(new MenuScreen(handler));
+
+	}
+
 	@Override
 	public void hide() {
 
@@ -101,6 +140,7 @@ public class LoginScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		stage.dispose();
 	}
 
 	@Override

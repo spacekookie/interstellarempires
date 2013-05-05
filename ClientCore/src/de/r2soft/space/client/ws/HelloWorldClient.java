@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2013 Leander Sabel
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,47 +17,44 @@
 
 package de.r2soft.space.client.ws;
 
-import javax.jws.WebMethod;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
-import server.ws.interfaces.HelloWorld;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
+import de.r2soft.space.server.ws.interfaces.HelloWorld;
+
 public class HelloWorldClient implements HelloWorld {
-	private HelloWorld helloWorldService;
+  private HelloWorld helloWorldService;
 
-	/**
-	 * Default constructor
-	 * 
-	 * @param url
-	 *         The URL to the Hello World WSDL endpoint.
-	 */
-	public HelloWorldClient(final URL wsdlUrl) {
-		QName serviceName = new QName("http://leandersabel.de/", "HelloWorld");
+  /**
+   * Default constructor
+   * 
+   * @param url
+   *          The URL to the Hello World WSDL endpoint.
+   */
+  public HelloWorldClient(final URL wsdlUrl) {
+	QName serviceName = new QName("http://leandersabel.de/", "HelloWorld");
 
-		Service service = Service.create(wsdlUrl, serviceName);
-		helloWorldService = service.getPort(HelloWorld.class);
-		assert (helloWorldService != null);
-		
+	Service service = Service.create(wsdlUrl, serviceName);
+	helloWorldService = service.getPort(HelloWorld.class);
+	assert (helloWorldService != null);
 
-		System.out.println(helloWorldService.sayHello("Bob"));
-		
-		System.out.println(helloWorldService.sayHello("Steve"));
-		
-	}
+	System.out.println(helloWorldService.sayHello("Bob"));
 
-	@Override
-	public String sayHello(String name) {
-		return helloWorldService.sayHello("Bob");
-	}
+	System.out.println(helloWorldService.sayHello("Steve"));
 
-	public static void main(String[] args) throws MalformedURLException {
-		HelloWorldClient client = new HelloWorldClient(new URL("http://localhost:8080/Server-WS/HelloWorld?wsdl"));
-	}
+  }
 
+  @Override
+  public String sayHello(String name) {
+	return helloWorldService.sayHello("Bob");
+  }
 
+  public static void main(String[] args) throws MalformedURLException {
+	HelloWorldClient client = new HelloWorldClient(new URL(
+		"http://localhost:8080/Server-WS/HelloWorld?wsdl"));
+  }
 
 }
