@@ -19,6 +19,12 @@ package de.r2soft.space.client.screens;
 
 import java.awt.Label;
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/LoginScreen.java
+=======
+import client.core.ScreenHandler;
+import client.util.ResPack;
+
+>>>>>>> develop:ClientCore/src/client/screens/LoginScreen.java
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;

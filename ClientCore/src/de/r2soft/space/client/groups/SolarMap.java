@@ -17,10 +17,19 @@
 
 package de.r2soft.space.client.groups;
 
-import java.util.HashSet;
 import java.util.Set;
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/groups/SolarMap.java
+=======
+import client.objects.actors.GenericMapObject;
+import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.Find;
+import client.util.ResPack;
+
+>>>>>>> develop:ClientCore/src/client/objects/groups/SolarMap.java
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -37,12 +46,15 @@ import de.r2soft.space.client.util.ResPack;
 import framework.map.SolarSystem;
 import framework.objects.Star.STARTYPE;
 import framework.objects.Unit;
-import framework.objects.Unit.TYPE;
-import framework.players.Alliance.ALLEGIANCE;
 
 /**
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/groups/SolarMap.java
  * Counterpart to the @HexMap. Will display a solarsystem to the player.
  * Extending the Group instead of the Actor to hold own Actor instances
+=======
+ * Counterpart to the @HexMap. Will display a solarsystem to the player. Extending the Group instead
+ * of the Actor to hold own Actor instances
+>>>>>>> develop:ClientCore/src/client/objects/groups/SolarMap.java
  * 
  * @author Katharina
  * 
@@ -58,6 +70,8 @@ public class SolarMap extends Group implements Disposable {
 	private Set<Unit> units;
 	private boolean selected;
 	private Set<GenericMapObject> localGameObjects;
+
+	private Sprite sprite;
 
 		/**
 		 * Stuff that needs to be done no matter what constructor is called ^_^
@@ -120,10 +134,12 @@ public class SolarMap extends Group implements Disposable {
 		renderer.circle((Gdx.graphics.getWidth() / 2) - offset, Gdx.graphics.getHeight() / 2,
 				system.getRadius());
 		renderer.end();
+
 		batch.begin();
 
 		switch (starType) {
 			case BROWNDWARF:
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/groups/SolarMap.java
 				batch.draw(ResPack.STARS_BROWN_DWARF, Find.getCenter().x
 						- (ResPack.SIZE_CELESTIAL_BROWN_DWARF / 2) - offset, Find.getCenter().y
 						- (ResPack.SIZE_CELESTIAL_BROWN_DWARF / 2), 0, 0, ResPack.SIZE_CELESTIAL_BROWN_DWARF,
@@ -154,6 +170,35 @@ public class SolarMap extends Group implements Disposable {
 				batch.draw(ResPack.STARS_RED_GIANT, Find.getCenter().x - (ResPack.SIZE_CELESTIAL_RED_GIANT / 2)
 						- offset, Find.getCenter().y - (ResPack.SIZE_CELESTIAL_RED_GIANT / 2), 0, 0,
 						ResPack.SIZE_CELESTIAL_RED_GIANT, ResPack.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
+=======
+				batch.draw(ResPack.STAR_BROWN_DWARF, Find.getCenter().x - offset - (ResPack.STAR_BROWN_DWARF_SIZE / 2),
+						Find.getCenter().y - (ResPack.STAR_BROWN_DWARF_SIZE / 2), (ResPack.STAR_BROWN_DWARF_SIZE / 2),
+						(ResPack.STAR_BROWN_DWARF_SIZE / 2), ResPack.STAR_BROWN_DWARF_SIZE, ResPack.STAR_BROWN_DWARF_SIZE, 1, 1, 0);
+				break;
+
+			case BLUEGIANT:
+				batch.draw(ResPack.STAR_NEUTRON, Find.getCenter().x - offset - (ResPack.STAR_BLUE_GIANT_SIZE / 2),
+						Find.getCenter().y - (ResPack.STAR_BLUE_GIANT_SIZE / 2), (ResPack.STAR_BLUE_GIANT_SIZE / 2),
+						(ResPack.STAR_BLUE_GIANT_SIZE / 2), ResPack.STAR_BLUE_GIANT_SIZE, ResPack.STAR_BLUE_GIANT_SIZE, 1, 1, 0);
+				break;
+
+			case NEUTRON:
+				batch.draw(ResPack.STAR_NEUTRON, Find.getCenter().x - offset - (ResPack.STAR_BLUE_DWARF_SIZE / 2),
+						Find.getCenter().y - (ResPack.STAR_BLUE_DWARF_SIZE / 2), (ResPack.STAR_BLUE_DWARF_SIZE / 2),
+						(ResPack.STAR_BLUE_DWARF_SIZE / 2), ResPack.STAR_BLUE_DWARF_SIZE, ResPack.STAR_BLUE_DWARF_SIZE, 1, 1, 0);
+				break;
+
+			case REDDWARF:
+				batch.draw(ResPack.STAR_RED_DWARF, Find.getCenter().x - offset - (ResPack.STAR_RED_DWARF_SIZE / 2),
+						Find.getCenter().y - (ResPack.STAR_RED_DWARF_SIZE / 2), (ResPack.STAR_RED_DWARF_SIZE / 2),
+						(ResPack.STAR_RED_DWARF_SIZE / 2), ResPack.STAR_RED_DWARF_SIZE, ResPack.STAR_RED_DWARF_SIZE, 1, 1, 0);
+				break;
+
+			case REDGIANT:
+				batch.draw(ResPack.STAR_RED_DWARF, Find.getCenter().x - offset - (ResPack.STAR_RED_GIANT_SIZE / 2),
+						Find.getCenter().y - (ResPack.STAR_RED_GIANT_SIZE / 2), (ResPack.STAR_RED_GIANT_SIZE / 2),
+						(ResPack.STAR_RED_GIANT_SIZE / 2), ResPack.STAR_RED_GIANT_SIZE, ResPack.STAR_RED_GIANT_SIZE, 1, 1, 0);
+>>>>>>> develop:ClientCore/src/client/objects/groups/SolarMap.java
 				break;
 
 			default:
@@ -167,8 +212,12 @@ public class SolarMap extends Group implements Disposable {
 		// {
 		// float x = (float) item.getPosition().getX();
 		// float y = (float) item.getPosition().getY();
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/groups/SolarMap.java
 		// stage.addActor(new GenericMapObject(x, y, item.getType(), item.getFlag(),
 		// item.getClaim(),
+=======
+		// stage.addActor(new GenericMapObject(x, y, item.getType(), item.getFlag(), item.getClaim(),
+>>>>>>> develop:ClientCore/src/client/objects/groups/SolarMap.java
 		// ALLEGIANCE.FRIENDLY));
 		//
 		// }

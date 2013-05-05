@@ -15,7 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/actors/GenericMapTile.java
 package de.r2soft.space.client.actors;
+=======
+package client.objects.actors;
+
+import client.core.ScreenHandler;
+import client.screens.SystemScreen;
+import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.ResPack;
+>>>>>>> develop:ClientCore/src/client/objects/actors/GenericMapTile.java
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -43,7 +53,10 @@ public class GenericMapTile extends Actor {
 	private IntVec2 tileID;
 	private ALLEGIANCE ally;
 	private ShapeRenderer renderer;
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/actors/GenericMapTile.java
 	private ResPack res;
+=======
+>>>>>>> develop:ClientCore/src/client/objects/actors/GenericMapTile.java
 
 	protected IntVec2 id = null;
 
@@ -83,6 +96,7 @@ public class GenericMapTile extends Actor {
 
 		switch (ally) {
 			case FRIENDLY:
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/actors/GenericMapTile.java
 				batch.draw(ResPack.TILE_HEX_FRIEND, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
 				break;
 
@@ -96,6 +110,21 @@ public class GenericMapTile extends Actor {
 
 			case PLAYER:
 				batch.draw(ResPack.TILE_HEX_PLAYER, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+=======
+				batch.draw(ResPack.HEX_TILE_FRIEND, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case HOSTILE:
+				batch.draw(ResPack.HEX_TILE_ENEMY, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case NEUTRAL:
+				batch.draw(ResPack.HEX_TILE_NEUTRAL, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+				break;
+
+			case PLAYER:
+				batch.draw(ResPack.HEX_TILE_PLAYER, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+>>>>>>> develop:ClientCore/src/client/objects/actors/GenericMapTile.java
 				break;
 
 			default:
@@ -140,4 +169,11 @@ public class GenericMapTile extends Actor {
 		return null;
 	}
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/actors/GenericMapTile.java
+=======
+	@Override
+	public void dispose() {
+	}
+
+>>>>>>> develop:ClientCore/src/client/objects/actors/GenericMapTile.java
 }

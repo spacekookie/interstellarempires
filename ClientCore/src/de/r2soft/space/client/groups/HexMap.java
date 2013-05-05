@@ -37,7 +37,8 @@ import framework.map.SolarSystem;
 import framework.players.Alliance.ALLEGIANCE;
 
 /**
- * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile actors.
+ * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
+ * actors.
  * 
  * @author Katharina
  * 
@@ -104,9 +105,12 @@ public class HexMap extends Group implements Disposable {
 		stage.clear();
 
 		// Static drawing for now.
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.PLAYER,
+				new IntVec2(0, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f),
+				ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.HOSTILE,
+				new IntVec2(2, 0)));
 		stage.draw();
 
 	}
@@ -117,8 +121,8 @@ public class HexMap extends Group implements Disposable {
 	}
 
 	/**
-	 * Usually only called once when creating the application. Players with custom skins and graphic packs may end up changing these
-	 * values. Checking for tile size is done outside this class.
+	 * Usually only called once when creating the application. Players with custom skins and graphic
+	 * packs may end up changing these values. Checking for tile size is done outside this class.
 	 * 
 	 * @param x
 	 * @param y
@@ -153,7 +157,8 @@ public class HexMap extends Group implements Disposable {
 	 * @param tileID
 	 *         Vector ID of the tile in question
 	 * 
-	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen and shouldn't be displayed.
+	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen
+	 *         and shouldn't be displayed.
 	 */
 	public boolean isTileOnScreen(Vector2 tileID) {
 

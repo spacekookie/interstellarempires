@@ -16,6 +16,14 @@
  */
 package de.r2soft.space.client.core;
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/core/ScreenHandler.java
+=======
+import client.screens.LoginScreen;
+import client.screens.MenuScreen;
+import client.screens.TweenScreen;
+import client.settings.Settings;
+import client.util.ResPack;
+>>>>>>> develop:ClientCore/src/client/core/ScreenHandler.java
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

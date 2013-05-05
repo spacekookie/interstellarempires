@@ -19,6 +19,12 @@ package de.r2soft.space.client.core;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/core/MainClientLauncher.java
+=======
+import client.settings.Settings;
+import client.types.IntVec2;
+import client.util.ResPack;
+>>>>>>> develop:ClientCore/src/client/core/MainClientLauncher.java
 
 import com.apple.eawt.Application;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -36,8 +42,8 @@ import framework.objects.Unit.TYPE;
 import framework.players.Player;
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be added in the
- * future
+ * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further
+ * functionality might be added in the future
  * 
  * @author: Katharina
  */
@@ -77,7 +83,7 @@ public class MainClientLauncher {
 		s1 = new SolarSystem();
 		s1.setStar(new Star());
 		s1.getStar().setType(STARTYPE.BROWNDWARF);
-		s1.setRadius(180);
+		s1.setRadius(ResPack.SYSTEM_SIZE_BROWN_DWARF);
 		s1.setSovereignty(null);
 
 		/** 2nd system */
@@ -85,7 +91,7 @@ public class MainClientLauncher {
 		s2 = new SolarSystem();
 		s2.setStar(new Star());
 		s2.getStar().setType(STARTYPE.BLUEGIANT);
-		s2.setRadius(280);
+		s2.setRadius(ResPack.SYSTEM_SIZE_BLUE_GIANT);
 		s2.setSovereignty(null);
 
 		/** 3nd system */
@@ -93,7 +99,7 @@ public class MainClientLauncher {
 		s3 = new SolarSystem();
 		s3.setStar(new Star());
 		s3.getStar().setType(STARTYPE.REDDWARF);
-		s3.setRadius(220);
+		s3.setRadius(ResPack.SYSTEM_SIZE_RED_DWARF);
 		s3.setSovereignty(null);
 
 		/** Sample fleet */
