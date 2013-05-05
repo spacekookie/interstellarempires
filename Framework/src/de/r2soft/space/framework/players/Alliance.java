@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.players;
+package de.r2soft.space.framework.players;
 
 import java.util.HashSet;
 import java.util.Map;

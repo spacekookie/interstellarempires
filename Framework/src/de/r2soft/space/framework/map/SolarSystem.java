@@ -15,16 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+package de.r2soft.space.framework.map;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import framework.objects.Planet;
-import framework.objects.Star;
-import framework.objects.Structure;
-import framework.objects.Unit;
-import framework.players.Player;
+import de.r2soft.space.framework.objects.Planet;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Structure;
+import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.players.Player;
+
 
 /**
  * Object holding solar-system information.
@@ -82,7 +83,7 @@ public class SolarSystem {
 
 	/** @return: the systems owner if exists. */
 	public Player getSovereignty() {
-		// TODO: Kann man das in eine Zeile abkürzen? Mir irgendwelchem fancy Syntax? :P
+		// TODO: Kann man das in eine Zeile abk??rzen? Mir irgendwelchem fancy Syntax? :P
 		if (claimed != null)
 			return claimed;
 		else

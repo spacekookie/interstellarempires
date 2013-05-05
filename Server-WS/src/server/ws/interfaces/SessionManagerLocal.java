@@ -17,8 +17,8 @@
 
 package server.ws.interfaces;
 
+import de.r2soft.space.framework.players.Player;
 import server.ws.core.SessionManager;
-import framework.players.Player;
 
 /**
  * Local Interface to {@link SessionManager}.

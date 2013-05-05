@@ -5,7 +5,8 @@ import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import framework.players.Player;
+import de.r2soft.space.framework.players.Player;
+
 
 import server.ws.core.ServerWS;
 import server.ws.core.SessionManager;

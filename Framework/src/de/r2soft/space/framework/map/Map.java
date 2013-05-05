@@ -15,25 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.modules;
+package de.r2soft.space.framework.map;
 
-public abstract class Module {
+import java.util.Set;
 
-	private boolean destroyed;
+import com.google.common.collect.Sets;
 
-	/**
-	 * @return the destroyed
-	 */
-	public boolean isDestroyed() {
-		return destroyed;
-	}
+import de.r2soft.space.framework.objects.GameObject;
 
-	/**
-	 * @param destroyed
-	 *            the destroyed to set
-	 */
-	public void setDestroyed(boolean destroyed) {
-		this.destroyed = destroyed;
-	}
+
+import net.sf.javaml.core.kdtree.KDTree;
+
+public class Map {
+
+  private KDTree objects;
+
+  public Map() {
+	objects = new KDTree(2);
+  }
+
+  public Set<GameObject> getObjectsAt(Location location, double range) {
+	double[] lowk = { location.getX() - range, location.getY() - range };
+	double[] uppk = { location.getX() + range, location.getY() + range };
+
+	GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
+	return Sets.newHashSet(obj);
+
+  }
 
 }

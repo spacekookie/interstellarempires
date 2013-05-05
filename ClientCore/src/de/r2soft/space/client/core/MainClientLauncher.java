@@ -27,13 +27,13 @@ import com.badlogic.gdx.graphics.Color;
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Star.STARTYPE;
+import de.r2soft.space.framework.objects.Unit.TYPE;
+import de.r2soft.space.framework.players.Player;
 
-import framework.map.SolarSystem;
-import framework.objects.Star;
-import framework.objects.Star.STARTYPE;
-import framework.objects.Unit;
-import framework.objects.Unit.TYPE;
-import framework.players.Player;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the

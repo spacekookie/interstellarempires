@@ -15,28 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.objects;
+package de.r2soft.space.framework.modules;
 
-public class Star extends GameObject {
+/**
+ * WEAPONS TO MAXIMUM!
+ * @author ***REMOVED***
+ *
+ */
 
-	/** Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy, it'll just become fat */
-	public enum STARTYPE {
-		BROWNDWARF, REDDWARF, WHITEDWARF, REDGIANT, BLUEGIANT, NEUTRON, BLACKHOLE, GIANTSPACEPUDDING;
-	}
-
-	private STARTYPE type;
-
-	/** @return: the stars type */
-	public STARTYPE getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *         The type of star we're dealing with here
-	 */
-	public void setType(STARTYPE type) {
-		this.type = type;
-	}
+public class Weapon extends Module {
 
 }

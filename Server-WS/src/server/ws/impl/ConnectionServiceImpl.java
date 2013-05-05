@@ -20,7 +20,8 @@ package server.ws.impl;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 
-import framework.players.Player;
+import de.r2soft.space.framework.players.Player;
+
 
 import server.ws.interfaces.ConnectionService;
 import server.ws.interfaces.SessionManagerLocal;

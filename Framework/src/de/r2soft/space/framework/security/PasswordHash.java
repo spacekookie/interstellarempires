@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.security;
+package de.r2soft.space.framework.security;
 
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;

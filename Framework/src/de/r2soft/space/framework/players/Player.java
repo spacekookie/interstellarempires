@@ -15,14 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.modules;
+package de.r2soft.space.framework.players;
 
-/**
- * WEAPONS TO MAXIMUM!
- * @author ***REMOVED***
- *
- */
+public class Player {
 
-public class Weapon extends Module {
+	private boolean admin;
+	private String name;
+
+	public Player(String name) {
+		this.name = name;
+	}
+
+	public void setPony(boolean admin) {
+		this.admin = admin;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
 
 }

@@ -15,28 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * 
- */
-package framework.objects;
+package de.r2soft.space.framework.map;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-/**
- * @author Leander
- * 
- */
-public abstract class GameObject {
+public class Location {
 
-	private double size;
-	private Vector2D position;
+  private Vector2D pos;
 
-	public Vector2D getPosition() {
-		return position;
-	}
+  public Location(Vector2D pos) {
+	this.pos = pos;
+  }
 
-	public void setPosition(Vector2D vec) {
-		this.position = vec;
-	}
+  public double getX() {
+	return pos.getX();
+  }
+
+  public double getY() {
+	return pos.getY();
+  }
 
 }

@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.objects;
+package de.r2soft.space.framework.objects;
 
-public class Planet extends GameObject {
-
-	// The radius at which the planet orbits the star
-	private double radius;
-	private double mass;
+public class Structure extends PlayerObject {
 
 }

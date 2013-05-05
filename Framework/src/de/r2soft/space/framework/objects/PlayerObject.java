@@ -15,31 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.map;
+/**
+ * 
+ */
+package de.r2soft.space.framework.objects;
 
-import java.util.Set;
-
-import com.google.common.collect.Sets;
-
-import framework.objects.GameObject;
-
-import net.sf.javaml.core.kdtree.KDTree;
-
-public class Map {
-
-  private KDTree objects;
-
-  public Map() {
-	objects = new KDTree(2);
-  }
-
-  public Set<GameObject> getObjectsAt(Location location, double range) {
-	double[] lowk = { location.getX() - range, location.getY() - range };
-	double[] uppk = { location.getX() + range, location.getY() + range };
-
-	GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
-	return Sets.newHashSet(obj);
-
-  }
+/**
+ * @author Leander
+ *
+ */
+public class PlayerObject extends GameObject {
 
 }

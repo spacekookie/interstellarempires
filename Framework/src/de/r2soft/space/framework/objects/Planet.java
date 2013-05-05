@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.navigation;
+package de.r2soft.space.framework.objects;
 
-import java.util.ArrayList;
+public class Planet extends GameObject {
 
-public class Route {
+	// The radius at which the planet orbits the star
+	private double radius;
+	private double mass;
 
-  ArrayList<Waypoint> route;
-  
 }

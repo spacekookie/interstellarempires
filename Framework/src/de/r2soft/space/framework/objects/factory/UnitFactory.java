@@ -15,23 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package framework.players;
+package de.r2soft.space.framework.objects.factory;
 
-public class Player {
+import de.r2soft.space.framework.objects.Unit;
 
-	private boolean admin;
-	private String name;
+/**
+ * This class provides static methods to build default units.
+ * 
+ * @author Leander
+ * 
+ */
+public class UnitFactory {
 
-	public Player(String name) {
-		this.name = name;
+  public static enum ShipType {
+	FIGHTER
+  };
+
+  /**
+   * Build a new default unit.
+   * 
+   * @param type
+   * @return
+   */
+  public static Unit buildUnit(ShipType type) {
+	if (type == ShipType.FIGHTER) {
+	  Unit fighter = new Unit();
+	  // Do the proper stuff to build a default fighter
+	  return fighter;
 	}
-
-	public void setPony(boolean admin) {
-		this.admin = admin;
+	else {
+	  // Log the error
+	  return null;
 	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
+  }
 
 }
