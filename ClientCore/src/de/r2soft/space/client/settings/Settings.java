@@ -18,7 +18,8 @@ package de.r2soft.space.client.settings;
  */
 
 /**
- * Initializes the settings for the game. Also responsible for setting new Settings.
+ * Initializes the settings for the game. Also responsible for setting new
+ * Settings.
  * 
  * @author: ***REMOVED***
  */
@@ -33,7 +34,13 @@ public class Settings {
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_SOLAR = "SOLARSYSTEM";
 
-	public final static String LOG = "GameClient";
+	/** Log sings */
+	public final static String LOG_GLOBAL = "From Client";
+	public final static String LOG_HEXMAP = "From HexMap";
+	public final static String LOG_HEX_TILE = "From HexMap";
+	public final static String LOG_SOLAR_MAP = "From System";
+	public final static String LOG_MAP_OBJECT = "From Object";
+
 	public static boolean skipIntro = true;
 
 }

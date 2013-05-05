@@ -144,11 +144,27 @@ public class ResPack {
 	public static final float SIZE_FLEET_GIANT = 70;
 
 	/** GUI sizes */
+
+	/** Selection box sizes */
 	public static final float SIZE_GUI_SELECTION_BOX_TINY = SIZE_FLEET_TINY + 4;
 	public static final float SIZE_GUI_SELECTION_BOX_SMALL = SIZE_FLEET_SMALL + 4;
 	public static final float SIZE_GUI_SELECTION_BOX_MEDIUM = SIZE_FLEET_MEDIUM + 4;
 	public static final float SIZE_GUI_SELECTION_BOX_LARGE = SIZE_FLEET_LARGE + 4;
 	public static final float SIZE_GUI_SELECTION_BOX_GIANT = SIZE_FLEET_GIANT + 4;
+
+	/** Map tile sizes */
+	public static final float SIZE_GUI_HEXAGON_TILE = 100;
+
+	/** GUI ELEMENTS */
+
+	/** Navigation button: exit, logout, settings, etc. */
+	public static final float SIZE_UI_BUTTON_NAVIGON = 150;
+	/** Content button: Build units, colonise planets, attack, destroy, etc. */
+	public static final float SIZE_UI_BUTTON_CONTENT = 100;
+	/** Login fields & explanations, tooltips, etc. */
+	public static final float SIZE_UI_FIELD_CONTENT = 200;
+	/** Frame offset */
+	public static final float SIZE_UI_GLOBAL_FRAME_OFFSET = -35;
 
 	/** Planet sizes */
 

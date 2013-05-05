@@ -6,7 +6,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.client.types.IntVec2;
+import de.r2soft.space.framework.map.IntVec2;
 
 /**
  * 

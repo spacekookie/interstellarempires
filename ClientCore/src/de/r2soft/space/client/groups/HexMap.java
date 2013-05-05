@@ -17,10 +17,12 @@ package de.r2soft.space.client.groups;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -30,11 +32,9 @@ import com.badlogic.gdx.utils.Disposable;
 
 import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.screens.MenuScreen;
-import de.r2soft.space.client.types.IntVec2;
+import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
-
 
 /**
  * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
@@ -43,34 +43,30 @@ import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
  * @author ***REMOVED***
  * 
  */
-
 public class HexMap extends Group implements Disposable {
 
-	protected ScreenHandler handler;
-
-	/*
-	 * Size of the map-actor on screen
-	 */
+	/** Size of the map-actor on screen */
 	private float sizeX, sizeY;
 
-	/*
-	 * Tile size to let the view know when to stop drawing tiles
-	 */
+	/** Tile size to let the view know when to stop drawing tiles */
 	private float tileX, tileY;
 
-	/*
-	 * Number of tiles possible on the screen
-	 */
-	private float vTile, hTile;
+	/** Set of solarsystems */
+	private Set<GenericMapTile> systems;
 
 	private ShapeRenderer shapeRenderer;
-
+	protected ScreenHandler handler;
 	private Stage stage;
 
 	/**
+	 * Creates a hex-tile map group.
 	 * 
 	 * @param x
+	 *          puts x coordinate of map origin
 	 * @param y
+	 *          puts y coordinate of map origin
+	 * @param handler
+	 *          ScreenHandler to call @SystemScreen
 	 */
 	public HexMap(float x, float y, ScreenHandler handler) {
 		this.sizeX = x;
@@ -79,13 +75,10 @@ public class HexMap extends Group implements Disposable {
 		this.tileY = 85;
 
 		this.handler = handler;
-
+		getSystemsFromServer();
 		shapeRenderer = new ShapeRenderer();
 	}
 
-	/**
-	 * Will draw the map. At some point
-	 */
 	public void draw(SpriteBatch batch, float parentAlpha) {
 
 		// Debug frame.
@@ -93,7 +86,6 @@ public class HexMap extends Group implements Disposable {
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 		shapeRenderer.translate(getX() / 2, getY() / 2, 0);
-
 		shapeRenderer.begin(ShapeType.Rectangle);
 		shapeRenderer.rect(0, 0, sizeX, sizeY);
 		shapeRenderer.end();
@@ -101,18 +93,20 @@ public class HexMap extends Group implements Disposable {
 
 		if (stage == null)
 			stage = new Stage();
-
 		stage.clear();
 
-		// Static drawing for now.
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.PLAYER,
-				new IntVec2(0, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2) + (0 * tileY + 42.5f),
-				ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY), ALLEGIANCE.HOSTILE,
-				new IntVec2(2, 0)));
-		stage.draw();
+		for (GenericMapTile tile : systems) {
+			stage.addActor(tile);
+		}
 
+		// Static drawing for now.
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
+				ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2)
+				+ (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
+		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY),
+				ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
+		stage.draw();
 	}
 
 	/** Called from parent when mouse position over map */
@@ -128,13 +122,8 @@ public class HexMap extends Group implements Disposable {
 	 * @param y
 	 */
 	public void setTileSize(float x, float y) {
-
 		this.tileX = x;
 		this.tileY = y;
-
-		this.hTile = sizeX / tileX;
-		this.vTile = sizeY / tileY;
-
 	}
 
 	/**
@@ -155,7 +144,7 @@ public class HexMap extends Group implements Disposable {
 	 * Checks if the requested tile should even be displayed or if it is outside the requested view.
 	 * 
 	 * @param tileID
-	 *         Vector ID of the tile in question
+	 *          Vector ID of the tile in question
 	 * 
 	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen
 	 *         and shouldn't be displayed.
@@ -179,6 +168,18 @@ public class HexMap extends Group implements Disposable {
 		stage.dispose();
 	}
 
-	public void setScreenPosition(float x, float y) {
+	/**
+	 * @Leander: make this work please? :)
+	 */
+	private void getSystemsFromServer() {
+		// TODO: Fetch Systems from server.
+
+		Set<SolarSystem> _temp = null;
+
+		for (SolarSystem system : _temp) {
+
+			systems.add(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
+					system, new IntVec2(0, 0)));
+		}
 	}
 }

@@ -100,7 +100,7 @@ public class SettingsScreen implements Screen {
 		stage.addActor(navigation);
 		button = new TextButton("Back to main screen", ResPack.UI_SKIN);
 
-		navigation.add(button).width(200);
+		navigation.add(button).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
 		navigation.row();
 
 		navigation.top().right();
@@ -125,7 +125,7 @@ public class SettingsScreen implements Screen {
 		introLabel = new Label(" Skip the intro.", ResPack.UI_SKIN);
 
 		table.add(skipIntro);
-		table.add(introLabel);
+		table.add(introLabel).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		table.row();
 		table.center();
 		stage.addActor(table);

@@ -15,46 +15,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.ws.impl;
+package de.r2soft.space.server.ws.impl;
 
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 
 import de.r2soft.space.framework.players.Player;
-
-
-import server.ws.interfaces.ConnectionService;
-import server.ws.interfaces.SessionManagerLocal;
+import de.r2soft.space.server.ws.interfaces.ConnectionService;
+import de.r2soft.space.server.ws.interfaces.SessionManagerLocal;
 
 public class ConnectionServiceImpl implements ConnectionService {
 
-  @EJB
-  SessionManagerLocal sessionManager;
+	@EJB
+	SessionManagerLocal sessionManager;
 
-  /**
-   * Connect a new user session to the server.
-   * 
-   * @param username
-   * @param password
-   */
-  @Override
-  @WebMethod
-  public Integer connect(String username, String password) {
-	Player player = new Player(username);
-	// TODO: Get user information for user name
+	/**
+	 * Connect a new user session to the server.
+	 * 
+	 * @param username
+	 * @param password
+	 */
+	@Override
+	@WebMethod
+	public Integer connect(String username, String password) {
+		Player player = new Player(username);
+		// TODO: Get user information for user name
 
-	// TODO: Validate password
+		// TODO: Validate password
 
-	Integer sessionID = sessionManager.registerSession(player);
-	return sessionID;
-  }
+		Integer sessionID = sessionManager.registerSession(player);
+		return sessionID;
+	}
 
-  /**
-   * Disconnect an existing session from the server.
-   */
-  @Override
-  @WebMethod
-  public boolean disconnect(Integer sessionID) {
-	return sessionManager.unregisterSession(sessionID);
-  }
+	/**
+	 * Disconnect an existing session from the server.
+	 */
+	@Override
+	@WebMethod
+	public boolean disconnect(Integer sessionID) {
+		return sessionManager.unregisterSession(sessionID);
+	}
 }

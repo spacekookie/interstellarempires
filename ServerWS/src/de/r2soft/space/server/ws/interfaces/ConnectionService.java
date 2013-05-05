@@ -15,21 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.ws.interfaces;
+package de.r2soft.space.server.ws.interfaces;
 
-import de.r2soft.space.framework.players.Player;
-import server.ws.core.SessionManager;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
-/**
- * Local Interface to {@link SessionManager}.
- * 
- * @author Leander
- * 
- */
-public interface SessionManagerLocal {
+@WebService(targetNamespace = "http://leandersabel.de")
+public interface ConnectionService {
 
-  public Integer registerSession(Player player);
+  @WebMethod
+  public Integer connect(String username, String password);
 
-  public boolean unregisterSession(Integer sessionID);
+  @WebMethod
+  public boolean disconnect(Integer sessionID);
+  
 
 }

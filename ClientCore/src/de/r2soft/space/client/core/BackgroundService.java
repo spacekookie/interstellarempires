@@ -17,6 +17,13 @@
 
 package de.r2soft.space.client.core;
 
+/**
+ * Background thread to synchronize the client with the server, pushing new
+ * information and fetching status updates.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
 public class BackgroundService extends Thread {
 
 }

@@ -15,16 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package server.ws.interfaces;
+package de.r2soft.space.server.ws.interfaces;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.server.ws.core.SessionManager;
 
-@WebService(targetNamespace = "http://leandersabel.de")
-public interface HelloWorld {
+/**
+ * Local Interface to {@link SessionManager}.
+ * 
+ * @author Leander
+ * 
+ */
+public interface SessionManagerLocal {
 
-  @WebMethod
-  public String sayHello(String name);
-  
-  
+	public Integer registerSession(Player player);
+
+	public boolean unregisterSession(Integer sessionID);
+
 }

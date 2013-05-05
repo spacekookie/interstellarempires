@@ -64,11 +64,11 @@ public class GenericMapObject extends Actor implements Disposable {
 
 	private boolean moving;
 
-		{
-			renderer = new ShapeRenderer();
-			target = new Vector2();
-			position = new Vector2();
-		}
+	{
+		renderer = new ShapeRenderer();
+		target = new Vector2();
+		position = new Vector2();
+	}
 
 	public GenericMapObject getInstance() {
 		return this;
@@ -89,27 +89,30 @@ public class GenericMapObject extends Actor implements Disposable {
 		this.allegiance = allegience;
 	}
 
+	public GenericMapObject(float x, float y, TYPE type2, String flag2, Player claim2) {
+
+	}
+
 	public void draw(SpriteBatch batch, float parentAlpha) {
 
 		batch.end();
 		batch.begin();
-		if (selected)
-			{
-				batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
-						- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
-						- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
-						ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
-			}
+		if (selected) {
+			batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
+					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
+					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
+					ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
+		}
 
 		switch (type) {
-			case FLEET:
-				batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0,
-						ResPack.SIZE_FLEET_MEDIUM, ResPack.SIZE_FLEET_MEDIUM, 1, 1, 0);
-				break;
+		case FLEET:
+			batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0,
+					ResPack.SIZE_FLEET_MEDIUM, ResPack.SIZE_FLEET_MEDIUM, 1, 1, 0);
+			break;
 
-			default:
-				Gdx.app.log(Settings.LOG, "Error displaying MapTile");
-				break;
+		default:
+			Gdx.app.log(Settings.LOG_MAP_OBJECT, "fatal error displaying map object");
+			break;
 		}
 	}
 
@@ -117,54 +120,49 @@ public class GenericMapObject extends Actor implements Disposable {
 	 * This will register clicks on the corresponding tile actor.
 	 * 
 	 * @param x
-	 *         position of mouse on screen.
+	 *          position of mouse on screen.
 	 * 
 	 * @param y
-	 *         position of mouse on screen.
+	 *          position of mouse on screen.
 	 * 
 	 * @param touchable
-	 *         Whether the actor allows touch events.
+	 *          Whether the actor allows touch events.
 	 * 
 	 * @return null
 	 */
 	@Override
 	public Actor hit(float x, float y, boolean touchable) {
 
-		if (touchable && getTouchable() == Touchable.enabled)
-			{
-				if (Gdx.input.isButtonPressed(1))
-					{
-						System.out.println("Click click");
-						if (selected)
-							{
-								target.x = Gdx.input.getX();
-								target.y = Gdx.input.getY();
-								moveLocally();
-							}
-					} else if (Gdx.input.isTouched(0))
-					{
-						if (x > (this.position.x - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-								&& x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-								&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-								&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM))
-							{
-								selected = true;
-							} else
-							{
-								selected = false;
-							}
-					}
+		if (touchable && getTouchable() == Touchable.enabled) {
+			if (Gdx.input.isButtonPressed(1)) {
+				System.out.println("Click click");
+				if (selected) {
+					target.x = Gdx.input.getX();
+					target.y = Gdx.input.getY();
+					moveLocally();
+				}
 			}
+			else if (Gdx.input.isTouched(0)) {
+				if (x > (this.position.x - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+						&& x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+						&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+						&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
+					selected = true;
+				}
+				else {
+					selected = false;
+				}
+			}
+		}
 		return null;
 	}
 
 	private void moveLocally() {
-		if (!target.equals(position))
-			{
-				trajectory = new Vector2(target.sub(position));
-				trajectory.nor();
-				position.add(trajectory.mul(100));
-			}
+		if (!target.equals(position)) {
+			trajectory = new Vector2(target.sub(position));
+			trajectory.nor();
+			position.add(trajectory.mul(100));
+		}
 		Vector2 position = new Vector2(this.posX, this.posY);
 		trajectory = new Vector2(target.sub(position));
 		trajectory.nor();
