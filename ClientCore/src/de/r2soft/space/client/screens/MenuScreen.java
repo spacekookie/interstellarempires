@@ -18,15 +18,6 @@ package de.r2soft.space.client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/MenuScreen.java
-=======
-import client.core.ScreenHandler;
-import client.objects.groups.HexMap;
-import client.settings.Settings;
-import client.util.Coordinator;
-import client.util.ResPack;
-
->>>>>>> develop:ClientCore/src/client/screens/MenuScreen.java
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -60,22 +51,13 @@ public class MenuScreen implements Screen {
 	private TextButton settings;
 	private TextButton exitGame;
 	private Table mapTable;
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/MenuScreen.java
-	private ResPack res;
-=======
->>>>>>> develop:ClientCore/src/client/screens/MenuScreen.java
 
 	private HexMap map;
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/MenuScreen.java
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
 				+ Settings.SCREENTITLE_HOME);
-		res = new ResPack();
-=======
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_HOME);
->>>>>>> develop:ClientCore/src/client/screens/MenuScreen.java
 	}
 
 	@Override

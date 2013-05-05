@@ -17,14 +17,6 @@ package de.r2soft.space.client.screens;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SettingsScreen.java
-=======
-import client.core.ScreenHandler;
-import client.settings.AppSettingsHelper;
-import client.settings.Settings;
-import client.util.ResPack;
-
->>>>>>> develop:ClientCore/src/client/screens/SettingsScreen.java
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -67,10 +59,6 @@ public class SettingsScreen implements Screen {
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
 				+ Settings.SCREENTITLE_SETTINGS);
 		prefs = Gdx.app.getPreferences("my-application");
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SettingsScreen.java
-		ResPack res = new ResPack();
-=======
->>>>>>> develop:ClientCore/src/client/screens/SettingsScreen.java
 
 		skipIntro = new CheckBox("", ResPack.UI_SKIN);
 		if (prefs.contains("intro"))
@@ -146,27 +134,32 @@ public class SettingsScreen implements Screen {
 
 	@Override
 	public void show() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void hide() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pause() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resume() {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void dispose() {
-		stage.dispose();
+		// TODO Auto-generated method stub
+
 	}
 
 }

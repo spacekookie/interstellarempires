@@ -3,7 +3,6 @@ package de.r2soft.space.client.screens;
 /* 
  * Copyright (c) 2012 Katharina Fey
  * 
- package bucket.game.client.gui;
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -21,17 +20,6 @@ package de.r2soft.space.client.screens;
 import java.util.HashSet;
 import java.util.Set;
 
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SystemScreen.java
-=======
-import client.core.MainClientLauncher;
-import client.core.ScreenHandler;
-import client.objects.actors.GenericMapObject;
-import client.objects.groups.SolarMap;
-import client.settings.Settings;
-import client.types.IntVec2;
-import client.util.ResPack;
-
->>>>>>> develop:ClientCore/src/client/screens/SystemScreen.java
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -49,19 +37,12 @@ import de.r2soft.space.client.groups.SolarMap;
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.ResPack;
-
 import framework.objects.Unit.TYPE;
 
 /**
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SystemScreen.java
  * This class will be called when the player clicked on a tile on the @HexMap.
  * In the constructor the relevant data to identify a solar system will be
  * passed on as well as creating a layout around a solar system view.
-=======
- * This class will be called when the player clicked on a tile on the @HexMap. In the constructor
- * the relevant data to identify a solar system will be passed on as well as creating a layout
- * around a solar system view.
->>>>>>> develop:ClientCore/src/client/screens/SystemScreen.java
  * 
  * @author Katharina
  * 
@@ -79,10 +60,6 @@ public class SystemScreen implements Screen {
 	private float radius;
 
 	/** IMPORTANT **/
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SystemScreen.java
-	private ResPack res;
-=======
->>>>>>> develop:ClientCore/src/client/screens/SystemScreen.java
 	private final String wallofText = "This is an example of how Textwrapping works!";
 	private final String wallofText2 = "To the left you see the solar map. It will display all actions "
 			+ "in the selected solar system. On the right you will have several buttons that might come in handy"
@@ -91,14 +68,8 @@ public class SystemScreen implements Screen {
 	public SystemScreen(ScreenHandler handler, IntVec2 tileID) {
 		this.handler = handler;
 		this.tileID = tileID;
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SystemScreen.java
-		res = new ResPack();
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
 				+ Settings.SCREENTITLE_SOLAR + ": " + tileID);
-=======
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - " + Settings.SCREENTITLE_SOLAR
-				+ ": " + tileID);
->>>>>>> develop:ClientCore/src/client/screens/SystemScreen.java
 		// TODO: get System with ID
 		radius = MainClientLauncher.getSystemWithID(tileID).getRadius();
 
@@ -116,7 +87,6 @@ public class SystemScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-<<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/screens/SystemScreen.java
 		// if (Gdx.input.isButtonPressed(0))
 		// {
 		// System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
@@ -124,9 +94,6 @@ public class SystemScreen implements Screen {
 
 		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20
 				&& Gdx.input.getY() < 580)
-=======
-		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20 && Gdx.input.getY() < 580)
->>>>>>> develop:ClientCore/src/client/screens/SystemScreen.java
 			{
 				map.setInputToChild();
 			} else
@@ -143,11 +110,8 @@ public class SystemScreen implements Screen {
 		stage.clear();
 		Gdx.input.setInputProcessor(stage);
 
-		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects); // TODO:
-																																																																																												// Replace
-																																																																																												// with
-																																																																																												// server
-																																																																																												// request!
+		// TODO:Replace with server request
+		map = new SolarMap(tileID, MainClientLauncher.getSystemWithID(tileID), localGameObjects);
 		stage.addActor(map);
 
 		back = new Table();

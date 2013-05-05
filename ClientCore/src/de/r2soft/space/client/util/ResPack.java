@@ -165,4 +165,17 @@ public class ResPack {
 	/** Gas Planets */
 	public static final float SIZE_CELESTIAL_PLANET_CLASS_F = 0;
 
+	/** System sizes */
+
+	/** Brown dwarf solar system */
+	public static final float SIZE_SYSTEM_BROWN_DWARF = 140;
+	/** Red dwarf solar system */
+	public static final float SIZE_SYSTEM_RED_DWARF = 230;
+	/** Red giant solar system */
+	public static final float SIZE_SYSTEM_RED_GIANT = 280;
+	/** Neutron star solar system */
+	public static final float SIZE_SYSTEM_BLUE_DWARF = 100;
+	/** BLue giant solar system */
+	public static final float SIZE_SYSTEM_BLUE_GIANT = 280;
+
 }
