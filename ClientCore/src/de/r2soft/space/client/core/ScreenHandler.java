@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 ***REMOVED***
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,13 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 package de.r2soft.space.client.core;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 
 import de.r2soft.space.client.screens.LoginScreen;
 import de.r2soft.space.client.screens.TweenScreen;
@@ -32,6 +35,7 @@ import de.r2soft.space.client.settings.Settings;
 public class ScreenHandler extends Game {
 
 	private static ScreenHandler handler;
+	private Music music;
 
 	/**
 	 * 
@@ -47,6 +51,8 @@ public class ScreenHandler extends Game {
 	@Override
 	public void create() {
 		handler = this;
+		music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+		music.play();
 
 		if (!Settings.skipIntro)
 			setScreen(new TweenScreen(this));
@@ -57,6 +63,7 @@ public class ScreenHandler extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
+		music.stop();
 	}
 
 	@Override

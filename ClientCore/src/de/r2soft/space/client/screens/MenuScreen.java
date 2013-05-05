@@ -1,9 +1,6 @@
-package de.r2soft.space.client.screens;
-
-/* 
- * Copyright (c) 2012 ***REMOVED***
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
- package bucket.game.client.gui;
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +13,9 @@ package de.r2soft.space.client.screens;
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
+package de.r2soft.space.client.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -64,13 +63,12 @@ public class MenuScreen implements Screen {
 		stage.draw();
 
 		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720 && Gdx.input.getY() > 100
-				&& Gdx.input.getY() < 450)
-			{
-				map.setInputToChild();
-			} else
-			{
-				Gdx.input.setInputProcessor(stage);
-			}
+				&& Gdx.input.getY() < 450) {
+			map.setInputToChild();
+		}
+		else {
+			Gdx.input.setInputProcessor(stage);
+		}
 
 	}
 
@@ -112,7 +110,7 @@ public class MenuScreen implements Screen {
 		mapTable.add(map);
 		mapTable.center(); // First center it
 		mapTable.setX(-300); // Then reduce the X value /**/ TODO:
-																							// Gdx.graphics.getWidth() / 3
+												 // Gdx.graphics.getWidth() / 3
 
 		settings = new TextButton("Settings", ResPack.UI_SKIN);
 		exitGame = new TextButton("Logout & Quit", ResPack.UI_SKIN);

@@ -1,5 +1,7 @@
 package de.r2soft.space.client.settings;
 
+import de.r2soft.space.framework.players.Player;
+
 /* 
  * Copyright (c) 2013 ***REMOVED***
  * 
@@ -29,7 +31,7 @@ public class Settings {
 	public static int OLD_WIDTH = 1080;
 	public static int OLD_HEIGHT = 600;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.0.6";
+	public static String VERSION_NUMBER = "Prototype 1.0.8";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_SOLAR = "SOLARSYSTEM";
@@ -41,6 +43,10 @@ public class Settings {
 	public final static String LOG_SOLAR_MAP = "From System";
 	public final static String LOG_MAP_OBJECT = "From Object";
 
+	@Deprecated
+	/** Will be moved to the Prefereces database */
 	public static boolean skipIntro = true;
+
+	public static final Player thisPlayer = new Player("KateTheAwesome");
 
 }

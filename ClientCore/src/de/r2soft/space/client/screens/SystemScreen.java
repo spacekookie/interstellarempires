@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.client.screens;
 
 import java.util.Set;
@@ -68,13 +67,14 @@ public class SystemScreen implements Screen {
 		this.handler = handler;
 		this.system = childsystem;
 		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
-				+ Settings.SCREENTITLE_SOLAR + ": " + childsystem.getId());
+				+ Settings.SCREENTITLE_SOLAR);
 
-		units = childsystem.getUnits();
-
-		for (Unit u : units) {
-			childobjects.add(new GenericMapObject(u.getPosition().x, u.getPosition().y, u.getType(), u
-					.getFlag(), u.getClaim()));
+		if (childsystem.getUnits() != null) {
+			units = childsystem.getUnits();
+			for (Unit u : units) {
+				childobjects.add(new GenericMapObject(u.getPosition().x, u.getPosition().y, u.getType(), u
+						.getFlag(), u.getClaim()));
+			}
 		}
 	}
 

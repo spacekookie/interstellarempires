@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.client.groups;
 
 import java.util.Set;
@@ -72,9 +71,12 @@ public class SolarMap extends Group implements Disposable {
 			stage = new Stage();
 		stage.clear();
 
-		for (GenericMapObject object : childobjects) {
-			stage.addActor(object);
+		if (childobjects != null) {
+			for (GenericMapObject object : childobjects) {
+				stage.addActor(object);
+			}
 		}
+
 		stage.draw();
 
 		batch.end();
