@@ -1,6 +1,6 @@
-/* 
- * Copyright (c) 2013 Random Robot Softworks (www.2rsoftworks.de)
- *
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.client.util;
 
@@ -190,8 +191,9 @@ public class ResPack {
 	/** Red giant solar system */
 	public static final float SIZE_SYSTEM_RED_GIANT = 280;
 	/** Neutron star solar system */
-	public static final float SIZE_SYSTEM_BLUE_DWARF = 100;
-	/** BLue giant solar system */
+	public static final float SIZE_SYSTEM_WHITE_DWARF = 100;
+	/** Blue giant solar system */
 	public static final float SIZE_SYSTEM_BLUE_GIANT = 280;
-
+	/** Black hole solar system */
+	public static final float SIZE_SYSTEM_BLACK_HOLE = 250;
 }

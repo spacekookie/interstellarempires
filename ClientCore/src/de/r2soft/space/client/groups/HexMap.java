@@ -1,7 +1,5 @@
-package de.r2soft.space.client.groups;
-
-/* 
- * Copyright (c) 2013 Katharina Fey
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +13,11 @@ package de.r2soft.space.client.groups;
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
+package de.r2soft.space.client.groups;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -34,7 +33,10 @@ import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Star.STARTYPE;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.players.Player;
 
 /**
  * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
@@ -75,6 +77,7 @@ public class HexMap extends Group implements Disposable {
 		this.tileY = 85;
 
 		this.handler = handler;
+		systems = new HashSet<GenericMapTile>();
 		getSystemsFromServer();
 		shapeRenderer = new ShapeRenderer();
 	}
@@ -100,12 +103,12 @@ public class HexMap extends Group implements Disposable {
 		}
 
 		// Static drawing for now.
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
-				ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2)
-				+ (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
-		stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY),
-				ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
+		// stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
+		// ALLEGIANCE.PLAYER, new IntVec2(0, 0)));
+		// stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX + 75), (getY() / 2)
+		// + (0 * tileY + 42.5f), ALLEGIANCE.NEUTRAL, new IntVec2(1, 0)));
+		// stage.addActor(new GenericMapTile((getX() / 2) + (1 * tileX), (getY() / 2) + (0 * tileY),
+		// ALLEGIANCE.HOSTILE, new IntVec2(2, 0)));
 		stage.draw();
 	}
 
@@ -172,14 +175,15 @@ public class HexMap extends Group implements Disposable {
 	 * @Leander: make this work please? :)
 	 */
 	private void getSystemsFromServer() {
-		// TODO: Fetch Systems from server.
 
-		Set<SolarSystem> _temp = null;
+		// TODO: Fetch Systems from server.
+		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
+		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, null, null,
+				new Star(STARTYPE.BLUEGIANT)));
 
 		for (SolarSystem system : _temp) {
 
-			systems.add(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
-					system, new IntVec2(0, 0)));
+			systems.add(new GenericMapTile(400, 300, system, new IntVec2(0, 0)));
 		}
 	}
 }

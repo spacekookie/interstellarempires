@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,18 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.players;
 
+/**
+ * Player object. Will be created from server and called again on login. Name will be returned on
+ * login in the console.
+ * 
+ * @author Katharina
+ * 
+ */
 public class Player {
 
 	private boolean admin;
@@ -33,5 +41,4 @@ public class Player {
 	public boolean isAdmin() {
 		return admin;
 	}
-
 }

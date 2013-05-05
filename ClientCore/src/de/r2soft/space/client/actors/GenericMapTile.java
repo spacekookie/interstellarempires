@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.client.actors;
 
 import com.badlogic.gdx.Gdx;
@@ -32,6 +31,7 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.players.Player;
 
 public class GenericMapTile extends Actor {
 
@@ -43,6 +43,9 @@ public class GenericMapTile extends Actor {
 	private SolarSystem childsystem;
 
 	protected IntVec2 id = null;
+
+	/** Player for tile colour */
+	private Player claim;
 
 	/**
 	 * The constructor will set up the coordinates on which the tile will then be drawn. Also includes
@@ -83,7 +86,18 @@ public class GenericMapTile extends Actor {
 		tileID = id;
 		sizeX = sizeY = 100; // Tile size.
 		renderer = new ShapeRenderer();
+		setupSystem(system);
+	}
+
+	private void setupSystem(SolarSystem system) {
+		claim = system.getSovereignty();
 		childsystem = system;
+		if (claim.equals(null)) {
+			ally = ALLEGIANCE.NEUTRAL;
+		}
+		else {
+			ally = claim.equals(Settings.thisPlayer) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
+		}
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
