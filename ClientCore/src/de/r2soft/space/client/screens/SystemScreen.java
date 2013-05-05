@@ -37,7 +37,7 @@ import de.r2soft.space.client.groups.SolarMap;
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.ResPack;
-import framework.objects.Unit.TYPE;
+import de.r2soft.space.framework.objects.Unit.TYPE;
 
 /**
  * This class will be called when the player clicked on a tile on the @HexMap.

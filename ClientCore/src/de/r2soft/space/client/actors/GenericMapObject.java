@@ -27,10 +27,10 @@ import com.badlogic.gdx.utils.Disposable;
 
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.util.ResPack;
-import framework.objects.Unit.TYPE;
-import framework.players.Alliance;
-import framework.players.Alliance.ALLEGIANCE;
-import framework.players.Player;
+import de.r2soft.space.framework.objects.Unit.TYPE;
+import de.r2soft.space.framework.players.Alliance;
+import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 
 /**
  * A generic MapObject that will be drawn onto the screen in the Solarmap. May

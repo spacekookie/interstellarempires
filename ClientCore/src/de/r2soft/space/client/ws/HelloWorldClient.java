@@ -21,7 +21,8 @@ import javax.jws.WebMethod;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import server.ws.interfaces.HelloWorld;
+import de.r2soft.space.server.ws.interfaces.HelloWorld;
+
 
 import java.net.MalformedURLException;
 import java.net.URL;

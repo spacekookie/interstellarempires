@@ -31,7 +31,7 @@ import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.ResPack;
-import framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 
 public class GenericMapTile extends Actor {
 

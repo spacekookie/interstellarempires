@@ -33,10 +33,10 @@ import de.r2soft.space.client.settings.Settings;
 import de.r2soft.space.client.types.IntVec2;
 import de.r2soft.space.client.util.Find;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Star.STARTYPE;
 
-import framework.map.SolarSystem;
-import framework.objects.Star.STARTYPE;
-import framework.objects.Unit;
 
 /**
  * <<<<<<< HEAD:ClientCore/src/de/r2soft/space/client/groups/SolarMap.java
