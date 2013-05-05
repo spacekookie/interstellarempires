@@ -17,20 +17,36 @@
 
 package de.r2soft.space.framework.util;
 
-import org.apache.log4j.Logger;
+import java.util.Calendar;
+import java.util.Date;
 
-
-public class UtilFactory {
+public class TimeUtil {
 
   /**
-   * Create a simple logger for the given object.
+   * Get the current time as a Date object.
    * 
-   * @param obj
    * @return
    */
-  @Deprecated
-  public static Logger createLogger(Object obj) {
-	return Logger.getLogger(obj.getClass().getName());
+  public static Date getTimeNow() {
+	return Calendar.getInstance().getTime();
+  }
+
+  /**
+   * Add the passed values to the current Date.
+   * 
+   * @param years
+   * @param days
+   * @param hours
+   * @param seconds
+   * @return
+   */
+  public static Date getTimeThen(int years, int days, int hours, int seconds) {
+	Calendar c = Calendar.getInstance();
+	c.add(Calendar.YEAR, years);
+	c.add(Calendar.DAY_OF_YEAR, days);
+	c.add(Calendar.MINUTE, hours);
+	c.add(Calendar.SECOND, seconds);
+	return c.getTime();
   }
 
 }
