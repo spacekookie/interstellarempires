@@ -40,6 +40,8 @@ public class ResPack {
 			Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
 	private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(
 			Gdx.files.internal("assets/gui/prot-selected.atlas"));
+	private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(
+			Gdx.files.internal("assets/map/adds/prot-tile-additions.atlas"));
 
 	/** Skins */
 
@@ -67,6 +69,21 @@ public class ResPack {
 	/** Player owned tile */
 	public static final TextureRegion TILE_HEX_PLAYER = INITIAL_MAP_HEX
 			.findRegion("prot-map-tile-player");
+
+	/** System contains player fleet */
+	public static final TextureRegion TILE_ADD_FLEET_PLAYER = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-player");
+	/** System contains friendly fleet */
+	public static final TextureRegion TILE_ADD_FLEET_FRIENDLY = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-allied");
+	/** System contains hostile fleet */
+	public static final TextureRegion TILE_ADD_FLEET_ENEMY = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-hostile");
+	/** System contains player station */
+	public static final TextureRegion TILE_ADD_STATION_PLAYER = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-station");
+	/** The tile addition size used for position and size */
+	public static final float SIZE_TILE_ADD_SIZE = 20;
 
 	/** Fleet regions */
 

@@ -104,13 +104,13 @@ public class GenericMapTile extends Actor {
 
 		// Debug frame
 		batch.end();
-		renderer.setProjectionMatrix(batch.getProjectionMatrix());
-		renderer.setTransformMatrix(batch.getTransformMatrix());
-		renderer.translate(getX() / 2, getY() / 2, 0);
-
-		renderer.begin(ShapeType.Rectangle);
-		renderer.rect(posX, posY, sizeX, sizeY);
-		renderer.end();
+		// renderer.setProjectionMatrix(batch.getProjectionMatrix());
+		// renderer.setTransformMatrix(batch.getTransformMatrix());
+		// renderer.translate(getX() / 2, getY() / 2, 0);
+		//
+		// renderer.begin(ShapeType.Rectangle);
+		// renderer.rect(posX, posY, sizeX, sizeY);
+		// renderer.end();
 		batch.begin();
 
 		switch (ally) {
@@ -134,6 +134,18 @@ public class GenericMapTile extends Actor {
 			Gdx.app.log(Resources.LOG_HEX_TILE, "fatal error displaying map tile");
 			break;
 		}
+
+		if (childsystem.hasUnits()) {
+			batch.draw(ResPack.TILE_ADD_FLEET_PLAYER, posX + (sizeX / 4), posY + (sizeY / 4), 0, 0,
+					(sizeX / 4), (sizeY / 4), 1, 1, 0);
+			batch.draw(ResPack.TILE_ADD_FLEET_ENEMY, posX + (sizeX / 4), posY + 2 * (sizeY / 4), 0, 0,
+					(sizeX / 4), (sizeY / 4), 1, 1, 0);
+			batch.draw(ResPack.TILE_ADD_FLEET_FRIENDLY, posX + 2 * (sizeX / 4), posY + 2 * (sizeY / 4),
+					0, 0, (sizeX / 4), (sizeY / 4), 1, 1, 0);
+			batch.draw(ResPack.TILE_ADD_STATION_PLAYER, posX + 2 * (sizeX / 4), posY + (sizeY / 4), 0, 0,
+					(sizeX / 4), (sizeY / 4), 1, 1, 0);
+		}
+
 	}
 
 	/**

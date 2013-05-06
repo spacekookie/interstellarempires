@@ -44,13 +44,13 @@ public class Resources {
 	public final static String LOG_SOLAR_MAP = "From System";
 	public final static String LOG_MAP_OBJECT = "From Object";
 
-	@Deprecated
-	/** Will be moved to the Prefereces database */
-	public static boolean skipIntro = true;
-
 	public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
 	public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
+	public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
+	public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
+	public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
 
+	@Deprecated
 	public static final Player thisPlayer = new Player("KateTheAwesome");
 
 }

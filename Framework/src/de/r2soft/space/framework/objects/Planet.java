@@ -17,11 +17,23 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import de.r2soft.space.framework.players.Player;
+
+/**
+ * Planet implementations. Can gain or loose homeworld status by players settling their first colony
+ * on them.
+ * Capital flag can be transfered.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
 public class Planet extends MovingObject {
 
 	private float radius;
 	private float mass;
 	private PLANETCLASS classification;
+	private boolean homeworld;
+	private boolean capital;
 
 	/**
 	 * Planet classification:
@@ -66,5 +78,16 @@ public class Planet extends MovingObject {
 
 	public void setClassification(PLANETCLASS classification) {
 		this.classification = classification;
+	}
+
+	public void setHomeworld(Player p) {
+		if (p.hasPlanets())
+			this.homeworld = true;
+		else
+			this.homeworld = false;
+	}
+
+	public boolean isHomeworld() {
+		return homeworld;
 	}
 }

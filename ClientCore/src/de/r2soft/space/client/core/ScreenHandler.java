@@ -37,6 +37,7 @@ public class ScreenHandler extends Game {
 
 	private static ScreenHandler handler;
 	private Music music;
+	private Preferences prefs;
 
 	/**
 	 * 
@@ -49,15 +50,40 @@ public class ScreenHandler extends Game {
 		return handler;
 	}
 
+	/**
+	 * Called every time something major is being updated such as screen resolution, settings or big
+	 * server syncs.
+	 * 
+	 * @author ***REMOVED***
+	 */
+	public void onUpdate() {
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC)) {
+			if (!music.isPlaying()) {
+				music.play();
+				music.setLooping(true);
+				music.setVolume(0.95f);
+			}
+		}
+		else {
+			if (music.isPlaying())
+				music.stop();
+		}
+	}
+
 	@Override
 	public void create() {
 		handler = this;
-		// music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
-		// music.play();
-		// music.setLooping(true);
-		// music.setVolume(0.95f);
 
-		Preferences prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+		music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+
+		if (!prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
+			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, true);
+		
+		if(!prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
+			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, true);
+
+		onUpdate();
 
 		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
 			setScreen(new TweenScreen(this));
@@ -68,7 +94,8 @@ public class ScreenHandler extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		// music.stop();
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+			music.stop();
 	}
 
 	@Override
@@ -84,13 +111,16 @@ public class ScreenHandler extends Game {
 	@Override
 	public void pause() {
 		super.pause();
-		// music.pause();
+
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+			music.pause();
 	}
 
 	@Override
 	public void resume() {
 		super.resume();
-		// music.play();
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+			music.play();
 	}
 
 }

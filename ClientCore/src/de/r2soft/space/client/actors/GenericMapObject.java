@@ -62,6 +62,7 @@ public class GenericMapObject extends Actor {
 	private Player claim;
 	private GameObject orbit;
 	private SUPERCLASS superclass;
+	private float size;
 
 	/** Unit information */
 	private TYPE type;
@@ -113,8 +114,9 @@ public class GenericMapObject extends Actor {
 	 * @param structure
 	 */
 	public GenericMapObject(Structure structure) {
-		superclass = structure.getSuperclass();
 		this.structue = structure;
+		superclass = structure.getSuperclass();
+		type = structure.getType();
 	}
 
 	/**
@@ -126,6 +128,7 @@ public class GenericMapObject extends Actor {
 		planetclass = planet.getClassification();
 		planetradius = planet.getRadius();
 		planetmass = planet.getMass();
+		type = planet.getType();
 		claim = planet.getClaim();
 		orbit = planet.getOrbit();
 		superclass = planet.getSuperclass();
@@ -153,13 +156,6 @@ public class GenericMapObject extends Actor {
 
 		batch.end();
 		batch.begin();
-		if (selected) {
-			batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
-					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
-					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
-					ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
-		}
-
 		switch (type) {
 		case FLEET:
 			batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0,
@@ -170,6 +166,14 @@ public class GenericMapObject extends Actor {
 			Gdx.app.log(Resources.LOG_MAP_OBJECT, "fatal error displaying map object");
 			break;
 		}
+
+		if (selected) {
+			batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
+					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
+					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
+					ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
+		}
+
 	}
 
 	/**
@@ -198,10 +202,8 @@ public class GenericMapObject extends Actor {
 				}
 			}
 			else if (Gdx.input.isTouched(0)) {
-				if (x > (this.position.x - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-						&& x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-						&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-						&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
+				if (x > this.position.x && x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
+						&& y > this.position.y && y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
 					selected = true;
 					setParentSelection("metal");
 				}
@@ -228,14 +230,9 @@ public class GenericMapObject extends Actor {
 		position.add(trajectory.x, -trajectory.y);
 	}
 
-	/**
-	 * THIS SUCKS! TODO: Fetch information from server again!
-	 */
-	@Deprecated
 	private void setParentSelection(String s) {
-		if (s != null) {
+		if (s != null)
 			SystemScreen.getInstance().setSelectionfocus(this, superclass);
-		}
 		else
 			SystemScreen.getInstance().setSelectionfocus(null, null);
 	}

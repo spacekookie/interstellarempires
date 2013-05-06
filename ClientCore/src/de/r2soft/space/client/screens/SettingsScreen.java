@@ -25,7 +25,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -49,8 +48,7 @@ public class SettingsScreen implements Screen {
 	private Table navigation;
 	private Preferences prefs;
 
-	private CheckBox skipIntro;
-	private Label introLabel;
+	private CheckBox skipIntro, playMusic;
 
 	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
@@ -58,9 +56,14 @@ public class SettingsScreen implements Screen {
 				+ Resources.SCREENTITLE_SETTINGS);
 		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
 
-		skipIntro = new CheckBox("", ResPack.UI_SKIN);
+		skipIntro = new CheckBox("Skip the intro", ResPack.UI_SKIN);
+		playMusic = new CheckBox("Play background music", ResPack.UI_SKIN);
+
 		if (prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
 			skipIntro.setChecked(prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
+
+		if (prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
+			playMusic.setChecked(prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC));
 	}
 
 	@Override
@@ -78,7 +81,17 @@ public class SettingsScreen implements Screen {
 			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, false);
 		}
 
+		if (playMusic.isChecked()) {
+			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, true);
+		}
+		else {
+			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, false);
+		}
+
 		skipIntro.setChecked(prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
+		playMusic.setChecked(prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC));
+
+		/** What do we do after we're done in the bathroom? :) */
 		prefs.flush();
 
 	}
@@ -111,6 +124,7 @@ public class SettingsScreen implements Screen {
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				handler.onUpdate();
 				handler.setScreen(new MenuScreen(handler));
 			}
 		});
@@ -120,10 +134,9 @@ public class SettingsScreen implements Screen {
 		table = new Table();
 		table.setFillParent(true);
 
-		introLabel = new Label("Skip the intro", ResPack.UI_SKIN);
-
-		table.add(skipIntro);
-		table.add(introLabel).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		table.add(skipIntro).left();
+		table.row();
+		table.add(playMusic).left();
 		table.row();
 		table.center();
 		stage.addActor(table);
