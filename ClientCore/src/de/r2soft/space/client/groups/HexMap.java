@@ -31,11 +31,13 @@ import com.badlogic.gdx.utils.Disposable;
 
 import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.GameObject.TYPE;
 import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.STARTYPE;
-import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.objects.Star.STARCLASS;
+import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -178,8 +180,10 @@ public class HexMap extends Group implements Disposable {
 
 		// TODO: Fetch Systems from server.
 		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
-		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, null, null,
-				new Star(STARTYPE.BLUEGIANT)));
+		Set<Unit> units = new HashSet<Unit>();
+		units.add(new Unit(TYPE.FLEET, "Fighter", Resources.thisPlayer, 200, new Vector2(200, 200)));
+		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null,
+				new Star(STARCLASS.BLUEGIANT)));
 
 		for (SolarSystem system : _temp) {
 

@@ -30,6 +30,14 @@ public abstract class GameObject {
 
 	private float size;
 	private Vector2 position;
+	private GameObject orbit;
+
+	public static enum TYPE {
+		SHIP, DEBRIS, FLEET, /** @Unit */
+		PLANET, MOON, ASTEROID, /** @Planet */
+		STATION_ORBITAL, RESEARCH_STATION, MILITARY_STATION, /** @Structure */
+		STATION_FACILITY_SMALL, STATION_FACILITY_CAPITAL, STATION_MINING;
+	}
 
 	public Vector2 getPosition() {
 		return position;
@@ -45,6 +53,16 @@ public abstract class GameObject {
 
 	public void setSize(float size) {
 		this.size = size;
+	}
+
+	/** @return the GameObject that another object orbits around */
+	public GameObject getOrbit() {
+		return orbit;
+	}
+
+	/** Set the center of orbit object */
+	public void setOrbit(GameObject orbit) {
+		this.orbit = orbit;
 	}
 
 }

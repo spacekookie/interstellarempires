@@ -17,10 +17,50 @@
 
 package de.r2soft.space.framework.objects;
 
-public class Planet extends GameObject {
+public class Planet extends MovingObject {
 
-	// The radius at which the planet orbits the star
-	private double radius;
-	private double mass;
+	private float radius;
+	private float mass;
+	private PLANETCLASS classification;
 
+	/**
+	 * Planet classification:
+	 * 
+	 * A: Asteroids & Rocks
+	 * B: Volcanic Planet
+	 * C: Desert Planet
+	 * D: Earth Planet
+	 * E: Ice Planet
+	 * F: Gas Planets
+	 * 
+	 * @author ***REMOVED***
+	 * 
+	 */
+	public static enum PLANETCLASS {
+		A, B, C, D, E, F;
+	}
+
+	public float getRadius() {
+		return radius;
+	}
+
+	public void setRadius(float radius) {
+		this.radius = radius;
+	}
+
+	public float getMass() {
+		return mass;
+	}
+
+	public void setMass(float mass) {
+		this.mass = mass;
+	}
+
+	public PLANETCLASS getClassification() {
+		return classification;
+	}
+
+	public void setClassification(PLANETCLASS classification) {
+		this.classification = classification;
+	}
 }

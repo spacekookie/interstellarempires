@@ -17,6 +17,7 @@
  ######################################################################### */
 package de.r2soft.space.client.screens;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -32,7 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.r2soft.space.client.actors.GenericMapObject;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.SolarMap;
-import de.r2soft.space.client.settings.Settings;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.Unit;
@@ -66,14 +67,15 @@ public class SystemScreen implements Screen {
 	public SystemScreen(ScreenHandler handler, SolarSystem childsystem) {
 		this.handler = handler;
 		this.system = childsystem;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
-				+ Settings.SCREENTITLE_SOLAR);
+		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
+				+ Resources.SCREENTITLE_SOLAR);
+		childobjects = new HashSet<GenericMapObject>();
 
 		if (childsystem.getUnits() != null) {
 			units = childsystem.getUnits();
-			for (Unit u : units) {
-				childobjects.add(new GenericMapObject(u.getPosition().x, u.getPosition().y, u.getType(), u
-						.getFlag(), u.getClaim()));
+
+			for (Unit unit : units) {
+				childobjects.add(new GenericMapObject(unit));
 			}
 		}
 	}

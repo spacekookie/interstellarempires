@@ -1,9 +1,5 @@
-package de.r2soft.space.client.settings;
-
-import de.r2soft.space.framework.players.Player;
-
-/* 
- * Copyright (c) 2013 ***REMOVED***
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +13,11 @@ import de.r2soft.space.framework.players.Player;
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
+package de.r2soft.space.client.settings;
+
+import de.r2soft.space.framework.players.Player;
 
 /**
  * Initializes the settings for the game. Also responsible for setting new
@@ -25,7 +25,7 @@ import de.r2soft.space.framework.players.Player;
  * 
  * @author: ***REMOVED***
  */
-public class Settings {
+public class Resources {
 
 	// Trying to be 16:9 here
 	public static int OLD_WIDTH = 1080;

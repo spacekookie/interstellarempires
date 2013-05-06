@@ -15,21 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.framework.objects;
+
+import com.badlogic.gdx.math.Vector2;
 
 import de.r2soft.space.framework.players.Player;
 
 /**
- * @author Leander
+ * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies.
+ * Rainbow ponies have infinite shields, speed and damage.
+ * 
+ * @author ***REMOVED***
  * 
  */
 public class Unit extends MovingObject {
-
-	/** For testing only */
-	public static enum TYPE {
-		FLEET, SHIP, DEBRIS, PONY;
-	}
 
 	public static enum FLEET_SIZE {
 		TINY, SMALL, MEDIUM, LARGE, MASSIVE;
@@ -40,6 +39,17 @@ public class Unit extends MovingObject {
 	private Player claim;
 	private int count;
 
+	/** Master constructor for units */
+	public Unit(TYPE type, String flag, Player claim, int count, Vector2 position) {
+		count = 1;
+		this.type = type;
+		this.flag = flag;
+		this.claim = claim;
+		this.count = count;
+		super.setPosition(position);
+	}
+
+	@Deprecated
 	public Unit() {
 		count = 1;
 	}

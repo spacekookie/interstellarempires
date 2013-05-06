@@ -1,7 +1,5 @@
-package de.r2soft.space.client.types;
-
-/* 
- * Copyright (c) 2012 ***REMOVED***
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +13,14 @@ package de.r2soft.space.client.types;
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
+package de.r2soft.space.client.types;
+
 /**
- * This will be used by the client to determine how to colour code items on maps for the player. Moved to
+ * This will be used by the client to determine how to colour code items on maps for the player.
+ * Moved to
+ * 
  * @Framework.Player.Alliance
  * 
  * @author ***REMOVED***
@@ -33,7 +36,8 @@ public class Ally {
 	private alliance a;
 
 	/**
-	 * Will set the enum to @UNKNOWN which might occur in strange cases where the player has been sent data by the server that he/she
+	 * Will set the enum to @UNKNOWN which might occur in strange cases where the player has been sent
+	 * data by the server that he/she
 	 * wasn't supposed to get.
 	 */
 	public Ally() {

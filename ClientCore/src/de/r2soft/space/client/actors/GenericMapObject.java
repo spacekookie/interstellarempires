@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.client.actors;
 
 import com.badlogic.gdx.Gdx;
@@ -26,12 +25,17 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
-import de.r2soft.space.client.settings.Settings;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.framework.objects.Unit.TYPE;
-import de.r2soft.space.framework.players.Alliance;
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.client.util.Translator;
+import de.r2soft.space.framework.objects.GameObject;
+import de.r2soft.space.framework.objects.GameObject.TYPE;
+import de.r2soft.space.framework.objects.Planet;
+import de.r2soft.space.framework.objects.Planet.PLANETCLASS;
+import de.r2soft.space.framework.objects.Structure;
+import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.players.Player;
 
 /**
  * A generic MapObject that will be drawn onto the screen in the Solarmap. May
@@ -48,21 +52,26 @@ public class GenericMapObject extends Actor implements Disposable {
 	/** The absolute position of the actor */
 	private float posX, posY;
 
-	/** Alliance of the object relative to the player */
-	private Alliance alliance;
+	private ALLEGIANCE allegiance;
+	private Player claim;
+	private GameObject orbit;
 
-	/** Object information */
+	/** Unit information */
 	private TYPE type;
 	private String flag;
-	private Player claim;
-	private ALLEGIANCE allegiance;
-	private boolean selected;
+	private Vector2 position;
 
-	/** Unit movement */
-	private Vector2 target, trajectory, position;
+	/** Unit information */
+	private PLANETCLASS planetclass;
+	private float planetradius;
+	private float planetmass;
+
+	/** Unit movement. May be moved to server */
+	@Deprecated
+	private Vector2 target, trajectory;
 
 	private ShapeRenderer renderer;
-
+	private boolean selected;
 	private boolean moving;
 
 	{
@@ -71,15 +80,53 @@ public class GenericMapObject extends Actor implements Disposable {
 		position = new Vector2();
 	}
 
+	/**
+	 * Constructor only taking the actual unit.
+	 * 
+	 * @param unit
+	 */
+	public GenericMapObject(Unit unit) {
+		type = unit.getType();
+		flag = unit.getFlag();
+		claim = unit.getClaim();
+		allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
+		position = unit.getPosition();
+	}
+
+	/**
+	 * Constructor only taking the actual structure.
+	 * 
+	 * @param structure
+	 */
+	public GenericMapObject(Structure structure) {
+
+	}
+
+	/**
+	 * Constructor only taking the actual planet.
+	 * 
+	 * @param planet
+	 */
+	public GenericMapObject(Planet planet) {
+		planetclass = planet.getClassification();
+		planetradius = planet.getRadius();
+		planetmass = planet.getMass();
+		claim = planet.getClaim();
+		orbit = planet.getOrbit();
+	}
+
+	@Deprecated
 	public GenericMapObject getInstance() {
 		return this;
 	}
 
+	@Deprecated
 	public GenericMapObject(float x, float y) {
 		this.position.x = x;
 		this.position.y = y;
 	}
 
+	@Deprecated
 	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim,
 			ALLEGIANCE allegience) {
 		this.position.x = x;
@@ -90,8 +137,8 @@ public class GenericMapObject extends Actor implements Disposable {
 		this.allegiance = allegience;
 	}
 
+	@Deprecated
 	public GenericMapObject(float x, float y, TYPE type2, String flag2, Player claim2) {
-
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -112,7 +159,7 @@ public class GenericMapObject extends Actor implements Disposable {
 			break;
 
 		default:
-			Gdx.app.log(Settings.LOG_MAP_OBJECT, "fatal error displaying map object");
+			Gdx.app.log(Resources.LOG_MAP_OBJECT, "fatal error displaying map object");
 			break;
 		}
 	}

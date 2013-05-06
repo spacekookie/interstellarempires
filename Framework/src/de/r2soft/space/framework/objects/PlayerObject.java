@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,26 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
  * 
- */
+ ######################################################################### */
 package de.r2soft.space.framework.objects;
+
+import de.r2soft.space.framework.players.Player;
 
 /**
  * @author Leander
- *
+ * 
  */
-public class PlayerObject extends GameObject {
+public abstract class PlayerObject extends GameObject {
+
+	private Player claim;
+
+	public void setClaim(Player claim) {
+		this.claim = claim;
+	}
+
+	public Player getClaim() {
+		return claim;
+	}
 
 }

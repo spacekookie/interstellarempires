@@ -29,7 +29,20 @@ public class Player {
 
 	private boolean admin;
 	private String name;
+	private Alliance alliance;
 
+	public void setAlliance(Alliance alliance) {
+		this.alliance = alliance;
+	}
+
+	public Alliance getAlliance() {
+		return alliance;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 */
 	public Player(String name) {
 		this.name = name;
 	}
@@ -40,5 +53,13 @@ public class Player {
 
 	public boolean isAdmin() {
 		return admin;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.screens.SystemScreen;
-import de.r2soft.space.client.settings.Settings;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
@@ -90,13 +90,13 @@ public class GenericMapTile extends Actor {
 	}
 
 	private void setupSystem(SolarSystem system) {
-		claim = system.getSovereignty();
+		claim = system.getClaim();
 		childsystem = system;
 		if (claim.equals(null)) {
 			ally = ALLEGIANCE.NEUTRAL;
 		}
 		else {
-			ally = claim.equals(Settings.thisPlayer) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
+			ally = claim.equals(Resources.thisPlayer) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
 		}
 	}
 
@@ -131,7 +131,7 @@ public class GenericMapTile extends Actor {
 			break;
 
 		default:
-			Gdx.app.log(Settings.LOG_HEX_TILE, "fatal error displaying map tile");
+			Gdx.app.log(Resources.LOG_HEX_TILE, "fatal error displaying map tile");
 			break;
 		}
 	}
@@ -157,7 +157,7 @@ public class GenericMapTile extends Actor {
 			if (Gdx.input.isTouched(0)) {
 				if (x > (this.posX - (this.sizeX)) && x < (this.posX + (this.sizeX))
 						&& y > (this.posY - (this.sizeY)) && y < (this.posY + (this.sizeY))) {
-					Gdx.app.log(Settings.LOG_HEX_TILE, "you clicked: " + tileID);
+					Gdx.app.log(Resources.LOG_HEX_TILE, "you clicked: " + tileID);
 					ScreenHandler.getInstance().setScreen(
 							new SystemScreen(ScreenHandler.getInstance(), childsystem));
 				}
