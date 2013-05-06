@@ -1,11 +1,6 @@
-<xml:comment>
-	Copyright (c) 2013 Random Robot Softworks
-</xml:comment>
+<!-- Copyright (c) 2013 Random Robot Softworks -->
+<!-- String name conventions EXAMPLE : SCREEN_PANNEL_CHILD_TAG -->
 
-<xml:comment>
-	String name conventions
-	EXAMPLE : SCREEN_PANNEL_CHILD_TAG
-</xml:comment>
 
 <!-- Screens refer to a context in which the string is being displayed (quite 
 	straight forward actually) -->
@@ -32,9 +27,6 @@
 
 <!-- ### END ### -->
 <!-- @author: ***REMOVED*** -->
-
-
-</xsl:comment>
 
 <resources> <!-- LoginScren -->
 	<string name="LOG_CONT_FIELD_NAME_HINT">Your Username</string>
