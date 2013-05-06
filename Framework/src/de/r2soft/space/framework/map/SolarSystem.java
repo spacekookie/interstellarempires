@@ -196,4 +196,16 @@ public class SolarSystem {
 	public void addSingleUnit(Unit unit) {
 		units.add(unit);
 	}
+
+	public boolean hasUnits() {
+		return !units.isEmpty();
+	}
+
+	public boolean hasStructures() {
+		return !structures.isEmpty();
+	}
+
+	public boolean hasPlanets() {
+		return !planets.isEmpty();
+	}
 }

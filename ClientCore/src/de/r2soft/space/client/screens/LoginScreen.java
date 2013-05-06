@@ -18,12 +18,13 @@
 package de.r2soft.space.client.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -31,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 
 public class LoginScreen implements Screen {
@@ -43,15 +45,25 @@ public class LoginScreen implements Screen {
 	private Table intro, outro;
 	private TextField userField, passField;
 	private TextButton login, exit;
+	private CheckBox saveUser;
+	private Preferences prefs;
 
 	/** Background stuff */
 	private String name_clear, password_clear;
 
 	public LoginScreen(ScreenHandler handler) {
+		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
 		this.handler = handler;
 		login = new TextButton("LOGIN", ResPack.UI_SKIN);
 		passField = new TextField("", ResPack.UI_SKIN);
 		userField = new TextField("", ResPack.UI_SKIN);
+		saveUser = new CheckBox("Save username?", ResPack.UI_SKIN);
+
+		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME)) {
+			userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
+			saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+		}
+
 	}
 
 	@Override
@@ -83,6 +95,7 @@ public class LoginScreen implements Screen {
 		intro.add(passField).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		intro.row();
 		intro.add(login).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.add(saveUser);
 		intro.row();
 
 		login.addListener(new ClickListener() {
@@ -122,11 +135,30 @@ public class LoginScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
+		if (saveUser.isChecked()) {
+			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
+		}
+		else {
+			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
+		}
+
+		saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+
+		/** What do we do after we're done in the bathroom? :) */
+		prefs.flush();
+
 	}
 
 	private void scheduleLogin() {
 		name_clear = userField.getText().toString();
 		password_clear = passField.getText().toString();
+
+		if (prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME))
+			prefs.putString(Resources.PREFERENCE_SAVED_USER_NAME, name_clear);
+		if (!prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME))
+			prefs.putString(Resources.PREFERENCE_SAVED_USER_NAME, "");
+
+		prefs.flush();
 
 		// TODO: encrypt password and request Login from server.
 		handler.setScreen(new MenuScreen(handler));

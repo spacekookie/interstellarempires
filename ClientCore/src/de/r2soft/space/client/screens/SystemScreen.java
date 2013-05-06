@@ -25,6 +25,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -91,7 +92,7 @@ public class SystemScreen implements Screen {
 	}
 
 	/**
-	 * Do not use!
+	 * Do not normally use!
 	 * 
 	 * @return may return null
 	 */
@@ -151,7 +152,7 @@ public class SystemScreen implements Screen {
 		back = new Table();
 		back.setFillParent(true);
 		stage.addActor(back);
-		backToMap = new TextButton("Leave system", ResPack.UI_SKIN);
+		backToMap = new TextButton("Back to map", ResPack.UI_SKIN);
 		back.add(backToMap).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
 		back.row();
 		back.top().left();
@@ -217,7 +218,7 @@ public class SystemScreen implements Screen {
 		contentRight.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
 		stage.addActor(contentRight);
 
-		refresh = new TextButton("Refresh Screen", ResPack.UI_SKIN);
+		refresh = new TextButton("Refresh", ResPack.UI_SKIN);
 		sidebarTitle = new Label(wallofText, ResPack.UI_SKIN);
 
 		typeTail = new Label(nothingselected, ResPack.UI_SKIN);
@@ -237,31 +238,35 @@ public class SystemScreen implements Screen {
 
 		/** CONTENT FIELDS **/
 
-		contentRight.add(refresh).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(refresh).width(
+				(ResPack.SIZE_UI_FIELD_CONTENT / 2) + (ResPack.SIZE_UI_FIELD_CONTENT / 4));
 		contentRight.row();
 
 		contentRight.add(sidebarTitle).colspan(2).left();
 		contentRight.row();
 
-		contentRight.add(new Label("Type: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(new Label("Type: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+				.left();
 		contentRight.add(typeTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
-		contentRight.add(new Label("Flag: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(new Label("Flag: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+				.left();
 		contentRight.add(flatTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
 		contentRight.add(new Label("Count: ", ResPack.UI_SKIN))
-				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2).left();
 		contentRight.add(countTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
 		contentRight.add(new Label("Owner: ", ResPack.UI_SKIN))
-				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2).left();
 		contentRight.add(ownerTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
-		contentRight.add(new Label("Pos: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(new Label("Pos: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+				.left();
 		contentRight.add(posTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
