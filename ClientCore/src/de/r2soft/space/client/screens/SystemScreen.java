@@ -23,13 +23,12 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.space.client.actors.GenericMapObject;
@@ -38,7 +37,7 @@ import de.r2soft.space.client.groups.SolarMap;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.TYPE;
+import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
 import de.r2soft.space.framework.objects.Unit;
 
 /**
@@ -67,8 +66,9 @@ public class SystemScreen implements Screen {
 	/** Actual game content */
 	private Table contentRight;
 	private Label sidebarTitle;
-	private Group objectInfoHead, objectInfoTail;
-	private Set<Label> contentRightLabelsHead, contentRightLabelsTail;
+	private TextButton refresh;
+
+	private Label typeTail, flatTail, ownerTail, countTail, posTail;
 
 	/** unit logic */
 	private Set<Unit> units;
@@ -76,14 +76,11 @@ public class SystemScreen implements Screen {
 	private GenericMapObject selectionfocus = null;
 
 	/** To know what object to get */
-	private TYPE childType;
+	private SUPERCLASS childSuper;
 
 	@Deprecated
 	/** Move to string resource */
-	private final String wallofText = "Currently selected object";
-	@Deprecated
-	/** Move to string resource */
-	private final String wallofText2 = "None";
+	private final String wallofText = "Object Information";
 	@Deprecated
 	/** Move to string resource */
 	private final String nothingselected = "Nothing selected";
@@ -105,7 +102,6 @@ public class SystemScreen implements Screen {
 	}
 
 	public SystemScreen(ScreenHandler handler, SolarSystem childsystem) {
-		initializeLabels();
 		this.handler = handler;
 		SystemScreen.instance = this;
 		System.out.println(this);
@@ -124,22 +120,6 @@ public class SystemScreen implements Screen {
 		}
 	}
 
-	private void initializeLabels() {
-		contentRightLabelsHead = new HashSet<Label>();
-		contentRightLabelsHead.add(new Label("Type: ", ResPack.UI_SKIN));
-		contentRightLabelsHead.add(new Label("Flag: ", ResPack.UI_SKIN));
-		contentRightLabelsHead.add(new Label("Owner: ", ResPack.UI_SKIN));
-		contentRightLabelsHead.add(new Label("Count: ", ResPack.UI_SKIN));
-		contentRightLabelsHead.add(new Label("Pos: ", ResPack.UI_SKIN));
-
-		contentRightLabelsTail = new HashSet<Label>();
-		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
-		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
-		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
-		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
-		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
-	}
-
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -147,17 +127,13 @@ public class SystemScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		// Dynamically switching input listener
+		/** Dynamically switching input listener */
 		if (Gdx.input.getX() > 150 && Gdx.input.getX() < 720 && Gdx.input.getY() > 20
 				&& Gdx.input.getY() < 580) {
 			map.setInputToChild();
 		}
 		else {
 			Gdx.input.setInputProcessor(stage);
-		}
-
-		if (selectionfocus != null) {
-
 		}
 
 	}
@@ -167,9 +143,7 @@ public class SystemScreen implements Screen {
 		if (stage == null)
 			stage = new Stage(width, height, true);
 		stage.clear();
-		Gdx.input.setInputProcessor(stage);
 
-		// TODO:Replace with server request
 		map = new SolarMap(system, childobjects);
 		stage.addActor(map);
 
@@ -182,50 +156,10 @@ public class SystemScreen implements Screen {
 		back.row();
 		back.top().left();
 
-		/** ACTUAL SCREEN CONTENT **/
-		contentRight = new Table();
-		contentRight.setFillParent(true);
-		stage.addActor(contentRight);
+		/** Right side table to display selected unit and offer basic orders */
+		this.setupRightBar();
 
-		/** CONTENT GROUP RIGHT */
-		objectInfoHead = new Group();
-		int headCounter = 1;
-		for (Label label : contentRightLabelsHead) {
-			label.setY((headCounter * ResPack.SIZE_UI_GROUP_OFFSET)
-					+ ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
-			objectInfoHead.addActor(label);
-			headCounter++;
-		}
-
-		objectInfoTail = new Group();
-		int tailCounter = 1;
-		for (Label label : contentRightLabelsTail) {
-			label.setY((tailCounter * ResPack.SIZE_UI_GROUP_OFFSET)
-					+ ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
-			label.setX(4 * ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
-			objectInfoTail.addActor(label);
-			tailCounter++;
-		}
-
-		TextButton kill = new TextButton("Destroy everything", ResPack.UI_SKIN);
-		TextButton refresh = new TextButton("Refresh", ResPack.UI_SKIN);
-		sidebarTitle = new Label(wallofText, ResPack.UI_SKIN);
-		sidebarTitle.setWrap(true);
-
-		contentRight.add(kill).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		contentRight.row();
-		contentRight.add(refresh).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		contentRight.row();
-		contentRight.add(objectInfoHead).left();
-		contentRight.add(objectInfoTail).left();
-		contentRight.row();
-		contentRight.add(sidebarTitle).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		contentRight.row();
-		contentRight.top().right();
-		contentRight.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
-		contentRight.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
-
-		/** ### ALL LISTENERS AND STUFF NOBODY WANTS TO SEE ### **/
+		/** ### ALL LISTENERS AND STUFF NOBODY WANTS TO SEE ### */
 
 		refresh.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -233,7 +167,8 @@ public class SystemScreen implements Screen {
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				SystemScreen.getInstance().resize(Gdx.graphics.getWidth(), Gdx.graphics.getWidth());
+				// TODO: Fetch new data from server and display
 			}
 		});
 
@@ -273,13 +208,93 @@ public class SystemScreen implements Screen {
 		stage.dispose();
 	}
 
+	private void setupRightBar() {
+		contentRight = new Table();
+		contentRight.setFillParent(true);
+		contentRight.align(Align.left);
+		contentRight.top().right();
+		contentRight.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		contentRight.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		stage.addActor(contentRight);
+
+		refresh = new TextButton("Refresh Screen", ResPack.UI_SKIN);
+		sidebarTitle = new Label(wallofText, ResPack.UI_SKIN);
+
+		typeTail = new Label(nothingselected, ResPack.UI_SKIN);
+		typeTail.setWrap(true);
+
+		flatTail = new Label(nothingselected, ResPack.UI_SKIN);
+		flatTail.setWrap(true);
+
+		countTail = new Label(nothingselected, ResPack.UI_SKIN);
+		countTail.setWrap(true);
+
+		ownerTail = new Label(nothingselected, ResPack.UI_SKIN);
+		ownerTail.setWrap(true);
+
+		posTail = new Label(nothingselected, ResPack.UI_SKIN);
+		posTail.setWrap(true);
+
+		/** CONTENT FIELDS **/
+
+		contentRight.add(refresh).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.row();
+
+		contentRight.add(sidebarTitle).colspan(2).left();
+		contentRight.row();
+
+		contentRight.add(new Label("Type: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(typeTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Flag: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(flatTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Count: ", ResPack.UI_SKIN))
+				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(countTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Owner: ", ResPack.UI_SKIN))
+				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(ownerTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Pos: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2);
+		contentRight.add(posTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+	}
+
 	public GenericMapObject getSelectionfocus() {
 		return selectionfocus;
 	}
 
-	public void setSelectionfocus(GenericMapObject selectionfocus, TYPE type) {
+	public void setSelectionfocus(GenericMapObject selectionfocus, SUPERCLASS superclass) {
 		this.selectionfocus = selectionfocus;
-		this.childType = type;
-		System.out.println(this.selectionfocus);
+		this.childSuper = superclass;
+
+		if (selectionfocus == null) {
+			typeTail.setText(nothingselected);
+			flatTail.setText(nothingselected);
+			ownerTail.setText(nothingselected);
+			countTail.setText(nothingselected);
+			posTail.setText(nothingselected);
+		}
+		else {
+			if (childSuper.equals(SUPERCLASS.UNIT)) {
+				Unit temp = selectionfocus.getUnitIfExists();
+				if (temp != null) {
+					typeTail.setText(temp.getType().toString());
+					flatTail.setText(temp.getFlag().toString());
+					ownerTail.setText(temp.getClaim().getName());
+					countTail.setText(Integer.toString(temp.getShipCount()));
+					posTail.setText(temp.getPosition().toString());
+				}
+
+			}
+		}
+
 	}
 }

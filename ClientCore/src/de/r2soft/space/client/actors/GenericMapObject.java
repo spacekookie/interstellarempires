@@ -23,13 +23,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Disposable;
 
 import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Translator;
 import de.r2soft.space.framework.objects.GameObject;
+import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
 import de.r2soft.space.framework.objects.GameObject.TYPE;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PLANETCLASS;
@@ -40,9 +40,7 @@ import de.r2soft.space.framework.players.Player;
 
 /**
  * A generic MapObject that will be drawn onto the screen in the Solarmap. May
- * call sub-actors for specific shapes, sizes and habits of objects. A generic
- * MapObject that will be drawn onto the screen in the Solarmap. May call
- * sub-actors for specific shapes, sizes and habits of objects.
+ * call sub-actors for specific shapes, sizes and habits of objects.
  * 
  * @author Katharina
  * 
@@ -50,11 +48,11 @@ import de.r2soft.space.framework.players.Player;
 @SuppressWarnings("unused")
 public class GenericMapObject extends Actor {
 
-	/** The absolute position of the actor */
-	private float posX, posY;
-
-	/** Global debug renderer */
+	/** Debug renderer */
 	private ShapeRenderer renderer;
+
+	/** Pixel coordinates on screen */
+	private Vector2 position;
 
 	/** Is this object selected? */
 	private boolean selected;
@@ -63,20 +61,23 @@ public class GenericMapObject extends Actor {
 	private ALLEGIANCE allegiance;
 	private Player claim;
 	private GameObject orbit;
+	private SUPERCLASS superclass;
 
 	/** Unit information */
 	private TYPE type;
 	private String flag;
-	private Vector2 position;
 
-	/** Unit information */
+	/** Planet information */
 	private PLANETCLASS planetclass;
 	private float planetradius;
 	private float planetmass;
 
-	/** Unit movement. May be moved to server */
+	/** Structure information */
+
+	/** Unit movement. Will be moved to server */
 	@Deprecated
 	private Vector2 target, trajectory;
+	/** Unit movement. Will be moved to server */
 	@Deprecated
 	private boolean moving;
 
@@ -102,6 +103,8 @@ public class GenericMapObject extends Actor {
 		claim = unit.getClaim();
 		allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
 		position = unit.getPosition();
+		superclass = unit.getSuperclass();
+		this.unit = unit;
 	}
 
 	/**
@@ -110,7 +113,8 @@ public class GenericMapObject extends Actor {
 	 * @param structure
 	 */
 	public GenericMapObject(Structure structure) {
-
+		superclass = structure.getSuperclass();
+		this.structue = structure;
 	}
 
 	/**
@@ -124,11 +128,8 @@ public class GenericMapObject extends Actor {
 		planetmass = planet.getMass();
 		claim = planet.getClaim();
 		orbit = planet.getOrbit();
-	}
-
-	@Deprecated
-	public GenericMapObject getInstance() {
-		return this;
+		superclass = planet.getSuperclass();
+		this.planet = planet;
 	}
 
 	@Deprecated
@@ -146,10 +147,6 @@ public class GenericMapObject extends Actor {
 		this.flag = flag;
 		this.claim = claim;
 		this.allegiance = allegience;
-	}
-
-	@Deprecated
-	public GenericMapObject(float x, float y, TYPE type2, String flag2, Player claim2) {
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -194,7 +191,6 @@ public class GenericMapObject extends Actor {
 
 		if (touchable && getTouchable() == Touchable.enabled) {
 			if (Gdx.input.isButtonPressed(1)) {
-				System.out.println("Click click");
 				if (selected) {
 					target.x = Gdx.input.getX();
 					target.y = Gdx.input.getY();
@@ -207,7 +203,7 @@ public class GenericMapObject extends Actor {
 						&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
 						&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
 					selected = true;
-					setParentSelection(this.getName());
+					setParentSelection("metal");
 				}
 				else {
 					selected = false;
@@ -218,6 +214,7 @@ public class GenericMapObject extends Actor {
 		return null;
 	}
 
+	/** Move to parent layer */
 	@Deprecated
 	private void moveLocally() {
 		if (!target.equals(position)) {
@@ -225,27 +222,36 @@ public class GenericMapObject extends Actor {
 			trajectory.nor();
 			position.add(trajectory.mul(100));
 		}
-		Vector2 position = new Vector2(this.posX, this.posY);
+		Vector2 position = new Vector2(this.position.x, this.position.y);
 		trajectory = new Vector2(target.sub(position));
 		trajectory.nor();
 		position.add(trajectory.x, -trajectory.y);
 	}
 
 	/**
-	 * Constructor is deprecated because it will screw up the entire screen when used in a normal
-	 * application context
+	 * THIS SUCKS! TODO: Fetch information from server again!
 	 */
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	private void setParentSelection(String s) {
 		if (s != null) {
-			SystemScreen.getInstance().setSelectionfocus(this, type);
-			System.out.println(this);
+			SystemScreen.getInstance().setSelectionfocus(this, superclass);
 		}
 		else
 			SystemScreen.getInstance().setSelectionfocus(null, null);
 	}
 
-	public Planet getPlanetifExists() {
+	/** @return selected planet */
+	public Planet getPlanetIfExists() {
 		return planet;
+	}
+
+	/** @return selected unit */
+	public Unit getUnitIfExists() {
+		return unit;
+	}
+
+	/** @return selected structure */
+	public Structure getStructureIfExists() {
+		return structue;
 	}
 }

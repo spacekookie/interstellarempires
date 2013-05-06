@@ -35,8 +35,9 @@ public class Player {
 		this.alliance = alliance;
 	}
 
+	/** TODO: Replace with .getIndipendance() method */
 	public Alliance getAlliance() {
-		return alliance;
+		return alliance != null ? alliance : new Alliance("Indipendant", "INDI");
 	}
 
 	/**
