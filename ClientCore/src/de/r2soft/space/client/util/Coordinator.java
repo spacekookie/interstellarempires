@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Katharina Fey
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
  * 
- */
+ ######################################################################### */
 package de.r2soft.space.client.util;
 
 import com.badlogic.gdx.InputProcessor;
@@ -74,7 +71,8 @@ public class Coordinator implements InputProcessor {
 
 		if (amount > 0) {
 			System.out.println("Scrolling backwards");
-		} else {
+		}
+		else {
 			System.out.println("Scrolling forwards");
 		}
 

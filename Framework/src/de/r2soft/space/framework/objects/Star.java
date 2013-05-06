@@ -21,17 +21,17 @@ public class Star extends GameObject {
 
 	/**
 	 * Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy,
-	 * it'll just become fat
+	 * it'll just become fat.
 	 */
-	public enum STARTYPE {
+	public enum STARCLASS {
 		BROWNDWARF, REDDWARF, WHITEDWARF, REDGIANT, BLUEGIANT, NEUTRON, BLACKHOLE, GIANTSPACEPUDDING;
 	}
 
-	private STARTYPE type;
+	private STARCLASS classification;
 
 	/** @return: the stars type */
-	public STARTYPE getType() {
-		return type;
+	public STARCLASS getType() {
+		return classification;
 	}
 
 	/**
@@ -40,16 +40,20 @@ public class Star extends GameObject {
 	 * @param type
 	 *          The Type of the star
 	 */
-	public Star(STARTYPE type) {
-		this.type = type;
+	public Star(STARCLASS classification) {
+		this.classification = classification;
 	}
 
 	/**
 	 * @param type
 	 *          The type of star we're dealing with here
 	 */
-	public void setType(STARTYPE type) {
-		this.type = type;
+	public void setClassification(STARCLASS classification) {
+		this.classification = classification;
+	}
+
+	public STARCLASS getClassification() {
+		return classification;
 	}
 
 }

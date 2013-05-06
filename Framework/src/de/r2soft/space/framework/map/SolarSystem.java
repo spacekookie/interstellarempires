@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+ * 
+ ######################################################################### */
 package de.r2soft.space.framework.map;
 
 import java.util.HashSet;
@@ -22,7 +22,7 @@ import java.util.Set;
 
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.STARTYPE;
+import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Player;
@@ -100,7 +100,7 @@ public class SolarSystem {
 		this.radius = createRadius(star.getType());
 	}
 
-	private float createRadius(STARTYPE type) {
+	private float createRadius(STARCLASS type) {
 
 		switch (type) {
 		case BROWNDWARF:
@@ -162,7 +162,7 @@ public class SolarSystem {
 	}
 
 	/** @return: the systems owner if exists. */
-	public Player getSovereignty() {
+	public Player getClaim() {
 		// TODO: Impliment neutral as a player and return here.
 		return claimed != null ? claimed : null;
 	}
@@ -173,7 +173,7 @@ public class SolarSystem {
 	 * @param p
 	 *          the owning player. @Null if system is neutral.
 	 */
-	public void setSovereignty(Player p) {
+	public void setClaim(Player p) {
 		this.claimed = p;
 	}
 

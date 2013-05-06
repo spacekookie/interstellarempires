@@ -28,7 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.HexMap;
-import de.r2soft.space.client.settings.Settings;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 
 /**
@@ -50,8 +50,8 @@ public class MenuScreen implements Screen {
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER + " - "
-				+ Settings.SCREENTITLE_HOME);
+		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
+				+ Resources.SCREENTITLE_HOME);
 	}
 
 	@Override

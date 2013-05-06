@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Katharina Fey
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 package de.r2soft.space.client.core;
 
 import java.awt.Image;
@@ -24,15 +25,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
-import de.r2soft.space.client.settings.Settings;
-import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.framework.map.IntVec2;
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Unit;
-import de.r2soft.space.framework.objects.Star.STARTYPE;
-import de.r2soft.space.framework.objects.Unit.TYPE;
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.client.settings.Resources;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the
@@ -43,12 +36,12 @@ import de.r2soft.space.framework.players.Player;
 public class MainClientLauncher {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = Settings.SUPERTITLE + " - " + Settings.VERSION_NUMBER;
+		cfg.title = Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER;
 		cfg.useGL20 = false;
 		cfg.resizable = false;
 		cfg.fullscreen = false;
-		cfg.width = Settings.OLD_WIDTH;
-		cfg.height = Settings.OLD_HEIGHT;
+		cfg.width = Resources.OLD_WIDTH;
+		cfg.height = Resources.OLD_HEIGHT;
 		cfg.initialBackgroundColor = Color.BLACK;
 
 		/** Sets the Application Icon for different operating systems */
@@ -59,58 +52,6 @@ public class MainClientLauncher {
 		}
 
 		new LwjglApplication(new ScreenHandler(), cfg);
-		MainClientLauncher m = new MainClientLauncher();
-		m.initSystems();
 	}
 
-	/** Creating two example solar systems */
-
-	static SolarSystem s1;
-	static SolarSystem s2;
-	static SolarSystem s3;
-
-	static Unit sampleFleet;
-
-	void initSystems() {
-		s1 = new SolarSystem();
-		s1.setStar(new Star(STARTYPE.BROWNDWARF));
-		s1.setRadius(ResPack.SIZE_SYSTEM_BROWN_DWARF);
-		s1.setSovereignty(null);
-
-		/** 2nd system */
-
-		s2 = new SolarSystem();
-		s2.setStar(new Star(STARTYPE.BLUEGIANT));
-		s2.setRadius(ResPack.SIZE_SYSTEM_BLUE_GIANT);
-		s2.setSovereignty(null);
-
-		/** 3nd system */
-
-		s3 = new SolarSystem();
-		s3.setStar(new Star(STARTYPE.REDDWARF));
-		s3.setRadius(ResPack.SIZE_SYSTEM_RED_DWARF);
-		s3.setSovereignty(null);
-
-		/** Sample fleet */
-		sampleFleet = new Unit();
-		sampleFleet.setType(TYPE.FLEET);
-		sampleFleet.setSpeed(50.0);
-		sampleFleet.setFlag("SampleFleet");
-		sampleFleet.setClaim(new Player("KateTheAwesome"));
-
-		s2.addSingleUnit(sampleFleet);
-
-	}
-
-	public static SolarSystem getSystemWithID(IntVec2 systemID) {
-		if (systemID.equals(new IntVec2(0, 0))) {
-			return s1;
-		}
-		else if (systemID.equals(new IntVec2(1, 0))) {
-			return s2;
-		}
-		else {
-			return s3;
-		}
-	}
 }

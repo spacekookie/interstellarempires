@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-
 package de.r2soft.space.client.util;
 
 import com.badlogic.gdx.Gdx;

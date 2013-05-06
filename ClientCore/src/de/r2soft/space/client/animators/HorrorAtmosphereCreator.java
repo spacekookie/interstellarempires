@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Katharina Fey
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+ * 
+ ######################################################################### */
 package de.r2soft.space.client.animators;
 
 import aurelienribon.tweenengine.TweenAccessor;
@@ -34,12 +34,12 @@ public class HorrorAtmosphereCreator implements TweenAccessor<Sprite> {
 	public int getValues(Sprite target, int tweenType, float[] returnValues) {
 
 		switch (tweenType) {
-			case ALPHA:
-				returnValues[0] = target.getColor().a;
-				return 1;
+		case ALPHA:
+			returnValues[0] = target.getColor().a;
+			return 1;
 
-			default:
-				return 0;
+		default:
+			return 0;
 		}
 
 	}
@@ -48,12 +48,12 @@ public class HorrorAtmosphereCreator implements TweenAccessor<Sprite> {
 	public void setValues(Sprite target, int tweenType, float[] newValues) {
 
 		switch (tweenType) {
-			case ALPHA:
-				target.setColor(1, 1, 1, newValues[0]);
-				break;
+		case ALPHA:
+			target.setColor(1, 1, 1, newValues[0]);
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 
 	}
