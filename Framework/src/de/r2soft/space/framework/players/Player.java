@@ -27,40 +27,46 @@ package de.r2soft.space.framework.players;
  */
 public class Player {
 
-	private boolean admin;
-	private String name;
-	private Alliance alliance;
+  private boolean admin;
+  private String name;
+  private Alliance alliance;
 
-	public void setAlliance(Alliance alliance) {
-		this.alliance = alliance;
-	}
+  public void setAlliance(Alliance alliance) {
+	this.alliance = alliance;
+  }
 
-	/** TODO: Replace with .getIndipendance() method */
-	public Alliance getAlliance() {
-		return alliance != null ? alliance : new Alliance("Indipendant", "INDI");
-	}
+  /** TODO: Replace with .getIndipendance() method */
+  public Alliance getAlliance() {
+	return alliance != null ? alliance : new Alliance("Indipendant", "INDI");
+  }
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public Player(String name) {
-		this.name = name;
-	}
+  /**
+   * 
+   * @param name
+   */
+  public Player(String name) {
+	this.name = name;
+  }
 
-	public void setPony(boolean admin) {
-		this.admin = admin;
-	}
+  /**
+   * Empty constructor required for JavaEE
+   */
+  public Player() {
+  }
 
-	public boolean isAdmin() {
-		return admin;
-	}
+  public void setPony(boolean admin) {
+	this.admin = admin;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public boolean isAdmin() {
+	return admin;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+	return name;
+  }
+
+  public void setName(String name) {
+	this.name = name;
+  }
 }

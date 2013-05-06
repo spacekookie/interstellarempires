@@ -20,7 +20,7 @@ package de.r2soft.space.server.ws.interfaces;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-@WebService(targetNamespace = "http://leandersabel.de")
+@WebService(targetNamespace = "http://2rSoftworks.de/")
 public interface ConnectionService {
 
   @WebMethod
