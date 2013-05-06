@@ -182,10 +182,10 @@ public class HexMap extends Group implements Disposable {
 		// TODO: Fetch Systems from server.
 		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
 		Set<Unit> units = new HashSet<Unit>();
-		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Fighter", Resources.thisPlayer, 200,
+		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Alpha Wing", Resources.thisPlayer, 50,
 				new Vector2(200, 200)));
 		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null,
-				new Star(STARCLASS.BLUEGIANT)));
+				new Star(STARCLASS.REDDWARF)));
 
 		for (SolarSystem system : _temp) {
 

@@ -42,10 +42,11 @@ public class Unit extends MovingObject {
 	/** Master constructor for units */
 	public Unit(SUPERCLASS superclass, TYPE type, String flag, Player claim, int count,
 			Vector2 position) {
-		count = 1;
 		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
+		if (count == 0)
+			count = 1;
 		this.count = count;
 		super.setPosition(position);
 		super.setSuperclass(superclass);
@@ -84,7 +85,8 @@ public class Unit extends MovingObject {
 		count++;
 	}
 
-	public int getCount() {
+	/** @return int of ship count */
+	public int getShipCount() {
 		return count;
 	}
 

@@ -166,6 +166,7 @@ public class ResPack {
 	public static final float SIZE_UI_BUTTON_CONTENT = 100;
 	/** Login fields & explanations, tooltips, etc. */
 	public static final float SIZE_UI_FIELD_CONTENT = 200;
+	public static final float SIZE_UI_FIELD_CONTENT_SMALL = 100;
 	/** Frame offset */
 	public static final float SIZE_UI_GLOBAL_FRAME_OFFSET = -35;
 
