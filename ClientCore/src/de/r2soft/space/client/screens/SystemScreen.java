@@ -23,6 +23,8 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -36,10 +38,12 @@ import de.r2soft.space.client.groups.SolarMap;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.GameObject.TYPE;
 import de.r2soft.space.framework.objects.Unit;
 
 /**
- * This class will be called when the player clicked on a tile on the @HexMap. In the constructor
+ * This singleton class will be called when the player clicked on a tile on the @HexMap. In the
+ * constructor
  * the relevant data to
  * identify a solar system will be passed on as well as creating a layout around a solar system
  * view.
@@ -49,23 +53,63 @@ import de.r2soft.space.framework.objects.Unit;
  */
 public class SystemScreen implements Screen {
 
+	/** private singleton instance */
+	private static SystemScreen instance = null;
+
+	/** Scene2D stuff */
 	private Stage stage;
 	private ScreenHandler handler;
 	private Table back;
 	private TextButton backToMap;
 	private SolarSystem system;
 	private SolarMap map;
+
+	/** Actual game content */
+	private Table contentRight;
+	private Label sidebarTitle;
+	private Group objectInfoHead, objectInfoTail;
+	private Set<Label> contentRightLabelsHead, contentRightLabelsTail;
+
+	/** unit logic */
 	private Set<Unit> units;
 	private Set<GenericMapObject> childobjects;
+	private GenericMapObject selectionfocus = null;
 
-	/** IMPORTANT **/
-	private final String wallofText = "This is an example of how Textwrapping works!";
-	private final String wallofText2 = "To the left you see the solar map. It will display all actions "
-			+ "in the selected solar system. On the right you will have several buttons that might come in handy"
-			+ " when working with your units.";
+	/** To know what object to get */
+	private TYPE childType;
+
+	@Deprecated
+	/** Move to string resource */
+	private final String wallofText = "Currently selected object";
+	@Deprecated
+	/** Move to string resource */
+	private final String wallofText2 = "None";
+	@Deprecated
+	/** Move to string resource */
+	private final String nothingselected = "Nothing selected";
+
+	/** DO NOT USE! */
+	@Deprecated
+	public SystemScreen() {
+	}
+
+	/**
+	 * Do not use!
+	 * 
+	 * @return may return null
+	 */
+	@Deprecated
+	public static SystemScreen getInstance() {
+		return instance;
+
+	}
 
 	public SystemScreen(ScreenHandler handler, SolarSystem childsystem) {
+		initializeLabels();
 		this.handler = handler;
+		SystemScreen.instance = this;
+		System.out.println(this);
+		Gdx.app.log(Resources.LOG_SOLAR_MAP, "From screen: " + this.toString());
 		this.system = childsystem;
 		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
 				+ Resources.SCREENTITLE_SOLAR);
@@ -78,6 +122,22 @@ public class SystemScreen implements Screen {
 				childobjects.add(new GenericMapObject(unit));
 			}
 		}
+	}
+
+	private void initializeLabels() {
+		contentRightLabelsHead = new HashSet<Label>();
+		contentRightLabelsHead.add(new Label("Type: ", ResPack.UI_SKIN));
+		contentRightLabelsHead.add(new Label("Flag: ", ResPack.UI_SKIN));
+		contentRightLabelsHead.add(new Label("Owner: ", ResPack.UI_SKIN));
+		contentRightLabelsHead.add(new Label("Count: ", ResPack.UI_SKIN));
+		contentRightLabelsHead.add(new Label("Pos: ", ResPack.UI_SKIN));
+
+		contentRightLabelsTail = new HashSet<Label>();
+		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
+		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
+		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
+		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
+		contentRightLabelsTail.add(new Label(nothingselected, ResPack.UI_SKIN));
 	}
 
 	@Override
@@ -95,6 +155,11 @@ public class SystemScreen implements Screen {
 		else {
 			Gdx.input.setInputProcessor(stage);
 		}
+
+		if (selectionfocus != null) {
+
+		}
+
 	}
 
 	@Override
@@ -108,6 +173,7 @@ public class SystemScreen implements Screen {
 		map = new SolarMap(system, childobjects);
 		stage.addActor(map);
 
+		/** Back button navigation */
 		back = new Table();
 		back.setFillParent(true);
 		stage.addActor(back);
@@ -116,37 +182,58 @@ public class SystemScreen implements Screen {
 		back.row();
 		back.top().left();
 
-		/** Example for system gui */
-		Table elements = new Table();
-		elements.setFillParent(true);
-		stage.addActor(elements);
+		/** ACTUAL SCREEN CONTENT **/
+		contentRight = new Table();
+		contentRight.setFillParent(true);
+		stage.addActor(contentRight);
+
+		/** CONTENT GROUP RIGHT */
+		objectInfoHead = new Group();
+		int headCounter = 1;
+		for (Label label : contentRightLabelsHead) {
+			label.setY((headCounter * ResPack.SIZE_UI_GROUP_OFFSET)
+					+ ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
+			objectInfoHead.addActor(label);
+			headCounter++;
+		}
+
+		objectInfoTail = new Group();
+		int tailCounter = 1;
+		for (Label label : contentRightLabelsTail) {
+			label.setY((tailCounter * ResPack.SIZE_UI_GROUP_OFFSET)
+					+ ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
+			label.setX(4 * ResPack.SIZE_SOLAR_GROUP_OFFSET_INITIAL);
+			objectInfoTail.addActor(label);
+			tailCounter++;
+		}
 
 		TextButton kill = new TextButton("Destroy everything", ResPack.UI_SKIN);
 		TextButton refresh = new TextButton("Refresh", ResPack.UI_SKIN);
-		Label wall = new Label(wallofText, ResPack.UI_SKIN);
-		Label wall2 = new Label(wallofText2, ResPack.UI_SKIN);
-		wall.setWrap(true);
-		wall2.setWrap(true);
+		sidebarTitle = new Label(wallofText, ResPack.UI_SKIN);
+		sidebarTitle.setWrap(true);
 
-		elements.add(kill).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		elements.row();
-		elements.add(refresh).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		elements.row();
-		elements.add(wall).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		elements.row();
-		elements.add(wall2).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		elements.row();
-		elements.top().right();
-		elements.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
-		elements.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		contentRight.add(kill).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+		contentRight.add(refresh).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+		contentRight.add(objectInfoHead).left();
+		contentRight.add(objectInfoTail).left();
+		contentRight.row();
+		contentRight.add(sidebarTitle).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+		contentRight.top().right();
+		contentRight.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		contentRight.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
 
-		kill.addListener(new ClickListener() {
+		/** ### ALL LISTENERS AND STUFF NOBODY WANTS TO SEE ### **/
+
+		refresh.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
+				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		});
 
@@ -184,5 +271,15 @@ public class SystemScreen implements Screen {
 	public void dispose() {
 		map.dispose();
 		stage.dispose();
+	}
+
+	public GenericMapObject getSelectionfocus() {
+		return selectionfocus;
+	}
+
+	public void setSelectionfocus(GenericMapObject selectionfocus, TYPE type) {
+		this.selectionfocus = selectionfocus;
+		this.childType = type;
+		System.out.println(this.selectionfocus);
 	}
 }

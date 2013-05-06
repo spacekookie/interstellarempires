@@ -30,7 +30,7 @@ public class Star extends GameObject {
 	private STARCLASS classification;
 
 	/** @return: the stars type */
-	public STARCLASS getType() {
+	public STARCLASS getStarType() {
 		return classification;
 	}
 

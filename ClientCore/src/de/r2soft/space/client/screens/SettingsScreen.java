@@ -56,11 +56,11 @@ public class SettingsScreen implements Screen {
 		this.handler = handler;
 		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
 				+ Resources.SCREENTITLE_SETTINGS);
-		prefs = Gdx.app.getPreferences("my-application");
+		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
 
 		skipIntro = new CheckBox("", ResPack.UI_SKIN);
-		if (prefs.contains("intro"))
-			skipIntro.setChecked(prefs.getBoolean("intro"));
+		if (prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
+			skipIntro.setChecked(prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
 	}
 
 	@Override
@@ -72,13 +72,14 @@ public class SettingsScreen implements Screen {
 		stage.draw();
 
 		if (skipIntro.isChecked()) {
-			prefs.putBoolean("intro", true);
+			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, true);
 		}
 		else {
-			prefs.putBoolean("intro", false);
+			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, false);
 		}
 
-		skipIntro.setChecked(prefs.getBoolean("intro"));
+		skipIntro.setChecked(prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
+		prefs.flush();
 
 	}
 
@@ -119,7 +120,7 @@ public class SettingsScreen implements Screen {
 		table = new Table();
 		table.setFillParent(true);
 
-		introLabel = new Label(" Skip the intro.", ResPack.UI_SKIN);
+		introLabel = new Label("Skip the intro", ResPack.UI_SKIN);
 
 		table.add(skipIntro);
 		table.add(introLabel).width(ResPack.SIZE_UI_FIELD_CONTENT);

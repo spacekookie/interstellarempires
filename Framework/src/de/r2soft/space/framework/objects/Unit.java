@@ -40,13 +40,15 @@ public class Unit extends MovingObject {
 	private int count;
 
 	/** Master constructor for units */
-	public Unit(TYPE type, String flag, Player claim, int count, Vector2 position) {
+	public Unit(SUPERCLASS superclass, TYPE type, String flag, Player claim, int count,
+			Vector2 position) {
 		count = 1;
 		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
 		this.count = count;
 		super.setPosition(position);
+		super.setSuperclass(superclass);
 	}
 
 	@Deprecated

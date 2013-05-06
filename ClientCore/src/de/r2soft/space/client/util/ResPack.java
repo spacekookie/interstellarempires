@@ -156,6 +156,9 @@ public class ResPack {
 	public static final float SIZE_GUI_HEXAGON_TILE = 100;
 
 	/** GUI ELEMENTS */
+	/** How group elements (unwrapped) will be offset from one another */
+	public static final float SIZE_UI_GROUP_OFFSET = -20;
+	public static final float SIZE_SOLAR_GROUP_OFFSET_INITIAL = -30;
 
 	/** Navigation button: exit, logout, settings, etc. */
 	public static final float SIZE_UI_BUTTON_NAVIGON = 150;
