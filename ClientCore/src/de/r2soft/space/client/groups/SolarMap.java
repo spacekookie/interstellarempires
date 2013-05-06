@@ -89,7 +89,7 @@ public class SolarMap extends Group implements Disposable {
 		renderer.end();
 		batch.begin();
 
-		switch (system.getStar().getType()) {
+		switch (system.getStar().getClassification()) {
 		case BROWNDWARF:
 			batch.draw(ResPack.STARS_BROWN_DWARF, Find.getCenter().x
 					- (ResPack.SIZE_CELESTIAL_BROWN_DWARF / 2) - offset, Find.getCenter().y

@@ -29,11 +29,6 @@ public class Star extends GameObject {
 
 	private STARCLASS classification;
 
-	/** @return: the stars type */
-	public STARCLASS getStarType() {
-		return classification;
-	}
-
 	/**
 	 * master constructor to create a star with its type
 	 * 
@@ -52,6 +47,7 @@ public class Star extends GameObject {
 		this.classification = classification;
 	}
 
+	/** @return: the stars classification */
 	public STARCLASS getClassification() {
 		return classification;
 	}

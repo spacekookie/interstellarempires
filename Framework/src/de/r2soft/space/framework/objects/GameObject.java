@@ -22,6 +22,8 @@ package de.r2soft.space.framework.objects;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.r2soft.space.framework.objects.Star.STARCLASS;
+
 /**
  * @author Leander
  * 
