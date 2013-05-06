@@ -97,7 +97,7 @@ public class SolarSystem {
 		this.units = units;
 		this.structures = structures;
 		this.star = star;
-		this.radius = createRadius(star.getType());
+		this.radius = createRadius(star.getClassification());
 	}
 
 	private float createRadius(STARCLASS type) {

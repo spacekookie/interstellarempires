@@ -34,6 +34,7 @@ import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
 import de.r2soft.space.framework.objects.GameObject.TYPE;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
@@ -181,7 +182,8 @@ public class HexMap extends Group implements Disposable {
 		// TODO: Fetch Systems from server.
 		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
 		Set<Unit> units = new HashSet<Unit>();
-		units.add(new Unit(TYPE.FLEET, "Fighter", Resources.thisPlayer, 200, new Vector2(200, 200)));
+		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Fighter", Resources.thisPlayer, 200,
+				new Vector2(200, 200)));
 		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null,
 				new Star(STARCLASS.BLUEGIANT)));
 

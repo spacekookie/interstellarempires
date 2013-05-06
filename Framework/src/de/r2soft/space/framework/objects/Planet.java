@@ -17,11 +17,6 @@
 
 package de.r2soft.space.framework.objects;
 
-/**
- * We might want to extend a "Orbiting object" or at least make an interface?
- * 
- * @author ***REMOVED***
- */
 public class Planet extends MovingObject {
 
 	private float radius;
