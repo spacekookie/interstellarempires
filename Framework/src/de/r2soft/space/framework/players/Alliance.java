@@ -42,6 +42,10 @@ public class Alliance {
 	private String tag;
 
 	private ALLEGIANCE allegiance; // Only used by game client.
+	
+	public Alliance() {
+	  
+	}
 
 	/**
 	 * Create a new alliance.

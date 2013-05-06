@@ -19,11 +19,13 @@ package de.r2soft.space.server.ws.impl;
 
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
+import javax.jws.WebService;
 
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.server.ws.interfaces.ConnectionService;
 import de.r2soft.space.server.ws.interfaces.SessionManagerLocal;
 
+@WebService(serviceName = "ConnectionService", endpointInterface = "de.r2soft.space.server.ws.interfaces.ConnectionService", targetNamespace = "http://2rSoftworks.de/")
 public class ConnectionServiceImpl implements ConnectionService {
 
 	@EJB

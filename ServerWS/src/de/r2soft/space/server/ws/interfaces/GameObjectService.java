@@ -17,14 +17,26 @@
 
 package de.r2soft.space.server.ws.interfaces;
 
+import java.util.Set;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-@WebService(targetNamespace = "http://leandersabel.de")
-public interface HelloWorld {
+import de.r2soft.space.framework.map.IntVec2;
+import de.r2soft.space.framework.objects.GameObject;
+import de.r2soft.space.framework.objects.PlayerObject;
 
-  @WebMethod
-  public String sayHello(String name);
+@WebService(targetNamespace = "http://2rSoftworks.de/")
+public interface GameObjectService {
   
-  
+
+    @WebMethod
+    public Set<GameObject> getGlobalGameObjects(Integer sessionID);
+    
+    @WebMethod
+    public Set<PlayerObject> getPlayerObjects(Integer sessionID);
+    
+    @WebMethod 
+    public Set<PlayerObject> getObjectsInSystem(Integer sessionID, IntVec2 system);
+
 }
