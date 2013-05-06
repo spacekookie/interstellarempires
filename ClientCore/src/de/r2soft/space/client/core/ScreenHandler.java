@@ -19,6 +19,7 @@ package de.r2soft.space.client.core;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
 import de.r2soft.space.client.screens.LoginScreen;
@@ -51,12 +52,14 @@ public class ScreenHandler extends Game {
 	@Override
 	public void create() {
 		handler = this;
-		music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
-		music.play();
-		music.setLooping(true);
-		music.setVolume(0.95f);
+		// music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+		// music.play();
+		// music.setLooping(true);
+		// music.setVolume(0.95f);
 
-		if (!Resources.skipIntro)
+		Preferences prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+
+		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
 			setScreen(new TweenScreen(this));
 		else
 			setScreen(new LoginScreen(this));
@@ -65,7 +68,7 @@ public class ScreenHandler extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		music.stop();
+		// music.stop();
 	}
 
 	@Override
@@ -81,13 +84,13 @@ public class ScreenHandler extends Game {
 	@Override
 	public void pause() {
 		super.pause();
-		music.pause();
+		// music.pause();
 	}
 
 	@Override
 	public void resume() {
 		super.resume();
-		music.play();
+		// music.play();
 	}
 
 }

@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 
+import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Translator;
@@ -47,11 +48,18 @@ import de.r2soft.space.framework.players.Player;
  * 
  */
 @SuppressWarnings("unused")
-public class GenericMapObject extends Actor implements Disposable {
+public class GenericMapObject extends Actor {
 
 	/** The absolute position of the actor */
 	private float posX, posY;
 
+	/** Global debug renderer */
+	private ShapeRenderer renderer;
+
+	/** Is this object selected? */
+	private boolean selected;
+
+	/** Global object attributes */
 	private ALLEGIANCE allegiance;
 	private Player claim;
 	private GameObject orbit;
@@ -69,10 +77,13 @@ public class GenericMapObject extends Actor implements Disposable {
 	/** Unit movement. May be moved to server */
 	@Deprecated
 	private Vector2 target, trajectory;
-
-	private ShapeRenderer renderer;
-	private boolean selected;
+	@Deprecated
 	private boolean moving;
+
+	/** For parent classes to work with */
+	private Unit unit;
+	private Planet planet;
+	private Structure structue;
 
 	{
 		renderer = new ShapeRenderer();
@@ -81,7 +92,7 @@ public class GenericMapObject extends Actor implements Disposable {
 	}
 
 	/**
-	 * Constructor only taking the actual unit.
+	 * Constructor only taking a unit.
 	 * 
 	 * @param unit
 	 */
@@ -94,7 +105,7 @@ public class GenericMapObject extends Actor implements Disposable {
 	}
 
 	/**
-	 * Constructor only taking the actual structure.
+	 * Constructor only taking a structure.
 	 * 
 	 * @param structure
 	 */
@@ -103,7 +114,7 @@ public class GenericMapObject extends Actor implements Disposable {
 	}
 
 	/**
-	 * Constructor only taking the actual planet.
+	 * Constructor only taking a planet.
 	 * 
 	 * @param planet
 	 */
@@ -196,15 +207,18 @@ public class GenericMapObject extends Actor implements Disposable {
 						&& y > (this.position.y - ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
 						&& y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
 					selected = true;
+					setParentSelection(this.getName());
 				}
 				else {
 					selected = false;
+					setParentSelection(null);
 				}
 			}
 		}
 		return null;
 	}
 
+	@Deprecated
 	private void moveLocally() {
 		if (!target.equals(position)) {
 			trajectory = new Vector2(target.sub(position));
@@ -217,8 +231,21 @@ public class GenericMapObject extends Actor implements Disposable {
 		position.add(trajectory.x, -trajectory.y);
 	}
 
-	@Override
-	public void dispose() {
+	/**
+	 * Constructor is deprecated because it will screw up the entire screen when used in a normal
+	 * application context
+	 */
+	@SuppressWarnings("deprecation")
+	private void setParentSelection(String s) {
+		if (s != null) {
+			SystemScreen.getInstance().setSelectionfocus(this, type);
+			System.out.println(this);
+		}
+		else
+			SystemScreen.getInstance().setSelectionfocus(null, null);
 	}
 
+	public Planet getPlanetifExists() {
+		return planet;
+	}
 }

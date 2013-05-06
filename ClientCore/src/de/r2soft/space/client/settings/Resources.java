@@ -31,9 +31,10 @@ public class Resources {
 	public static int OLD_WIDTH = 1080;
 	public static int OLD_HEIGHT = 600;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.0.8";
+	public static String VERSION_NUMBER = "Prototype 1.0.9";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
+	public static final String SCREENTITLE_LOGIN = "LOGIN";
 	public static final String SCREENTITLE_SOLAR = "SOLARSYSTEM";
 
 	/** Log sings */
@@ -46,6 +47,9 @@ public class Resources {
 	@Deprecated
 	/** Will be moved to the Prefereces database */
 	public static boolean skipIntro = true;
+
+	public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
+	public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
 
 	public static final Player thisPlayer = new Player("KateTheAwesome");
 

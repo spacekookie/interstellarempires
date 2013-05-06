@@ -32,11 +32,19 @@ public abstract class GameObject {
 	private Vector2 position;
 	private GameObject orbit;
 
+	private TYPE type;
+	private SUPERCLASS superclass;
+
 	public static enum TYPE {
 		SHIP, DEBRIS, FLEET, /** @Unit */
 		PLANET, MOON, ASTEROID, /** @Planet */
 		STATION_ORBITAL, RESEARCH_STATION, MILITARY_STATION, /** @Structure */
 		STATION_FACILITY_SMALL, STATION_FACILITY_CAPITAL, STATION_MINING;
+	}
+
+	/** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
+	public static enum SUPERCLASS {
+		UNIT, PLANET, STRUCTURE, STAR, SYSTEM;
 	}
 
 	public Vector2 getPosition() {
@@ -63,6 +71,23 @@ public abstract class GameObject {
 	/** Set the center of orbit object */
 	public void setOrbit(GameObject orbit) {
 		this.orbit = orbit;
+	}
+
+	public TYPE getType() {
+		return type;
+	}
+
+	public void setType(TYPE type) {
+		this.type = type;
+	}
+
+	/** @return MUST NOT BE NULL */
+	public SUPERCLASS getSuperclass() {
+		return superclass;
+	}
+
+	public void setSuperclass(SUPERCLASS superclass) {
+		this.superclass = superclass;
 	}
 
 }
