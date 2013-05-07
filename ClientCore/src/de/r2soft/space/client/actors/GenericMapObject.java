@@ -29,8 +29,7 @@ import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Translator;
 import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
-import de.r2soft.space.framework.objects.GameObject.TYPE;
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PLANETCLASS;
 import de.r2soft.space.framework.objects.Structure;
@@ -60,11 +59,10 @@ public class GenericMapObject extends Actor {
 	private ALLEGIANCE allegiance;
 	private Player claim;
 	private GameObject orbit;
-	private SUPERCLASS superclass;
+	private SuperClass superclass;
 	private float size;
 
 	/** Unit information */
-	private TYPE type;
 	private String flag;
 
 	/** Planet information */
@@ -98,7 +96,6 @@ public class GenericMapObject extends Actor {
 	 * @param unit
 	 */
 	public GenericMapObject(Unit unit) {
-		type = unit.getType();
 		flag = unit.getFlag();
 		claim = unit.getClaim();
 		allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
@@ -127,7 +124,6 @@ public class GenericMapObject extends Actor {
 		planetclass = planet.getClassification();
 		planetradius = planet.getRadius();
 		planetmass = planet.getMass();
-		type = planet.getType();
 		claim = planet.getClaim();
 		orbit = planet.getOrbit();
 		superclass = planet.getSuperclass();
@@ -141,16 +137,16 @@ public class GenericMapObject extends Actor {
 	}
 
 	@Deprecated
-	public GenericMapObject(float x, float y, TYPE type, String flag, Player claim,
+	public GenericMapObject(float x, float y, SuperClass type, String flag, Player claim,
 			ALLEGIANCE allegience) {
 		this.position.x = x;
 		this.position.y = y;
-		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
 		this.allegiance = allegience;
 	}
 
+	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 
 		batch.end();

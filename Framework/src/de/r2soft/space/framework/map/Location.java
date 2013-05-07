@@ -17,22 +17,22 @@
 
 package de.r2soft.space.framework.map;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import com.badlogic.gdx.math.Vector2;
 
 public class Location {
 
-  private Vector2D pos;
+	private Vector2 pos;
 
-  public Location(Vector2D pos) {
-	this.pos = pos;
-  }
+	public Location(Vector2 pos) {
+		this.pos = pos;
+	}
 
-  public double getX() {
-	return pos.getX();
-  }
+	public float getX() {
+		return pos.x;
+	}
 
-  public double getY() {
-	return pos.getY();
-  }
+	public float getY() {
+		return pos.y;
+	}
 
 }

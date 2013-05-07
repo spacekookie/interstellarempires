@@ -20,11 +20,13 @@ package de.r2soft.space.client.screens.utilities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -142,6 +144,25 @@ public class SettingsScreen implements Screen {
 		table.row();
 		table.center();
 		stage.addActor(table);
+
+		Table credits = new Table(ResPack.UI_SKIN);
+		credits.setBackground("default-window");
+		credits.setSize(325, 125);
+		credits.bottom().left();
+		credits.add(new Label("Credits", ResPack.UI_SKIN)).colspan(2).center();
+		credits.row();
+		credits.add(new Label("Leander Sabel", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Coding", ResPack.UI_SKIN)).left();
+		credits.row();
+		credits.add(new Label("Katharina Fey", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Coding & Graphics", ResPack.UI_SKIN)).left();
+		credits.row();
+		credits.add(new Label("Steve Teufel", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Sounds & Music", ResPack.UI_SKIN)).left();
+		credits.row();
+		credits.add(new Label("(c)2013 Random Robot Softworks", ResPack.UI_SKIN)).colspan(2).left();
+		credits.row();
+		stage.addActor(credits);
 
 	}
 

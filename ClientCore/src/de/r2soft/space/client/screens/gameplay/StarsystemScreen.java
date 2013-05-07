@@ -37,7 +37,7 @@ import de.r2soft.space.client.groups.SolarGroup;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Unit;
 
 public class StarsystemScreen implements Screen {
@@ -61,7 +61,7 @@ public class StarsystemScreen implements Screen {
 	private Set<Unit> units;
 	private Set<GenericMapObject> childobjects;
 	private GenericMapObject focusobject;
-	private SUPERCLASS childsuper;
+	private SuperClass childsuper;
 
 	/** DO NOT USE IN NORMAL CONTEXT */
 	@Deprecated

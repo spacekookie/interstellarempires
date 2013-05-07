@@ -44,12 +44,11 @@ import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
-import de.r2soft.space.framework.objects.GameObject.TYPE;
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Player;
 
@@ -129,7 +128,7 @@ public class HexagonScreen implements Screen {
 		float HEX_START_Y = -105f;
 
 		Set<Unit> units = new HashSet<Unit>(); // for Cycle through 0 to 4 for X-Axis
-		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Alpha Wing", Resources.thisPlayer, 12,
+		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Alpha Wing", Resources.thisPlayer,
 				new Vector2(150, 150)));
 
 		for (int n = 0; n < 5; n++) {

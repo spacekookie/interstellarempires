@@ -52,7 +52,7 @@ public class Planet extends MovingObject {
 		A, B, C, D, E, F;
 	}
 
-	public Planet(SUPERCLASS superclass, float radius, float mass) {
+	public Planet(SuperClass superclass, float radius, float mass) {
 		super.setSuperclass(superclass);
 	}
 
