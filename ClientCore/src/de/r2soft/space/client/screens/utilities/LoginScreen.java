@@ -15,7 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.screens;
+package de.r2soft.space.client.screens.utilities;
+
+import java.lang.annotation.Annotation;
+
+import javax.xml.ws.WebServiceClient;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -25,13 +29,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 
@@ -40,7 +44,6 @@ public class LoginScreen implements Screen {
 	private ScreenHandler handler;
 
 	/** UI elements */
-	private Skin skin;
 	private Stage stage;
 	private Table intro, outro;
 	private TextField userField, passField;
@@ -59,10 +62,11 @@ public class LoginScreen implements Screen {
 		userField = new TextField("", ResPack.UI_SKIN);
 		saveUser = new CheckBox("Save username?", ResPack.UI_SKIN);
 
-		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME)) {
-			userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
-			saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
-		}
+		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME))
+			{
+				userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
+				saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+			}
 
 	}
 
@@ -95,6 +99,7 @@ public class LoginScreen implements Screen {
 		intro.add(passField).width(ResPack.SIZE_UI_FIELD_CONTENT);
 		intro.row();
 		intro.add(login).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.row();
 		intro.add(saveUser);
 		intro.row();
 
@@ -135,12 +140,13 @@ public class LoginScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-		if (saveUser.isChecked()) {
-			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
-		}
-		else {
-			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
-		}
+		if (saveUser.isChecked())
+			{
+				prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
+			} else
+			{
+				prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
+			}
 
 		saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
 
@@ -160,8 +166,7 @@ public class LoginScreen implements Screen {
 
 		prefs.flush();
 
-		// TODO: encrypt password and request Login from server.
-		handler.setScreen(new MenuScreen(handler));
+		handler.setScreen(new HexagonScreen(handler, name_clear));
 
 	}
 

@@ -20,8 +20,7 @@ package de.r2soft.space.client.settings;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Initializes the settings for the game. Also responsible for setting new
- * Settings.
+ * Initializes the settings for the game. Also responsible for setting new Settings.
  * 
  * @author: ***REMOVED***
  */
@@ -31,7 +30,7 @@ public class Resources {
 	public static int OLD_WIDTH = 1080;
 	public static int OLD_HEIGHT = 600;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.0.9";
+	public static String VERSION_NUMBER = "Prototype 1.1";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_LOGIN = "LOGIN";
@@ -52,5 +51,14 @@ public class Resources {
 
 	@Deprecated
 	public static final Player thisPlayer = new Player("KateTheAwesome");
+	public static final Player _neutralplayer = new Player("_no_owning_player_");
+
+	/** Hexmap formulas */
+	public static final float HEX_START_X = -275f;
+	public static final float HEX_START_Y = -100f;
+
+	public static final float HEX_RADIUS = 64f;
+	public static final float HEX_COORD_X = (1 / 2) * 64f;
+	public static final float HEX_COORD_Y = (float) ((Math.sqrt(3) * 64f) / 2);
 
 }

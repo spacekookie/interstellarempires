@@ -20,10 +20,11 @@ package de.r2soft.space.framework.objects;
 import com.badlogic.gdx.math.Vector2;
 
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 
 /**
- * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies.
- * Rainbow ponies have infinite shields, speed and damage.
+ * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies. Rainbow ponies have
+ * infinite shields, speed and damage.
  * 
  * @author ***REMOVED***
  * 
@@ -40,8 +41,7 @@ public class Unit extends MovingObject {
 	private int count;
 
 	/** Master constructor for units */
-	public Unit(SUPERCLASS superclass, TYPE type, String flag, Player claim, int count,
-			Vector2 position) {
+	public Unit(SUPERCLASS superclass, TYPE type, String flag, Player claim, int count, Vector2 position) {
 		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
@@ -112,6 +112,15 @@ public class Unit extends MovingObject {
 
 	public void setType(TYPE type) {
 		this.type = type;
+	}
+
+	public ALLEGIANCE getAllegiance(Player p) {
+
+		if (p.getAlliance().equals(claim.getAlliance()))
+			{
+				return ALLEGIANCE.FRIENDLY;
+			}
+		return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
 	}
 
 }

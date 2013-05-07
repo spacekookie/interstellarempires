@@ -45,7 +45,6 @@ import de.r2soft.space.framework.players.Player;
  * @author ***REMOVED***
  * 
  */
-@SuppressWarnings("unused")
 public class GenericMapObject extends Actor {
 
 	/** Debug renderer */

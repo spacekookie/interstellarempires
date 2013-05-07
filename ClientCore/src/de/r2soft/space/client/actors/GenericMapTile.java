@@ -19,33 +19,42 @@ package de.r2soft.space.client.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.screens.SystemScreen;
+import de.r2soft.space.client.screens.gameplay.StarsystemScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
 
 public class GenericMapTile extends Actor {
 
+	private Vector2 position;
+	private Vector2 size;
+
+	@Deprecated
 	private float posX, posY;
+	@Deprecated
 	private float sizeX, sizeY;
 	private IntVec2 tileID;
 	private ALLEGIANCE ally;
-	private ShapeRenderer renderer;
 	private SolarSystem childsystem;
 
 	protected IntVec2 id = null;
 
 	/** Player for tile colour */
 	private Player claim;
+
+	{
+		childsystem = new SolarSystem();
+	}
 
 	/**
 	 * The constructor will set up the coordinates on which the tile will then be drawn. Also includes
@@ -59,13 +68,12 @@ public class GenericMapTile extends Actor {
 	 * @param alliance
 	 *          of the tile: player, hostile, neutral and friendly.
 	 */
+	@Deprecated
 	public GenericMapTile(float x, float y, ALLEGIANCE a, IntVec2 id) {
-		posX = x;
-		posY = y;
+		position = new Vector2(x, y);
+		size = new Vector2(100, 100);
 		tileID = id;
-		sizeX = sizeY = 100; // Tile size.
 		ally = a;
-		renderer = new ShapeRenderer();
 	}
 
 	/**
@@ -80,20 +88,18 @@ public class GenericMapTile extends Actor {
 	 * @param alliance
 	 *          of the tile: player, hostile, neutral and friendly.
 	 */
-	public GenericMapTile(float x, float y, SolarSystem system, IntVec2 id) {
-		posX = x;
-		posY = y;
+	public GenericMapTile(float x, float y, SolarSystem system) {
+		System.out.println(system.getClaim());
+		position = new Vector2(x, y);
+		size = new Vector2(100, 100);
 		tileID = id;
-		sizeX = sizeY = 100; // Tile size.
-		renderer = new ShapeRenderer();
-		setupSystem(system);
-	}
-
-	private void setupSystem(SolarSystem system) {
 		claim = system.getClaim();
 		childsystem = system;
-		if (claim.equals(null)) {
+		if (claim.equals(Resources._neutralplayer)) {
 			ally = ALLEGIANCE.NEUTRAL;
+		}
+		else if (claim.getAlliance().equals(Resources.thisPlayer.getAlliance())) {
+			ally = ALLEGIANCE.FRIENDLY;
 		}
 		else {
 			ally = claim.equals(Resources.thisPlayer) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
@@ -101,33 +107,24 @@ public class GenericMapTile extends Actor {
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
-
-		// Debug frame
 		batch.end();
-		// renderer.setProjectionMatrix(batch.getProjectionMatrix());
-		// renderer.setTransformMatrix(batch.getTransformMatrix());
-		// renderer.translate(getX() / 2, getY() / 2, 0);
-		//
-		// renderer.begin(ShapeType.Rectangle);
-		// renderer.rect(posX, posY, sizeX, sizeY);
-		// renderer.end();
 		batch.begin();
 
 		switch (ally) {
 		case FRIENDLY:
-			batch.draw(ResPack.TILE_HEX_FRIEND, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+			batch.draw(ResPack.TILE_HEX_FRIEND, position.x, position.y, 0, 0, size.x, size.y, 1, 1, 0);
 			break;
 
 		case HOSTILE:
-			batch.draw(ResPack.TILE_HEX_ENEMY, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+			batch.draw(ResPack.TILE_HEX_ENEMY, position.x, position.y, 0, 0, size.x, size.y, 1, 1, 0);
 			break;
 
 		case NEUTRAL:
-			batch.draw(ResPack.TILE_HEX_NEUTRAL, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+			batch.draw(ResPack.TILE_HEX_NEUTRAL, position.x, position.y, 0, 0, size.x, size.y, 1, 1, 0);
 			break;
 
 		case PLAYER:
-			batch.draw(ResPack.TILE_HEX_PLAYER, posX, posY, 0, 0, sizeX, sizeY, 1, 1, 0);
+			batch.draw(ResPack.TILE_HEX_PLAYER, position.x, position.y, 0, 0, size.x, size.y, 1, 1, 0);
 			break;
 
 		default:
@@ -135,17 +132,28 @@ public class GenericMapTile extends Actor {
 			break;
 		}
 
-		if (childsystem.hasUnits()) {
-			batch.draw(ResPack.TILE_ADD_FLEET_PLAYER, posX + (sizeX / 4), posY + (sizeY / 4), 0, 0,
-					(sizeX / 4), (sizeY / 4), 1, 1, 0);
-			batch.draw(ResPack.TILE_ADD_FLEET_ENEMY, posX + (sizeX / 4), posY + 2 * (sizeY / 4), 0, 0,
-					(sizeX / 4), (sizeY / 4), 1, 1, 0);
-			batch.draw(ResPack.TILE_ADD_FLEET_FRIENDLY, posX + 2 * (sizeX / 4), posY + 2 * (sizeY / 4),
-					0, 0, (sizeX / 4), (sizeY / 4), 1, 1, 0);
-			batch.draw(ResPack.TILE_ADD_STATION_PLAYER, posX + 2 * (sizeX / 4), posY + (sizeY / 4), 0, 0,
-					(sizeX / 4), (sizeY / 4), 1, 1, 0);
+		if (childsystem.getUnits() != null) {
+			if (childsystem.hasUnits()) {
+				for (Unit unit : childsystem.getUnits()) {
+					if (unit.getAllegiance(Resources.thisPlayer).equals(ALLEGIANCE.PLAYER)) {
+						batch.draw(ResPack.TILE_ADD_FLEET_PLAYER, position.x + (size.x / 4), position.y
+								+ (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
+					}
+					if (unit.getAllegiance(Resources.thisPlayer).equals(ALLEGIANCE.FRIENDLY)) {
+						batch.draw(ResPack.TILE_ADD_FLEET_FRIENDLY, position.x + 2 * (size.x / 4), position.y
+								+ 2 * (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
+					}
+					if (unit.getAllegiance(Resources.thisPlayer).equals(ALLEGIANCE.HOSTILE)) {
+						batch.draw(ResPack.TILE_ADD_FLEET_ENEMY, position.x + (size.x / 4), position.y + 2
+								* (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
+					}
+				}
+			}
+			else if (childsystem.hasStructures()) {
+				batch.draw(ResPack.TILE_ADD_STATION_PLAYER, position.x + 2 * (size.x / 4), position.y
+						+ (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
+			}
 		}
-
 	}
 
 	/**
@@ -167,11 +175,12 @@ public class GenericMapTile extends Actor {
 
 		if (touchable && getTouchable() == Touchable.enabled) {
 			if (Gdx.input.isTouched(0)) {
-				if (x > (this.posX - (this.sizeX)) && x < (this.posX + (this.sizeX))
-						&& y > (this.posY - (this.sizeY)) && y < (this.posY + (this.sizeY))) {
+				if (x > position.x && x < (position.x + size.x) && y > position.y
+						&& y < position.y + size.y) {
 					Gdx.app.log(Resources.LOG_HEX_TILE, "you clicked: " + tileID);
 					ScreenHandler.getInstance().setScreen(
-							new SystemScreen(ScreenHandler.getInstance(), childsystem));
+							new StarsystemScreen(ScreenHandler.getInstance(), childsystem));
+					return this;
 				}
 				else {
 					// Gdx.app.log(Settings.LOG_HEX_TILE, "nothing there");

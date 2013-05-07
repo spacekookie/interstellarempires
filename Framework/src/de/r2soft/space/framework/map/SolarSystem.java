@@ -20,6 +20,8 @@ package de.r2soft.space.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.badlogic.gdx.Gdx;
+
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
@@ -61,14 +63,13 @@ public class SolarSystem {
 		this.id = id;
 	}
 
-	{
+	/** Empty constructor */
+	public SolarSystem() {
+
 		units = new HashSet<Unit>();
 		planets = new HashSet<Planet>();
 		structures = new HashSet<Structure>();
-	}
 
-	/** Empty constructor */
-	public SolarSystem() {
 	}
 
 	/**
@@ -97,7 +98,10 @@ public class SolarSystem {
 		this.units = units;
 		this.structures = structures;
 		this.star = star;
-		this.radius = createRadius(star.getClassification());
+		if (star != null)
+			this.radius = createRadius(star.getClassification());
+		else
+			System.out.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
 	}
 
 	private float createRadius(STARCLASS type) {
@@ -163,8 +167,7 @@ public class SolarSystem {
 
 	/** @return: the systems owner if exists. */
 	public Player getClaim() {
-		// TODO: Impliment neutral as a player and return here.
-		return claimed != null ? claimed : null;
+		return claimed != null ? claimed : new Player("_neutral");
 	}
 
 	/**
@@ -198,14 +201,24 @@ public class SolarSystem {
 	}
 
 	public boolean hasUnits() {
-		return !units.isEmpty();
+		if (units != null)
+			return !units.isEmpty();
+		else
+			return false;
 	}
 
 	public boolean hasStructures() {
-		return !structures.isEmpty();
+		if (structures != null)
+			return !structures.isEmpty();
+		else
+			return false;
 	}
 
 	public boolean hasPlanets() {
-		return !planets.isEmpty();
+		if (units != null)
+			return !planets.isEmpty();
+		else
+			return false;
+
 	}
 }

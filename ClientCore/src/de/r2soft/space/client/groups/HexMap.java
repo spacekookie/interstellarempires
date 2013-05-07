@@ -42,12 +42,12 @@ import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile
- * actors.
+ * Hexmap implementation as a ViewGroup. Will be added to MapTable on Screen. Holds @GenericMapTile actors.
  * 
  * @author ***REMOVED***
  * 
  */
+@Deprecated
 public class HexMap extends Group implements Disposable {
 
 	/** Size of the map-actor on screen */
@@ -67,11 +67,11 @@ public class HexMap extends Group implements Disposable {
 	 * Creates a hex-tile map group.
 	 * 
 	 * @param x
-	 *          puts x coordinate of map origin
+	 *         puts x coordinate of map origin
 	 * @param y
-	 *          puts y coordinate of map origin
+	 *         puts y coordinate of map origin
 	 * @param handler
-	 *          ScreenHandler to call @SystemScreen
+	 *         ScreenHandler to call @SystemScreen
 	 */
 	public HexMap(float x, float y, ScreenHandler handler) {
 		this.sizeX = x;
@@ -101,9 +101,10 @@ public class HexMap extends Group implements Disposable {
 			stage = new Stage();
 		stage.clear();
 
-		for (GenericMapTile tile : systems) {
-			stage.addActor(tile);
-		}
+		for (GenericMapTile tile : systems)
+			{
+				stage.addActor(tile);
+			}
 
 		// Static drawing for now.
 		// stage.addActor(new GenericMapTile((getX() / 2) + (0 * tileX), (getY() / 2) + (0 * tileY),
@@ -121,8 +122,8 @@ public class HexMap extends Group implements Disposable {
 	}
 
 	/**
-	 * Usually only called once when creating the application. Players with custom skins and graphic
-	 * packs may end up changing these values. Checking for tile size is done outside this class.
+	 * Usually only called once when creating the application. Players with custom skins and graphic packs may end up
+	 * changing these values. Checking for tile size is done outside this class.
 	 * 
 	 * @param x
 	 * @param y
@@ -150,10 +151,10 @@ public class HexMap extends Group implements Disposable {
 	 * Checks if the requested tile should even be displayed or if it is outside the requested view.
 	 * 
 	 * @param tileID
-	 *          Vector ID of the tile in question
+	 *         Vector ID of the tile in question
 	 * 
-	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen
-	 *         and shouldn't be displayed.
+	 * @return true: The tile is on screen and needs to be displayed. false: The tile is no on screen and shouldn't be
+	 *         displayed.
 	 */
 	public boolean isTileOnScreen(Vector2 tileID) {
 
@@ -182,14 +183,13 @@ public class HexMap extends Group implements Disposable {
 		// TODO: Fetch Systems from server.
 		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
 		Set<Unit> units = new HashSet<Unit>();
-		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Alpha Wing", Resources.thisPlayer, 50,
-				new Vector2(200, 200)));
-		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null,
-				new Star(STARCLASS.REDDWARF)));
+		units.add(new Unit(SUPERCLASS.UNIT, TYPE.FLEET, "Alpha Wing", Resources.thisPlayer, 50, new Vector2(200, 200)));
+		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null, new Star(STARCLASS.REDDWARF)));
 
-		for (SolarSystem system : _temp) {
+		for (SolarSystem system : _temp)
+			{
 
-			systems.add(new GenericMapTile(400, 300, system, new IntVec2(0, 0)));
-		}
+				systems.add(new GenericMapTile(400, 300, system));
+			}
 	}
 }

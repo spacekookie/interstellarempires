@@ -32,18 +32,11 @@
 	<string name="LOG_CONT_FIELD_NAME_HINT">Your Username</string>
 	<string name="LOG_CONT_FIELD_PASW_HINT">Your Password</string>
 	<string name="LOG_CONT_BUTTON_LOGIN">Login</string>
-</resources>
 
-<resources> <!-- Global strings -->
 	<string name="GLB_NAVI_BUTTON_QUIT">Exit Game</string>
-	<string name="GLB_NAVI_BUTTON_QUIT_LOGOUT">Logout & Quit</string>
+	<string name="GLB_NAVI_BUTTON_QUIT_LOGOUT">Logout and Quit</string>
 	<string name="GLB_NAVI_BUTTON_LOGOUT">Logout</string>
-</resources>
 
-<resources> <!-- MapScreen -->
-</resources>
-
-<resources> <!-- SolarScreen -->
 	<string name="SYS_CONT_FIELD_EXPLAN_ONE">This is an example of how Textwrapping works!
 	</string>
 	<string name="SYS_CONT_FIELD_EXPLAN_TWO">To the left you see the solar map. It will display
@@ -55,8 +48,5 @@
 	</string>
 	<string name="SYS_CONT_BUTTON_CLEAR_SYSTEM">Destroy everything</string>
 	<string name="SYS_CONT_BUTTON_POINTLESS">Pointless button</string>
-</resources>
-
-<resources> <!-- SettingScreen -->
 	<string name="SET_CONT_CHECK_INTRO">Skip intro on launch</string>
 </resources>

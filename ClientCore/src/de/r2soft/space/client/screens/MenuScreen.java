@@ -28,6 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.HexMap;
+import de.r2soft.space.client.screens.utilities.LoginScreen;
+import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 

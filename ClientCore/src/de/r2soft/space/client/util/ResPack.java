@@ -173,6 +173,7 @@ public class ResPack {
 	public static final float SIZE_GUI_HEXAGON_TILE = 100;
 
 	/** GUI ELEMENTS */
+
 	/** How group elements (unwrapped) will be offset from one another */
 	public static final float SIZE_UI_GROUP_OFFSET = -20;
 	public static final float SIZE_SOLAR_GROUP_OFFSET_INITIAL = -30;
@@ -186,6 +187,13 @@ public class ResPack {
 	public static final float SIZE_UI_FIELD_CONTENT_SMALL = 100;
 	/** Frame offset */
 	public static final float SIZE_UI_GLOBAL_FRAME_OFFSET = -35;
+
+	/** X size of the 2.0 hexagon map on the screen */
+	public static final float SIZE_HEX_MAP_X = 700f;
+	/** Y size of the 2.0 hexagon map on the screen */
+	public static final float SIZE_HEX_MAP_Y = 400f;
+	/** X offset of the 2.0 hexagon map on the screen */
+	public static final float POSITION_HEX_MAP_OFFSET = -100f;
 
 	/** Planet sizes */
 
