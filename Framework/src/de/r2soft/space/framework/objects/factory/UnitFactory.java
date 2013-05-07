@@ -17,7 +17,14 @@
 
 package de.r2soft.space.framework.objects.factory;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import de.r2soft.space.framework.objects.Fleet;
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
+import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.players.Player;
 
 /**
  * This class provides static methods to build default units.
@@ -27,26 +34,61 @@ import de.r2soft.space.framework.objects.Unit;
  */
 public class UnitFactory {
 
-  public static enum ShipType {
-	FIGHTER
-  };
+	public static enum ShipType {
+		FIGHTER, CARGO_SMALL
+	};
 
-  /**
-   * Build a new default unit.
-   * 
-   * @param type
-   * @return
-   */
-  public static Unit buildUnit(ShipType type) {
-	if (type == ShipType.FIGHTER) {
-	  Unit fighter = new Unit();
-	  // Do the proper stuff to build a default fighter
-	  return fighter;
+	private Player owner;
+	private Structure parent;
+
+	/** Constructor to be called from unit producing structures and planets. */
+	public UnitFactory(Player owner, Structure parent) {
+		this.owner = owner;
+		this.parent = parent;
 	}
-	else {
-	  // Log the error
-	  return null;
+
+	public Unit requisitionUnit(ShipType type) {
+		Unit ship = new Unit(SuperClass.UNIT, type, "Fighter", owner, parent.getPosition());
+		return ship;
 	}
-  }
+
+	/**
+	 * Requisitions a fleet of units from a HashSet of shiptypes.
+	 * 
+	 * @param types
+	 *          of ships wanted. Multiple entries mean multiple instances of that requested unit.
+	 * @return Fleet object with requested ships. Base constructor without admiral.
+	 * 
+	 * @author ***REMOVED***
+	 */
+	public Fleet requisitionFleet(Set<ShipType> types) {
+
+		Set<Unit> requested = new HashSet<Unit>();
+
+		for (ShipType type : types) {
+			requested.add(new Unit(SuperClass.UNIT, type, null, owner, parent.getPosition()));
+		}
+
+		Fleet fleet = new Fleet(requested);
+		return fleet;
+	}
+
+	/**
+	 * Build a new default unit.
+	 * 
+	 * @param type
+	 * @return
+	 */
+	@Deprecated
+	public static Unit buildUnit(ShipType type) {
+		if (type == ShipType.FIGHTER) {
+			Unit fighter = new Unit();
+			return fighter;
+		}
+		else {
+			// Log the error
+			return null;
+		}
+	}
 
 }

@@ -19,7 +19,7 @@ package de.r2soft.space.framework.objects;
 
 public class Structure extends PlayerObject {
 
-	public Structure(SUPERCLASS superclass) {
+	public Structure(SuperClass superclass) {
 		super.setSuperclass(superclass);
 	}
 

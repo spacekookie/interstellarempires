@@ -54,11 +54,6 @@ public class SolarGroup extends Group {
 		this.position = vec;
 	}
 
-	@Deprecated
-	public SolarGroup(Vector2 position, Map map, Player player) {
-
-	}
-
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.end();
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());

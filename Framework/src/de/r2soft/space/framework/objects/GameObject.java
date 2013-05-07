@@ -19,7 +19,7 @@ package de.r2soft.space.framework.objects;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.objects.Star.STARCLASS;
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
 /**
  * @author Leander
@@ -30,20 +30,12 @@ public abstract class GameObject {
 	private float size;
 	private Vector2 position;
 	private GameObject orbit;
-
-	private TYPE type;
-	private SUPERCLASS superclass;
-
-	public static enum TYPE {
-		SHIP, DEBRIS, FLEET, /** @Unit */
-		PLANET, MOON, ASTEROID, /** @Planet */
-		STATION_ORBITAL, RESEARCH_STATION, MILITARY_STATION, /** @Structure */
-		STATION_FACILITY_SMALL, STATION_FACILITY_CAPITAL, STATION_MINING;
-	}
+	private ShipType type;
+	private SuperClass superclass;
 
 	/** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
-	public static enum SUPERCLASS {
-		UNIT, PLANET, STRUCTURE, STAR, SYSTEM;
+	public static enum SuperClass {
+		UNIT, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
 	}
 
 	public Vector2 getPosition() {
@@ -72,20 +64,20 @@ public abstract class GameObject {
 		this.orbit = orbit;
 	}
 
-	public TYPE getType() {
+	public ShipType getType() {
 		return type;
 	}
 
-	public void setType(TYPE type) {
+	public void setType(ShipType type) {
 		this.type = type;
 	}
 
 	/** @return MUST NOT BE NULL */
-	public SUPERCLASS getSuperclass() {
+	public SuperClass getSuperclass() {
 		return superclass;
 	}
 
-	public void setSuperclass(SUPERCLASS superclass) {
+	public void setSuperclass(SuperClass superclass) {
 		this.superclass = superclass;
 	}
 

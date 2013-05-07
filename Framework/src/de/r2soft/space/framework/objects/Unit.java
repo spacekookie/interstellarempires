@@ -19,11 +19,13 @@ package de.r2soft.space.framework.objects;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.players.Player;
 
 /**
- * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies. Rainbow ponies have
+ * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies.
+ * Rainbow ponies have
  * infinite shields, speed and damage.
  * 
  * @author ***REMOVED***
@@ -31,63 +33,21 @@ import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
  */
 public class Unit extends MovingObject {
 
-	public static enum FLEET_SIZE {
-		TINY, SMALL, MEDIUM, LARGE, MASSIVE;
-	}
-
-	private TYPE type;
 	private String flag;
 	private Player claim;
-	private int count;
+	private ShipType type;
 
 	/** Master constructor for units */
-	public Unit(SUPERCLASS superclass, TYPE type, String flag, Player claim, int count, Vector2 position) {
+	public Unit(SuperClass superclass, ShipType type, String flag, Player claim, Vector2 position) {
 		this.type = type;
 		this.flag = flag;
 		this.claim = claim;
-		if (count == 0)
-			count = 1;
-		this.count = count;
 		super.setPosition(position);
 		super.setSuperclass(superclass);
 	}
 
 	@Deprecated
 	public Unit() {
-		count = 1;
-	}
-
-	/**
-	 * Determines what icon size will be used for rendering.
-	 * 
-	 * @return enum for fleet SIZE.
-	 */
-	public FLEET_SIZE getFleetSize() {
-		if (count < 10)
-			return FLEET_SIZE.TINY;
-		if (count < 25)
-			return FLEET_SIZE.SMALL;
-		if (count < 50)
-			return FLEET_SIZE.MEDIUM;
-		if (count < 100)
-			return FLEET_SIZE.LARGE;
-		if (count < 500)
-			return FLEET_SIZE.MASSIVE;
-		else
-			return null;
-	}
-
-	public void setShipCount(int count) {
-		this.count = count;
-	}
-
-	public void addShip() {
-		count++;
-	}
-
-	/** @return int of ship count */
-	public int getShipCount() {
-		return count;
 	}
 
 	public String getFlag() {
@@ -106,20 +66,19 @@ public class Unit extends MovingObject {
 		this.claim = claim;
 	}
 
-	public TYPE getType() {
+	public ShipType getType() {
 		return type;
 	}
 
-	public void setType(TYPE type) {
+	public void setType(ShipType type) {
 		this.type = type;
 	}
 
 	public ALLEGIANCE getAllegiance(Player p) {
 
-		if (p.getAlliance().equals(claim.getAlliance()))
-			{
-				return ALLEGIANCE.FRIENDLY;
-			}
+		if (p.getAlliance().equals(claim.getAlliance())) {
+			return ALLEGIANCE.FRIENDLY;
+		}
 		return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
 	}
 

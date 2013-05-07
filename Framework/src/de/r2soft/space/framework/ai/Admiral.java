@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,32 +13,22 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.space.framework.ai;
 
-import java.util.Set;
+public class Admiral extends BasicAI {
 
-import com.google.common.collect.Sets;
-
-import de.r2soft.space.framework.objects.GameObject;
-
-import net.sf.javaml.core.kdtree.KDTree;
-
-public class Map {
-
-	private KDTree objects;
-
-	public Map() {
-		objects = new KDTree(2);
+	public static enum CommandType {
+		AGGRESSVE, PASSIVE, RANDOM, CHEATING;
 	}
 
-	public Set<GameObject> getObjectsAt(Location location, double range) {
-		double[] lowk = { location.getX() - range, location.getY() - range };
-		double[] uppk = { location.getX() + range, location.getY() + range };
+	private CommandType type;
+	private String name;
 
-		GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
-		return Sets.newHashSet(obj);
+	public Admiral(String name, CommandType type) {
+		this.name = name;
+		this.type = type;
 	}
-
 }

@@ -26,7 +26,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -40,7 +39,7 @@ import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.SUPERCLASS;
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Unit;
 
 /**
@@ -48,6 +47,8 @@ import de.r2soft.space.framework.objects.Unit;
  * constructor the relevant
  * data to identify a solar system will be passed on as well as creating a layout around a solar
  * system view.
+ * 
+ * Use @StarsystemScreen for now on.
  * 
  * @author ***REMOVED***
  * 
@@ -79,7 +80,7 @@ public class SystemScreen implements Screen {
 	private GenericMapObject selectionfocus = null;
 
 	/** To know what object to get */
-	private SUPERCLASS childSuper;
+	private SuperClass childSuper;
 
 	@Deprecated
 	/** Move to string resource */
@@ -279,7 +280,7 @@ public class SystemScreen implements Screen {
 		return selectionfocus;
 	}
 
-	public void setSelectionfocus(GenericMapObject selectionfocus, SUPERCLASS superclass) {
+	public void setSelectionfocus(GenericMapObject selectionfocus, SuperClass superclass) {
 		this.selectionfocus = selectionfocus;
 		this.childSuper = superclass;
 
@@ -291,13 +292,12 @@ public class SystemScreen implements Screen {
 			posTail.setText(nothingselected);
 		}
 		else {
-			if (childSuper.equals(SUPERCLASS.UNIT)) {
+			if (childSuper.equals(SuperClass.UNIT)) {
 				Unit temp = selectionfocus.getUnitIfExists();
 				if (temp != null) {
 					typeTail.setText(temp.getType().toString());
 					flatTail.setText(temp.getFlag().toString());
 					ownerTail.setText(temp.getClaim().getName());
-					countTail.setText(Integer.toString(temp.getShipCount()));
 					posTail.setText(temp.getPosition().toString());
 				}
 
