@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.screens;
+package de.r2soft.space.client.screens.utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 
@@ -125,7 +126,8 @@ public class SettingsScreen implements Screen {
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				handler.onUpdate();
-				handler.setScreen(new MenuScreen(handler));
+				handler.setScreen(new HexagonScreen(handler, prefs
+						.getString(Resources.PREFERENCE_SAVED_USER_NAME)));
 			}
 		});
 

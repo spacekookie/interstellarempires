@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -35,6 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.r2soft.space.client.actors.GenericMapObject;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.SolarMap;
+import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.framework.map.SolarSystem;
@@ -43,14 +45,14 @@ import de.r2soft.space.framework.objects.Unit;
 
 /**
  * This singleton class will be called when the player clicked on a tile on the @HexMap. In the
- * constructor
- * the relevant data to
- * identify a solar system will be passed on as well as creating a layout around a solar system
- * view.
+ * constructor the relevant
+ * data to identify a solar system will be passed on as well as creating a layout around a solar
+ * system view.
  * 
  * @author Katharina
  * 
  */
+@Deprecated
 public class SystemScreen implements Screen {
 
 	/** private singleton instance */
@@ -105,7 +107,6 @@ public class SystemScreen implements Screen {
 	public SystemScreen(ScreenHandler handler, SolarSystem childsystem) {
 		this.handler = handler;
 		SystemScreen.instance = this;
-		System.out.println(this);
 		Gdx.app.log(Resources.LOG_SOLAR_MAP, "From screen: " + this.toString());
 		this.system = childsystem;
 		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
@@ -179,7 +180,9 @@ public class SystemScreen implements Screen {
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				handler.setScreen(new MenuScreen(handler));
+				Preferences prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+				handler.setScreen(new HexagonScreen(handler, prefs
+						.getString(Resources.PREFERENCE_SAVED_USER_NAME)));
 			}
 		});
 

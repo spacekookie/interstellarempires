@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.screens;
+package de.r2soft.space.client.screens.utilities;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -50,7 +50,7 @@ import de.r2soft.space.client.core.ScreenHandler;
  * @author: Katharina
  */
 
-public class TweenScreen implements Screen {
+public class IntroductionScreen implements Screen {
 
 	private Texture splashTitle;
 	private Sprite splashSprite;
@@ -62,7 +62,7 @@ public class TweenScreen implements Screen {
 	private Skin skin;
 	private Stage stage;
 
-	public TweenScreen(ScreenHandler handler) {
+	public IntroductionScreen(ScreenHandler handler) {
 		this.handler = handler;
 	}
 

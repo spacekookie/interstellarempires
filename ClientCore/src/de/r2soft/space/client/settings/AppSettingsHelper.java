@@ -15,14 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+
 package de.r2soft.space.client.settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 /**
- * You should know this from my Android applications. Will handle the SharedPreferences
- * databases and the setter/ getter in this instance.
+ * You should know this from my Android applications. Will handle the SharedPreferences databases and the setter/ getter
+ * in this instance.
  * 
  * @author Katharina
  * 

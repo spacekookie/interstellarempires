@@ -22,14 +22,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
-import de.r2soft.space.client.screens.LoginScreen;
-import de.r2soft.space.client.screens.TweenScreen;
+import de.r2soft.space.client.screens.utilities.IntroductionScreen;
+import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.settings.Resources;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game.
- * Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in
+ * the future
  * 
  * @author: Katharina
  */
@@ -41,8 +41,7 @@ public class ScreenHandler extends Game {
 
 	/**
 	 * 
-	 * Returns The Games screenhandler to start new screens from actors, groups and
-	 * sub-classes. Accessed in a static way.
+	 * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
 	 * 
 	 * @return The main Screenhandler.
 	 */
@@ -51,23 +50,24 @@ public class ScreenHandler extends Game {
 	}
 
 	/**
-	 * Called every time something major is being updated such as screen resolution, settings or big
-	 * server syncs.
+	 * Called every time something major is being updated such as screen resolution, settings or big server syncs.
 	 * 
 	 * @author Katharina
 	 */
 	public void onUpdate() {
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC)) {
-			if (!music.isPlaying()) {
-				music.play();
-				music.setLooping(true);
-				music.setVolume(0.95f);
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+			{
+				if (!music.isPlaying())
+					{
+						music.play();
+						music.setLooping(true);
+						music.setVolume(0.95f);
+					}
+			} else
+			{
+				if (music.isPlaying())
+					music.stop();
 			}
-		}
-		else {
-			if (music.isPlaying())
-				music.stop();
-		}
 	}
 
 	@Override
@@ -79,14 +79,14 @@ public class ScreenHandler extends Game {
 
 		if (!prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
 			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, true);
-		
-		if(!prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
+
+		if (!prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
 			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, true);
 
 		onUpdate();
 
 		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
-			setScreen(new TweenScreen(this));
+			setScreen(new IntroductionScreen(this));
 		else
 			setScreen(new LoginScreen(this));
 	}
