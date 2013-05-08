@@ -88,6 +88,14 @@ public class Player {
 		return !colonies.isEmpty();
 	}
 
+	public Planet getCapital() {
+		for (Planet p : colonies) {
+			if (p.isCapital())
+				return p;
+		}
+		return null;
+	}
+
 	public void addSystem(SolarSystem s) {
 		soveregenty.add(s);
 	}

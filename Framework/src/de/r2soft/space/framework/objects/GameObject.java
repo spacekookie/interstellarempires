@@ -27,11 +27,24 @@ import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
  */
 public abstract class GameObject {
 
+	/** Any object has a size */
 	private float size;
+	/** Any object has a position */
 	private Vector2 position;
+	/** Any object can orbit around another object */
 	private GameObject orbit;
-	private ShipType type;
+	/** Rendering flag, absolutely needed! */
 	private SuperClass superclass;
+	/** Anything object in the game can be named */
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
 	public static enum SuperClass {
@@ -62,14 +75,6 @@ public abstract class GameObject {
 	/** Set the center of orbit object */
 	public void setOrbit(GameObject orbit) {
 		this.orbit = orbit;
-	}
-
-	public ShipType getType() {
-		return type;
-	}
-
-	public void setType(ShipType type) {
-		this.type = type;
 	}
 
 	/** @return MUST NOT BE NULL */
