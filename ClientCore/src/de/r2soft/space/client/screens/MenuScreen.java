@@ -32,6 +32,7 @@ import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 
 /**
  * For now the only menu screen with buttons and a scrollable map view.
@@ -98,7 +99,7 @@ public class MenuScreen implements Screen {
 			}
 		});
 
-		backToIntro.add(backham).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		backToIntro.add(backham).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		backToIntro.row();
 		backToIntro.top().left();
 
@@ -117,9 +118,9 @@ public class MenuScreen implements Screen {
 		settings = new TextButton("Settings", ResPack.UI_SKIN);
 		exitGame = new TextButton("Logout & Quit", ResPack.UI_SKIN);
 
-		table.add(settings).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		table.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		table.row();
-		table.add(exitGame).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		table.add(exitGame).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		table.top().right();
 
 		/** OnClickListener */

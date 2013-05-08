@@ -24,16 +24,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.client.util.Translator;
+import de.r2soft.space.framework.objects.Fleet;
+import de.r2soft.space.framework.objects.Fleet.FleetSize;
 import de.r2soft.space.framework.objects.GameObject;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Planet;
-import de.r2soft.space.framework.objects.Planet.PLANETCLASS;
+import de.r2soft.space.framework.objects.Planet.PlanetClass;
 import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.factory.UnitFactory;
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
 
@@ -49,44 +53,43 @@ public class GenericMapObject extends Actor {
 	/** Debug renderer */
 	private ShapeRenderer renderer;
 
-	/** Pixel coordinates on screen */
+	/** Position information on screen */
 	private Vector2 position;
+	private GameObject orbit;
 
 	/** Is this object selected? */
 	private boolean selected;
 
 	/** Global object attributes */
+	private SuperClass superclass;
 	private ALLEGIANCE allegiance;
 	private Player claim;
-	private GameObject orbit;
-	private SuperClass superclass;
-	private float size;
+	private String name;
 
 	/** Unit information */
-	private String flag;
+
+	private ShipType shipType;
+
+	/** Fleet information */
+	private FleetSize fleetSize;
+	private int fleetCount;
 
 	/** Planet information */
-	private PLANETCLASS planetclass;
-	private float planetradius;
-	private float planetmass;
+	private PlanetClass planetClass;
+	private float planetRadius;
+	private float planetMass;
 
 	/** Structure information */
-
-	/** Unit movement. Will be moved to server */
-	@Deprecated
-	private Vector2 target, trajectory;
-	/** Unit movement. Will be moved to server */
-	@Deprecated
-	private boolean moving;
+	private UnitFactory structureFactory;
 
 	/** For parent classes to work with */
 	private Unit unit;
+	private Fleet fleet;
 	private Planet planet;
 	private Structure structue;
 
 	{
 		renderer = new ShapeRenderer();
-		target = new Vector2();
 		position = new Vector2();
 	}
 
@@ -94,14 +97,37 @@ public class GenericMapObject extends Actor {
 	 * Constructor only taking a unit.
 	 * 
 	 * @param unit
+	 *          object to be drawn.
 	 */
 	public GenericMapObject(Unit unit) {
-		flag = unit.getFlag();
+		name = unit.getName();
+		shipType = unit.getType();
 		claim = unit.getClaim();
 		allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
+		System.out.println(unit.getPosition());
 		position = unit.getPosition();
 		superclass = unit.getSuperclass();
 		this.unit = unit;
+		orbit = unit.getOrbit();
+		System.out.println("Unit in Generic Map Object: " + unit.getName());
+	}
+
+	/**
+	 * Constructor only taking a fleet.
+	 * 
+	 * @param fleet
+	 *          obejct to be drawn.
+	 */
+	public GenericMapObject(Fleet fleet) {
+		name = fleet.getName();
+		claim = fleet.getClaim();
+		fleetSize = fleet.getFleetSize();
+		fleetCount = fleet.getCount();
+		allegiance = Translator.friendOrFoe(fleet.getClaim(), Resources.thisPlayer);
+		position = fleet.getPosition();
+		superclass = fleet.getSuperclass();
+		this.fleet = fleet;
+		orbit = fleet.getOrbit();
 	}
 
 	/**
@@ -112,7 +138,12 @@ public class GenericMapObject extends Actor {
 	public GenericMapObject(Structure structure) {
 		this.structue = structure;
 		superclass = structure.getSuperclass();
-		type = structure.getType();
+		name = structure.getName();
+		claim = structure.getClaim();
+		position = structure.getPosition();
+		allegiance = Translator.friendOrFoe(structure.getClaim(), Resources.thisPlayer);
+		structureFactory = structure.getFactory();
+		orbit = structure.getOrbit();
 	}
 
 	/**
@@ -121,10 +152,9 @@ public class GenericMapObject extends Actor {
 	 * @param planet
 	 */
 	public GenericMapObject(Planet planet) {
-		planetclass = planet.getClassification();
-		planetradius = planet.getRadius();
-		planetmass = planet.getMass();
-		claim = planet.getClaim();
+		planetClass = planet.getType();
+		planetRadius = planet.getRadius();
+		planetMass = planet.getMass();
 		orbit = planet.getOrbit();
 		superclass = planet.getSuperclass();
 		this.planet = planet;
@@ -137,36 +167,41 @@ public class GenericMapObject extends Actor {
 	}
 
 	@Deprecated
-	public GenericMapObject(float x, float y, SuperClass type, String flag, Player claim,
+	public GenericMapObject(float x, float y, SuperClass type, String name, Player claim,
 			ALLEGIANCE allegience) {
 		this.position.x = x;
 		this.position.y = y;
-		this.flag = flag;
+		this.name = name;
 		this.claim = claim;
 		this.allegiance = allegience;
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-
 		batch.end();
 		batch.begin();
-		switch (type) {
-		case FLEET:
-			batch.draw(ResPack.FLEET_FIGHTER_PLAYER, position.x, position.y, 0, 0,
-					ResPack.SIZE_FLEET_MEDIUM, ResPack.SIZE_FLEET_MEDIUM, 1, 1, 0);
-			break;
 
-		default:
-			Gdx.app.log(Resources.LOG_MAP_OBJECT, "fatal error displaying map object");
-			break;
+		if (superclass.equals(SuperClass.UNIT)) {
+			switch (this.shipType) {
+			case FIGHTER:
+				batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y, 0, 0,
+						Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+				break;
+			case CARGO_SMALL:
+				batch.draw(ResPack.UNITS_CARGO_SMALL, position.x, position.y, 0, 0, Sizes.SIZE_FLEET_TINY,
+						Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+				break;
+
+			default:
+				break;
+			}
 		}
 
 		if (selected) {
 			batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
-					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), position.y
-					- (ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM - ResPack.SIZE_FLEET_MEDIUM), 0, 0,
-					ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM, 1, 1, 0);
+					- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), position.y
+					- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), 0, 0,
+					Sizes.SIZE_GUI_SELECTION_BOX_TINY, Sizes.SIZE_GUI_SELECTION_BOX_TINY, 1, 1, 0);
 		}
 
 	}
@@ -191,46 +226,32 @@ public class GenericMapObject extends Actor {
 		if (touchable && getTouchable() == Touchable.enabled) {
 			if (Gdx.input.isButtonPressed(1)) {
 				if (selected) {
-					target.x = Gdx.input.getX();
-					target.y = Gdx.input.getY();
-					moveLocally();
+					// TODO: Request move on server
+					position.x = x;
+					position.y = y;
 				}
 			}
 			else if (Gdx.input.isTouched(0)) {
-				if (x > this.position.x && x < (this.position.x + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)
-						&& y > this.position.y && y < (this.position.y + ResPack.SIZE_GUI_SELECTION_BOX_MEDIUM)) {
+				if (x > this.position.x && x < (this.position.x + Sizes.SIZE_GUI_SELECTION_BOX_TINY)
+						&& y > this.position.y && y < (this.position.y + Sizes.SIZE_GUI_SELECTION_BOX_TINY)) {
 					selected = true;
-					setParentSelection("metal");
+					// setParentSelection("metal");
 				}
 				else {
 					selected = false;
-					setParentSelection(null);
+					// setParentSelection(null);
 				}
 			}
 		}
 		return null;
 	}
 
-	/** Move to parent layer */
-	@Deprecated
-	private void moveLocally() {
-		if (!target.equals(position)) {
-			trajectory = new Vector2(target.sub(position));
-			trajectory.nor();
-			position.add(trajectory.mul(100));
-		}
-		Vector2 position = new Vector2(this.position.x, this.position.y);
-		trajectory = new Vector2(target.sub(position));
-		trajectory.nor();
-		position.add(trajectory.x, -trajectory.y);
-	}
-
-	private void setParentSelection(String s) {
-		if (s != null)
-			SystemScreen.getInstance().setSelectionfocus(this, superclass);
-		else
-			SystemScreen.getInstance().setSelectionfocus(null, null);
-	}
+	// private void setParentSelection(String s) {
+	// if (s != null)
+	// SystemScreen.getInstance().setSelectionfocus(this, superclass);
+	// else
+	// SystemScreen.getInstance().setSelectionfocus(null, null);
+	// }
 
 	/** @return selected planet */
 	public Planet getPlanetIfExists() {

@@ -27,11 +27,11 @@ import de.r2soft.space.framework.players.Player;
  * @author ***REMOVED***
  * 
  */
-public class Planet extends MovingObject {
+public class Planet extends PlayerObject {
 
 	private float radius;
 	private float mass;
-	private PLANETCLASS classification;
+	private PlanetClass type;
 	private boolean homeworld;
 	private boolean capital;
 
@@ -48,7 +48,7 @@ public class Planet extends MovingObject {
 	 * @author ***REMOVED***
 	 * 
 	 */
-	public static enum PLANETCLASS {
+	public static enum PlanetClass {
 		A, B, C, D, E, F;
 	}
 
@@ -72,19 +72,35 @@ public class Planet extends MovingObject {
 		this.mass = mass;
 	}
 
-	public PLANETCLASS getClassification() {
-		return classification;
+	public PlanetClass getType() {
+		return type;
 	}
 
-	public void setClassification(PLANETCLASS classification) {
-		this.classification = classification;
+	public void setType(PlanetClass type) {
+		this.type = type;
 	}
 
-	public void setHomeworld(Player p) {
+	/** Set from server side! Homeworld can not be transfered */
+	protected void setHomeworld(Player p) {
 		if (p.hasPlanets())
 			this.homeworld = true;
 		else
 			this.homeworld = false;
+	}
+
+	public boolean isCapital() {
+		return capital;
+	}
+
+	/**
+	 * Sets the new capital of the empire. Checks for the old capital and if exists revokes capital
+	 * status from that planet.
+	 */
+	public void setCapital(boolean capital) {
+		Planet old = super.getClaim().getCapital();
+		if (old != null)
+			old.setCapital(false);
+		this.capital = capital;
 	}
 
 	public boolean isHomeworld() {

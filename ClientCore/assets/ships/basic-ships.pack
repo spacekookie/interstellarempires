@@ -1,0 +1,19 @@
+
+basic-ships.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cargo_freighter_small
+  rotate: false
+  xy: 1, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+small_fighter
+  rotate: false
+  xy: 259, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1

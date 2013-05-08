@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+ * 
+ ######################################################################### */
 package de.r2soft.space.framework.objects.factory;
 
 import java.util.HashSet;
@@ -35,8 +35,8 @@ import de.r2soft.space.framework.players.Player;
 public class UnitFactory {
 
 	public static enum ShipType {
-		FIGHTER, CARGO_SMALL
-	};
+		FIGHTER, CARGO_SMALL;
+	}
 
 	private Player owner;
 	private Structure parent;
@@ -47,8 +47,16 @@ public class UnitFactory {
 		this.parent = parent;
 	}
 
+	/**
+	 * Requsition a single unit by the Unit object
+	 * 
+	 * @param type
+	 * @return
+	 * 
+	 * @author ***REMOVED***
+	 */
 	public Unit requisitionUnit(ShipType type) {
-		Unit ship = new Unit(SuperClass.UNIT, type, "Fighter", owner, parent.getPosition());
+		Unit ship = new Unit(SuperClass.UNIT, type, null, owner, parent.getPosition());
 		return ship;
 	}
 

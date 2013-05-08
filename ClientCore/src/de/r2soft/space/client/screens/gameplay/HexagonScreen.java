@@ -44,12 +44,15 @@ import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -128,21 +131,25 @@ public class HexagonScreen implements Screen {
 		float HEX_START_Y = -105f;
 
 		Set<Unit> units = new HashSet<Unit>(); // for Cycle through 0 to 4 for X-Axis
-		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Alpha Wing", Resources.thisPlayer,
-				new Vector2(150, 150)));
+		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
+				new Vector2(500, 450)));
+		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
+				new Vector2(450, 450)));
+		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Cascadia", Resources.thisPlayer,
+				new Vector2(400, 400)));
 
 		for (int n = 0; n < 5; n++) {
 			for (int m = 0; m < 5; m++) {
 				hex.addActor(new GenericMapTile(HEX_START_X + n * (150), HEX_START_Y + m * (88),
-						new SolarSystem(null, Resources._neutralplayer, null, units, null, new Star(
-								STARCLASS.BROWNDWARF))));
+						new SolarSystem(new IntVec2(4, 4), Resources._neutralplayer, null, units, null,
+								new Star(STARCLASS.REDDWARF))));
 			}
 		}
 		for (int n = 0; n < 8; n++) {
 			for (int m = -1; m < 8; m++) {
 				if (m % 2 != 0 && n % 2 != 0)
 					hex.addActor(new GenericMapTile(HEX_START_X + n * (75), HEX_START_Y + m * (44),
-							new SolarSystem(null, new Player("penis"), null, units, null, new Star(
+							new SolarSystem(null, new Player("penis"), null, null, null, new Star(
 									STARCLASS.REDGIANT))));
 			}
 		}
@@ -164,7 +171,7 @@ public class HexagonScreen implements Screen {
 		profile_bottomButton.setSize(Resources.OLD_WIDTH / 2, Resources.OLD_HEIGHT / 2);
 		profileDialog.add(profile_bottomButton).right().bottom();
 		TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
-		profile_bottomButton.add(closeProfile).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		profile_bottomButton.add(closeProfile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 		closeProfile.addListener(new ClickListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -257,8 +264,8 @@ public class HexagonScreen implements Screen {
 		welcome.setAlignment(Align.center);
 
 		/** Setup group */
-		hex = new HexagonGroup(ResPack.SIZE_HEX_MAP_X, ResPack.SIZE_HEX_MAP_Y,
-				ResPack.POSITION_HEX_MAP_OFFSET);
+		hex = new HexagonGroup(Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y,
+				Sizes.POSITION_HEX_MAP_OFFSET);
 
 		/** Initialize right navigation */
 		naviRight = new Table();
@@ -274,11 +281,11 @@ public class HexagonScreen implements Screen {
 		centerTop = new Table();
 		centerTop.setFillParent(true);
 		centerTop.center().top();
-		centerTop.setX(ResPack.POSITION_HEX_MAP_OFFSET);
+		centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
 
 		/** Initialize map table */
 		map = new Table();
-		map.setSize(ResPack.SIZE_HEX_MAP_X, ResPack.SIZE_HEX_MAP_Y);
+		map.setSize(Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y);
 		map.center();
 
 		/** Adding group to table */
@@ -296,19 +303,19 @@ public class HexagonScreen implements Screen {
 
 	private void setupLayout() {
 		/** Setting up the right navigation */
-		naviRight.add(profile).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.add(settings).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.add(quit).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		naviRight.row();
 
 		/** Setting up the left navigation */
-		naviLeft.add(logout).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		naviLeft.add(refresh).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviLeft.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 		/** Setting up the center top label table */
-		centerTop.add(title).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		centerTop.row();
-		centerTop.add(welcome).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		centerTop.row();
 	}
 

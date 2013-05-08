@@ -36,6 +36,7 @@ import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.SolarGroup;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Unit;
@@ -104,6 +105,7 @@ public class StarsystemScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+		drawChildren();
 
 	}
 
@@ -155,10 +157,10 @@ public class StarsystemScreen implements Screen {
 		/** Settings the button disabled if system has no production structures */
 		requisition.setDisabled(!system.hasStructures());
 
-		navigation.add(backMap).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		navigation.add(refresh).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		navigation.add(requisition).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
-		navigation.add(details).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		navigation.add(backMap).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		navigation.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		navigation.add(requisition).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		navigation.add(details).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 	}
 
 	private void setupTables() {
@@ -169,8 +171,8 @@ public class StarsystemScreen implements Screen {
 		rightbar = new Table();
 		rightbar.setFillParent(true);
 		rightbar.top().right();
-		rightbar.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
-		rightbar.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		rightbar.setX(Sizes.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		rightbar.setY(Sizes.SIZE_UI_GLOBAL_FRAME_OFFSET);
 
 		resources = new Table();
 		resources.setFillParent(true);
@@ -188,9 +190,14 @@ public class StarsystemScreen implements Screen {
 	}
 
 	private void setupSolarGroup() {
-		sol = new SolarGroup(system, ResPack.SIZE_HEX_MAP_X, ResPack.SIZE_HEX_MAP_Y,
-				ResPack.POSITION_HEX_MAP_OFFSET);
+		sol = new SolarGroup(system, Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y,
+				Sizes.POSITION_HEX_MAP_OFFSET);
+	}
 
+	private void drawChildren() {
+		for (GenericMapObject child : childobjects) {
+			sol.addActor(child);
+		}
 	}
 
 	@Override

@@ -50,6 +50,7 @@ public class Resources {
 	public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
 
 	@Deprecated
+	/** Needs to be made dynamic and fetched from server */
 	public static final Player thisPlayer = new Player("KateTheAwesome");
 	public static final Player _neutralplayer = new Player("_no_owning_player_");
 

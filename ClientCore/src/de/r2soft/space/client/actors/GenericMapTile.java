@@ -38,11 +38,6 @@ public class GenericMapTile extends Actor {
 
 	private Vector2 position;
 	private Vector2 size;
-
-	@Deprecated
-	private float posX, posY;
-	@Deprecated
-	private float sizeX, sizeY;
 	private IntVec2 tileID;
 	private ALLEGIANCE ally;
 	private SolarSystem childsystem;
@@ -51,30 +46,6 @@ public class GenericMapTile extends Actor {
 
 	/** Player for tile colour */
 	private Player claim;
-
-	{
-		childsystem = new SolarSystem();
-	}
-
-	/**
-	 * The constructor will set up the coordinates on which the tile will then be drawn. Also includes
-	 * the alliance of the
-	 * tile.
-	 * 
-	 * @param x
-	 *          coordinate of the requested tile.
-	 * @param y
-	 *          coordinate of the requested tile.
-	 * @param alliance
-	 *          of the tile: player, hostile, neutral and friendly.
-	 */
-	@Deprecated
-	public GenericMapTile(float x, float y, ALLEGIANCE a, IntVec2 id) {
-		position = new Vector2(x, y);
-		size = new Vector2(100, 100);
-		tileID = id;
-		ally = a;
-	}
 
 	/**
 	 * Main constructor. Creates tile actor with solar system information. The @Solarsystem object
@@ -104,6 +75,26 @@ public class GenericMapTile extends Actor {
 		else {
 			ally = claim.equals(Resources.thisPlayer) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
 		}
+	}
+
+	/**
+	 * The constructor will set up the coordinates on which the tile will then be drawn. Also includes
+	 * the alliance of the
+	 * tile.
+	 * 
+	 * @param x
+	 *          coordinate of the requested tile.
+	 * @param y
+	 *          coordinate of the requested tile.
+	 * @param alliance
+	 *          of the tile: player, hostile, neutral and friendly.
+	 */
+	@Deprecated
+	public GenericMapTile(float x, float y, ALLEGIANCE a, IntVec2 id) {
+		position = new Vector2(x, y);
+		size = new Vector2(100, 100);
+		tileID = id;
+		ally = a;
 	}
 
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -149,10 +140,10 @@ public class GenericMapTile extends Actor {
 					}
 				}
 			}
-			else if (childsystem.hasStructures()) {
-				batch.draw(ResPack.TILE_ADD_STATION_PLAYER, position.x + 2 * (size.x / 4), position.y
-						+ (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
-			}
+		}
+		else if (childsystem.hasStructures()) {
+			batch.draw(ResPack.TILE_ADD_STATION_PLAYER, position.x + 2 * (size.x / 4), position.y
+					+ (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);
 		}
 	}
 
