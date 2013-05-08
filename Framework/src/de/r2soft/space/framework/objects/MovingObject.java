@@ -31,6 +31,8 @@ public abstract class MovingObject extends PlayerObject {
 	private Vector2D trajectory;
 	private float speed;
 
+	/** For CombatObject */
+
 	/**
 	 * @return the trajectory
 	 */

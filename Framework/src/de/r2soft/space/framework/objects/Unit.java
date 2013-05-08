@@ -33,29 +33,21 @@ import de.r2soft.space.framework.players.Player;
  */
 public class Unit extends MovingObject {
 
-	private String flag;
 	private Player claim;
 	private ShipType type;
 
 	/** Master constructor for units */
-	public Unit(SuperClass superclass, ShipType type, String flag, Player claim, Vector2 position) {
+	public Unit(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position) {
 		this.type = type;
-		this.flag = flag;
 		this.claim = claim;
+		super.setName(name);
 		super.setPosition(position);
 		super.setSuperclass(superclass);
 	}
 
+	/** DO NOT USE THIS. @SuperClass must not be null */
 	@Deprecated
 	public Unit() {
-	}
-
-	public String getFlag() {
-		return flag;
-	}
-
-	public void setFlag(String flag) {
-		this.flag = flag;
 	}
 
 	public Player getClaim() {
@@ -81,5 +73,4 @@ public class Unit extends MovingObject {
 		}
 		return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
 	}
-
 }

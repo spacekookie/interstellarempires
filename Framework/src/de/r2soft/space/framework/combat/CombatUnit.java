@@ -1,0 +1,62 @@
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ ######################################################################### */
+
+package de.r2soft.space.framework.combat;
+
+import de.r2soft.space.framework.objects.PlayerObject;
+
+/**
+ * An interface to handle everything having to do with combat.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public interface CombatUnit {
+
+	/** Called from UnitFactories and after every combat turn to update hitpoints */
+	void setHitpoints(int hp);
+
+	/** Called from UnitFactories and after every combat turn to update shield points */
+	void setShields(int shields);
+
+	/** Called from UnitFactories and after every combat turn to update armour points */
+	void setArmour(int armour);
+
+	/** Called from UnitFactories and from onUpdate after completed research */
+	void setDamagePerRound(int dmg);
+
+	/** @return int of remaining hitpoints */
+	int getHitpoints();
+
+	/** @return int of remaining shields */
+	int getShields();
+
+	/** @return int of remaining armour points */
+	int getArmour();
+
+	/** @return int of unit damage */
+	int getDamage();
+
+	/** Called on combat turn begin */
+	public void attack(PlayerObject target);
+
+	/** Needs to return true if */
+	public boolean isDead();
+
+	public boolean hasShields();
+}

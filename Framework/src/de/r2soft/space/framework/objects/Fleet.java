@@ -92,6 +92,14 @@ public class Fleet extends PlayerObject {
 		}
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public Set<Unit> getUnits() {
 		return units;
 	}

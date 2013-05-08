@@ -20,7 +20,6 @@ package de.r2soft.space.client.screens.utilities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -34,6 +33,7 @@ import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 
 /**
  * This screen will enable the user to change stuff about their game client
@@ -114,7 +114,7 @@ public class SettingsScreen implements Screen {
 		stage.addActor(navigation);
 		button = new TextButton("Back to main screen", ResPack.UI_SKIN);
 
-		navigation.add(button).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		navigation.add(button).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		navigation.row();
 
 		navigation.top().right();
