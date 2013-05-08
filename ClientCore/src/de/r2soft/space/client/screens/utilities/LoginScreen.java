@@ -17,10 +17,6 @@
  ######################################################################### */
 package de.r2soft.space.client.screens.utilities;
 
-import java.lang.annotation.Annotation;
-
-import javax.xml.ws.WebServiceClient;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
@@ -38,6 +34,7 @@ import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 
 public class LoginScreen implements Screen {
 
@@ -62,11 +59,10 @@ public class LoginScreen implements Screen {
 		userField = new TextField("", ResPack.UI_SKIN);
 		saveUser = new CheckBox("Save username?", ResPack.UI_SKIN);
 
-		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME))
-			{
-				userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
-				saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
-			}
+		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME)) {
+			userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
+			saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+		}
 
 	}
 
@@ -85,7 +81,7 @@ public class LoginScreen implements Screen {
 
 		// Exiting the game
 		exit = new TextButton("Exit Game", ResPack.UI_SKIN);
-		outro.add(exit).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		outro.add(exit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		outro.row();
 		outro.top().left();
 
@@ -94,11 +90,11 @@ public class LoginScreen implements Screen {
 		passField.setPasswordCharacter('*');
 		passField.setPasswordMode(true);
 
-		intro.add(userField).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.add(userField).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		intro.row();
-		intro.add(passField).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.add(passField).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		intro.row();
-		intro.add(login).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		intro.add(login).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		intro.row();
 		intro.add(saveUser);
 		intro.row();
@@ -140,13 +136,12 @@ public class LoginScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-		if (saveUser.isChecked())
-			{
-				prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
-			} else
-			{
-				prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
-			}
+		if (saveUser.isChecked()) {
+			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
+		}
+		else {
+			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
+		}
 
 		saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
 

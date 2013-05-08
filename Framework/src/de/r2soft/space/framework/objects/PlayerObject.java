@@ -20,6 +20,8 @@ package de.r2soft.space.framework.objects;
 import de.r2soft.space.framework.players.Player;
 
 /**
+ * Basic player object that can be manipulated by the player, however not always moved
+ * 
  * @author Leander
  * 
  */
@@ -27,12 +29,12 @@ public abstract class PlayerObject extends GameObject {
 
 	private Player claim;
 
-	public void setClaim(Player claim) {
-		this.claim = claim;
-	}
-
 	public Player getClaim() {
 		return claim;
+	}
+
+	public void setClaim(Player claim) {
+		this.claim = claim;
 	}
 
 }

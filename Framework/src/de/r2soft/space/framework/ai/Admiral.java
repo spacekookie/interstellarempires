@@ -20,8 +20,16 @@ package de.r2soft.space.framework.ai;
 
 public class Admiral extends BasicAI {
 
+	/**
+	 * Defines how the Admiral AI will handle stuff. Aggressive will take chances and lose more ships
+	 * in the process, passive is more defensive and ecological. Balanced will try to mix aggressive
+	 * and passive behavior to get the best results, can however be horribly wrong. Cheating AIs will
+	 * get a 100% shield and attack speed bonus on all their ships. Will only be accessible if user
+	 * 
+	 * @isAdmin == true.
+	 * */
 	public static enum CommandType {
-		AGGRESSVE, PASSIVE, RANDOM, CHEATING;
+		AGGRESSVE, PASSIVE, BALANCED, CHEATING;
 	}
 
 	private CommandType type;

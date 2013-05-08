@@ -38,6 +38,7 @@ import de.r2soft.space.client.groups.SolarMap;
 import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Unit;
@@ -155,7 +156,7 @@ public class SystemScreen implements Screen {
 		back.setFillParent(true);
 		stage.addActor(back);
 		backToMap = new TextButton("Back to map", ResPack.UI_SKIN);
-		back.add(backToMap).width(ResPack.SIZE_UI_BUTTON_NAVIGON);
+		back.add(backToMap).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		back.row();
 		back.top().left();
 
@@ -218,8 +219,8 @@ public class SystemScreen implements Screen {
 		contentRight.setFillParent(true);
 		contentRight.align(Align.left);
 		contentRight.top().right();
-		contentRight.setX(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
-		contentRight.setY(ResPack.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		contentRight.setX(Sizes.SIZE_UI_GLOBAL_FRAME_OFFSET);
+		contentRight.setY(Sizes.SIZE_UI_GLOBAL_FRAME_OFFSET);
 		stage.addActor(contentRight);
 
 		refresh = new TextButton("Refresh", ResPack.UI_SKIN);
@@ -243,35 +244,35 @@ public class SystemScreen implements Screen {
 		/** CONTENT FIELDS **/
 
 		contentRight.add(refresh).width(
-				(ResPack.SIZE_UI_FIELD_CONTENT / 2) + (ResPack.SIZE_UI_FIELD_CONTENT / 4));
+				(Sizes.SIZE_UI_FIELD_CONTENT / 2) + (Sizes.SIZE_UI_FIELD_CONTENT / 4));
 		contentRight.row();
 
 		contentRight.add(sidebarTitle).colspan(2).left();
 		contentRight.row();
 
-		contentRight.add(new Label("Type: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+		contentRight.add(new Label("Type: ", ResPack.UI_SKIN)).width(Sizes.SIZE_UI_FIELD_CONTENT / 2)
 				.left();
-		contentRight.add(typeTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.add(typeTail).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
-		contentRight.add(new Label("Flag: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+		contentRight.add(new Label("Flag: ", ResPack.UI_SKIN)).width(Sizes.SIZE_UI_FIELD_CONTENT / 2)
 				.left();
-		contentRight.add(flatTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.add(flatTail).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
-		contentRight.add(new Label("Count: ", ResPack.UI_SKIN))
-				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2).left();
-		contentRight.add(countTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		contentRight.row();
-
-		contentRight.add(new Label("Owner: ", ResPack.UI_SKIN))
-				.width(ResPack.SIZE_UI_FIELD_CONTENT / 2).left();
-		contentRight.add(ownerTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
-		contentRight.row();
-
-		contentRight.add(new Label("Pos: ", ResPack.UI_SKIN)).width(ResPack.SIZE_UI_FIELD_CONTENT / 2)
+		contentRight.add(new Label("Count: ", ResPack.UI_SKIN)).width(Sizes.SIZE_UI_FIELD_CONTENT / 2)
 				.left();
-		contentRight.add(posTail).width(ResPack.SIZE_UI_FIELD_CONTENT);
+		contentRight.add(countTail).width(Sizes.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Owner: ", ResPack.UI_SKIN)).width(Sizes.SIZE_UI_FIELD_CONTENT / 2)
+				.left();
+		contentRight.add(ownerTail).width(Sizes.SIZE_UI_FIELD_CONTENT);
+		contentRight.row();
+
+		contentRight.add(new Label("Pos: ", ResPack.UI_SKIN)).width(Sizes.SIZE_UI_FIELD_CONTENT / 2)
+				.left();
+		contentRight.add(posTail).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		contentRight.row();
 
 	}
@@ -296,7 +297,7 @@ public class SystemScreen implements Screen {
 				Unit temp = selectionfocus.getUnitIfExists();
 				if (temp != null) {
 					typeTail.setText(temp.getType().toString());
-					flatTail.setText(temp.getFlag().toString());
+					flatTail.setText(temp.getName().toString());
 					ownerTail.setText(temp.getClaim().getName());
 					posTail.setText(temp.getPosition().toString());
 				}
