@@ -23,7 +23,10 @@ package de.r2soft.space.framework.objects;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
- * An object that can be moved by a player
+ * An object that can be moved by a player.
+ * 
+ * 
+ * @Comment: Is there even something that is going to extend this?
  * 
  */
 public abstract class MovingObject extends PlayerObject {

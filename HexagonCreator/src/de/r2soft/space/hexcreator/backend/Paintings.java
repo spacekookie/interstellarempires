@@ -15,32 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+package de.r2soft.space.hexcreator.backend;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * Basic interface for the application context or screens. Implementing objects are called
+ * Paintings. The same interface is being used by the {@link BackendManager}
  * 
- * @author Leander
+ * @author Katharina
  * 
  */
-public abstract class PlayerObject extends GameObject {
+public interface Paintings {
 
-	private Player claim;
+	/** Called when Window is first created. Initialize your assets here */
+	public void onCreate();
 
-	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
-	 */
-	private int punch;
+	/** Called every time the window size changes. Should trigger the rebuild of the UI */
+	public void onResize(int x, int y);
 
-	public Player getClaim() {
-		return claim;
-	}
+	/** Called in the render loop. Should contain all dynamic rendering */
+	public void onPaint();
 
-	public void setClaim(Player claim) {
-		this.claim = claim;
-	}
+	/** Called when Window is closed. Dispose of all your assets here */
+	public void onDestroy();
 
 }

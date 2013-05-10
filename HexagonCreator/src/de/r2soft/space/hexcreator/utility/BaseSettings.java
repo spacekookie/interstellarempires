@@ -15,32 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+package de.r2soft.space.hexcreator.utility;
 
-/**
- * Basic player object that can be manipulated by the player, however not always moved
- * 
- * @author Leander
- * 
- */
-public abstract class PlayerObject extends GameObject {
+public class BaseSettings {
 
-	private Player claim;
+	public static final IntVec2 SIZE_WINDOW_MINIMUM = new IntVec2(800, 550);
+	public static final IntVec2 SIZE_WINDOW_DEFAULT = new IntVec2(1280, 720);
 
-	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
-	 */
-	private int punch;
-
-	public Player getClaim() {
-		return claim;
-	}
-
-	public void setClaim(Player claim) {
-		this.claim = claim;
-	}
+	/** User launch settings */
+	public static IntVec2 SIZE_WINDOW_USER = new IntVec2();
+	public static String APPLICATION_TITLE = null;
+	public static boolean APPLICATION_RESIZABLE = true;
+	public static boolean APPLICATION_FULLSCREEN = false;
 
 }

@@ -133,7 +133,7 @@ public class HexagonScreen implements Screen {
 		Set<Unit> units = new HashSet<Unit>(); // for Cycle through 0 to 4 for X-Axis
 		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
 				new Vector2(500, 450)));
-		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
+		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", new Player("peter"),
 				new Vector2(450, 450)));
 		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Cascadia", Resources.thisPlayer,
 				new Vector2(400, 400)));
@@ -141,7 +141,7 @@ public class HexagonScreen implements Screen {
 		for (int n = 0; n < 5; n++) {
 			for (int m = 0; m < 5; m++) {
 				hex.addActor(new GenericMapTile(HEX_START_X + n * (150), HEX_START_Y + m * (88),
-						new SolarSystem(new IntVec2(4, 4), Resources._neutralplayer, null, units, null,
+						new SolarSystem(new IntVec2(4, 4), Resources._neutralplayer, null, null, null,
 								new Star(STARCLASS.REDDWARF))));
 			}
 		}
@@ -149,7 +149,7 @@ public class HexagonScreen implements Screen {
 			for (int m = -1; m < 8; m++) {
 				if (m % 2 != 0 && n % 2 != 0)
 					hex.addActor(new GenericMapTile(HEX_START_X + n * (75), HEX_START_Y + m * (44),
-							new SolarSystem(null, new Player("penis"), null, null, null, new Star(
+							new SolarSystem(null, new Player("penis"), null, units, null, new Star(
 									STARCLASS.REDGIANT))));
 			}
 		}

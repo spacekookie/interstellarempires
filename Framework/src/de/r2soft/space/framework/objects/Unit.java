@@ -17,8 +17,13 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import java.util.Set;
+
 import com.badlogic.gdx.math.Vector2;
 
+import de.r2soft.space.framework.modules.ModuleSlot;
+import de.r2soft.space.framework.modules.Propulsion;
+import de.r2soft.space.framework.modules.Weapon;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
@@ -35,6 +40,9 @@ public class Unit extends MovingObject {
 
 	private Player claim;
 	private ShipType type;
+	private Set<Weapon> weapons;
+	private Set<ModuleSlot> slots;
+	private Propulsion engine;
 
 	/** Master constructor for units */
 	public Unit(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position) {

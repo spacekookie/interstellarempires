@@ -1,0 +1,2 @@
+# Module bucket.game.client.GwtDefinition
+# RPC service class, partial path of RPC policy file
