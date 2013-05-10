@@ -3,18 +3,21 @@
 
     <complexType name="Map">
     	<sequence>
-            <element name="Size" type="map:Size" maxOccurs="1" minOccurs="1"></element>
-            <element name="SolarSystems" type="map:SolarSystem"
-    			maxOccurs="unbounded" minOccurs="0">
+    		<element name="Size" type="map:Size" maxOccurs="1"
+    			minOccurs="1">
     		</element>
+
+    		<element name="SolarSystems" type="map:SolarSystems" maxOccurs="1" minOccurs="0"></element>
     	</sequence>
-    	
+
     </complexType>
 
     <complexType name="SolarSystem">
     	<sequence>
     		<element name="Position" type="map:Position" maxOccurs="1" minOccurs="1"></element>
-    		<element name="Planets" type="map:Planet" maxOccurs="unbounded" minOccurs="0"></element>
+    		<element name="Planets" type="map:Planets"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
     	</sequence>
     	<attribute name="Name" type="string"></attribute>
     	<attribute name="Type" type="string"></attribute>
@@ -26,9 +29,9 @@
     </complexType>
 
     <complexType name="Planet">
-    	<attribute name="Name" type="string"></attribute>
-    	<attribute name="Type" type="string"></attribute>
-    	<attribute name="Size" type="float"></attribute>
+        <attribute name="Name" type="string"></attribute>
+        <attribute name="Type" type="string"></attribute>
+        <attribute name="Size" type="float"></attribute>
     	<attribute name="Distance" type="float"></attribute>
     </complexType>
 
@@ -38,5 +41,21 @@
     </complexType>
 
 
-    <element name="MapDescription" type="map:Map"></element>
+    <element name="Description" type="map:Map"></element>
+
+
+
+    <attribute name="Name" type="string"></attribute>
+
+    <complexType name="SolarSystems">
+    	<sequence>
+    		<element name="SolarSystem" type="map:SolarSystem" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Planets">
+    	<sequence>
+    		<element name="Planet" type="map:Planet" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
 </schema>
