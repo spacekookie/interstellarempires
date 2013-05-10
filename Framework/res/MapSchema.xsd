@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.2rSoftworks.de/map" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:map="http://www.2rSoftworks.de/map">
+
+    <complexType name="Map">
+    	<sequence>
+            <element name="Size" type="map:Size" maxOccurs="1" minOccurs="1"></element>
+            <element name="SolarSystems" type="map:SolarSystem"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    	</sequence>
+    	
+    </complexType>
+
+    <complexType name="SolarSystem">
+    	<sequence>
+    		<element name="Position" type="map:Position" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Planets" type="map:Planet" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="Name" type="string"></attribute>
+    	<attribute name="Type" type="string"></attribute>
+    </complexType>
+
+    <complexType name="Position">
+    	<attribute name="PosX" type="int"></attribute>
+    	<attribute name="PosY" type="int"></attribute>
+    </complexType>
+
+    <complexType name="Planet">
+    	<attribute name="Name" type="string"></attribute>
+    	<attribute name="Type" type="string"></attribute>
+    	<attribute name="Size" type="float"></attribute>
+    	<attribute name="Distance" type="float"></attribute>
+    </complexType>
+
+    <complexType name="Size">
+    	<attribute name="Width" type="int"></attribute>
+    	<attribute name="Height" type="int"></attribute>
+    </complexType>
+
+
+    <element name="MapDescription" type="map:Map"></element>
+</schema>
