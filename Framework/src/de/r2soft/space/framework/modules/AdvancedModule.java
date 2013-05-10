@@ -15,32 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+package de.r2soft.space.framework.modules;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * A more advanced module that allows for shields and in the future maybe other stuff.
  * 
- * @author Leander
+ * @author ***REMOVED***
  * 
  */
-public abstract class PlayerObject extends GameObject {
+public abstract class AdvancedModule extends BaseModule {
 
-	private Player claim;
+	/** Defensive values for the modules */
+	private int shields;
 
-	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
-	 */
-	private int punch;
-
-	public Player getClaim() {
-		return claim;
+	/** @return the amount of shields the unit has left */
+	public int getShields() {
+		return shields;
 	}
 
-	public void setClaim(Player claim) {
-		this.claim = claim;
+	/** Sets the new or initial amount of shields. Should be called in unit creation and after combat */
+	public void setShields(int shields) {
+		this.shields = shields;
 	}
 
 }

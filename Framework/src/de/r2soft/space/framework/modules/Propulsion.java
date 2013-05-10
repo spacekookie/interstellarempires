@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,39 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.modules;
 
-public class Propulsion extends Module {
+import com.badlogic.gdx.math.Vector2;
+
+/**
+ * Extends BaseModule because Propulsion shouldn't have special shielding
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public class Propulsion extends BaseModule {
+
+	private float strength;
+
+	public Propulsion(float strength) {
+		this.strength = strength;
+	}
+
+	public void move(Vector2 target) {
+		// TODO: magic here to make ships fly
+	}
+
+	/** @return the absolute output of the drive. Not taking ship mass into account */
+	public float getStrength() {
+		return strength;
+	}
+
+	/** set new drive strength. Called on drive overload and after engineering upgrades */
+	public void setStrength(float strength) {
+		this.strength = strength;
+	}
 
 }

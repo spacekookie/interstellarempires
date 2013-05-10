@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,16 +13,81 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.modules;
 
-/**
- * WEAPONS TO MAXIMUM!
- * @author ***REMOVED***
- *
- */
+import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
-public class Weapon extends Module {
+/**
+ * Basic implementation of a weapon. Two constructors, one for weapon module, one for hardwired into
+ * ships frame for sub-frigate ships.
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public class Weapon extends AdvancedModule {
+
+	public static enum WeaponType {
+		MISSLE_SMALL, MISSLE_MED, MISSLE_LARGE, MISSLE_CAPITAL,
+
+		RAILS_SMALL, RAILS_MEDIUM, RAILS_LARGE, RAILS_CAPITAL,
+
+		AA_SMALL, AA_MEDIUM, AA_LARGE, AA_CAPITALS;
+	}
+
+	private ModuleSlot parent;
+	private WeaponType type;
+
+	/**
+	 * How many turns does it take to charge this weapon. 1 means it is ready every turn. 0.5 means it
+	 * can fire twice per turn. 3 means that it needs to cool down and is ready for combat again 3
+	 * turns after the original one.
+	 */
+	private int ROF;
+	/**
+	 * The volley damage of this weapon delt in an entire combat round which will be simulated as 60
+	 * seconds on the server. Damage can be spread out onto different targets and doesn't need to
+	 * remain focused.
+	 */
+	private int DPR;
+	/**
+	 * a constant that decides what armour thickness this weapon can penetrate. If the enemy armour is
+	 * too thick the weapon only does minor armour damage but not structural. Enemy armour values can
+	 * decrease over long combat making it more vulnerable against smaller ships.
+	 */
+	private int PUNCH;
+
+	public Weapon(ModuleSlot slot, WeaponType weapontype) {
+		this.parent = slot;
+		this.type = weapontype;
+	}
+
+	// TODO: Get actual data from xml
+
+	ShipType Depr_type;
+	int Depr_rate, Depr_damage, Depr_punch;
+
+	/**
+	 * Only use for debugging. Will be taken out after basic functionality has been proven.
+	 * 
+	 * @param type
+	 *          the type of ship that uses this weapon
+	 * @param ROF
+	 *          the rate of fire of that specific weapon
+	 * @param DPR
+	 *          the damage per combat round delt with this weapon
+	 * 
+	 * @param PUNCH
+	 *          a constant that decides what armour thickness this weapon can penetrate
+	 */
+	@Deprecated
+	public Weapon(ShipType type, int ROF, int DPR, int PUNCH) {
+		this.Depr_type = type;
+		this.Depr_rate = ROF;
+		this.Depr_damage = DPR;
+		this.Depr_punch = PUNCH;
+	}
 
 }

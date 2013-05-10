@@ -15,32 +15,51 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+package de.r2soft.space.framework.modules;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * A basic module
  * 
- * @author Leander
+ * @author ***REMOVED***
  * 
  */
-public abstract class PlayerObject extends GameObject {
+public abstract class BaseModule {
 
-	private Player claim;
+	private int hp;
+	private int armour;
+	private boolean destroyed;
 
-	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
-	 */
-	private int punch;
-
-	public Player getClaim() {
-		return claim;
+	/** @return the remaining hp of the unit */
+	public int getHp() {
+		return hp;
 	}
 
-	public void setClaim(Player claim) {
-		this.claim = claim;
+	/** set the remaining hp of the unit */
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	/** @return wether the unit blew up or not */
+	public boolean isDestroyed() {
+		return hp >= 0 ? true : false;
+	}
+
+	/** THIS SHOULDN'T ACTUALLY BE CALLED ANYWHERE */
+	protected void setDestroyed(boolean status) {
+		if (status)
+			hp = 0;
+		this.destroyed = status;
+	}
+
+	/** @return the amount of armour points the ship has left */
+	public int getArmour() {
+		return armour;
+	}
+
+	/** Sets the new amount of armour. Either after ship repairs or a combat turn */
+	public void setArmour(int armour) {
+		this.armour = armour;
 	}
 
 }

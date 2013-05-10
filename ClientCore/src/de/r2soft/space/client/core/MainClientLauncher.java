@@ -53,5 +53,4 @@ public class MainClientLauncher {
 
 		new LwjglApplication(new ScreenHandler(), cfg);
 	}
-
 }

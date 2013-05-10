@@ -15,32 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+package de.r2soft.space.hexcreator.core;
+
+import de.r2soft.space.hexcreator.backend.ConfigurationPacker;
+import de.r2soft.space.hexcreator.backend.RobotApplication;
+import de.r2soft.space.hexcreator.utility.BaseSettings;
+import de.r2soft.space.hexcreator.utility.IntVec2;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * Front application launcher working with my AWT based application layout.
  * 
- * @author Leander
+ * @author ***REMOVED***
  * 
  */
-public abstract class PlayerObject extends GameObject {
+public class Launcher {
 
-	private Player claim;
+	public static void main(String[] args) {
 
-	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
-	 */
-	private int punch;
+		/** Create configuration object */
+		ConfigurationPacker cfp = new ConfigurationPacker();
+		cfp.setSize(new IntVec2(BaseSettings.SIZE_WINDOW_DEFAULT.x, BaseSettings.SIZE_WINDOW_DEFAULT.y));
+		cfp.setResizable(true);
+		cfp.setFullscreen(false);
+		cfp.setPacked(true);
+		cfp.setApplicationTitle("Random Robot Softworks: Hexagon Editor");
 
-	public Player getClaim() {
-		return claim;
+		new RobotApplication(new AppManager(), cfp);
+
 	}
-
-	public void setClaim(Player claim) {
-		this.claim = claim;
-	}
-
 }

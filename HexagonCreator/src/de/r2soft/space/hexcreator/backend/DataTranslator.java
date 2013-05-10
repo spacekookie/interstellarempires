@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,27 +13,11 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
-package de.r2soft.space.framework.modules;
+package de.r2soft.space.hexcreator.backend;
 
-public abstract class Module {
-
-	private boolean destroyed;
-
-	/**
-	 * @return the destroyed
-	 */
-	public boolean isDestroyed() {
-		return destroyed;
-	}
-
-	/**
-	 * @param destroyed
-	 *            the destroyed to set
-	 */
-	public void setDestroyed(boolean destroyed) {
-		this.destroyed = destroyed;
-	}
+public class DataTranslator {
 
 }
