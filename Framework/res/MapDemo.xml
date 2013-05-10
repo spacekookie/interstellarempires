@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map:MapDescription xmlns:map="http://www.2rSoftworks.de/map"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.2rSoftworks.de/map MapSchema.xsd " >
+
+    <map:Size
+        Height="1"
+        Width="1" />
+
+    <map:SolarSystems
+        Name="DemoSystem"
+        Type="Green" >
+
+        <map:Position
+            PosX="1"
+            PosY="1" />
+
+        <map:Planets
+            Distance="5.0"
+            Name="DemoPlanet"
+            Size="1.0"
+            Type="Orange" />
+    </map:SolarSystems>
+
+</map:MapDescription>
