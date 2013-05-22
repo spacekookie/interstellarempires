@@ -15,29 +15,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+package de.r2soft.space.client.animators;
 
-package de.r2soft.space.server.ws.interfaces;
+import aurelienribon.tweenengine.TweenAccessor;
 
-import java.util.Set;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+/**
+ * Intro animation.
+ * 
+ * @author: ***REMOVED***
+ */
+public class IntroAnimator implements TweenAccessor<Sprite> {
 
-import de.r2soft.space.framework.map.Map;
-import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.PlayerObject;
-import de.r2soft.space.framework.primitives.IntVec2;
+	public static final int ALPHA = 1;
 
-@WebService(targetNamespace = "http://2rSoftworks.de/")
-public interface GameObjectService {
+	@Override
+	public int getValues(Sprite target, int tweenType, float[] returnValues) {
 
-	@WebMethod
-	public Set<GameObject> getGlobalGameObjects(Integer sessionID);
+		switch (tweenType) {
+		case ALPHA:
+			returnValues[0] = target.getColor().a;
+			return 1;
 
-	@WebMethod
-	public Set<PlayerObject> getPlayerObjects(Integer sessionID);
+		default:
+			return 0;
+		}
 
-	@WebMethod
-	public Set<PlayerObject> getObjectsInSystem(Integer sessionID, IntVec2 system);
+	}
+
+	@Override
+	public void setValues(Sprite target, int tweenType, float[] newValues) {
+
+		switch (tweenType) {
+		case ALPHA:
+			target.setColor(1, 1, 1, newValues[0]);
+			break;
+
+		default:
+			break;
+		}
+
+	}
 
 }

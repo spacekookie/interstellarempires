@@ -39,7 +39,7 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 
 public class StarsystemScreen implements Screen {
 
@@ -59,7 +59,7 @@ public class StarsystemScreen implements Screen {
 	private SolarSystem system;
 
 	/** Unit logic */
-	private Set<Unit> units;
+	private Set<Ship> units;
 	private Set<GenericMapObject> childobjects;
 	private GenericMapObject focusobject;
 	private SuperClass childsuper;
@@ -80,7 +80,7 @@ public class StarsystemScreen implements Screen {
 		if (system.getUnits() != null) {
 			units = system.getUnits();
 
-			for (Unit unit : units) {
+			for (Ship unit : units) {
 				childobjects.add(new GenericMapObject(unit));
 			}
 		}

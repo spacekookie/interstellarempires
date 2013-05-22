@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.modules;
+package de.r2soft.space.framework.objects.modules;
 
 /**
  * A more advanced module that allows for shields and in the future maybe other stuff.

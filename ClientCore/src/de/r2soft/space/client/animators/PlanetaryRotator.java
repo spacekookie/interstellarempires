@@ -27,17 +27,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * @author ***REMOVED***
  * 
  */
-public class CircularMovementCreator implements TweenAccessor<Sprite> {
+public class PlanetaryRotator implements TweenAccessor<Sprite> {
+
+	private float angle;
+
+	public void setRotationAngle(float angle) {
+		this.angle = angle;
+	}
 
 	@Override
 	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setValues(Sprite target, int tweenType, float[] newValues) {
-		// TODO Auto-generated method stub
 
 	}
 

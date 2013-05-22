@@ -35,7 +35,7 @@ import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PlanetClass;
 import de.r2soft.space.framework.objects.Structure;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
@@ -83,7 +83,7 @@ public class GenericMapObject extends Actor {
 	private UnitFactory structureFactory;
 
 	/** For parent classes to work with */
-	private Unit unit;
+	private Ship unit;
 	private Fleet fleet;
 	private Planet planet;
 	private Structure structue;
@@ -99,7 +99,7 @@ public class GenericMapObject extends Actor {
 	 * @param unit
 	 *          object to be drawn.
 	 */
-	public GenericMapObject(Unit unit) {
+	public GenericMapObject(Ship unit) {
 		name = unit.getName();
 		shipType = unit.getType();
 		claim = unit.getClaim();
@@ -181,7 +181,7 @@ public class GenericMapObject extends Actor {
 		batch.end();
 		batch.begin();
 
-		if (superclass.equals(SuperClass.UNIT)) {
+		if (superclass.equals(SuperClass.SHIP)) {
 			switch (this.shipType) {
 			case FIGHTER:
 				batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y, 0, 0,
@@ -259,7 +259,7 @@ public class GenericMapObject extends Actor {
 	}
 
 	/** @return selected unit */
-	public Unit getUnitIfExists() {
+	public Ship getUnitIfExists() {
 		return unit;
 	}
 

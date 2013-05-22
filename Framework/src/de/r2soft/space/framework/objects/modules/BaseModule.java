@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.modules;
+package de.r2soft.space.framework.objects.modules;
 
 /**
  * A basic module
@@ -30,34 +30,35 @@ public abstract class BaseModule {
 	private int armour;
 	private boolean destroyed;
 
-	/** @return the remaining hp of the unit */
+	/** @return the remaining hp of the module */
 	public int getHp() {
 		return hp;
 	}
 
-	/** set the remaining hp of the unit */
+	/** set the remaining hp of the module */
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
 
-	/** @return wether the unit blew up or not */
+	/** @return wether the module blew up or not */
 	public boolean isDestroyed() {
 		return hp >= 0 ? true : false;
 	}
 
 	/** THIS SHOULDN'T ACTUALLY BE CALLED ANYWHERE */
+	@Deprecated
 	protected void setDestroyed(boolean status) {
 		if (status)
 			hp = 0;
 		this.destroyed = status;
 	}
 
-	/** @return the amount of armour points the ship has left */
+	/** @return the amount of armour points the module has left */
 	public int getArmour() {
 		return armour;
 	}
 
-	/** Sets the new amount of armour. Either after ship repairs or a combat turn */
+	/** Sets the new amount of armour. Either after module repairs or a combat turn */
 	public void setArmour(int armour) {
 		this.armour = armour;
 	}

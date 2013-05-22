@@ -15,47 +15,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.animators;
 
-import aurelienribon.tweenengine.TweenAccessor;
+package de.r2soft.space.framework.objects.modules;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 /**
- * Intro animation.
+ * Extends BaseModule because Propulsion shouldn't have special shielding
  * 
- * @author: ***REMOVED***
+ * @author ***REMOVED***
+ * 
  */
-public class HorrorAtmosphereCreator implements TweenAccessor<Sprite> {
+public class Propulsion extends BaseModule {
 
-	public static final int ALPHA = 1;
+	private float strength;
 
-	@Override
-	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-
-		switch (tweenType) {
-		case ALPHA:
-			returnValues[0] = target.getColor().a;
-			return 1;
-
-		default:
-			return 0;
-		}
-
+	public Propulsion(float strength) {
+		this.strength = strength;
 	}
 
-	@Override
-	public void setValues(Sprite target, int tweenType, float[] newValues) {
+	public void move(Vector2 target) {
+		// TODO: magic here to make ships fly
+	}
 
-		switch (tweenType) {
-		case ALPHA:
-			target.setColor(1, 1, 1, newValues[0]);
-			break;
+	/** @return the absolute output of the drive. Not taking ship mass into account */
+	public float getStrength() {
+		return strength;
+	}
 
-		default:
-			break;
-		}
-
+	/** set new drive strength. Called on drive overload and after engineering upgrades */
+	public void setStrength(float strength) {
+		this.strength = strength;
 	}
 
 }

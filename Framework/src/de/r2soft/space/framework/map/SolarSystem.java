@@ -26,8 +26,9 @@ import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.objects.Structure;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.primitives.IntVec2;
 
 /**
  * Object holding solar-system information.
@@ -43,10 +44,11 @@ public class SolarSystem {
 	private IntVec2 id;
 	private Player claimed;
 	private Set<Planet> planets;
-	private Set<Unit> units;
+	private Set<Ship> units;
 	private Set<Structure> structures;
 	private Star star;
 	private float radius;
+	private boolean explored;
 
 	/** @return: Systems (x,y) id on haxmap */
 	public IntVec2 getId() {
@@ -66,7 +68,7 @@ public class SolarSystem {
 	/** Empty constructor */
 	public SolarSystem() {
 
-		units = new HashSet<Unit>();
+		units = new HashSet<Ship>();
 		planets = new HashSet<Planet>();
 		structures = new HashSet<Structure>();
 
@@ -90,7 +92,7 @@ public class SolarSystem {
 	 * @param radius
 	 *          the radius of the solar system
 	 */
-	public SolarSystem(IntVec2 id, Player claimed, Set<Planet> planets, Set<Unit> units,
+	public SolarSystem(IntVec2 id, Player claimed, Set<Planet> planets, Set<Ship> units,
 			Set<Structure> structures, Star star) {
 		this.id = id;
 		this.claimed = claimed;
@@ -186,17 +188,17 @@ public class SolarSystem {
 	 * @param units
 	 *          set of units
 	 */
-	public void addUnits(Set<Unit> units) {
+	public void addUnits(Set<Ship> units) {
 		this.units = units;
 	}
 
 	/** @return: get all units in this solar system */
-	public Set<Unit> getUnits() {
+	public Set<Ship> getUnits() {
 		return units;
 	}
 
 	/** DEBUG ONLY */
-	public void addSingleUnit(Unit unit) {
+	public void addSingleUnit(Ship unit) {
 		units.add(unit);
 	}
 
@@ -219,6 +221,15 @@ public class SolarSystem {
 			return !planets.isEmpty();
 		else
 			return false;
-
 	}
+
+	public boolean isExplored() {
+		return explored;
+	}
+
+	/** Set true if player has had ships in it */
+	public void setExplored(boolean explored, Player player) {
+		this.explored = explored;
+	}
+
 }

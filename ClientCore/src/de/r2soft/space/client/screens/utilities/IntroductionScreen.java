@@ -38,7 +38,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.space.client.animators.HorrorAtmosphereCreator;
+import de.r2soft.space.client.animators.IntroAnimator;
 import de.r2soft.space.client.core.ScreenHandler;
 
 /**
@@ -109,7 +109,7 @@ public class IntroductionScreen implements Screen {
 
 		batch = new SpriteBatch();
 
-		Tween.registerAccessor(Sprite.class, new HorrorAtmosphereCreator());
+		Tween.registerAccessor(Sprite.class, new IntroAnimator());
 
 		man = new TweenManager();
 
@@ -124,7 +124,7 @@ public class IntroductionScreen implements Screen {
 			}
 		};
 
-		Tween.to(splashSprite, HorrorAtmosphereCreator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
+		Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
 				.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
 	}
