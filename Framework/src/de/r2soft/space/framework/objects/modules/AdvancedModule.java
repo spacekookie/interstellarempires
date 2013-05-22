@@ -16,28 +16,27 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.server.ws.interfaces;
+package de.r2soft.space.framework.objects.modules;
 
-import java.util.Set;
+/**
+ * A more advanced module that allows for shields and in the future maybe other stuff.
+ * 
+ * @author Katharina
+ * 
+ */
+public abstract class AdvancedModule extends BaseModule {
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+	/** Defensive values for the modules */
+	private int shields;
 
-import de.r2soft.space.framework.map.Map;
-import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.PlayerObject;
-import de.r2soft.space.framework.primitives.IntVec2;
+	/** @return the amount of shields the unit has left */
+	public int getShields() {
+		return shields;
+	}
 
-@WebService(targetNamespace = "http://2rSoftworks.de/")
-public interface GameObjectService {
-
-	@WebMethod
-	public Set<GameObject> getGlobalGameObjects(Integer sessionID);
-
-	@WebMethod
-	public Set<PlayerObject> getPlayerObjects(Integer sessionID);
-
-	@WebMethod
-	public Set<PlayerObject> getObjectsInSystem(Integer sessionID, IntVec2 system);
+	/** Sets the new or initial amount of shields. Should be called in unit creation and after combat */
+	public void setShields(int shields) {
+		this.shields = shields;
+	}
 
 }

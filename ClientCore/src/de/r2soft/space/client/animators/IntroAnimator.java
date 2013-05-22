@@ -15,28 +15,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+package de.r2soft.space.client.animators;
 
-package de.r2soft.space.framework.modules;
+import aurelienribon.tweenengine.TweenAccessor;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * A more advanced module that allows for shields and in the future maybe other stuff.
+ * Intro animation.
  * 
- * @author Katharina
- * 
+ * @author: Katharina
  */
-public abstract class AdvancedModule extends BaseModule {
+public class IntroAnimator implements TweenAccessor<Sprite> {
 
-	/** Defensive values for the modules */
-	private int shields;
+	public static final int ALPHA = 1;
 
-	/** @return the amount of shields the unit has left */
-	public int getShields() {
-		return shields;
+	@Override
+	public int getValues(Sprite target, int tweenType, float[] returnValues) {
+
+		switch (tweenType) {
+		case ALPHA:
+			returnValues[0] = target.getColor().a;
+			return 1;
+
+		default:
+			return 0;
+		}
+
 	}
 
-	/** Sets the new or initial amount of shields. Should be called in unit creation and after combat */
-	public void setShields(int shields) {
-		this.shields = shields;
+	@Override
+	public void setValues(Sprite target, int tweenType, float[] newValues) {
+
+		switch (tweenType) {
+		case ALPHA:
+			target.setColor(1, 1, 1, newValues[0]);
+			break;
+
+		default:
+			break;
+		}
+
 	}
 
 }

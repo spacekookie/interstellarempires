@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.space.framework.primitives;
 
 import com.badlogic.gdx.utils.NumberUtils;
 

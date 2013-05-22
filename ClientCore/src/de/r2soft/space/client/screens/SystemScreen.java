@@ -41,7 +41,7 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 
 /**
  * This singleton class will be called when the player clicked on a tile on the @HexMap. In the
@@ -76,7 +76,7 @@ public class SystemScreen implements Screen {
 	private Label typeTail, flatTail, ownerTail, countTail, posTail;
 
 	/** unit logic */
-	private Set<Unit> units;
+	private Set<Ship> units;
 	private Set<GenericMapObject> childobjects;
 	private GenericMapObject selectionfocus = null;
 
@@ -118,7 +118,7 @@ public class SystemScreen implements Screen {
 		if (childsystem.getUnits() != null) {
 			units = childsystem.getUnits();
 
-			for (Unit unit : units) {
+			for (Ship unit : units) {
 				childobjects.add(new GenericMapObject(unit));
 			}
 		}
@@ -281,6 +281,7 @@ public class SystemScreen implements Screen {
 		return selectionfocus;
 	}
 
+	/** This method will be moved to @SystemScreen */
 	public void setSelectionfocus(GenericMapObject selectionfocus, SuperClass superclass) {
 		this.selectionfocus = selectionfocus;
 		this.childSuper = superclass;
@@ -293,17 +294,21 @@ public class SystemScreen implements Screen {
 			posTail.setText(nothingselected);
 		}
 		else {
-			if (childSuper.equals(SuperClass.UNIT)) {
-				Unit temp = selectionfocus.getUnitIfExists();
+			switch (childSuper) {
+			case SHIP:
+				Ship temp = selectionfocus.getUnitIfExists();
 				if (temp != null) {
 					typeTail.setText(temp.getType().toString());
 					flatTail.setText(temp.getName().toString());
 					ownerTail.setText(temp.getClaim().getName());
 					posTail.setText(temp.getPosition().toString());
 				}
+				break;
 
+			default:
+				Gdx.app.log("UI_THREAD", "ERROR RETRIEVING SELECTION INFO. DID YOU ATTACH A SUPERCLASS?");
+				break;
 			}
 		}
-
 	}
 }

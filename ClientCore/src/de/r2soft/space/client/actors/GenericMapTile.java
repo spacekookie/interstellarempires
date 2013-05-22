@@ -28,11 +28,11 @@ import de.r2soft.space.client.screens.SystemScreen;
 import de.r2soft.space.client.screens.gameplay.StarsystemScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.primitives.IntVec2;
 
 public class GenericMapTile extends Actor {
 
@@ -125,7 +125,7 @@ public class GenericMapTile extends Actor {
 
 		if (childsystem.getUnits() != null) {
 			if (childsystem.hasUnits()) {
-				for (Unit unit : childsystem.getUnits()) {
+				for (Ship unit : childsystem.getUnits()) {
 					if (unit.getAllegiance(Resources.thisPlayer).equals(ALLEGIANCE.PLAYER)) {
 						batch.draw(ResPack.TILE_ADD_FLEET_PLAYER, position.x + (size.x / 4), position.y
 								+ (size.y / 4), 0, 0, (size.x / 4), (size.y / 4), 1, 1, 0);

@@ -22,7 +22,10 @@ import com.badlogic.gdx.math.Vector2;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
 /**
- * @author Leander
+ * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed
+ * for rendering purposes. The client will crash if an object doesn't have it set to something!
+ * 
+ * @author Katharina
  * 
  */
 public abstract class GameObject {
@@ -33,7 +36,7 @@ public abstract class GameObject {
 	private Vector2 position;
 	/** Any object can orbit around another object */
 	private GameObject orbit;
-	/** Rendering flag, absolutely needed! */
+	/** YOUR COMPUTER WILL CRASH AND BURN IF THIS I NOT SET */
 	private SuperClass superclass;
 	/** Anything object in the game can be named */
 	private String name;
@@ -48,7 +51,7 @@ public abstract class GameObject {
 
 	/** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
 	public static enum SuperClass {
-		UNIT, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
+		SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
 	}
 
 	public Vector2 getPosition() {

@@ -28,6 +28,7 @@ import de.r2soft.space.framework.players.Player;
 public abstract class PlayerObject extends GameObject {
 
 	private Player claim;
+	private long combatID;
 
 	/**
 	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
@@ -41,6 +42,14 @@ public abstract class PlayerObject extends GameObject {
 
 	public void setClaim(Player claim) {
 		this.claim = claim;
+	}
+
+	public long getCombatID() {
+		return combatID;
+	}
+
+	public void setCombatID(long id) {
+		this.combatID = id;
 	}
 
 }

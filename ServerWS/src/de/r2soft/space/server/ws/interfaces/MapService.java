@@ -16,36 +16,32 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.modules;
+package de.r2soft.space.server.ws.interfaces;
 
-import com.badlogic.gdx.math.Vector2;
+import java.util.Set;
 
-/**
- * Extends BaseModule because Propulsion shouldn't have special shielding
- * 
- * @author Katharina
- * 
- */
-public class Propulsion extends BaseModule {
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
-	private float strength;
+import de.r2soft.space.framework.map.Map;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.primitives.IntVec2;
 
-	public Propulsion(float strength) {
-		this.strength = strength;
-	}
+@WebService(targetNamespace = "http://2rSoftworks.de/")
+public interface MapService {
 
-	public void move(Vector2 target) {
-		// TODO: magic here to make ships fly
-	}
+	@WebMethod
+	public Set<SolarSystem> getGlobalSolarSystems(Integer sessionID);
 
-	/** @return the absolute output of the drive. Not taking ship mass into account */
-	public float getStrength() {
-		return strength;
-	}
+	@WebMethod
+	public Set<SolarSystem> getPlaySolarSystems(Integer sessionID, Player player);
 
-	/** set new drive strength. Called on drive overload and after engineering upgrades */
-	public void setStrength(float strength) {
-		this.strength = strength;
-	}
+	@WebMethod
+	public Set<SolarSystem> getKnownSolarSystems(Integer sessionID, Player player);
+
+	@WebMethod
+	public Map getPlayerViewScreen(IntVec2 bottomLeftSystem, float mapWidth, float mapHeight);
+	
 
 }

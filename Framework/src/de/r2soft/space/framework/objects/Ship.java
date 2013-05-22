@@ -17,14 +17,16 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.modules.ModuleSlot;
-import de.r2soft.space.framework.modules.Propulsion;
-import de.r2soft.space.framework.modules.Weapon;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
+import de.r2soft.space.framework.objects.modules.BaseModule;
+import de.r2soft.space.framework.objects.modules.ModuleSlot;
+import de.r2soft.space.framework.objects.modules.Propulsion;
+import de.r2soft.space.framework.objects.modules.Weapon;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
 
@@ -36,7 +38,7 @@ import de.r2soft.space.framework.players.Player;
  * @author Katharina
  * 
  */
-public class Unit extends MovingObject {
+public class Ship extends MovingObject {
 
 	private Player claim;
 	private ShipType type;
@@ -44,8 +46,8 @@ public class Unit extends MovingObject {
 	private Set<ModuleSlot> slots;
 	private Propulsion engine;
 
-	/** Master constructor for units */
-	public Unit(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position) {
+	/** Constructor for ships without modules */
+	public Ship(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position) {
 		this.type = type;
 		this.claim = claim;
 		super.setName(name);
@@ -53,9 +55,21 @@ public class Unit extends MovingObject {
 		super.setSuperclass(superclass);
 	}
 
+	/** Constructor for ships with modules */
+	public Ship(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position,
+			Set<ModuleSlot> slots) {
+		this.type = type;
+		this.claim = claim;
+		super.setName(name);
+		super.setPosition(position);
+		super.setSuperclass(superclass);
+		this.slots = slots;
+	}
+
 	/** DO NOT USE THIS. @SuperClass must not be null */
 	@Deprecated
-	public Unit() {
+	public Ship() {
+		super.setSuperclass(SuperClass.SHIP);
 	}
 
 	public Player getClaim() {
@@ -80,5 +94,22 @@ public class Unit extends MovingObject {
 			return ALLEGIANCE.FRIENDLY;
 		}
 		return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
+	}
+
+	/** Strips all modules from their slots */
+	public void stripShip() {
+		Set<BaseModule> stripped = new HashSet<BaseModule>();
+		for (ModuleSlot slot : slots) {
+			stripped.add(slot.getModule());
+		}
+		// TODO: Something with @stripped
+	}
+
+	/** Get a quick overview of all modules currently installed on this ship */
+	public Set<BaseModule> peekModules() {
+		Set<BaseModule> children = new HashSet<BaseModule>();
+		for (ModuleSlot slot : slots)
+			children.add(slot.getBaseModule());
+		return children;
 	}
 }

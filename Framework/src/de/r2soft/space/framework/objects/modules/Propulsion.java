@@ -16,28 +16,36 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.server.ws.interfaces;
+package de.r2soft.space.framework.objects.modules;
 
-import java.util.Set;
+import com.badlogic.gdx.math.Vector2;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+/**
+ * Extends BaseModule because Propulsion shouldn't have special shielding
+ * 
+ * @author Katharina
+ * 
+ */
+public class Propulsion extends BaseModule {
 
-import de.r2soft.space.framework.map.Map;
-import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.PlayerObject;
-import de.r2soft.space.framework.primitives.IntVec2;
+	private float strength;
 
-@WebService(targetNamespace = "http://2rSoftworks.de/")
-public interface GameObjectService {
+	public Propulsion(float strength) {
+		this.strength = strength;
+	}
 
-	@WebMethod
-	public Set<GameObject> getGlobalGameObjects(Integer sessionID);
+	public void move(Vector2 target) {
+		// TODO: magic here to make ships fly
+	}
 
-	@WebMethod
-	public Set<PlayerObject> getPlayerObjects(Integer sessionID);
+	/** @return the absolute output of the drive. Not taking ship mass into account */
+	public float getStrength() {
+		return strength;
+	}
 
-	@WebMethod
-	public Set<PlayerObject> getObjectsInSystem(Integer sessionID, IntVec2 system);
+	/** set new drive strength. Called on drive overload and after engineering upgrades */
+	public void setStrength(float strength) {
+		this.strength = strength;
+	}
 
 }

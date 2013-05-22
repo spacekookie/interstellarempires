@@ -16,12 +16,14 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.modules;
+package de.r2soft.space.framework.objects.modules;
 
+import de.r2soft.space.framework.ai.CombatAI;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
 /**
- * Basic implementation of a weapon. Two constructors, one for weapon module, one for hardwired into
+ * Basic implementation of a weapon. Two constructors, one for weapon module, one for hard-wired
+ * into
  * ships frame for sub-frigate ships.
  * 
  * @author Katharina
@@ -30,6 +32,7 @@ import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 public class Weapon extends AdvancedModule {
 
 	public static enum WeaponType {
+		/* Will spawn child projectile */
 		MISSLE_SMALL, MISSLE_MED, MISSLE_LARGE, MISSLE_CAPITAL,
 
 		RAILS_SMALL, RAILS_MEDIUM, RAILS_LARGE, RAILS_CAPITAL,
@@ -39,6 +42,8 @@ public class Weapon extends AdvancedModule {
 
 	private ModuleSlot parent;
 	private WeaponType type;
+	private long aimID;
+	private CombatAI combatAI;
 
 	/**
 	 * How many turns does it take to charge this weapon. 1 means it is ready every turn. 0.5 means it
@@ -62,6 +67,7 @@ public class Weapon extends AdvancedModule {
 	public Weapon(ModuleSlot slot, WeaponType weapontype) {
 		this.parent = slot;
 		this.type = weapontype;
+		combatAI = new CombatAI(this);
 	}
 
 	// TODO: Get actual data from xml
@@ -88,6 +94,14 @@ public class Weapon extends AdvancedModule {
 		this.Depr_rate = ROF;
 		this.Depr_damage = DPR;
 		this.Depr_punch = PUNCH;
+	}
+
+	public long getAimCombatId() {
+		return aimID;
+	}
+
+	public void setAimCombatId(long id) {
+		this.aimID = id;
 	}
 
 }

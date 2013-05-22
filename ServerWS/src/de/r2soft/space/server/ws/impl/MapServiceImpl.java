@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,11 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.server.ws.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.jws.WebMethod;
@@ -25,32 +25,40 @@ import javax.jws.WebService;
 
 import de.r2soft.space.framework.map.Map;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.PlayerObject;
+import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.primitives.IntVec2;
-import de.r2soft.space.server.ws.interfaces.GameObjectService;
+import de.r2soft.space.server.ws.interfaces.MapService;
 
 @WebService(serviceName = "GameObjectService", endpointInterface = "de.r2soft.space.server.ws.interfaces.GameObjectService", targetNamespace = "http://2rSoftworks.de/")
-public class GameObjectServiceImpl implements GameObjectService {
+public class MapServiceImpl implements MapService {
 
 	@Override
 	@WebMethod
-	public Set<GameObject> getGlobalGameObjects(Integer sessionID) {
-		// TODO Get the objects from the Server
-		return new HashSet<GameObject>();
+	public Set<SolarSystem> getGlobalSolarSystems(Integer sessionID) {
+		// TODO Return all Solarsystems from .xml map (public data only)
+		return null;
 	}
 
 	@Override
 	@WebMethod
-	public Set<PlayerObject> getPlayerObjects(Integer sessionID) {
-		// TODO Get the objects from the Server
-		return new HashSet<PlayerObject>();
+	public Set<SolarSystem> getPlaySolarSystems(Integer sessionID, Player player) {
+		// TODO Return all player owned solarsystems
+		return null;
 	}
 
 	@Override
 	@WebMethod
-	public Set<PlayerObject> getObjectsInSystem(Integer sessionID, IntVec2 system) {
-		// TODO Auto-generated method stub
+	public Map getPlayerViewScreen(IntVec2 bottomLeftSystem, float mapWidth, float mapHeight) {
+		// TODO Return the map that the player can actually see. Not sure how to implement this in the
+		// client. Possibly delete this later.
+		return null;
+	}
+
+	@Override
+	@WebMethod
+	public Set<SolarSystem> getKnownSolarSystems(Integer sessionID, Player player) {
+		// TODO Return all Solarsystems that the player has vision on or knows anything about. Will add
+		// flag to Solarsystem to indicat explored
 		return null;
 	}
 

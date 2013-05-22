@@ -23,7 +23,7 @@ import java.util.Set;
 import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Structure;
-import de.r2soft.space.framework.objects.Unit;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -35,7 +35,7 @@ import de.r2soft.space.framework.players.Player;
 public class UnitFactory {
 
 	public static enum ShipType {
-		FIGHTER, CARGO_SMALL;
+		FIGHTER, CARGO_SMALL, MOTHERSHIP;
 	}
 
 	private Player owner;
@@ -55,8 +55,8 @@ public class UnitFactory {
 	 * 
 	 * @author Katharina
 	 */
-	public Unit requisitionUnit(ShipType type) {
-		Unit ship = new Unit(SuperClass.UNIT, type, null, owner, parent.getPosition());
+	public Ship requisitionUnit(ShipType type) {
+		Ship ship = new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition());
 		return ship;
 	}
 
@@ -71,10 +71,10 @@ public class UnitFactory {
 	 */
 	public Fleet requisitionFleet(Set<ShipType> types) {
 
-		Set<Unit> requested = new HashSet<Unit>();
+		Set<Ship> requested = new HashSet<Ship>();
 
 		for (ShipType type : types) {
-			requested.add(new Unit(SuperClass.UNIT, type, null, owner, parent.getPosition()));
+			requested.add(new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition()));
 		}
 
 		Fleet fleet = new Fleet(requested);
@@ -88,9 +88,9 @@ public class UnitFactory {
 	 * @return
 	 */
 	@Deprecated
-	public static Unit buildUnit(ShipType type) {
+	public static Ship buildUnit(ShipType type) {
 		if (type == ShipType.FIGHTER) {
-			Unit fighter = new Unit();
+			Ship fighter = new Ship();
 			return fighter;
 		}
 		else {

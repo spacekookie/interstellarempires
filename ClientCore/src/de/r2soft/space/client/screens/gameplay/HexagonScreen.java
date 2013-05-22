@@ -45,15 +45,16 @@ import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
-import de.r2soft.space.framework.map.IntVec2;
+import de.r2soft.space.client.ws.WebServiceClient;
+import de.r2soft.space.framework.map.Map;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
-import de.r2soft.space.framework.objects.Unit;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.primitives.IntVec2;
 
 /**
  * New implementation for Prototype 1.2 of the HexMap screen. Uses Groups instead of Actors. Until
@@ -79,6 +80,7 @@ public class HexagonScreen implements Screen {
 	/** Hexagon Map */
 	private HexagonGroup hex;
 	private Set<SolarSystem> systems;
+	private Map visableMap;
 
 	public HexagonScreen(ScreenHandler handler, String name_clear) {
 		this.handler = handler;
@@ -114,7 +116,6 @@ public class HexagonScreen implements Screen {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public void resize(int width, int height) {
 		if (stage == null)
 			stage = new Stage(width, height, true);
@@ -126,16 +127,18 @@ public class HexagonScreen implements Screen {
 		/** initializing Tables, Items and Groups */
 		this.setupLayout();
 
+		this.setupViewscreenMap();
+
 		/** Populate Hexagon Map Group */
 		float HEX_START_X = -275f;
 		float HEX_START_Y = -105f;
 
-		Set<Unit> units = new HashSet<Unit>(); // for Cycle through 0 to 4 for X-Axis
-		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
+		Set<Ship> units = new HashSet<Ship>(); // for Cycle through 0 to 4 for X-Axis
+		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
 				new Vector2(500, 450)));
-		units.add(new Unit(SuperClass.UNIT, ShipType.CARGO_SMALL, "Cascadia", new Player("peter"),
+		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia", new Player("peter"),
 				new Vector2(450, 450)));
-		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Cascadia", Resources.thisPlayer,
+		units.add(new Ship(SuperClass.SHIP, ShipType.FIGHTER, "Cascadia", Resources.thisPlayer,
 				new Vector2(400, 400)));
 
 		for (int n = 0; n < 5; n++) {
@@ -155,6 +158,12 @@ public class HexagonScreen implements Screen {
 		}
 
 		this.setupListeners();
+	}
+
+	private void setupViewscreenMap() {
+		WebServiceClient.getInstance().getPlayerViewScreen(null, Sizes.SIZE_HEX_MAP_X,
+				Sizes.SIZE_HEX_MAP_Y);
+
 	}
 
 	private void setupProfileDialoge() {
@@ -267,6 +276,9 @@ public class HexagonScreen implements Screen {
 		hex = new HexagonGroup(Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y,
 				Sizes.POSITION_HEX_MAP_OFFSET);
 
+		/** Setup visible map */
+		visableMap = new Map();
+
 		/** Initialize right navigation */
 		naviRight = new Table();
 		naviRight.setFillParent(true);
@@ -331,7 +343,6 @@ public class HexagonScreen implements Screen {
 
 	@Override
 	public void pause() {
-
 	}
 
 	@Override
@@ -341,7 +352,7 @@ public class HexagonScreen implements Screen {
 
 	@Override
 	public void dispose() {
-
+		stage.dispose();
 	}
 
 }

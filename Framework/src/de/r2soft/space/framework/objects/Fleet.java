@@ -36,10 +36,10 @@ public class Fleet extends PlayerObject {
 	}
 
 	private int count;
-	private Set<Unit> units;
+	private Set<Ship> units;
 	private Admiral admiral;
 
-	public Fleet(Set<Unit> units) {
+	public Fleet(Set<Ship> units) {
 		this.count = units.size();
 		this.units = units;
 	}
@@ -65,28 +65,28 @@ public class Fleet extends PlayerObject {
 	}
 
 	/** Add existing fleet to this one */
-	public void addUnits(Set<Unit> newUnits) {
+	public void addUnits(Set<Ship> newUnits) {
 
-		for (Unit u : newUnits) {
+		for (Ship u : newUnits) {
 			units.add(u);
 			count++;
 		}
 	}
 
 	/** Add single unit to this fleet */
-	public void addUnit(Unit unit) {
+	public void addUnit(Ship unit) {
 		units.add(unit);
 		count++;
 	}
 
 	/** Remove a specific unit from the fleet */
-	public void removeUnit(Unit unit) {
+	public void removeUnit(Ship unit) {
 		units.remove(unit);
 		count--;
 	}
 
-	public void removeUnits(Set<Unit> units) {
-		for (Unit u : units) {
+	public void removeUnits(Set<Ship> units) {
+		for (Ship u : units) {
 			this.units.remove(u);
 			count--;
 		}
@@ -100,7 +100,7 @@ public class Fleet extends PlayerObject {
 		this.count = count;
 	}
 
-	public Set<Unit> getUnits() {
+	public Set<Ship> getUnits() {
 		return units;
 	}
 
