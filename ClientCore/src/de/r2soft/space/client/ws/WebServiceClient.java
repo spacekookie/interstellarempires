@@ -37,7 +37,11 @@ import de.r2soft.space.server.ws.interfaces.ConnectionService;
 import de.r2soft.space.server.ws.interfaces.GameObjectService;
 import de.r2soft.space.server.ws.interfaces.MapService;
 
+<<<<<<< HEAD
 public class WebServiceClient implements ConnectionService, GameObjectService, MapService {
+=======
+public class WebServiceClient {
+>>>>>>> develop
 
 	private static WebServiceClient uniqInstance;
 
@@ -49,10 +53,20 @@ public class WebServiceClient implements ConnectionService, GameObjectService, M
 
 	private Integer sessionID;
 
+<<<<<<< HEAD
 	private WebServiceClient() {
 		try {
 			QName connectionServiceName = new QName("http://2rSoftworks.de/", "ConnectionService");
 			QName gameObjectServiceName = new QName("http://2rSoftworks.de/", "GameObjectService");
+=======
+  private WebServiceClient() {
+	// Initialize variables
+	sessionID = -1;
+
+	try {
+	  QName connectionServiceName = new QName("http://2rSoftworks.de/", "ConnectionService");
+	  QName gameObjectServiceName = new QName("http://2rSoftworks.de/", "GameObjectService");
+>>>>>>> develop
 
 			URL connectionServiceWsdl = new URL(WSDL_BASE_URL + connectionServiceName.getLocalPart()
 					+ "?wsdl");
@@ -153,5 +167,52 @@ public class WebServiceClient implements ConnectionService, GameObjectService, M
 		// TODO Auto-generated method stub
 		return null;
 	}
+<<<<<<< HEAD
+=======
+	return uniqInstance;
+  }
+
+  /**
+   * Get the session ID used to request information from the server.
+   * 
+   * @return
+   */
+  public Integer getSessionID() {
+	return sessionID;
+  }
+
+  /**
+   * Connect to the webserver
+   * 
+   * @param username
+   * @param password
+   * @return
+   */
+  public boolean connect(String username, String password) {
+	sessionID = connectionClient.connect(username, password);
+	return sessionID != -1;
+  }
+
+  public boolean disconnect() {
+	return connectionClient.disconnect(sessionID);
+  }
+
+  public Set<GameObject> getGlobalGameObjects() {
+	return gameObjectClient.getGlobalGameObjects(sessionID);
+  }
+
+  public Set<PlayerObject> getPlayerObjects() {
+	return gameObjectClient.getPlayerObjects(sessionID);
+  }
+
+  public Set<PlayerObject> getObjectsInSystem(IntVec2 system) {
+	return gameObjectClient.getObjectsInSystem(sessionID, system);
+  }
+
+  public static void main(String[] args) {
+	WebServiceClient client = WebServiceClient.getInstance();
+	System.out.println(client.connect("Bob", "*****"));
+  }
+>>>>>>> develop
 
 }

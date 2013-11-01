@@ -19,57 +19,54 @@
 package de.r2soft.space.hexcreator.core;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import de.r2soft.space.hexcreator.backend.BackendManager;
 
 public class AppManager extends BackendManager {
 
-	private Display display;
-	private Shell shell;
-	private RowLayout layout;
+  private Display display;
+  private Shell shell;
+  private RowLayout layout;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		display = super.getDisplay();
-		shell = super.getShell();
-	}
+  @Override
+  public void onCreate() {
+	super.onCreate();
+	display = super.getDisplay();
+	shell = super.getShell();
+  }
 
-	@Override
-	public void onResize(int x, int y) {
-		super.onResize(x, y);
-		this.setupLayout();
-		this.setupButtons();
-	}
+  @Override
+  public void onResize(int x, int y) {
+	super.onResize(x, y);
+	this.setupLayout();
+	this.setupButtons();
+  }
 
-	private void setupButtons() {
-	}
+  private void setupButtons() {
+  }
 
-	private void setupLayout() {
-		if (layout == null)
-			layout = new RowLayout(SWT.HORIZONTAL);
-		layout.marginTop = 10;
-		layout.marginBottom = 10;
-		layout.marginLeft = 5;
-		layout.marginRight = 5;
-		shell.setLayout(layout);
-	}
+  private void setupLayout() {
+	if (layout == null)
+	  layout = new RowLayout(SWT.HORIZONTAL);
+	layout.marginTop = 10;
+	layout.marginBottom = 10;
+	layout.marginLeft = 5;
+	layout.marginRight = 5;
+	shell.setLayout(layout);
+  }
 
-	@Override
-	public void onPaint() {
-		super.onPaint();
+  @Override
+  public void onPaint() {
+	super.onPaint();
 
-	}
+  }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
+  @Override
+  public void onDestroy() {
+	super.onDestroy();
+  }
 
 }
