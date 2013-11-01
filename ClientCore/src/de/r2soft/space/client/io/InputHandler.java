@@ -1,5 +1,3 @@
-package de.r2soft.space.client.testspace;
-
 /* #########################################################################
  * Copyright (c) 2013 Random Robot Softworks
  * 
@@ -17,34 +15,51 @@ package de.r2soft.space.client.testspace;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+package de.r2soft.space.client.io;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.InputProcessor;
 
-public class GdxTest extends Game {
+@Deprecated
+public class InputHandler implements InputProcessor {
 
 	@Override
-	public void create() {
+	public boolean keyDown(int keycode) {
+		System.out.println("Blub");
+		return false;
 	}
 
 	@Override
-	public void dispose() {
-
+	public boolean keyUp(int keycode) {
+		return false;
 	}
 
 	@Override
-	public void render() {
+	public boolean keyTyped(char character) {
+		return false;
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		return false;
 	}
 
 	@Override
-	public void pause() {
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		return false;
 	}
 
 	@Override
-	public void resume() {
+	public boolean touchDragged(int x, int y, int pointer) {
+		return false;
 	}
 
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.groups;
+package de.r2soft.space.client.a.depr;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +28,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
-import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.framework.map.SolarSystem;

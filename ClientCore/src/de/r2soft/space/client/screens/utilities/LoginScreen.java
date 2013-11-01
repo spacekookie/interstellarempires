@@ -30,8 +30,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import de.r2soft.space.client.a.depr.HexagonScreen;
 import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.screens.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;

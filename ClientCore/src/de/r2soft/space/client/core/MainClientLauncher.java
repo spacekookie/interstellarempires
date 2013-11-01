@@ -25,8 +25,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
+import de.r2soft.space.client.a.testspace.HexagonalTiledMapTest;
 import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.testspace.HexagonalTiledMapTest;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the

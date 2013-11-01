@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.screens;
+package de.r2soft.space.client.a.depr;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,9 +37,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.r2soft.space.client.actors.GenericMapTile;
 import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.groups.HexagonGroup;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
