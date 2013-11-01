@@ -59,11 +59,11 @@ public class SolarGroup extends Group {
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 		shapeRenderer.translate(getX() / 2, getY() / 2, 0);
-		shapeRenderer.begin(ShapeType.Circle);
-		shapeRenderer.circle((Gdx.graphics.getWidth() / 2) + offsetX, Gdx.graphics.getHeight() / 2,
-				system.getRadius());
-		shapeRenderer.circle((Gdx.graphics.getWidth() / 2) + offsetX, Gdx.graphics.getHeight() / 2,
-				system.getRadius() + 25);
+		// shapeRenderer.begin(ShapeType.Circle);
+		shapeRenderer.circle((Gdx.graphics.getWidth() / 2) + offsetX,
+				Gdx.graphics.getHeight() / 2, system.getRadius());
+		shapeRenderer.circle((Gdx.graphics.getWidth() / 2) + offsetX,
+				Gdx.graphics.getHeight() / 2, system.getRadius() + 25);
 		shapeRenderer.end();
 		batch.begin();
 		applyTransform(batch, computeTransform());
@@ -71,36 +71,45 @@ public class SolarGroup extends Group {
 
 		switch (system.getStar().getClassification()) {
 		case BROWNDWARF:
-			batch.draw(ResPack.STARS_BROWN_DWARF, Find.getCenter().x
-					- (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2) + offsetX, Find.getCenter().y
-					- (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_BROWN_DWARF,
+			batch.draw(
+					ResPack.STARS_BROWN_DWARF,
+					Find.getCenter().x - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2)
+							+ offsetX,
+					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2),
+					0, 0, Sizes.SIZE_CELESTIAL_BROWN_DWARF,
 					Sizes.SIZE_CELESTIAL_BROWN_DWARF, 1, 1, 0);
 			break;
 
 		case BLUEGIANT:
 			batch.draw(ResPack.STARS_BLUE_GIANT, Find.getCenter().x
-					- (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2) + offsetX, Find.getCenter().y
-					- (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2), 0, 0, Sizes.SIZE_CELESTIAL_BLUE_GIANT,
+					- (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2) + offsetX,
+					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2),
+					0, 0, Sizes.SIZE_CELESTIAL_BLUE_GIANT,
 					Sizes.SIZE_CELESTIAL_BLUE_GIANT, 1, 1, 0);
 			break;
 
 		case NEUTRON:
 			batch.draw(ResPack.STARS_BLUE_DWARF, Find.getCenter().x
-					- (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2) + offsetX, Find.getCenter().y
-					- (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_BLUE_DWARF,
+					- (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2) + offsetX,
+					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2),
+					0, 0, Sizes.SIZE_CELESTIAL_BLUE_DWARF,
 					Sizes.SIZE_CELESTIAL_BLUE_DWARF, 1, 1, 0);
 			break;
 
 		case REDDWARF:
-			batch.draw(ResPack.STARS_RED_DWARF, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2)
-					+ offsetX, Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2), 0, 0,
-					Sizes.SIZE_CELESTIAL_RED_DWARF, Sizes.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
+			batch.draw(ResPack.STARS_RED_DWARF, Find.getCenter().x
+					- (Sizes.SIZE_CELESTIAL_RED_DWARF / 2) + offsetX,
+					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2),
+					0, 0, Sizes.SIZE_CELESTIAL_RED_DWARF,
+					Sizes.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
 			break;
 
 		case REDGIANT:
-			batch.draw(ResPack.STARS_RED_GIANT, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2)
-					+ offsetX, Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2), 0, 0,
-					Sizes.SIZE_CELESTIAL_RED_GIANT, Sizes.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
+			batch.draw(ResPack.STARS_RED_GIANT, Find.getCenter().x
+					- (Sizes.SIZE_CELESTIAL_RED_GIANT / 2) + offsetX,
+					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2),
+					0, 0, Sizes.SIZE_CELESTIAL_RED_GIANT,
+					Sizes.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
 			break;
 
 		default:

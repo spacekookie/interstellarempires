@@ -53,7 +53,7 @@ public class HexagonGroup extends Group {
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 		shapeRenderer.translate(75, 500, 0);
-		shapeRenderer.begin(ShapeType.Rectangle);
+		// shapeRenderer.begin(ShapeType.Rectangle);
 		shapeRenderer.rect(0, -size.y, size.x, size.y);
 		shapeRenderer.end();
 		batch.begin();

@@ -47,7 +47,6 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.IntVec2;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
