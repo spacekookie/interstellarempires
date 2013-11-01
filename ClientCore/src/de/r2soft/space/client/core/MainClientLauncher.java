@@ -26,6 +26,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
 import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.testspace.HexagonalTiledMapTest;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the
@@ -47,10 +48,11 @@ public class MainClientLauncher {
 		/** Sets the Application Icon for different operating systems */
 		if (System.getProperty("os.name").equals("Mac OS X")) {
 			Application app = Application.getApplication();
-			Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+			Image image = Toolkit.getDefaultToolkit().getImage(
+					"assets/icons/launcher.png");
 			app.setDockIconImage(image);
 		}
 
-		new LwjglApplication(new ScreenHandler(), cfg);
+		new LwjglApplication(new HexagonalTiledMapTest(), cfg);
 	}
 }
