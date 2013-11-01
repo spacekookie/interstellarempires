@@ -70,9 +70,6 @@ public class HexagonalTiledMapTest extends GdxTest {
 		renderer.setView(camera);
 		renderer.render();
 
-		if (Gdx.input.isButtonPressed(Keys.PLUS)) {
-			camera.translate(0, 5, 0);
-		}
 	}
 
 	@Override

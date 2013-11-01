@@ -49,7 +49,7 @@ public class ResPack {
 
 	/** The default skin for ui elements */
 	public static final Skin UI_SKIN = new Skin(
-			Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
+			Gdx.files.internal("assets/gui/skins/evolved/uiskin.json"));
 
 	/** UI regions */
 
@@ -113,12 +113,13 @@ public class ResPack {
 	/**
 	 * ### Star classification definitions: ###
 	 * 
-	 * Class O: 40'000K Class B: 20'000K Class A: 10'000K Class F: 7'500K Class G:
-	 * 5'500K Class K: 4'500K Class M: 3'000K
+	 * Class O: 40'000K Class B: 20'000K Class A: 10'000K Class F: 7'500K Class
+	 * G: 5'500K Class K: 4'500K Class M: 3'000K
 	 * 
-	 * Size magnitudes: 15: Neutron Stars 13: Brown Dwarfs 10: Red Dwarfs 8: Yellow
-	 * Dwarfs 5: Pretty green stars 0: Red giants/ (Main sequence: teal giants) -5:
-	 * Blue Giants, Red Super-giants -10: Super big ass stars (Red and blue)
+	 * Size magnitudes: 15: Neutron Stars 13: Brown Dwarfs 10: Red Dwarfs 8:
+	 * Yellow Dwarfs 5: Pretty green stars 0: Red giants/ (Main sequence: teal
+	 * giants) -5: Blue Giants, Red Super-giants -10: Super big ass stars (Red
+	 * and blue)
 	 */
 
 	/** Brown dwarf star */

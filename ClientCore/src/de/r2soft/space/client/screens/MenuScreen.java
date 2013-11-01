@@ -40,6 +40,7 @@ import de.r2soft.space.client.util.Sizes;
  * 
  * @author: ***REMOVED***
  */
+@Deprecated
 public class MenuScreen implements Screen {
 
 	/** Container and Backends */
@@ -53,8 +54,10 @@ public class MenuScreen implements Screen {
 
 	public MenuScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
-				+ Resources.SCREENTITLE_HOME);
+		Gdx.graphics
+				.setTitle(Resources.SUPERTITLE + " - "
+						+ Resources.VERSION_NUMBER + " - "
+						+ Resources.SCREENTITLE_HOME);
 	}
 
 	@Override
@@ -65,11 +68,10 @@ public class MenuScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 
-		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720 && Gdx.input.getY() > 100
-				&& Gdx.input.getY() < 450) {
+		if (Gdx.input.getX() > 120 && Gdx.input.getX() < 720
+				&& Gdx.input.getY() > 100 && Gdx.input.getY() < 450) {
 			map.setInputToChild();
-		}
-		else {
+		} else {
 			Gdx.input.setInputProcessor(stage);
 		}
 
@@ -89,11 +91,13 @@ public class MenuScreen implements Screen {
 		stage.addActor(backToIntro);
 		TextButton backham = new TextButton("Logout", ResPack.UI_SKIN);
 		backham.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				handler.setScreen(new LoginScreen(handler));
 				// TODO: server logout?
 			}
@@ -113,7 +117,7 @@ public class MenuScreen implements Screen {
 		mapTable.add(map);
 		mapTable.center(); // First center it
 		mapTable.setX(-300); // Then reduce the X value /**/ TODO:
-												 // Gdx.graphics.getWidth() / 3
+								// Gdx.graphics.getWidth() / 3
 
 		settings = new TextButton("Settings", ResPack.UI_SKIN);
 		exitGame = new TextButton("Logout & Quit", ResPack.UI_SKIN);
@@ -126,21 +130,25 @@ public class MenuScreen implements Screen {
 		/** OnClickListener */
 
 		settings.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				handler.setScreen(new SettingsScreen(handler));
 			}
 		});
 
 		exitGame.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				Gdx.app.exit();
 			}
 		});

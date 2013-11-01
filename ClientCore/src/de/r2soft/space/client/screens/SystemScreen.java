@@ -35,7 +35,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.r2soft.space.client.actors.GenericMapObject;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.groups.SolarMap;
-import de.r2soft.space.client.screens.gameplay.HexagonScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;

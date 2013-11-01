@@ -22,14 +22,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
+import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.screens.utilities.IntroductionScreen;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.settings.Resources;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in
- * the future
+ * Called when the game is created. Handles all Screen activity for the game.
+ * Further functionality might be added in the future
  * 
  * @author: ***REMOVED***
  */
@@ -41,7 +42,8 @@ public class ScreenHandler extends Game {
 
 	/**
 	 * 
-	 * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
+	 * Returns The Games screenhandler to start new screens from actors, groups
+	 * and sub-classes. Accessed in a static way.
 	 * 
 	 * @return The main Screenhandler.
 	 */
@@ -50,31 +52,30 @@ public class ScreenHandler extends Game {
 	}
 
 	/**
-	 * Called every time something major is being updated such as screen resolution, settings or big server syncs.
+	 * Called every time something major is being updated such as screen
+	 * resolution, settings or big server syncs.
 	 * 
 	 * @author ***REMOVED***
 	 */
 	public void onUpdate() {
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
-			{
-				if (!music.isPlaying())
-					{
-						music.play();
-						music.setLooping(true);
-						music.setVolume(0.95f);
-					}
-			} else
-			{
-				if (music.isPlaying())
-					music.stop();
+		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC)) {
+			if (!music.isPlaying()) {
+				music.play();
+				music.setLooping(true);
+				music.setVolume(0.95f);
 			}
+		} else {
+			if (music.isPlaying())
+				music.stop();
+		}
 	}
 
 	@Override
 	public void create() {
 		handler = this;
 
-		music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files
+				.internal("assets/sounds/music/intro_music.mp3"));
 		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
 
 		if (!prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
@@ -86,9 +87,9 @@ public class ScreenHandler extends Game {
 		onUpdate();
 
 		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
-			setScreen(new IntroductionScreen(this));
+			setScreen(new HexMapScreen(this));
 		else
-			setScreen(new LoginScreen(this));
+			setScreen(new HexMapScreen(this));
 	}
 
 	@Override

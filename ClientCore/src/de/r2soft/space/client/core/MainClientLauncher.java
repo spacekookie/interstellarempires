@@ -53,6 +53,6 @@ public class MainClientLauncher {
 			app.setDockIconImage(image);
 		}
 
-		new LwjglApplication(new HexagonalTiledMapTest(), cfg);
+		new LwjglApplication(new ScreenHandler(), cfg);
 	}
 }

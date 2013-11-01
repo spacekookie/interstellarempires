@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.screens.gameplay;
+package de.r2soft.space.client.screens;
 
 import java.util.HashSet;
 import java.util.Set;
