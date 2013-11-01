@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-<<<<<<< Updated upstream
-=======
   <runtime name="JBoss 7.1 Runtime"/>
->>>>>>> Stashed changes
   <fixed facet="java"/>
   <fixed facet="jst.utility"/>
   <installed facet="java" version="1.6"/>
