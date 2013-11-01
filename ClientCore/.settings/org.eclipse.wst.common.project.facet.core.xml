@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="jboss-as-7.1.1.Final Runtime"/>
+  <runtime name="JBoss 7.1 Runtime"/>
   <fixed facet="jst.utility"/>
   <fixed facet="java"/>
   <installed facet="java" version="1.6"/>
