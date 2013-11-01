@@ -27,11 +27,11 @@ import de.r2soft.space.framework.players.Player;
  */
 public class Resources {
 
-	// Trying to be 16:9 here
+	/** Just going with 720p game resolution here */
 	public static int OLD_WIDTH = 1280;
 	public static int OLD_HEIGHT = 720;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.1";
+	public static String VERSION_NUMBER = "Prototype 1.2";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_LOGIN = "LOGIN";

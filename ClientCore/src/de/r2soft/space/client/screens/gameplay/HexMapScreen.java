@@ -25,8 +25,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -37,17 +35,28 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.sun.tools.javac.util.Pair;
 
-import de.r2soft.space.client.actors.DebugFrame;
+import de.r2soft.space.client.a.depr.HexagonGroup;
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.io.OrthoCamController;
+import de.r2soft.space.client.screens.utilities.LoginScreen;
+import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.testspace.OrthoCamController;
 import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.framework.map.Map;
 
 /**
  * Remake of the main menu screen with new camera viewport and UI. Published for
@@ -62,12 +71,10 @@ public class HexMapScreen implements Screen {
 	private ScreenHandler handler;
 	private InputMultiplexer input;
 
-	/** Shapes */
-	private ShapeRenderer shapeRenderer;
-
 	/** Hex Map */
 	private TiledMap map;
 	private OrthographicCamera mapCam;
+	private ShapeRenderer shapeRenderer;
 	private OrthoCamController mapCamController;
 	private HexagonalTiledMapRenderer hexRenderer;
 	private Texture hexture;
@@ -75,6 +82,11 @@ public class HexMapScreen implements Screen {
 	/** Scene2D UI */
 	private OrthographicCamera uiCam;
 	private Stage stage;
+	private TextButton settings, quit, logout, profile, refresh;
+	private Table naviRight, naviLeft, centerTop;
+	private Label title, welcome;
+	private String name;
+	private Dialog profileDialog, areYouSure;
 
 	{
 
@@ -101,21 +113,29 @@ public class HexMapScreen implements Screen {
 
 	@Override
 	public void show() {
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		stage = new Stage(w, h);
+
 		mapCam = new OrthographicCamera();
-		mapCam.setToOrtho(false, 921, 518); // TODO: Replace with variables
+		mapCam.setToOrtho(false, 921, 518);
+		mapCam.update();
 
 		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, 1280, 720);
+		uiCam.setToOrtho(false, w, h);
+		uiCam.update();
 
+		mapCamController = new OrthoCamController(mapCam);
 		input.addProcessor(stage);
 		input.addProcessor(mapCamController);
+
+		Gdx.input.setInputProcessor(input);
 
 		hexture = new Texture(Gdx.files.internal("assets/hexes.png"));
 		TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
 		map = new TiledMap();
 		MapLayers layers = map.getLayers();
 		TiledMapTile[] tiles = new TiledMapTile[3];
-		// TODO: Change the hextile setup.
 		tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
 		tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
 		tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
@@ -135,34 +155,35 @@ public class HexMapScreen implements Screen {
 
 		hexRenderer = new HexagonalTiledMapRenderer(map);
 
+		/** initializing Tables, Items and Groups */
+		this.initializeFrames();
+
+		/** initializing Tables, Items and Groups */
+		this.setupLayout();
+
+		/** Setting up the button listeners */
+		this.setupListeners();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		if (stage == null)
-			stage = new Stage(width, height);
-		else
+		if (stage != null)
 			stage.setViewport(width, height);
-
-		Button but = new TextButton("SUCK ON THAT YOU ******* CODE!!!",
-				ResPack.UI_SKIN);
-		but.setPosition(0, 0);
-		stage.addActor(but);
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		Gdx.gl.glViewport((Gdx.graphics.getWidth() / 2) - 461,
 				(Gdx.graphics.getHeight() / 2) - 259, 921, 518);
-
 		mapCam.update();
 		hexRenderer.setView(mapCam);
 		hexRenderer.render();
 
-		Gdx.gl.glViewport(0, 0, 1280, 720);
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
 		uiCam.update();
 
 		shapeRenderer.begin(ShapeType.Line);
@@ -177,13 +198,10 @@ public class HexMapScreen implements Screen {
 	@Override
 	public void dispose() {
 		shapeRenderer.dispose();
-		// hexRenderer.dispose();
-		// hexture.dispose();
-		// map.dispose();
+		hexRenderer.dispose();
+		hexture.dispose();
+		map.dispose();
 	}
-
-	// SpriteBatch batch;
-	/** Render */
 
 	@Override
 	public void resume() {
@@ -198,6 +216,177 @@ public class HexMapScreen implements Screen {
 	@Override
 	public void hide() {
 
+	}
+
+	private void setupProfileDialoge() {
+
+		Table profile_leftTop = new Table();
+		Image profilePicture = new Image(new Texture(
+				Gdx.files.internal("assets/gui/users.png")));
+		Label lalalal = new Label("This is a label", ResPack.UI_SKIN);
+		profile_leftTop.add(lalalal);
+
+		profile_leftTop.add(profilePicture).top().center();
+		profileDialog.add(profile_leftTop);
+
+		Table profile_bottomButton = new Table();
+		profile_bottomButton.setSize(Resources.OLD_WIDTH / 2,
+				Resources.OLD_HEIGHT / 2);
+		profileDialog.add(profile_bottomButton).right().bottom();
+		TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
+		profile_bottomButton.add(closeProfile).width(
+				Sizes.SIZE_UI_BUTTON_NAVIGON);
+
+		closeProfile.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				profileDialog.remove();
+			}
+		});
+
+	}
+
+	private void setupListeners() {
+
+		refresh.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			}
+		});
+
+		profile.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				profileDialog = new Dialog("User Profile", ResPack.UI_SKIN);
+				profileDialog.setSize(450, 300);
+				profileDialog.setPosition((Resources.OLD_WIDTH / 2)
+						- (Resources.OLD_WIDTH / 4), (Resources.OLD_HEIGHT / 2)
+						- (Resources.OLD_HEIGHT / 4));
+				stage.addActor(profileDialog);
+				setupProfileDialoge();
+			}
+		});
+
+		settings.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				handler.setScreen(new SettingsScreen(handler));
+			}
+		});
+
+		quit.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				Gdx.app.exit();
+			}
+		});
+
+		logout.addListener(new ClickListener() {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+
+				handler.setScreen(new LoginScreen(handler));
+			}
+		});
+
+	}
+
+	private void initializeFrames() {
+		/** Initialize Buttons */
+		profile = new TextButton("Profile", ResPack.UI_SKIN);
+		settings = new TextButton("Settings", ResPack.UI_SKIN);
+		quit = new TextButton("Logout & Quit", ResPack.UI_SKIN);
+		logout = new TextButton("Logout", ResPack.UI_SKIN);
+		refresh = new TextButton("Refresh", ResPack.UI_SKIN);
+
+		/** Initialize Lables */
+		title = new Label("Space Game: Prototype 1.1", ResPack.UI_SKIN);
+		title.setAlignment(Align.center);
+		title.setFontScaleX(1.2f);
+		title.setFontScaleY(1.1f);
+		title.setColor(Color.MAGENTA);
+
+		welcome = new Label("Welcome: " + name, ResPack.UI_SKIN);
+		welcome.setAlignment(Align.center);
+
+		/** Initialize right navigation */
+		naviRight = new Table();
+		naviRight.setFillParent(true);
+		naviRight.top().right();
+
+		/** Initialize left navigation */
+		naviLeft = new Table();
+		naviLeft.setFillParent(true);
+		naviLeft.top().left();
+
+		/** Initialize center top label */
+		centerTop = new Table();
+		centerTop.setFillParent(true);
+		centerTop.center().top();
+		centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
+
+		/** Adding tables to stage */
+		stage.addActor(naviLeft);
+		stage.addActor(naviRight);
+		stage.addActor(centerTop);
+
+	}
+
+	private void setupLayout() {
+		/** Setting up the right navigation */
+		naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviRight.row();
+
+		/** Setting up the left navigation */
+		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviLeft.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+
+		/** Setting up the center top label table */
+		centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
+		centerTop.row();
+		centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
+		centerTop.row();
+	}
+
+	private static class Dimensions {
+		static Vector2 totalWindow = new Vector2(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
+		static Pair<Vector2, Vector2> mapDim = new Pair<Vector2, Vector2>(
+				new Vector2(totalWindow.x / 2, totalWindow.y / 2), new Vector2(
+						0, 0));
 	}
 
 }

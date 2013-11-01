@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.groups;
+package de.r2soft.space.client.a.depr;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import de.r2soft.space.framework.map.Map;
 import de.r2soft.space.framework.players.Player;
 
+@Deprecated
 public class HexagonGroup extends Group {
 
 	/** Rendering */

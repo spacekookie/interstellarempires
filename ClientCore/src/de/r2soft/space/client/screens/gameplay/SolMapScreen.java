@@ -23,7 +23,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 
 import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.testspace.OrthoCamController;
+import de.r2soft.space.client.io.OrthoCamController;
 
 /**
  * Remake of the solar system screen with new camera viewport and UI. Published

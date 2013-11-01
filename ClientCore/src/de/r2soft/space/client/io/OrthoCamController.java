@@ -1,4 +1,4 @@
-package de.r2soft.space.client.testspace;
+package de.r2soft.space.client.io;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
