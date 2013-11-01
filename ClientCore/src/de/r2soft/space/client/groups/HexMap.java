@@ -23,7 +23,6 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -34,9 +33,9 @@ import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
+import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
-import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.primitives.IntVec2;
@@ -82,7 +81,7 @@ public class HexMap extends Group implements Disposable {
 
 		this.handler = handler;
 		systems = new HashSet<GenericMapTile>();
-		getSystemsFromServer();
+		// getSystemsFromServer();
 		shapeRenderer = new ShapeRenderer();
 	}
 
@@ -183,28 +182,26 @@ public class HexMap extends Group implements Disposable {
 	/**
 	 * @Leander: make this work please? :)
 	 */
-	private void getSystemsFromServer() {
-
-		// TODO: Fetch Systems from server.
-		Set<SolarSystem> _temp = new HashSet<SolarSystem>();
-<<<<<<< HEAD
-		Set<Ship> units = new HashSet<Ship>();
-		units.add(new Ship(SuperClass.SHIP, ShipType.FIGHTER, "Alpha Wing", Resources.thisPlayer,
-				new Vector2(200, 200)));
-		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player("KateTheAwesome"), null, units, null,
-				new Star(STARCLASS.REDDWARF)));
-=======
-		Set<Unit> units = new HashSet<Unit>();
-		units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Alpha Wing",
-				Resources.thisPlayer, new Vector2(200, 200)));
-		_temp.add(new SolarSystem(new IntVec2(0, 0), new Player(
-				"KateTheAwesome"), null, units, null, new Star(
-				STARCLASS.REDDWARF)));
->>>>>>> develop
-
-		for (SolarSystem system : _temp) {
-
-			systems.add(new GenericMapTile(400, 300, system));
-		}
-	}
+	// private void getSystemsFromServer() {
+	//
+	// // TODO: Fetch Systems from server.
+	// Set<SolarSystem> _temp = new HashSet<SolarSystem>();
+	// Set<Ship> units = new HashSet<Ship>();
+	// units.add(new Ship(SuperClass.SHIP, ShipType.FIGHTER, "Alpha Wing",
+	// Resources.thisPlayer, new Vector2(200, 200)));
+	// _temp.add(new SolarSystem(new IntVec2(0, 0), new Player(
+	// "KateTheAwesome"), null, units, null, new Star(
+	// STARCLASS.REDDWARF)));
+	// Set<Unit> units = new HashSet<Unit>();
+	// units.add(new Unit(SuperClass.UNIT, ShipType.FIGHTER, "Alpha Wing",
+	// Resources.thisPlayer, new Vector2(200, 200)));
+	// _temp.add(new SolarSystem(new IntVec2(0, 0), new Player(
+	// "KateTheAwesome"), null, units, null, new Star(
+	// STARCLASS.REDDWARF)));
+	//
+	// for (SolarSystem system : _temp) {
+	//
+	// systems.add(new GenericMapTile(400, 300, system));
+	// }
+	// }
 }
