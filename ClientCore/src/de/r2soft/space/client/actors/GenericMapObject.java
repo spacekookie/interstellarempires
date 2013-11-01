@@ -97,13 +97,14 @@ public class GenericMapObject extends Actor {
 	 * Constructor only taking a unit.
 	 * 
 	 * @param unit
-	 *          object to be drawn.
+	 *            object to be drawn.
 	 */
 	public GenericMapObject(Unit unit) {
 		name = unit.getName();
 		shipType = unit.getType();
 		claim = unit.getClaim();
-		allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
+		allegiance = Translator.friendOrFoe(unit.getClaim(),
+				Resources.thisPlayer);
 		System.out.println(unit.getPosition());
 		position = unit.getPosition();
 		superclass = unit.getSuperclass();
@@ -116,14 +117,15 @@ public class GenericMapObject extends Actor {
 	 * Constructor only taking a fleet.
 	 * 
 	 * @param fleet
-	 *          obejct to be drawn.
+	 *            obejct to be drawn.
 	 */
 	public GenericMapObject(Fleet fleet) {
 		name = fleet.getName();
 		claim = fleet.getClaim();
 		fleetSize = fleet.getFleetSize();
 		fleetCount = fleet.getCount();
-		allegiance = Translator.friendOrFoe(fleet.getClaim(), Resources.thisPlayer);
+		allegiance = Translator.friendOrFoe(fleet.getClaim(),
+				Resources.thisPlayer);
 		position = fleet.getPosition();
 		superclass = fleet.getSuperclass();
 		this.fleet = fleet;
@@ -141,7 +143,8 @@ public class GenericMapObject extends Actor {
 		name = structure.getName();
 		claim = structure.getClaim();
 		position = structure.getPosition();
-		allegiance = Translator.friendOrFoe(structure.getClaim(), Resources.thisPlayer);
+		allegiance = Translator.friendOrFoe(structure.getClaim(),
+				Resources.thisPlayer);
 		structureFactory = structure.getFactory();
 		orbit = structure.getOrbit();
 	}
@@ -167,8 +170,8 @@ public class GenericMapObject extends Actor {
 	}
 
 	@Deprecated
-	public GenericMapObject(float x, float y, SuperClass type, String name, Player claim,
-			ALLEGIANCE allegience) {
+	public GenericMapObject(float x, float y, SuperClass type, String name,
+			Player claim, ALLEGIANCE allegience) {
 		this.position.x = x;
 		this.position.y = y;
 		this.name = name;
@@ -184,12 +187,14 @@ public class GenericMapObject extends Actor {
 		if (superclass.equals(SuperClass.UNIT)) {
 			switch (this.shipType) {
 			case FIGHTER:
-				batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y, 0, 0,
-						Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+				batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y,
+						0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1,
+						1, 0);
 				break;
 			case CARGO_SMALL:
-				batch.draw(ResPack.UNITS_CARGO_SMALL, position.x, position.y, 0, 0, Sizes.SIZE_FLEET_TINY,
-						Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+				batch.draw(ResPack.UNITS_CARGO_SMALL, position.x, position.y,
+						0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1,
+						1, 0);
 				break;
 
 			default:
@@ -198,10 +203,14 @@ public class GenericMapObject extends Actor {
 		}
 
 		if (selected) {
-			batch.draw(ResPack.GUI_FRAME_SELECTION, position.x
-					- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), position.y
-					- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), 0, 0,
-					Sizes.SIZE_GUI_SELECTION_BOX_TINY, Sizes.SIZE_GUI_SELECTION_BOX_TINY, 1, 1, 0);
+			batch.draw(
+					ResPack.GUI_FRAME_SELECTION,
+					position.x
+							- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY),
+					position.y
+							- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY),
+					0, 0, Sizes.SIZE_GUI_SELECTION_BOX_TINY,
+					Sizes.SIZE_GUI_SELECTION_BOX_TINY, 1, 1, 0);
 		}
 
 	}
@@ -210,13 +219,13 @@ public class GenericMapObject extends Actor {
 	 * This will register clicks on the corresponding tile actor.
 	 * 
 	 * @param x
-	 *          position of mouse on screen.
+	 *            position of mouse on screen.
 	 * 
 	 * @param y
-	 *          position of mouse on screen.
+	 *            position of mouse on screen.
 	 * 
 	 * @param touchable
-	 *          Whether the actor allows touch events.
+	 *            Whether the actor allows touch events.
 	 * 
 	 * @return null
 	 */
@@ -230,14 +239,14 @@ public class GenericMapObject extends Actor {
 					position.x = x;
 					position.y = y;
 				}
-			}
-			else if (Gdx.input.isTouched(0)) {
-				if (x > this.position.x && x < (this.position.x + Sizes.SIZE_GUI_SELECTION_BOX_TINY)
-						&& y > this.position.y && y < (this.position.y + Sizes.SIZE_GUI_SELECTION_BOX_TINY)) {
+			} else if (Gdx.input.isTouched(0)) {
+				if (x > this.position.x
+						&& x < (this.position.x + Sizes.SIZE_GUI_SELECTION_BOX_TINY)
+						&& y > this.position.y
+						&& y < (this.position.y + Sizes.SIZE_GUI_SELECTION_BOX_TINY)) {
 					selected = true;
 					// setParentSelection("metal");
-				}
-				else {
+				} else {
 					selected = false;
 					// setParentSelection(null);
 				}
