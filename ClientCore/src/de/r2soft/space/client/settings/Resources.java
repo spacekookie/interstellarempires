@@ -20,15 +20,16 @@ package de.r2soft.space.client.settings;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Initializes the settings for the game. Also responsible for setting new Settings.
+ * Initializes the settings for the game. Also responsible for setting new
+ * Settings.
  * 
  * @author: ***REMOVED***
  */
 public class Resources {
 
 	// Trying to be 16:9 here
-	public static int OLD_WIDTH = 1080;
-	public static int OLD_HEIGHT = 600;
+	public static int OLD_WIDTH = 1280;
+	public static int OLD_HEIGHT = 720;
 	public static String SUPERTITLE = "Game Client";
 	public static String VERSION_NUMBER = "Prototype 1.1";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
