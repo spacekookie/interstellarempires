@@ -87,9 +87,9 @@ public class ScreenHandler extends Game {
 		onUpdate();
 
 		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
-			setScreen(new HexMapScreen(this));
+			setScreen(new IntroductionScreen(this));
 		else
-			setScreen(new HexMapScreen(this));
+			setScreen(new LoginScreen(this));
 	}
 
 	@Override

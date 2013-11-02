@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.space.client.a.depr.HexagonScreen;
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
@@ -60,8 +61,10 @@ public class LoginScreen implements Screen {
 		saveUser = new CheckBox("Save username?", ResPack.UI_SKIN);
 
 		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME)) {
-			userField.setText(prefs.getString(Resources.PREFERENCE_SAVED_USER_NAME));
-			saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+			userField.setText(prefs
+					.getString(Resources.PREFERENCE_SAVED_USER_NAME));
+			saveUser.setChecked(prefs
+					.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
 		}
 
 	}
@@ -100,21 +103,25 @@ public class LoginScreen implements Screen {
 		intro.row();
 
 		login.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				scheduleLogin();
 			}
 		});
 
 		exit.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				Gdx.app.exit();
 			}
 		});
@@ -138,12 +145,12 @@ public class LoginScreen implements Screen {
 
 		if (saveUser.isChecked()) {
 			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
-		}
-		else {
+		} else {
 			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
 		}
 
-		saveUser.setChecked(prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+		saveUser.setChecked(prefs
+				.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
 
 		/** What do we do after we're done in the bathroom? :) */
 		prefs.flush();
@@ -161,7 +168,7 @@ public class LoginScreen implements Screen {
 
 		prefs.flush();
 
-		handler.setScreen(new HexagonScreen(handler, name_clear));
+		handler.setScreen(new HexMapScreen(handler, name_clear));
 
 	}
 

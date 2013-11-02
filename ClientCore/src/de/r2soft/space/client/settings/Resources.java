@@ -17,12 +17,7 @@
  ######################################################################### */
 package de.r2soft.space.client.settings;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.sun.tools.javac.util.Pair;
-
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.primitives.IntVec2;
 
 /**
  * Initializes the settings for the game. Also responsible for setting new
@@ -42,7 +37,7 @@ public class Resources {
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_LOGIN = "LOGIN";
-	public static final String SCREENTITLE_SOLAR = "SOLARSYSTEM";
+	public static final String SCREENTITLE_SOLAR = "SOL SYSTEM";
 
 	/** Log sings */
 	public final static String LOG_GLOBAL = "From Client";
@@ -63,24 +58,15 @@ public class Resources {
 	public static final Player _neutralplayer = new Player("_no_owning_player_");
 
 	/** Hexmap formulas */
+	@Deprecated
 	public static final float HEX_START_X = -275f;
+	@Deprecated
 	public static final float HEX_START_Y = -100f;
-
+	@Deprecated
 	public static final float HEX_RADIUS = 64f;
+	@Deprecated
 	public static final float HEX_COORD_X = (1 / 2) * 64f;
+	@Deprecated
 	public static final float HEX_COORD_Y = (float) ((Math.sqrt(3) * 64f) / 2);
-
-	/** Map sizes (for Hexmap and Solar Map) */
-	private static final IntVec2 mapSize = new IntVec2(920, 520);
-
-	/** Screw around on that to position the map! */
-	private static final IntVec2 mapOffset = new IntVec2(0, -250);
-	/**
-	 * First vector holds starting position of map (lower right corner), the
-	 * other holds the actual size
-	 */
-	public static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(
-			new IntVec2(NEW_WIDTH - mapSize.x - mapOffset.x, NEW_HEIGHT
-					- mapSize.y - mapOffset.y), mapSize);
 
 }

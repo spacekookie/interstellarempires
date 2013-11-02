@@ -35,10 +35,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -48,7 +46,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sun.tools.javac.util.Pair;
 
-import de.r2soft.space.client.a.depr.HexagonGroup;
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.io.OrthoCamController;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
@@ -56,7 +53,7 @@ import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
-import de.r2soft.space.framework.map.Map;
+import de.r2soft.space.framework.primitives.IntVec2;
 
 /**
  * Remake of the main menu screen with new camera viewport and UI. Published for
@@ -70,6 +67,7 @@ public class HexMapScreen implements Screen {
 	/** Global scope */
 	private ScreenHandler handler;
 	private InputMultiplexer input;
+	private String playerName;
 
 	/** Hex Map */
 	private TiledMap map;
@@ -82,10 +80,9 @@ public class HexMapScreen implements Screen {
 	/** Scene2D UI */
 	private OrthographicCamera uiCam;
 	private Stage stage;
-	private TextButton settings, quit, logout, profile, refresh;
-	private Table naviRight, naviLeft, centerTop;
+	private TextButton settings, quit, logout, profile, refresh, enterSystem;
+	private Table naviRight, naviLeft, centerTop, systemInfo;
 	private Label title, welcome;
-	private String name;
 	private Dialog profileDialog, areYouSure;
 
 	{
@@ -98,6 +95,12 @@ public class HexMapScreen implements Screen {
 	public HexMapScreen(ScreenHandler handler) {
 		this.handler = handler;
 		this.setTitle();
+	}
+
+	public HexMapScreen(ScreenHandler handler, String playerName) {
+		this.handler = handler;
+		this.setTitle();
+		this.playerName = playerName;
 	}
 
 	/** Sets the Window title */
@@ -113,16 +116,16 @@ public class HexMapScreen implements Screen {
 
 	@Override
 	public void show() {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		stage = new Stage(w, h);
+		float width = Gdx.graphics.getWidth();
+		float hight = Gdx.graphics.getHeight();
+		stage = new Stage(width, hight);
 
 		mapCam = new OrthographicCamera();
-		mapCam.setToOrtho(false, 921, 518);
+		mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
 		mapCam.update();
 
 		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, w, h);
+		uiCam.setToOrtho(false, width, hight);
 		uiCam.update();
 
 		mapCamController = new OrthoCamController(mapCam);
@@ -176,8 +179,8 @@ public class HexMapScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		Gdx.gl.glViewport((Gdx.graphics.getWidth() / 2) - 461,
-				(Gdx.graphics.getHeight() / 2) - 259, 921, 518);
+		Gdx.gl.glViewport(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
+				mapDim.snd.y);
 		mapCam.update();
 		hexRenderer.setView(mapCam);
 		hexRenderer.render();
@@ -187,8 +190,8 @@ public class HexMapScreen implements Screen {
 		uiCam.update();
 
 		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.rect((Gdx.graphics.getWidth() / 2) - 461,
-				(Gdx.graphics.getHeight() / 2) - 259, 921, 518);
+		shapeRenderer.rect(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
+				mapDim.snd.y);
 		shapeRenderer.end();
 
 		stage.act();
@@ -329,15 +332,16 @@ public class HexMapScreen implements Screen {
 		quit = new TextButton("Logout & Quit", ResPack.UI_SKIN);
 		logout = new TextButton("Logout", ResPack.UI_SKIN);
 		refresh = new TextButton("Refresh", ResPack.UI_SKIN);
+		enterSystem = new TextButton("Visit Solar System", ResPack.UI_SKIN);
 
 		/** Initialize Lables */
-		title = new Label("Space Game: Prototype 1.1", ResPack.UI_SKIN);
+		title = new Label("Space Game: Prototype 1.2", ResPack.UI_SKIN);
 		title.setAlignment(Align.center);
 		title.setFontScaleX(1.2f);
 		title.setFontScaleY(1.1f);
 		title.setColor(Color.MAGENTA);
 
-		welcome = new Label("Welcome: " + name, ResPack.UI_SKIN);
+		welcome = new Label("Welcome: " + playerName, ResPack.UI_SKIN);
 		welcome.setAlignment(Align.center);
 
 		/** Initialize right navigation */
@@ -356,37 +360,84 @@ public class HexMapScreen implements Screen {
 		centerTop.center().top();
 		centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
 
+		/** Initialize the solar system info table */
+		systemInfo = new Table();
+		systemInfo.setFillParent(true);
+		systemInfo.center().right();
+		systemInfo.setX(-50);
+		systemInfo.setY(175);
+
 		/** Adding tables to stage */
 		stage.addActor(naviLeft);
 		stage.addActor(naviRight);
 		stage.addActor(centerTop);
+		stage.addActor(systemInfo);
 
 	}
 
 	private void setupLayout() {
 		/** Setting up the right navigation */
+		naviRight.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		naviRight.row();
 
 		/** Setting up the left navigation */
 		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviLeft.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviLeft.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 		/** Setting up the center top label table */
 		centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		centerTop.row();
 		centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
 		centerTop.row();
+
+		/** Setting up the system info table **/
+
+		Label tempLabel1, tempLabel2;
+
+		tempLabel1 = new Label("Solar System", ResPack.UI_SKIN);
+		tempLabel1.setColor(Color.MAGENTA);
+
+		tempLabel2 = new Label("Information", ResPack.UI_SKIN);
+		tempLabel2.setColor(Color.MAGENTA);
+
+		systemInfo.add(tempLabel1);
+		systemInfo.add(tempLabel2);
+		systemInfo.row();
+		systemInfo.add(new Label("Owner: ", ResPack.UI_SKIN));
+		systemInfo.add(new Label("KateTheAwesome", ResPack.UI_SKIN));
+		systemInfo.row();
+		systemInfo.add(new Label("Size: ", ResPack.UI_SKIN));
+		systemInfo.add(new Label("Something", ResPack.UI_SKIN));
+		systemInfo.row();
+		systemInfo.add(new Label("Coordinates: ", ResPack.UI_SKIN));
+		systemInfo.add(new Label("545-101", ResPack.UI_SKIN));
+		systemInfo.row();
+		systemInfo.add(new Label("Units: ", ResPack.UI_SKIN));
+		systemInfo.add(new Label("42", ResPack.UI_SKIN));
+		systemInfo.row();
+		systemInfo.add(new Label("Exploration: ", ResPack.UI_SKIN));
+		systemInfo.add(new Label("100%", ResPack.UI_SKIN));
+		systemInfo.row();
+		systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT)
+				.colspan(2);
+		systemInfo.row();
+
 	}
 
-	private static class Dimensions {
-		static Vector2 totalWindow = new Vector2(Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		static Pair<Vector2, Vector2> mapDim = new Pair<Vector2, Vector2>(
-				new Vector2(totalWindow.x / 2, totalWindow.y / 2), new Vector2(
-						0, 0));
-	}
+	/** Map sizes (for Hexmap and Solar Map) */
+	private static final IntVec2 mapSize = new IntVec2(900, 600);
 
+	/** Screw around on that to position the map! */
+	private static final IntVec2 mapOffset = new IntVec2(150, 25);
+	/**
+	 * First vector holds starting position of map (lower right corner), the
+	 * other holds the actual size
+	 */
+	private static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(
+			new IntVec2(((Gdx.graphics.getWidth() / 2) - mapSize.x / 2)
+					- mapOffset.x,
+					((Gdx.graphics.getHeight() / 2) - mapSize.y / 2)
+							- mapOffset.y), mapSize);
 }
