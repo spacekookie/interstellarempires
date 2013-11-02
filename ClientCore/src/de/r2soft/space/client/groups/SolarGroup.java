@@ -30,6 +30,12 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 
+/**
+ * REPLACE WITH SOLAR RENDERER!
+ * 
+ * @author Katharina
+ * 
+ */
 public class SolarGroup extends Group {
 
 	/** Rendering */

@@ -27,15 +27,17 @@ import de.r2soft.space.framework.players.Player;
  */
 public class Resources {
 
-	// Trying to be 16:9 here
+	/** Just going with 720p game resolution here */
 	public static int OLD_WIDTH = 1280;
 	public static int OLD_HEIGHT = 720;
+	public static int NEW_WIDTH = OLD_WIDTH;
+	public static int NEW_HEIGHT = OLD_HEIGHT;
 	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.1";
+	public static String VERSION_NUMBER = "Prototype 1.2";
 	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
 	public static final String SCREENTITLE_HOME = "HOME";
 	public static final String SCREENTITLE_LOGIN = "LOGIN";
-	public static final String SCREENTITLE_SOLAR = "SOLARSYSTEM";
+	public static final String SCREENTITLE_SOLAR = "SOL SYSTEM";
 
 	/** Log sings */
 	public final static String LOG_GLOBAL = "From Client";
@@ -56,11 +58,15 @@ public class Resources {
 	public static final Player _neutralplayer = new Player("_no_owning_player_");
 
 	/** Hexmap formulas */
+	@Deprecated
 	public static final float HEX_START_X = -275f;
+	@Deprecated
 	public static final float HEX_START_Y = -100f;
-
+	@Deprecated
 	public static final float HEX_RADIUS = 64f;
+	@Deprecated
 	public static final float HEX_COORD_X = (1 / 2) * 64f;
+	@Deprecated
 	public static final float HEX_COORD_Y = (float) ((Math.sqrt(3) * 64f) / 2);
 
 }

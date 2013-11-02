@@ -30,7 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.screens.gameplay.HexagonScreen;
+import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
@@ -55,7 +55,8 @@ public class SettingsScreen implements Screen {
 
 	public SettingsScreen(ScreenHandler handler) {
 		this.handler = handler;
-		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER + " - "
+		Gdx.graphics.setTitle(Resources.SUPERTITLE + " - "
+				+ Resources.VERSION_NUMBER + " - "
 				+ Resources.SCREENTITLE_SETTINGS);
 		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
 
@@ -63,10 +64,12 @@ public class SettingsScreen implements Screen {
 		playMusic = new CheckBox("Play background music", ResPack.UI_SKIN);
 
 		if (prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
-			skipIntro.setChecked(prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
+			skipIntro.setChecked(prefs
+					.getBoolean(Resources.PREFERENCE_SKIP_INTRO));
 
 		if (prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
-			playMusic.setChecked(prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC));
+			playMusic.setChecked(prefs
+					.getBoolean(Resources.PREFERENCE_PLAY_MUSIC));
 	}
 
 	@Override
@@ -79,15 +82,13 @@ public class SettingsScreen implements Screen {
 
 		if (skipIntro.isChecked()) {
 			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, true);
-		}
-		else {
+		} else {
 			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, false);
 		}
 
 		if (playMusic.isChecked()) {
 			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, true);
-		}
-		else {
+		} else {
 			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, false);
 		}
 
@@ -119,16 +120,18 @@ public class SettingsScreen implements Screen {
 
 		navigation.top().right();
 
-		stage.addActor(button);
+		stage.addActor(navigation);
 
 		button.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				handler.onUpdate();
-				handler.setScreen(new HexagonScreen(handler, prefs
+				handler.setScreen(new HexMapScreen(handler, prefs
 						.getString(Resources.PREFERENCE_SAVED_USER_NAME)));
 			}
 		});
@@ -151,16 +154,21 @@ public class SettingsScreen implements Screen {
 		credits.bottom().left();
 		credits.add(new Label("Credits", ResPack.UI_SKIN)).colspan(2).center();
 		credits.row();
-		credits.add(new Label("Leander Sabel", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Leander Sabel", ResPack.UI_SKIN)).left()
+				.width(150);
 		credits.add(new Label("Coding", ResPack.UI_SKIN)).left();
 		credits.row();
-		credits.add(new Label("Katharina Fey", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Katharina Fey", ResPack.UI_SKIN)).left()
+				.width(150);
 		credits.add(new Label("Coding & Graphics", ResPack.UI_SKIN)).left();
 		credits.row();
-		credits.add(new Label("Steve Teufel", ResPack.UI_SKIN)).left().width(150);
+		credits.add(new Label("Steve Teufel", ResPack.UI_SKIN)).left()
+				.width(150);
 		credits.add(new Label("Sounds & Music", ResPack.UI_SKIN)).left();
 		credits.row();
-		credits.add(new Label("(c)2013 Random Robot Softworks", ResPack.UI_SKIN)).colspan(2).left();
+		credits.add(
+				new Label("(c)2013 Random Robot Softworks", ResPack.UI_SKIN))
+				.colspan(2).left();
 		credits.row();
 		stage.addActor(credits);
 
