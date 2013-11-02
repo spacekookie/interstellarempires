@@ -23,7 +23,6 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -40,10 +39,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.animators.IntroAnimator;
 import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.util.ResPack;
 
 /**
  * 
- * Intro screen to display studio, game and other animations and credits. Can be skipped easily by directly calling
+ * Intro screen to display studio, game and other animations and credits. Can be
+ * skipped easily by directly calling
  * 
  * @tweenCompleted()
  * 
@@ -59,7 +60,6 @@ public class IntroductionScreen implements Screen {
 	private TweenManager man;
 	private TweenCallback tc;
 
-	private Skin skin;
 	private Stage stage;
 
 	public IntroductionScreen(ScreenHandler handler) {
@@ -79,13 +79,15 @@ public class IntroductionScreen implements Screen {
 		stage.addActor(backToIntro);
 		backToIntro.setFillParent(true);
 
-		TextButton backham = new TextButton("SKIP THIS INTRO", skin);
+		TextButton backham = new TextButton("SKIP THIS INTRO", ResPack.UI_SKIN);
 		backham.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				tweenCompleted();
 			}
 		});
@@ -98,14 +100,16 @@ public class IntroductionScreen implements Screen {
 
 	@Override
 	public void show() {
-		skin = new Skin(Gdx.files.internal("assets/gui/skins/defaults/uiskin.json"));
-		splashTitle = new Texture("assets/gui/title_graphics/prot-splash-title.png");
+		splashTitle = new Texture(
+				"assets/gui/title_graphics/prot-splash-title.png");
 		splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		splashSprite = new Sprite(splashTitle);
 		splashSprite.setColor(1, 1, 1, 0);
-		splashSprite.setX(Gdx.graphics.getWidth() / 2 - (splashSprite.getWidth() / 2));
-		splashSprite.setY(Gdx.graphics.getHeight() / 2 - (splashSprite.getHeight() / 2));
+		splashSprite.setX(Gdx.graphics.getWidth() / 2
+				- (splashSprite.getWidth() / 2));
+		splashSprite.setY(Gdx.graphics.getHeight() / 2
+				- (splashSprite.getHeight() / 2));
 
 		batch = new SpriteBatch();
 
@@ -124,8 +128,10 @@ public class IntroductionScreen implements Screen {
 			}
 		};
 
-		Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
-				.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
+		Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1)
+				.ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
+				.setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE)
+				.start(man);
 
 	}
 

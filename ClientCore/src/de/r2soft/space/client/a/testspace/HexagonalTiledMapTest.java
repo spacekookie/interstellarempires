@@ -1,4 +1,4 @@
-package de.r2soft.space.client.testspace;
+package de.r2soft.space.client.a.testspace;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+
+import de.r2soft.space.client.io.OrthoCamController;
 
 public class HexagonalTiledMapTest extends GdxTest {
 	TiledMap map;
@@ -70,9 +72,6 @@ public class HexagonalTiledMapTest extends GdxTest {
 		renderer.setView(camera);
 		renderer.render();
 
-		if (Gdx.input.isButtonPressed(Keys.PLUS)) {
-			camera.translate(0, 5, 0);
-		}
 	}
 
 	@Override
