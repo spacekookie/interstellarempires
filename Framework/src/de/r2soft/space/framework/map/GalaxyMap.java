@@ -23,6 +23,10 @@ import java.util.Set;
 
 import de.r2soft.space.framework.types.IntVec2;
 
+/**
+ * The public galaxymap that holds all "public" instances of data. Solarsystems
+ * with their planets, asteroid belts, etc.
+ */
 public class GalaxyMap {
 
 	private IntVec2 size;
@@ -69,7 +73,14 @@ public class GalaxyMap {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
-	
+
+	/** Gets a specific solar system with an id */
+	public SolarSystem getSystemById(IntVec2 id) {
+		for (SolarSystem system : systems) {
+			if (id.equals(system.getId()))
+				return system;
+		}
+		return null;
+	}
 
 }
