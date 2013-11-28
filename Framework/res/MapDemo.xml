@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map:Description xmlns:map="http://www.2rSoftworks.de/map"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.2rSoftworks.de/map MapSchema.xsd " >
+    xsi:schemaLocation="http://www.2rSoftworks.de/map/MapSchema.xsd " >
 
     <map:Size
         Height="1"
@@ -11,7 +11,8 @@
 
         <map:SolarSystem
             Name="DemoSystem1"
-            Type="Blue" >
+            Owner="KateTheAwesome"
+            Type="REDDWARF" >
 
             <map:Position
                 PosX="1"
@@ -29,7 +30,8 @@
 
         <map:SolarSystem
             Name="DemoSystem2"
-            Type="Blue" >
+            Owner="DarkEagle"
+            Type="YELLOWDWARF" >
 
             <map:Position
                 PosX="1"
