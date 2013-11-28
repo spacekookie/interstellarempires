@@ -20,11 +20,25 @@ package de.r2soft.space.framework.objects;
 public class Star extends GameObject {
 
 	/**
-	 * Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy,
-	 * it'll just become fat.
+	 * Holds all possible star types for the ENTIRE game to use. No pressure.
+	 * Don't add more candy, it'll just become fat.
 	 */
 	public enum STARCLASS {
-		BROWNDWARF, REDDWARF, WHITEDWARF, REDGIANT, BLUEGIANT, NEUTRON, BLACKHOLE, GIANTSPACEPUDDING;
+		BROWNDWARF("Brown"), REDDWARF("SmallRed"), YELLOWDWARF("SmallYellow"), WHITEDWARF(
+				"White"), REDGIANT("BigRed"), BLUEGIANT("BigBlue"), NEUTRON(
+				"Neutron"), BLACKHOLE("Black"), GIANTSPACEPUDDING("Nom");
+
+		private final String alias;
+
+		private STARCLASS(final String alias) {
+			this.alias = alias;
+		}
+
+		@Override
+		public String toString() {
+			return alias;
+		}
+
 	}
 
 	private STARCLASS classification;
@@ -33,7 +47,7 @@ public class Star extends GameObject {
 	 * master constructor to create a star with its type
 	 * 
 	 * @param type
-	 *          The Type of the star
+	 *            The Type of the star
 	 */
 	public Star(STARCLASS classification) {
 		this.classification = classification;
@@ -41,7 +55,7 @@ public class Star extends GameObject {
 
 	/**
 	 * @param type
-	 *          The type of star we're dealing with here
+	 *            The type of star we're dealing with here
 	 */
 	public void setClassification(STARCLASS classification) {
 		this.classification = classification;

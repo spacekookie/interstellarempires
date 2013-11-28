@@ -28,12 +28,13 @@ import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * Object holding solar-system information.
  * 
- * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable inside.
+ * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable
+ * inside.
  * 
  * @author ***REMOVED***
  * 
@@ -56,10 +57,11 @@ public class SolarSystem {
 	}
 
 	/**
-	 * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative = negative)
+	 * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative =
+	 * negative)
 	 * 
 	 * @param id
-	 *          system id on map.
+	 *            system id on map.
 	 */
 	public void setId(IntVec2 id) {
 		this.id = id;
@@ -78,22 +80,22 @@ public class SolarSystem {
 	 * Master constructor for a solar system. Used by server.
 	 * 
 	 * @param id
-	 *          the 2d id of the solar system on the map. Center is at (0,0)
+	 *            the 2d id of the solar system on the map. Center is at (0,0)
 	 * @param claimed
-	 *          the player having claim to the solar system if exists. Else @null
+	 *            the player having claim to the solar system if exists. Else @null
 	 * @param planets
-	 *          The set of planets in that solar system
+	 *            The set of planets in that solar system
 	 * @param units
-	 *          the set of units in that solar system
+	 *            the set of units in that solar system
 	 * @param structures
-	 *          the set of structures in that solar system
+	 *            the set of structures in that solar system
 	 * @param star
-	 *          the solar systems star
+	 *            the solar systems star
 	 * @param radius
-	 *          the radius of the solar system
+	 *            the radius of the solar system
 	 */
-	public SolarSystem(IntVec2 id, Player claimed, Set<Planet> planets, Set<Ship> units,
-			Set<Structure> structures, Star star) {
+	public SolarSystem(IntVec2 id, Player claimed, Set<Planet> planets,
+			Set<Ship> units, Set<Structure> structures, Star star) {
 		this.id = id;
 		this.claimed = claimed;
 		this.planets = planets;
@@ -103,7 +105,8 @@ public class SolarSystem {
 		if (star != null)
 			this.radius = createRadius(star.getClassification());
 		else
-			System.out.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
+			System.out
+					.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
 	}
 
 	private float createRadius(STARCLASS type) {
@@ -148,7 +151,7 @@ public class SolarSystem {
 	 * Sets the radius.
 	 * 
 	 * @param systemSizeBlueGiant
-	 *          the systems radius for rendering and calculations.
+	 *            the systems radius for rendering and calculations.
 	 */
 	public void setRadius(float systemSizeBlueGiant) {
 		this.radius = systemSizeBlueGiant;
@@ -161,7 +164,7 @@ public class SolarSystem {
 
 	/**
 	 * @param s
-	 *          the systems star.
+	 *            the systems star.
 	 */
 	public void setStar(Star s) {
 		this.star = s;
@@ -176,7 +179,7 @@ public class SolarSystem {
 	 * Sets the owning player of a system.
 	 * 
 	 * @param p
-	 *          the owning player. @Null if system is neutral.
+	 *            the owning player. @Null if system is neutral.
 	 */
 	public void setClaim(Player p) {
 		this.claimed = p;
@@ -186,7 +189,7 @@ public class SolarSystem {
 	 * To add an entire set of units into the solar system
 	 * 
 	 * @param units
-	 *          set of units
+	 *            set of units
 	 */
 	public void addUnits(Set<Ship> units) {
 		this.units = units;
@@ -230,6 +233,14 @@ public class SolarSystem {
 	/** Set true if player has had ships in it */
 	public void setExplored(boolean explored, Player player) {
 		this.explored = explored;
+	}
+
+	public Set<Planet> getPlanets() {
+		return planets;
+	}
+
+	public void setPlanets(Set<Planet> planets) {
+		this.planets = planets;
 	}
 
 }

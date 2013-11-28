@@ -32,7 +32,7 @@ import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject;
 import de.r2soft.space.framework.objects.PlayerObject;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 import de.r2soft.space.server.ws.interfaces.ConnectionService;
 import de.r2soft.space.server.ws.interfaces.GameObjectService;
 import de.r2soft.space.server.ws.interfaces.MapService;
