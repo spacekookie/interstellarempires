@@ -36,12 +36,11 @@ public class MapParser {
 	private GalaxyMap map;
 
 	public MapParser() {
-		map = new GalaxyMap();
 	}
 
 	public void readXML(Element root) {
 		HashSet<Planet> planetary = new HashSet<Planet>();
-
+		map = new GalaxyMap();
 		Element solarSystems = root.element("SolarSystems");
 
 		for (Iterator<Element> s = solarSystems.elementIterator(); s.hasNext();) {
@@ -69,11 +68,13 @@ public class MapParser {
 
 			}
 			temp.setPlanets(planetary);
-			this.map.addSystem(temp);
+			map.addSystem(temp);
 		}
 
-		this.map.setVersion(0);
-		this.map.setSize(new IntVec2(1, 2));
+		map.setVersion(0);
+		map.setSize(new IntVec2(1, 2));
+		System.out.println(map.getSystemById(new IntVec2(1, 2)).getClaim()
+				.getName());
 	}
 
 	public GalaxyMap getGalaxyMap() {
