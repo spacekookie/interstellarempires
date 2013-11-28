@@ -33,6 +33,18 @@ public class ResPack {
 
 	// Textures
 
+	/** NEW HEX TILES */
+	private static final TextureAtlas atlas = new TextureAtlas(
+			Gdx.files.internal("assets/map/v2/v2hexmap.atlas"));
+	public static final TextureRegion TILES_BLUE = atlas
+			.findRegion("hextile_blue");
+	public static final TextureRegion TILES_GREEN = atlas
+			.findRegion("hextile_green");
+	public static final TextureRegion TILES_RED = atlas
+			.findRegion("hextile_red");
+	public static final TextureRegion TILES_WHITE = atlas
+			.findRegion("hextile_white");
+
 	/** Atlas imports */
 	private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(
 			Gdx.files.internal("assets/map/prot-map-tiles.pack"));
