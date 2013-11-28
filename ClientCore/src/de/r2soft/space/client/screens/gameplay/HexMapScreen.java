@@ -25,7 +25,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapLayers;
@@ -82,7 +81,7 @@ public class HexMapScreen implements Screen {
 	private Stage stage;
 	private TextButton settings, quit, logout, profile, refresh, enterSystem;
 	private Table naviRight, naviLeft, centerTop, systemInfo;
-	private Label title, welcome;
+	private Label title, welcome, systemSelector;
 	private Dialog profileDialog, areYouSure;
 
 	{
@@ -134,21 +133,27 @@ public class HexMapScreen implements Screen {
 
 		Gdx.input.setInputProcessor(input);
 
-		hexture = new Texture(Gdx.files.internal("assets/hexes.png"));
-		TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
+		// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
+		// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
 		map = new TiledMap();
 		MapLayers layers = map.getLayers();
-		TiledMapTile[] tiles = new TiledMapTile[3];
-		tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
-		tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
-		tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
+		TiledMapTile[] tiles = new TiledMapTile[4];
+		// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
+		// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
+		// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
+
+		tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
+		tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
+		tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
+		tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
 
 		for (int l = 0; l < 1; l++) {
 			TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
 			for (int y = 0; y < 30; y++) {
 				for (int x = 0; x < 45; x++) {
-					int id = (int) (Math.random() * 3);
+					int id = (int) (Math.random() * 4);
 					Cell cell = new Cell();
+
 					cell.setTile((TiledMapTile) tiles[id]);
 					layer.setCell(x, y, cell);
 				}
@@ -319,6 +324,7 @@ public class HexMapScreen implements Screen {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 
+				// TODO: Request logout from server
 				handler.setScreen(new LoginScreen(handler));
 			}
 		});
@@ -383,8 +389,8 @@ public class HexMapScreen implements Screen {
 		naviRight.row();
 
 		/** Setting up the left navigation */
-		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		naviLeft.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 		/** Setting up the center top label table */
 		centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
@@ -423,6 +429,21 @@ public class HexMapScreen implements Screen {
 		systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT)
 				.colspan(2);
 		systemInfo.row();
+
+		// TODO: Make this pretty!
+		setupInfoLabelBottom();
+
+	}
+
+	@Deprecated
+	/** Hovering display for mouse on map */
+	private void setupInfoLabelBottom() {
+		Table selectorTable = new Table();
+		systemSelector = new Label("Currently selected Solar System: "
+				+ "545-101: KateTheAwesome: Red Giant", ResPack.UI_SKIN);
+		selectorTable.setPosition(mapDim.fst.x + 255, mapDim.fst.y - 10);
+		selectorTable.add(systemSelector);
+		stage.addActor(selectorTable);
 
 	}
 

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.types;
+package de.r2soft.space.client.a.depr;
 
 /**
  * This will be used by the client to determine how to colour code items on maps for the player.
