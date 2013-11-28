@@ -18,31 +18,65 @@
 
 package de.r2soft.space.framework.map;
 
-import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.XmlReader;
-import com.badlogic.gdx.utils.XmlReader.Element;
+import org.dom4j.Element;
+
+import de.r2soft.space.framework.objects.GameObject.SuperClass;
+import de.r2soft.space.framework.objects.Planet;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Star.STARCLASS;
+import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.types.IntVec2;
 
 /** Reads a map .XML file and returns the data in form of pretty HashSets */
 public class MapParser {
 
-	public void readXML(int path) {
-		try {
-			Element root = new XmlReader().parse(Gdx.files
-					.internal("/assets/sprite.xml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private GalaxyMap map;
 
+	public MapParser() {
+		map = new GalaxyMap();
 	}
 
-	public static GalaxyMap readXML(Element root) {
-		GalaxyMap map = new GalaxyMap();
+	public void readXML(Element root) {
+		HashSet<Planet> planetary = new HashSet<Planet>();
 
-		System.out.println(root.getIntAttribute("Height"));
+		Element solarSystems = root.element("SolarSystems");
 
+		for (Iterator<Element> s = solarSystems.elementIterator(); s.hasNext();) {
+			Element solarSystem = s.next();
+
+			SolarSystem temp = new SolarSystem();
+
+			Element position = solarSystem.element("Position");
+
+			temp.setId(new IntVec2(Integer.parseInt(position.attribute("PosX")
+					.getText()), Integer.parseInt(position.attribute("PosY")
+					.getText())));
+
+			temp.setClaim(new Player(solarSystem.attribute("Owner").getText()));
+			temp.setStar(new Star(STARCLASS.valueOf(solarSystem.attribute(
+					"Type").getText())));
+
+			Element planets = solarSystem.element("Planets");
+
+			for (Iterator<Element> p = planets.elementIterator(); p.hasNext();) {
+				Element planet = p.next();
+				planetary.add(new Planet(SuperClass.PLANET, Float
+						.parseFloat(planet.attribute("Distance").getValue()),
+						Float.parseFloat(planet.attribute("Size").getValue())));
+
+			}
+			temp.setPlanets(planetary);
+			this.map.addSystem(temp);
+		}
+
+		this.map.setVersion(0);
+		this.map.setSize(new IntVec2(1, 2));
+	}
+
+	public GalaxyMap getGalaxyMap() {
 		return map;
-
 	}
 }

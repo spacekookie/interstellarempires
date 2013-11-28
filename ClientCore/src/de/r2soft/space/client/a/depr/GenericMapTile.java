@@ -30,7 +30,7 @@ import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 @Deprecated
 public class GenericMapTile extends Actor {

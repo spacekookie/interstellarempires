@@ -27,7 +27,7 @@ import de.r2soft.space.framework.map.Map;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject;
 import de.r2soft.space.framework.objects.PlayerObject;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 import de.r2soft.space.server.ws.interfaces.GameObjectService;
 
 @WebService(serviceName = "GameObjectService", endpointInterface = "de.r2soft.space.server.ws.interfaces.GameObjectService", targetNamespace = "http://2rSoftworks.de/")

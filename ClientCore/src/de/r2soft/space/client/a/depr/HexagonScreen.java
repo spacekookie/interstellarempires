@@ -52,7 +52,7 @@ import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * New implementation for Prototype 1.2 of the HexMap screen. Uses Groups instead of Actors. Until

@@ -18,7 +18,9 @@
 
 package de.r2soft.space.client.screens.gameplay;
 
-import java.io.IOException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -45,8 +47,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.XmlReader;
-import com.badlogic.gdx.utils.XmlReader.Element;
 import com.sun.tools.javac.util.Pair;
 
 import de.r2soft.space.client.core.ScreenHandler;
@@ -56,8 +56,10 @@ import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.MapParser;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published
@@ -98,20 +100,31 @@ public class HexMapScreen implements Screen {
 	public HexMapScreen(ScreenHandler handler) {
 		this.handler = handler;
 		this.setTitle();
-
+		this.fetchGalaxyMap();
 	}
+
+	GalaxyMap galaxyMap;
 
 	public HexMapScreen(ScreenHandler handler, String playerName) {
 		this.handler = handler;
 		this.setTitle();
 		this.playerName = playerName;
 
+		this.fetchGalaxyMap();
+	}
+
+	private void fetchGalaxyMap() {
+		SAXReader reader = new SAXReader();
+		MapParser parser = new MapParser();
+		Document doc;
 		try {
-			MapParser.readXML(new XmlReader().parse((Gdx.files
-					.internal("assets/map.xml"))));
-		} catch (IOException e) {
+			doc = reader
+					.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
+			parser.readXML(doc.getRootElement());
+		} catch (DocumentException e) {
 			e.printStackTrace();
-			return;
+		} finally {
+			galaxyMap = parser.getGalaxyMap();
 		}
 	}
 
