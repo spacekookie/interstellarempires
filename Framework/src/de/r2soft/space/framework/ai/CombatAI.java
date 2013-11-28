@@ -40,10 +40,13 @@ public class CombatAI extends BasicAI {
 		this.parent = parent;
 	}
 
-	/** Will be called for each combat turn determining what optimal target should be picked. */
+	/**
+	 * Will be called for each combat turn determining what optimal target
+	 * should be picked.
+	 */
 	public Ship onCombat(Set<Ship> targets) {
 		aimID = parent.getAimCombatId();
-		long min = aimID; // artibrarily set something here
+		long min = aimID; // arbitrarily set something here
 		int minindex = 0;
 
 		Vector<Long> targetIDs = new Vector<Long>();
