@@ -21,12 +21,13 @@ package de.r2soft.space.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 public class GalaxyMap {
 
 	private IntVec2 size;
 	private Set<SolarSystem> systems;
+	private int version;
 
 	public GalaxyMap() {
 		size = new IntVec2();
@@ -60,5 +61,15 @@ public class GalaxyMap {
 	public void setSystems(Set<SolarSystem> systems) {
 		this.systems = systems;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	
 
 }
