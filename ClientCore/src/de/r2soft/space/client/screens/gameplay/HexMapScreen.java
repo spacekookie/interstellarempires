@@ -18,6 +18,8 @@
 
 package de.r2soft.space.client.screens.gameplay;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -43,6 +45,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlReader.Element;
 import com.sun.tools.javac.util.Pair;
 
 import de.r2soft.space.client.core.ScreenHandler;
@@ -52,11 +56,12 @@ import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.framework.map.MapParser;
 import de.r2soft.space.framework.primitives.IntVec2;
 
 /**
- * Remake of the main menu screen with new camera viewport and UI. Published for
- * Prototype version 1.2
+ * Re-Make of the main menu screen with new camera view port and UI. Published
+ * for Prototype version 1.2
  * 
  * @author Katharina
  * 
@@ -65,7 +70,7 @@ public class HexMapScreen implements Screen {
 
 	/** Global scope */
 	private ScreenHandler handler;
-	private InputMultiplexer input;
+	private InputMultiplexer multiplexer;
 	private String playerName;
 
 	/** Hex Map */
@@ -86,20 +91,28 @@ public class HexMapScreen implements Screen {
 
 	{
 
-		input = new InputMultiplexer();
+		multiplexer = new InputMultiplexer();
 		shapeRenderer = new ShapeRenderer();
-
 	}
 
 	public HexMapScreen(ScreenHandler handler) {
 		this.handler = handler;
 		this.setTitle();
+
 	}
 
 	public HexMapScreen(ScreenHandler handler, String playerName) {
 		this.handler = handler;
 		this.setTitle();
 		this.playerName = playerName;
+
+		try {
+			MapParser.readXML(new XmlReader().parse((Gdx.files
+					.internal("assets/map.xml"))));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/** Sets the Window title */
@@ -112,6 +125,12 @@ public class HexMapScreen implements Screen {
 		s.append(Resources.SCREENTITLE_HOME);
 		Gdx.graphics.setTitle(s.toString());
 	}
+
+	// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
+	// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
+	// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
+	// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
+	// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
 
 	@Override
 	public void show() {
@@ -128,19 +147,14 @@ public class HexMapScreen implements Screen {
 		uiCam.update();
 
 		mapCamController = new OrthoCamController(mapCam);
-		input.addProcessor(stage);
-		input.addProcessor(mapCamController);
+		multiplexer.addProcessor(stage);
+		multiplexer.addProcessor(mapCamController);
 
-		Gdx.input.setInputProcessor(input);
+		Gdx.input.setInputProcessor(multiplexer);
 
-		// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
-		// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
 		map = new TiledMap();
 		MapLayers layers = map.getLayers();
 		TiledMapTile[] tiles = new TiledMapTile[4];
-		// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
-		// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
-		// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
 
 		tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
 		tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
@@ -149,8 +163,8 @@ public class HexMapScreen implements Screen {
 
 		for (int l = 0; l < 1; l++) {
 			TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-			for (int y = 0; y < 30; y++) {
-				for (int x = 0; x < 45; x++) {
+			for (int y = 0; y < 2; y++) {
+				for (int x = 0; x < 2; x++) {
 					int id = (int) (Math.random() * 4);
 					Cell cell = new Cell();
 
