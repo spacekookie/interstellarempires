@@ -76,6 +76,7 @@ public class HexMapScreen implements Screen {
 	private String playerName;
 
 	/** Hex Map */
+	private GalaxyMap galaxyMap;
 	private TiledMap map;
 	private OrthographicCamera mapCam;
 	private ShapeRenderer shapeRenderer;
@@ -103,8 +104,6 @@ public class HexMapScreen implements Screen {
 		this.fetchGalaxyMap();
 	}
 
-	GalaxyMap galaxyMap;
-
 	public HexMapScreen(ScreenHandler handler, String playerName) {
 		this.handler = handler;
 		this.setTitle();
@@ -122,10 +121,9 @@ public class HexMapScreen implements Screen {
 					.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
 			parser.readXML(doc.getRootElement());
 		} catch (DocumentException e) {
-			e.printStackTrace();
-		} finally {
-			galaxyMap = parser.getGalaxyMap();
+			return;
 		}
+		galaxyMap = parser.getGalaxyMap();
 	}
 
 	/** Sets the Window title */
@@ -174,19 +172,41 @@ public class HexMapScreen implements Screen {
 		tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
 		tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
 
-		for (int l = 0; l < 1; l++) {
-			TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-			for (int y = 0; y < 2; y++) {
-				for (int x = 0; x < 2; x++) {
-					int id = (int) (Math.random() * 4);
-					Cell cell = new Cell();
+		TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
+		for (int msx = 0; msx < galaxyMap.getSize().x; msx++) {
+			for (int msy = 0; msy < galaxyMap.getSize().y; msy++) {
+				Cell cell = new Cell();
 
-					cell.setTile((TiledMapTile) tiles[id]);
-					layer.setCell(x, y, cell);
-				}
+				SolarSystem temp = galaxyMap
+						.getSystemById(new IntVec2(msx, msy));
+				if (temp != null)
+					System.out.println(temp);
+
+				// if (temp.getClaim().equals(Resources.thisPlayer))
+				// cell.setTile(tiles[1]);
+				// else if (temp.getClaim().equals(Resources._neutralplayer))
+				// cell.setTile(tiles[3]);
+				// else
+				cell.setTile(tiles[2]);
+
+				layer.setCell(msx, msy, cell);
 			}
-			layers.add(layer);
 		}
+		layers.add(layer);
+
+		// for (int l = 0; l < 1; l++) {
+		// TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
+		// for (int y = 0; y < 2; y++) {
+		// for (int x = 0; x < 2; x++) {
+		// int id = (int) (Math.random() * 4);
+		// Cell cell = new Cell();
+		//
+		// cell.setTile((TiledMapTile) tiles[id]);
+		// layer.setCell(x, y, cell);
+		// }
+		// }
+		// layers.add(layer);
+		// }
 
 		hexRenderer = new HexagonalTiledMapRenderer(map);
 
