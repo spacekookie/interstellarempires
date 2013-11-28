@@ -15,53 +15,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+
 package de.r2soft.space.client.types;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapRenderer;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.Disposable;
+
 /**
- * This will be used by the client to determine how to colour code items on maps for the player.
- * Moved to
- * 
- * @Framework.Player.Alliance
+ * A custom renderer that renders a solar system with a star in the middle and
+ * planets orbiting on circular planes around the star.
  * 
  * @author Katharina
  * 
  */
-@Deprecated
-public class Ally {
+public class SolSystemRenderer implements MapRenderer, Disposable {
 
-	private enum alliance {
-		PLAYER, NEUTRAL, HOSTILE, FRIENDLY, UNKNOWN;
+	@Override
+	public void dispose() {
+
 	}
 
-	private alliance a;
+	@Override
+	public void setView(OrthographicCamera camera) {
 
-	/**
-	 * Will set the enum to @UNKNOWN which might occur in strange cases where the player has been sent
-	 * data by the server that he/she
-	 * wasn't supposed to get.
-	 */
-	public Ally() {
-		a = alliance.UNKNOWN;
 	}
 
-	public void setFriendly() {
-		a = alliance.FRIENDLY;
+	@Override
+	public void setView(Matrix4 projectionMatrix, float viewboundsX,
+			float viewboundsY, float viewboundsWidth, float viewboundsHeight) {
+
 	}
 
-	public void setHostile() {
-		a = alliance.HOSTILE;
+	@Override
+	public void render() {
+
 	}
 
-	public void setNeutral() {
-		a = alliance.NEUTRAL;
-	}
+	@Override
+	public void render(int[] layers) {
 
-	public void setPlayer() {
-		a = alliance.PLAYER;
-	}
-
-	public alliance getAlliance() {
-		return a;
 	}
 
 }
