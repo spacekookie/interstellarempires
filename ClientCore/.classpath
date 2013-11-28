@@ -9,11 +9,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/libgdx/gdx-backend-gwt.jar"/>
 	<classpathentry kind="lib" path="libs/libgdx/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="libs/libgdx/gdx-backend-lwjgl.jar"/>
 	<classpathentry kind="lib" path="libs/libgdx/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="libs/libgdx/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="libs/tweens/tween-engine-api.jar"/>
 	<classpathentry kind="lib" path="/Framework/lib/gdx.jar"/>
+	<classpathentry kind="lib" path="libs/tweens/tween-engine-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
