@@ -19,11 +19,11 @@ package de.r2soft.space.framework.map;
 
 import java.util.Set;
 
+import net.sf.javaml.core.kdtree.KDTree;
+
 import com.google.common.collect.Sets;
 
 import de.r2soft.space.framework.objects.GameObject;
-
-import net.sf.javaml.core.kdtree.KDTree;
 
 public class Map {
 
@@ -40,5 +40,4 @@ public class Map {
 		GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
 		return Sets.newHashSet(obj);
 	}
-
 }
