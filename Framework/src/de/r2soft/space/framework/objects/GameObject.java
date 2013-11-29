@@ -22,71 +22,71 @@ import com.badlogic.gdx.math.Vector2;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
 /**
- * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed
- * for rendering purposes. The client will crash if an object doesn't have it set to something!
+ * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed for rendering purposes. The client will
+ * crash if an object doesn't have it set to something!
  * 
  * @author Katharina
  * 
  */
 public abstract class GameObject {
 
-	/** Any object has a size */
-	private float size;
-	/** Any object has a position */
-	private Vector2 position;
-	/** Any object can orbit around another object */
-	private GameObject orbit;
-	/** YOUR COMPUTER WILL CRASH AND BURN IF THIS I NOT SET */
-	private SuperClass superclass;
-	/** Anything object in the game can be named */
-	private String name;
+  /** Any object has a size */
+  private float size;
+  /** Any object has a position */
+  private Vector2 position;
+  /** Any object can orbit around another object */
+  private GameObject orbit;
+  /** YOUR COMPUTER WILL CRASH AND BURN IF THIS I NOT SET */
+  private SuperType superclass;
+  /** Anything object in the game can be named */
+  private String name;
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+	return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+	this.name = name;
+  }
 
-	/** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
-	public static enum SuperClass {
-		SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
-	}
+  /** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
+  public static enum SuperType {
+	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
+  }
 
-	public Vector2 getPosition() {
-		return position;
-	}
+  public Vector2 getPosition() {
+	return position;
+  }
 
-	public void setPosition(Vector2 vec) {
-		this.position = vec;
-	}
+  public void setPosition(Vector2 vec) {
+	this.position = vec;
+  }
 
-	public float getSize() {
-		return size;
-	}
+  public float getSize() {
+	return size;
+  }
 
-	public void setSize(float size) {
-		this.size = size;
-	}
+  public void setSize(float size) {
+	this.size = size;
+  }
 
-	/** @return the GameObject that another object orbits around */
-	public GameObject getOrbit() {
-		return orbit;
-	}
+  /** @return the GameObject that another object orbits around */
+  public GameObject getOrbit() {
+	return orbit;
+  }
 
-	/** Set the center of orbit object */
-	public void setOrbit(GameObject orbit) {
-		this.orbit = orbit;
-	}
+  /** Set the center of orbit object */
+  public void setOrbit(GameObject orbit) {
+	this.orbit = orbit;
+  }
 
-	/** @return MUST NOT BE NULL */
-	public SuperClass getSuperclass() {
-		return superclass;
-	}
+  /** @return MUST NOT BE NULL */
+  public SuperType getSuperclass() {
+	return superclass;
+  }
 
-	public void setSuperclass(SuperClass superclass) {
-		this.superclass = superclass;
-	}
+  public void setSuperclass(SuperType superclass) {
+	this.superclass = superclass;
+  }
 
 }

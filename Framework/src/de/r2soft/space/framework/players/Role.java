@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.players;
 
@@ -22,14 +23,14 @@ import java.util.HashSet;
 public class Role {
 
   /** Determines the level of access a player has in an alliance */
-  private enum RIGHT {
+  private enum Right {
 	RESOURCES, PROMOTE_DEMOTE, SETTINGS, HANGAR_MANAGEMENT, FLEET_MANAGEMENT, DIPLOMACY;
   }
 
   private String title;
-  private HashSet<RIGHT> rights;
+  private HashSet<Right> rights;
 
-  public Role(HashSet<RIGHT> rights) {
+  public Role(HashSet<Right> rights) {
 	this.rights = rights;
   }
 
@@ -84,20 +85,20 @@ public class Role {
 	this.title = title;
   }
 
-  public HashSet<RIGHT> getRights() {
+  public HashSet<Right> getRights() {
 	return rights;
   }
 
-  public boolean isSpecificRight(RIGHT right) {
+  public boolean isSpecificRight(Right right) {
 	return this.rights.contains(right);
   }
 
-  public void addSpecificRight(RIGHT right) {
+  public void addSpecificRight(Right right) {
 	if (!this.rights.contains(right))
 	  this.rights.add(right);
   }
 
-  public void setRights(HashSet<RIGHT> rights) {
+  public void setRights(HashSet<Right> rights) {
 	this.rights = rights;
   }
 }

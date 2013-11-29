@@ -27,17 +27,17 @@ import de.r2soft.space.framework.objects.GameObject;
 
 public class Map {
 
-	private KDTree objects;
+  private KDTree objects;
 
-	public Map() {
-		objects = new KDTree(2);
-	}
+  public Map() {
+	objects = new KDTree(2);
+  }
 
-	public Set<GameObject> getObjectsAt(Location location, double range) {
-		double[] lowk = { location.getX() - range, location.getY() - range };
-		double[] uppk = { location.getX() + range, location.getY() + range };
+  public Set<GameObject> getObjectsAt(Location location, double range) {
+	double[] lowk = { location.getX() - range, location.getY() - range };
+	double[] uppk = { location.getX() + range, location.getY() + range };
 
-		GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
-		return Sets.newHashSet(obj);
-	}
+	GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
+	return Sets.newHashSet(obj);
+  }
 }

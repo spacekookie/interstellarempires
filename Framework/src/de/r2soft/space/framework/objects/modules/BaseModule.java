@@ -26,41 +26,41 @@ package de.r2soft.space.framework.objects.modules;
  */
 public abstract class BaseModule {
 
-	private int hp;
-	private int armour;
-	private boolean destroyed;
+  private int hp;
+  private int armour;
+  private boolean destroyed;
 
-	/** @return the remaining hp of the module */
-	public int getHp() {
-		return hp;
-	}
+  /** @return the remaining hp of the module */
+  public int getHp() {
+	return hp;
+  }
 
-	/** set the remaining hp of the module */
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
+  /** set the remaining hp of the module */
+  public void setHp(int hp) {
+	this.hp = hp;
+  }
 
-	/** @return wether the module blew up or not */
-	public boolean isDestroyed() {
-		return hp >= 0 ? true : false;
-	}
+  /** @return wether the module blew up or not */
+  public boolean isDestroyed() {
+	return hp >= 0 ? true : false;
+  }
 
-	/** THIS SHOULDN'T ACTUALLY BE CALLED ANYWHERE */
-	@Deprecated
-	protected void setDestroyed(boolean status) {
-		if (status)
-			hp = 0;
-		this.destroyed = status;
-	}
+  /** THIS SHOULDN'T ACTUALLY BE CALLED ANYWHERE */
+  @Deprecated
+  protected void setDestroyed(boolean status) {
+	if (status)
+	  hp = 0;
+	this.destroyed = status;
+  }
 
-	/** @return the amount of armour points the module has left */
-	public int getArmour() {
-		return armour;
-	}
+  /** @return the amount of armour points the module has left */
+  public int getArmour() {
+	return armour;
+  }
 
-	/** Sets the new amount of armour. Either after module repairs or a combat turn */
-	public void setArmour(int armour) {
-		this.armour = armour;
-	}
+  /** Sets the new amount of armour. Either after module repairs or a combat turn */
+  public void setArmour(int armour) {
+	this.armour = armour;
+  }
 
 }

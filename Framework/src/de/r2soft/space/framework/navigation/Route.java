@@ -23,20 +23,20 @@ import java.util.Collection;
 
 public class Route {
 
-	ArrayList<Waypoint> route;
-	private int travelIndex;
+  ArrayList<Waypoint> route;
+  private int travelIndex;
 
-	public Route(Collection<Waypoint> route) {
-		this.route = (ArrayList<Waypoint>) route;
-		travelIndex = 0;
-	}
+  public Route(Collection<Waypoint> route) {
+	this.route = (ArrayList<Waypoint>) route;
+	travelIndex = 0;
+  }
 
-	public Waypoint getNode(int index) {
-		return route.get(index);
-	}
+  public Waypoint getNode(int index) {
+	return route.get(index);
+  }
 
-	public Waypoint getNextNode() {
-		return route.get(travelIndex++);
-	}
+  public Waypoint getNextNode() {
+	return route.get(travelIndex++);
+  }
 
 }

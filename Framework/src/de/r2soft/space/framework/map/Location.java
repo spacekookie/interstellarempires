@@ -22,18 +22,18 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Location {
 
-	private Vector2 pos;
+  private Vector2 pos;
 
-	public Location(Vector2 pos) {
-		this.pos = pos;
-	}
+  public Location(Vector2 pos) {
+	this.pos = pos;
+  }
 
-	public float getX() {
-		return pos.x;
-	}
+  public float getX() {
+	return pos.x;
+  }
 
-	public float getY() {
-		return pos.y;
-	}
+  public float getY() {
+	return pos.y;
+  }
 
 }

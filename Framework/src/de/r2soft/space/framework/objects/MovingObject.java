@@ -31,39 +31,39 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  */
 public abstract class MovingObject extends PlayerObject {
 
-	private Vector2D trajectory;
-	private float speed;
+  private Vector2D trajectory;
+  private float speed;
 
-	/** For CombatObject */
+  /** For CombatObject */
 
-	/**
-	 * @return the trajectory
-	 */
-	public Vector2D getTrajectory() {
-		return trajectory;
-	}
+  /**
+   * @return the trajectory
+   */
+  public Vector2D getTrajectory() {
+	return trajectory;
+  }
 
-	/**
-	 * @param trajectory
-	 *          the trajectory to set
-	 */
-	public void setTrajectory(Vector2D trajectory) {
-		this.trajectory = trajectory;
-	}
+  /**
+   * @param trajectory
+   *          the trajectory to set
+   */
+  public void setTrajectory(Vector2D trajectory) {
+	this.trajectory = trajectory;
+  }
 
-	/**
-	 * @return the speed
-	 */
-	public float getSpeed() {
-		return speed;
-	}
+  /**
+   * @return the speed
+   */
+  public float getSpeed() {
+	return speed;
+  }
 
-	/**
-	 * @param speed
-	 *          the speed to set
-	 */
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
+  /**
+   * @param speed
+   *          the speed to set
+   */
+  public void setSpeed(float speed) {
+	this.speed = speed;
+  }
 
 }

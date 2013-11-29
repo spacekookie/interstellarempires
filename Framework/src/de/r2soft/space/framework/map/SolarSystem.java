@@ -20,21 +20,17 @@ package de.r2soft.space.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.badlogic.gdx.Gdx;
-
 import de.r2soft.space.framework.objects.Planet;
-import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.STARCLASS;
-import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Ship;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Star.StarType;
+import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * Object holding solar-system information.
  * 
- * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable
- * inside.
+ * TODO: Either let @SolarSystem extend @GameObject OR keep the @radius variable inside.
  * 
  * @author Katharina
  * 
@@ -42,205 +38,202 @@ import de.r2soft.space.framework.types.IntVec2;
 @SuppressWarnings("unused")
 public class SolarSystem {
 
-	private GalaxyPosition pos;
-	private Player claimed;
-	private Set<Planet> planets;
-	private Set<Ship> units;
-	private Set<Structure> structures;
-	private Star star;
-	private float radius;
-	private boolean explored;
+  private GalaxyPosition pos;
+  private Player claimed;
+  private Set<Planet> planets;
+  private Set<Ship> units;
+  private Set<Structure> structures;
+  private Star star;
+  private float radius;
+  private boolean explored;
 
-	/** @return: Systems (x,y) id on haxmap */
-	public GalaxyPosition getPosition() {
-		return pos;
+  /** @return: Systems (x,y) id on haxmap */
+  public GalaxyPosition getPosition() {
+	return pos;
+  }
+
+  /**
+   * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative = negative)
+   * 
+   * @param id
+   *          system id on map.
+   */
+  public void setPosition(GalaxyPosition pos) {
+	this.pos = pos;
+  }
+
+  /** Empty constructor */
+  public SolarSystem() {
+
+	units = new HashSet<Ship>();
+	planets = new HashSet<Planet>();
+	structures = new HashSet<Structure>();
+
+  }
+
+  /**
+   * Master constructor for a solar system. Used by server.
+   * 
+   * @param id
+   *          the 2d id of the solar system on the map. Center is at (0,0)
+   * @param claimed
+   *          the player having claim to the solar system if exists. Else @null
+   * @param planets
+   *          The set of planets in that solar system
+   * @param units
+   *          the set of units in that solar system
+   * @param structures
+   *          the set of structures in that solar system
+   * @param star
+   *          the solar systems star
+   * @param radius
+   *          the radius of the solar system
+   */
+  public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets, Set<Ship> units, Set<Structure> structures, Star star) {
+	this.pos = pos;
+	this.claimed = claimed;
+	this.planets = planets;
+	this.units = units;
+	this.structures = structures;
+	this.star = star;
+	if (star != null)
+	  this.radius = createRadius(star.getClassification());
+	else
+	  System.out.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
+  }
+
+  private float createRadius(StarType type) {
+
+	switch (type) {
+	case BROWNDWARF:
+	  return 140f;
+
+	case REDDWARF:
+	  return 230f;
+
+	case WHITEDWARF:
+	  return 100f;
+
+	case REDGIANT:
+	  return 280f;
+
+	case BLUEGIANT:
+	  return 280f;
+
+	case NEUTRON:
+	  return 100f;
+
+	case BLACKHOLE:
+	  return 250f;
+
+	case GIANTSPACEPUDDING:
+	  return 300f;
+
+	  /** If there was a horrible error */
+	default:
+	  return 0;
 	}
+  }
 
-	/**
-	 * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative =
-	 * negative)
-	 * 
-	 * @param id
-	 *            system id on map.
-	 */
-	public void setPosition(GalaxyPosition pos) {
-		this.pos = pos;
-	}
+  /** @return: the systems radius for rendering and calculations. */
+  public float getRadius() {
+	return radius;
+  }
 
-	/** Empty constructor */
-	public SolarSystem() {
+  /**
+   * Sets the radius.
+   * 
+   * @param systemSizeBlueGiant
+   *          the systems radius for rendering and calculations.
+   */
+  public void setRadius(float systemSizeBlueGiant) {
+	this.radius = systemSizeBlueGiant;
+  }
 
-		units = new HashSet<Ship>();
-		planets = new HashSet<Planet>();
-		structures = new HashSet<Structure>();
+  /** @return: the systems star details. */
+  public Star getStar() {
+	return star;
+  }
 
-	}
+  /**
+   * @param s
+   *          the systems star.
+   */
+  public void setStar(Star s) {
+	this.star = s;
+  }
 
-	/**
-	 * Master constructor for a solar system. Used by server.
-	 * 
-	 * @param id
-	 *            the 2d id of the solar system on the map. Center is at (0,0)
-	 * @param claimed
-	 *            the player having claim to the solar system if exists. Else @null
-	 * @param planets
-	 *            The set of planets in that solar system
-	 * @param units
-	 *            the set of units in that solar system
-	 * @param structures
-	 *            the set of structures in that solar system
-	 * @param star
-	 *            the solar systems star
-	 * @param radius
-	 *            the radius of the solar system
-	 */
-	public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets,
-			Set<Ship> units, Set<Structure> structures, Star star) {
-		this.pos = pos;
-		this.claimed = claimed;
-		this.planets = planets;
-		this.units = units;
-		this.structures = structures;
-		this.star = star;
-		if (star != null)
-			this.radius = createRadius(star.getClassification());
-		else
-			System.out
-					.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
-	}
+  /** @return: the systems owner if exists. */
+  public Player getClaim() {
+	return claimed != null ? claimed : new Player("_neutral");
+  }
 
-	private float createRadius(STARCLASS type) {
+  /**
+   * Sets the owning player of a system.
+   * 
+   * @param p
+   *          the owning player. @Null if system is neutral.
+   */
+  public void setClaim(Player p) {
+	this.claimed = p;
+  }
 
-		switch (type) {
-		case BROWNDWARF:
-			return 140f;
+  /**
+   * To add an entire set of units into the solar system
+   * 
+   * @param units
+   *          set of units
+   */
+  public void addUnits(Set<Ship> units) {
+	this.units = units;
+  }
 
-		case REDDWARF:
-			return 230f;
+  /** @return: get all units in this solar system */
+  public Set<Ship> getUnits() {
+	return units;
+  }
 
-		case WHITEDWARF:
-			return 100f;
+  /** DEBUG ONLY */
+  public void addSingleUnit(Ship unit) {
+	units.add(unit);
+  }
 
-		case REDGIANT:
-			return 280f;
+  public boolean hasUnits() {
+	if (units != null)
+	  return !units.isEmpty();
+	else
+	  return false;
+  }
 
-		case BLUEGIANT:
-			return 280f;
+  public boolean hasStructures() {
+	if (structures != null)
+	  return !structures.isEmpty();
+	else
+	  return false;
+  }
 
-		case NEUTRON:
-			return 100f;
+  public boolean hasPlanets() {
+	if (units != null)
+	  return !planets.isEmpty();
+	else
+	  return false;
+  }
 
-		case BLACKHOLE:
-			return 250f;
+  public boolean isExplored() {
+	return explored;
+  }
 
-		case GIANTSPACEPUDDING:
-			return 300f;
+  /** Set true if player has had ships in it */
+  public void setExplored(boolean explored, Player player) {
+	this.explored = explored;
+  }
 
-			/** If there was a horrible error */
-		default:
-			return 0;
-		}
-	}
+  public Set<Planet> getPlanets() {
+	return planets;
+  }
 
-	/** @return: the systems radius for rendering and calculations. */
-	public float getRadius() {
-		return radius;
-	}
-
-	/**
-	 * Sets the radius.
-	 * 
-	 * @param systemSizeBlueGiant
-	 *            the systems radius for rendering and calculations.
-	 */
-	public void setRadius(float systemSizeBlueGiant) {
-		this.radius = systemSizeBlueGiant;
-	}
-
-	/** @return: the systems star details. */
-	public Star getStar() {
-		return star;
-	}
-
-	/**
-	 * @param s
-	 *            the systems star.
-	 */
-	public void setStar(Star s) {
-		this.star = s;
-	}
-
-	/** @return: the systems owner if exists. */
-	public Player getClaim() {
-		return claimed != null ? claimed : new Player("_neutral");
-	}
-
-	/**
-	 * Sets the owning player of a system.
-	 * 
-	 * @param p
-	 *            the owning player. @Null if system is neutral.
-	 */
-	public void setClaim(Player p) {
-		this.claimed = p;
-	}
-
-	/**
-	 * To add an entire set of units into the solar system
-	 * 
-	 * @param units
-	 *            set of units
-	 */
-	public void addUnits(Set<Ship> units) {
-		this.units = units;
-	}
-
-	/** @return: get all units in this solar system */
-	public Set<Ship> getUnits() {
-		return units;
-	}
-
-	/** DEBUG ONLY */
-	public void addSingleUnit(Ship unit) {
-		units.add(unit);
-	}
-
-	public boolean hasUnits() {
-		if (units != null)
-			return !units.isEmpty();
-		else
-			return false;
-	}
-
-	public boolean hasStructures() {
-		if (structures != null)
-			return !structures.isEmpty();
-		else
-			return false;
-	}
-
-	public boolean hasPlanets() {
-		if (units != null)
-			return !planets.isEmpty();
-		else
-			return false;
-	}
-
-	public boolean isExplored() {
-		return explored;
-	}
-
-	/** Set true if player has had ships in it */
-	public void setExplored(boolean explored, Player player) {
-		this.explored = explored;
-	}
-
-	public Set<Planet> getPlanets() {
-		return planets;
-	}
-
-	public void setPlanets(Set<Planet> planets) {
-		this.planets = planets;
-	}
+  public void setPlanets(Set<Planet> planets) {
+	this.planets = planets;
+  }
 
 }

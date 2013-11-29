@@ -25,34 +25,31 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
-import de.r2soft.space.client.a.testspace.HexagonalTiledMapTest;
 import de.r2soft.space.client.settings.Resources;
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialise the
- * SplashScreen! Further functionality might be added in the future
+ * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be added in the future
  * 
  * @author: Katharina
  */
 public class MainClientLauncher {
-	public static void main(String[] args) {
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER;
-		cfg.useGL20 = false;
-		cfg.resizable = false;
-		cfg.fullscreen = false;
-		cfg.width = Resources.OLD_WIDTH;
-		cfg.height = Resources.OLD_HEIGHT;
-		cfg.initialBackgroundColor = Color.BLACK;
+  public static void main(String[] args) {
+	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+	cfg.title = Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER;
+	cfg.useGL20 = false;
+	cfg.resizable = false;
+	cfg.fullscreen = false;
+	cfg.width = Resources.OLD_WIDTH;
+	cfg.height = Resources.OLD_HEIGHT;
+	cfg.initialBackgroundColor = Color.BLACK;
 
-		/** Sets the Application Icon for different operating systems */
-		if (System.getProperty("os.name").equals("Mac OS X")) {
-			Application app = Application.getApplication();
-			Image image = Toolkit.getDefaultToolkit().getImage(
-					"assets/icons/launcher.png");
-			app.setDockIconImage(image);
-		}
-
-		new LwjglApplication(new ScreenHandler(), cfg);
+	/** Sets the Application Icon for different operating systems */
+	if (System.getProperty("os.name").equals("Mac OS X")) {
+	  Application app = Application.getApplication();
+	  Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+	  app.setDockIconImage(image);
 	}
+
+	new LwjglApplication(new ScreenHandler(), cfg);
+  }
 }

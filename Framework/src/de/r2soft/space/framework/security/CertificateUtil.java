@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,8 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.security;
 
@@ -54,93 +55,85 @@ import de.r2soft.space.framework.util.TimeUtil;
 
 public class CertificateUtil {
 
-	public static int CERTIFICATE_VALIDITY = 1;  	// Years
+  public static int CERTIFICATE_VALIDITY = 1;  	// Years
 
-	private final Logger log = Logger.getLogger(getClass().getName());
-	private static final String BC = org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
+  private final Logger log = Logger.getLogger(getClass().getName());
+  private static final String BC = org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
 
-	{ // Add bouncy castle security provider to java security.
-		Security.addProvider(new BouncyCastleProvider());
-	}
+  { // Add bouncy castle security provider to java security.
+	Security.addProvider(new BouncyCastleProvider());
+  }
 
-	public void generateCertificate(String username) throws OperatorCreationException,
-			NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException,
-			InvalidKeySpecException, CertificateException, InvalidKeyException, SignatureException {
+  public void generateCertificate(String username) throws OperatorCreationException, NoSuchAlgorithmException, NoSuchProviderException,
+	  InvalidAlgorithmParameterException, InvalidKeySpecException, CertificateException, InvalidKeyException, SignatureException {
 
-		X500Name name = new X500Name(username);
+	X500Name name = new X500Name(username);
 
-		// Generate RSA key pair
-		AsymmetricCipherKeyPair keyPair = generateKeypair();
-		PublicKey publicKey = generatePublicKey(keyPair.getPublic());
-		PrivateKey privateKey = generatePrivateKey(keyPair.getPrivate(), keyPair.getPublic());
+	// Generate RSA key pair
+	AsymmetricCipherKeyPair keyPair = generateKeypair();
+	PublicKey publicKey = generatePublicKey(keyPair.getPublic());
+	PrivateKey privateKey = generatePrivateKey(keyPair.getPrivate(), keyPair.getPublic());
 
-		// Generate usage time and serial number
-		Date notBefore = TimeUtil.getTimeNow();
-		Date notAfter = TimeUtil.getTimeThen(CERTIFICATE_VALIDITY, 0, 0, 0);
-		BigInteger serial = BigInteger.valueOf(TimeUtil.getTimeNow().getTime());
+	// Generate usage time and serial number
+	Date notBefore = TimeUtil.getTimeNow();
+	Date notAfter = TimeUtil.getTimeThen(CERTIFICATE_VALIDITY, 0, 0, 0);
+	BigInteger serial = BigInteger.valueOf(TimeUtil.getTimeNow().getTime());
 
-		X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(name, serial, notBefore,
-				notAfter, name, publicKey);
-		ContentSigner sigGen = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(BC)
-				.build(privateKey);
-		X509Certificate cert = new JcaX509CertificateConverter().setProvider(BC).getCertificate(
-				certGen.build(sigGen));
+	X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(name, serial, notBefore, notAfter, name, publicKey);
+	ContentSigner sigGen = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(BC).build(privateKey);
+	X509Certificate cert = new JcaX509CertificateConverter().setProvider(BC).getCertificate(certGen.build(sigGen));
 
-		// Verify success of creation
-		cert.checkValidity(new Date());
-		cert.verify(cert.getPublicKey());
-	}
+	// Verify success of creation
+	cert.checkValidity(new Date());
+	cert.verify(cert.getPublicKey());
+  }
 
-	/**
-	 * Generate a secure key pair.
-	 * 
-	 * @return
-	 */
-	private AsymmetricCipherKeyPair generateKeypair() {
-		RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
-		gen.init(new RSAKeyGenerationParameters(BigInteger.valueOf(3), new SecureRandom(), 1024, 80));
-		return gen.generateKeyPair();
-	}
+  /**
+   * Generate a secure key pair.
+   * 
+   * @return
+   */
+  private AsymmetricCipherKeyPair generateKeypair() {
+	RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
+	gen.init(new RSAKeyGenerationParameters(BigInteger.valueOf(3), new SecureRandom(), 1024, 80));
+	return gen.generateKeyPair();
+  }
 
-	/**
-	 * Generate a secure public key.
-	 * 
-	 * @param pub
-	 * @return
-	 * @throws InvalidKeySpecException
-	 * @throws NoSuchAlgorithmException
-	 */
-	private PublicKey generatePublicKey(AsymmetricKeyParameter pub) throws InvalidKeySpecException,
-			NoSuchAlgorithmException {
-		RSAKeyParameters publicKeyParameters = (RSAKeyParameters) pub;
+  /**
+   * Generate a secure public key.
+   * 
+   * @param pub
+   * @return
+   * @throws InvalidKeySpecException
+   * @throws NoSuchAlgorithmException
+   */
+  private PublicKey generatePublicKey(AsymmetricKeyParameter pub) throws InvalidKeySpecException, NoSuchAlgorithmException {
+	RSAKeyParameters publicKeyParameters = (RSAKeyParameters) pub;
 
-		// Create RSA Key
-		RSAPublicKeySpec rsa = new RSAPublicKeySpec(publicKeyParameters.getModulus(),
-				publicKeyParameters.getExponent());
-		return KeyFactory.getInstance("RSA").generatePublic(rsa);
-	}
+	// Create RSA Key
+	RSAPublicKeySpec rsa = new RSAPublicKeySpec(publicKeyParameters.getModulus(), publicKeyParameters.getExponent());
+	return KeyFactory.getInstance("RSA").generatePublic(rsa);
+  }
 
-	/**
-	 * Generate an RSA private key
-	 * 
-	 * @param priv
-	 * @param pub
-	 * @return
-	 * @throws InvalidKeySpecException
-	 * @throws NoSuchAlgorithmException
-	 */
-	private PrivateKey generatePrivateKey(AsymmetricKeyParameter priv, AsymmetricKeyParameter pub)
-			throws InvalidKeySpecException, NoSuchAlgorithmException {
+  /**
+   * Generate an RSA private key
+   * 
+   * @param priv
+   * @param pub
+   * @return
+   * @throws InvalidKeySpecException
+   * @throws NoSuchAlgorithmException
+   */
+  private PrivateKey generatePrivateKey(AsymmetricKeyParameter priv, AsymmetricKeyParameter pub) throws InvalidKeySpecException,
+	  NoSuchAlgorithmException {
 
-		RSAPrivateCrtKeyParameters privateKeyParameters = (RSAPrivateCrtKeyParameters) priv;
-		RSAKeyParameters publicKeyParameters = (RSAKeyParameters) pub;
+	RSAPrivateCrtKeyParameters privateKeyParameters = (RSAPrivateCrtKeyParameters) priv;
+	RSAKeyParameters publicKeyParameters = (RSAKeyParameters) pub;
 
-		RSAPrivateCrtKeySpec rsaPrivateKeySpec = new RSAPrivateCrtKeySpec(
-				publicKeyParameters.getModulus(), publicKeyParameters.getExponent(),
-				privateKeyParameters.getExponent(), privateKeyParameters.getP(),
-				privateKeyParameters.getQ(), privateKeyParameters.getDP(), privateKeyParameters.getDQ(),
-				privateKeyParameters.getQInv());
+	RSAPrivateCrtKeySpec rsaPrivateKeySpec = new RSAPrivateCrtKeySpec(publicKeyParameters.getModulus(), publicKeyParameters.getExponent(),
+		privateKeyParameters.getExponent(), privateKeyParameters.getP(), privateKeyParameters.getQ(), privateKeyParameters.getDP(),
+		privateKeyParameters.getDQ(), privateKeyParameters.getQInv());
 
-		return KeyFactory.getInstance("RSA").generatePrivate(rsaPrivateKeySpec);
-	}
+	return KeyFactory.getInstance("RSA").generatePrivate(rsaPrivateKeySpec);
+  }
 }

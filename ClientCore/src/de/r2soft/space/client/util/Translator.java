@@ -18,7 +18,7 @@
 package de.r2soft.space.client.util;
 
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
+import de.r2soft.space.framework.types.Allegience.Allegiance;
 
 /**
  * Utility methods to translate stuff into other stuff.
@@ -27,33 +27,33 @@ import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
  */
 public class Translator {
 
-	/**
-	 * This will be called each time a GUI element needs to be colour coded.
-	 * TODO: Implement alliances.
-	 * 
-	 * @param p
-	 *            the player owning the object, system, etc
-	 * @param q
-	 *            the player logged into the server
-	 * @return The relative Allegiance between object and current player
-	 * 
-	 */
-	public static ALLEGIANCE friendOrFoe(Player p, Player q) {
+  /**
+   * This will be called each time a GUI element needs to be colour coded. TODO: Implement alliances.
+   * 
+   * @param p
+   *          the player owning the object, system, etc
+   * @param q
+   *          the player logged into the server
+   * @return The relative Allegiance between object and current player
+   * 
+   */
+  public static Allegiance friendOrFoe(Player p, Player q) {
 
-		if (p != null) {
-			if (p.getAlliance() != null) {
-				if (p.getAlliance().equals(q.getAlliance())) {
-					return ALLEGIANCE.FRIEND;
-				}
-			}
-			if (p.equals(q)) {
-				return ALLEGIANCE.SELF;
-			} else {
-				return ALLEGIANCE.FOE;
-			}
-
+	if (p != null) {
+	  if (p.getAlliance() != null) {
+		if (p.getAlliance().equals(q.getAlliance())) {
+		  return Allegiance.FRIEND;
 		}
-		return ALLEGIANCE.NEUTRAL;
+	  }
+	  if (p.equals(q)) {
+		return Allegiance.SELF;
+	  }
+	  else {
+		return Allegiance.FOE;
+	  }
 
 	}
+	return Allegiance.NEUTRAL;
+
+  }
 }

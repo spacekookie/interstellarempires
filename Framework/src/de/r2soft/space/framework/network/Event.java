@@ -30,52 +30,46 @@ import de.r2soft.space.framework.util.TimeUtil;
  */
 public class Event implements Serializable {
 
+  public static enum EventType {
 	/**
-	 * enum "Types" immer danach benennen was sie beschreiben. Wir haben schon über 20 "Types" im
-	 * Framework. Das wird sonst nur Verwirrend
-	 * 
-	 * @author Katharina
+	 * UNIT_MOVE stores information about the movement of a unit.
 	 */
-	public static enum EventType {
-		/**
-		 * UNIT_MOVE stores information about the movement of a unit.
-		 */
-		UNIT_MOVE,
-		/**
-		 * UNIT_CREATE stores information about the creation of a new unit.
-		 */
-		UNIT_CREATE,
-		/**
-		 * UNIT_DESTROY stores information about the destruction of a new unit.
-		 */
-		UNIT_DESTROY,
-		/**
-		 * PLAYER_NEW stores information about a new player that joined the game.
-		 */
-		PLAYER_NEW
-	}
-
-	// Private fields
-	private final long id = Event.getNextID();
-	private final long timestamp = TimeUtil.getTimeNow().getTime();
-
-	private EventType type;
-
-	public Event(EventType type) {
-		this.type = type;
-	}
-
-	/***
-	 * Get the next ID for an event.
-	 * 
-	 * @return
+	UNIT_MOVE,
+	/**
+	 * UNIT_CREATE stores information about the creation of a new unit.
 	 */
-	synchronized private static long getNextID() {
-		return Event.nextID++;
-	}
+	UNIT_CREATE,
+	/**
+	 * UNIT_DESTROY stores information about the destruction of a new unit.
+	 */
+	UNIT_DESTROY,
+	/**
+	 * PLAYER_NEW stores information about a new player that joined the game.
+	 */
+	PLAYER_NEW
+  }
 
-	// Do not directly access this field
-	private static long nextID = 0;
-	private static final long serialVersionUID = -7633799844798975118L;
+  // Private fields
+  private final long id = Event.getNextID();
+  private final long timestamp = TimeUtil.getTimeNow().getTime();
+
+  private EventType type;
+
+  public Event(EventType type) {
+	this.type = type;
+  }
+
+  /***
+   * Get the next ID for an event.
+   * 
+   * @return
+   */
+  synchronized private static long getNextID() {
+	return Event.nextID++;
+  }
+
+  // Do not directly access this field
+  private static long nextID = 0;
+  private static final long serialVersionUID = -7633799844798975118L;
 
 }

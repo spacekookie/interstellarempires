@@ -22,36 +22,35 @@ import de.r2soft.space.framework.types.IntVec2;
 
 public class GalaxyPosition {
 
-	private IntVec2 pos;
+  private IntVec2 pos;
 
-	public GalaxyPosition() {
-		pos = new IntVec2();
-	}
+  public GalaxyPosition() {
+	pos = new IntVec2();
+  }
 
-	public GalaxyPosition(int x, int y) {
-		pos = new IntVec2(x, y);
-	}
+  public GalaxyPosition(int x, int y) {
+	pos = new IntVec2(x, y);
+  }
 
-	public GalaxyPosition(IntVec2 pos) {
-		this.pos = pos;
-	}
+  public GalaxyPosition(IntVec2 pos) {
+	this.pos = pos;
+  }
 
-	public IntVec2 getPos() {
-		return pos;
-	}
+  public IntVec2 getPos() {
+	return pos;
+  }
 
-	public void setPos(IntVec2 pos) {
-		this.pos = pos;
-	}
+  public void setPos(IntVec2 pos) {
+	this.pos = pos;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj instanceof GalaxyPosition)
-			return (this.pos.x == ((GalaxyPosition) obj).getPos().x && this.pos.y == ((GalaxyPosition) obj)
-					.getPos().y);
-		else
-			return false;
-	}
+  @Override
+  public boolean equals(Object obj) {
+	if (obj == null)
+	  return false;
+	if (obj instanceof GalaxyPosition)
+	  return (this.pos.x == ((GalaxyPosition) obj).getPos().x && this.pos.y == ((GalaxyPosition) obj).getPos().y);
+	else
+	  return false;
+  }
 }
