@@ -47,6 +47,13 @@ public abstract class GameObject {
 	this.name = name;
   }
 
+  /**
+   * One enum to rule them all, One enum to find them, One enum to bring them all and in the darkness bind them
+   */
+  public static enum MasterType {
+	FIGHTER_I, SAMPLE_GUN_I, SPACE_PUDDING_DISPENSER;
+  }
+
   /** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
   public static enum SuperType {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
