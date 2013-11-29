@@ -31,6 +31,10 @@ public abstract class PlayerObject extends GameObject {
   private long combatID;
   private int hp;
   private int armour;
+  
+  public PlayerObject(Type type) {
+	super(type);
+  }
 
   /**
    * The amount of armour that the units attack can punch through. If the enemy armour value is too high this unit will not do any damage.

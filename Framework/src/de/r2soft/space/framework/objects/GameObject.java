@@ -18,6 +18,7 @@
 package de.r2soft.space.framework.objects;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonValue.ValueType;
 
 /**
  * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed for rendering purposes. The client will
@@ -38,6 +39,14 @@ public abstract class GameObject {
   private Category superclass;
   /** Anything object in the game can be named */
   private String name;
+  
+  private Type type;
+  private Category category;
+  
+  public GameObject(Type type) {
+	this.type = type;
+	this.category = ValueManager.getInstance().getCategory(type);
+  }
 
   public String getName() {
 	return name;

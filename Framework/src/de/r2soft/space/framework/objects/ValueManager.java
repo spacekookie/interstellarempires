@@ -53,5 +53,9 @@ public class ValueManager {
 	else
 	  return 0f;
   }
+  
+  public Category getCategory(Type type) {
+	return category.get(type);
+  }
 
 }
