@@ -35,9 +35,9 @@ import de.r2soft.space.framework.objects.GameObject.SuperType;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PlanetType;
 import de.r2soft.space.framework.objects.Ship;
+import de.r2soft.space.framework.objects.Ship.ShipType;
 import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.Allegience.Allegiance;
 

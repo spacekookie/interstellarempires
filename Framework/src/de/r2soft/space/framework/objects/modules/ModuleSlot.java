@@ -61,6 +61,11 @@ public class ModuleSlot {
   private WeaponType weaponType;
   private BaseModule child;
 
+  /** Creates an empty slot to be filled later */
+  public ModuleSlot() {
+
+  }
+
   /**
    * Creates a new Module slot for a weapon of appropriate size to be added into it.
    */
