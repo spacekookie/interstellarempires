@@ -1,0 +1,102 @@
+2013-11-29 11:04:23,064 INFO  [org.jboss.modules] (main) JBoss Modules version 1.3.0.Final
+2013-11-29 11:04:23,975 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta2
+2013-11-29 11:04:24,077 INFO  [org.jboss.as] (MSC service thread 1-6) JBAS015899: WildFly 8.0.0.Beta1 "WildFly" starting
+2013-11-29 11:04:24,086 DEBUG [org.jboss.as.config] (MSC service thread 1-6) Configured system properties:
+	awt.toolkit = sun.lwawt.macosx.LWCToolkit
+	file.encoding = US-ASCII
+	file.encoding.pkg = sun.io
+	file.separator = /
+	gopherProxySet = false
+	java.awt.graphicsenv = sun.awt.CGraphicsEnvironment
+	java.awt.headless = true
+	java.awt.printerjob = sun.lwawt.macosx.CPrinterJob
+	java.class.path = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/jboss-modules.jar
+	java.class.version = 51.0
+	java.endorsed.dirs = /Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/endorsed
+	java.ext.dirs = /Users/Leander/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+	java.home = /Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre
+	java.io.tmpdir = /var/folders/3h/c89tmsfn2dd0tfmztcl630dc0000gn/T/
+	java.library.path = /Users/Leander/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+	java.net.preferIPv4Stack = true
+	java.runtime.name = Java(TM) SE Runtime Environment
+	java.runtime.version = 1.7.0_15-b03
+	java.specification.name = Java Platform API Specification
+	java.specification.vendor = Oracle Corporation
+	java.specification.version = 1.7
+	java.util.logging.manager = org.jboss.logmanager.LogManager
+	java.vendor = Oracle Corporation
+	java.vendor.url = http://java.oracle.com/
+	java.vendor.url.bug = http://bugreport.sun.com/bugreport/
+	java.version = 1.7.0_15
+	java.vm.info = mixed mode
+	java.vm.name = Java HotSpot(TM) 64-Bit Server VM
+	java.vm.specification.name = Java Virtual Machine Specification
+	java.vm.specification.vendor = Oracle Corporation
+	java.vm.specification.version = 1.7
+	java.vm.vendor = Oracle Corporation
+	java.vm.version = 23.7-b01
+	javax.management.builder.initial = org.jboss.as.jmx.PluggableMBeanServerBuilder
+	javax.xml.datatype.DatatypeFactory = __redirected.__DatatypeFactory
+	javax.xml.parsers.DocumentBuilderFactory = __redirected.__DocumentBuilderFactory
+	javax.xml.parsers.SAXParserFactory = __redirected.__SAXParserFactory
+	javax.xml.stream.XMLEventFactory = __redirected.__XMLEventFactory
+	javax.xml.stream.XMLInputFactory = __redirected.__XMLInputFactory
+	javax.xml.stream.XMLOutputFactory = __redirected.__XMLOutputFactory
+	javax.xml.transform.TransformerFactory = __redirected.__TransformerFactory
+	javax.xml.validation.SchemaFactory:http://www.w3.org/2001/XMLSchema = __redirected.__SchemaFactory
+	javax.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom = __redirected.__XPathFactory
+	jboss.bind.address = localhost
+	jboss.home.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1
+	jboss.host.name = darkeagle-ii
+	jboss.modules.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/modules
+	jboss.modules.system.pkgs = org.jboss.byteman
+	jboss.node.name = darkeagle-ii
+	jboss.qualified.host.name = darkeagle-ii.local
+	jboss.server.base.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone
+	jboss.server.config.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/configuration
+	jboss.server.data.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/data
+	jboss.server.deploy.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/data/content
+	jboss.server.log.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/log
+	jboss.server.name = darkeagle-ii
+	jboss.server.persist.config = true
+	jboss.server.temp.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/tmp
+	line.separator = 
+
+	logging.configuration = file:/Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/configuration/logging.properties
+	module.path = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/modules
+	org.jboss.boot.log.file = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/log/boot.log
+	org.jboss.logmanager.nocolor = true
+	org.jboss.resolver.warning = true
+	org.xml.sax.driver = __redirected.__XMLReaderFactory
+	os.arch = x86_64
+	os.name = Mac OS X
+	os.version = 10.9
+	path.separator = :
+	program.name = JBossTools: WildFly 8.0 Runtime Server
+	sun.arch.data.model = 64
+	sun.boot.class.path = /Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/classes
+	sun.boot.library.path = /Library/Java/JavaVirtualMachines/jdk1.7.0_15.jdk/Contents/Home/jre/lib
+	sun.cpu.endian = little
+	sun.cpu.isalist = 
+	sun.io.unicode.encoding = UnicodeBig
+	sun.java.command = org.jboss.modules.Main -mp /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/modules -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -b localhost --server-config=standalone.xml
+	sun.java.launcher = SUN_STANDARD
+	sun.jnu.encoding = US-ASCII
+	sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+	sun.os.patch.level = unknown
+	sun.rmi.dgc.client.gcInterval = 3600000
+	sun.rmi.dgc.server.gcInterval = 3600000
+	user.country = US
+	user.country.format = DE
+	user.dir = /Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/bin
+	user.home = /Users/Leander
+	user.language = en
+	user.language.format = de
+	user.name = Leander
+	user.timezone = Europe/Berlin
+2013-11-29 11:04:24,089 DEBUG [org.jboss.as.config] (MSC service thread 1-6) VM Arguments: -Dprogram.name=JBossTools: WildFly 8.0 Runtime Server -Xms64m -Xmx512m -XX:MaxPermSize=256m -Dorg.jboss.resolver.warning=true -Djava.net.preferIPv4Stack=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dorg.jboss.boot.log.file=/Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/log/boot.log -Dlogging.configuration=file:/Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1/standalone/configuration/logging.properties -Djboss.home.dir=/Users/Leander/Projects/Game.Dev/The-Game/Server-runtime/wildfly-8.0.0.Beta1 -Dorg.jboss.logmanager.nocolor=true -Dfile.encoding=US-ASCII 
+2013-11-29 11:04:25,433 INFO  [org.jboss.as.server.deployment.scanner] (DeploymentScanner-threads - 1) JBAS015003: Found ServerWS.war in deployment directory. To trigger deployment create a file called ServerWS.war.dodeploy
+2013-11-29 11:04:25,456 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015888: Creating http management service using socket-binding (management-http)
+2013-11-29 11:04:25,457 INFO  [org.xnio] (MSC service thread 1-7) XNIO version 3.1.0.CR7
+2013-11-29 11:04:25,465 INFO  [org.xnio.nio] (MSC service thread 1-7) XNIO NIO Implementation Version 3.1.0.CR7
+2013-11-29 11:04:25,485 INFO  [org.jboss.remoting] (MSC service thread 1-7) JBoss Remoting version 4.0.0.Beta1
