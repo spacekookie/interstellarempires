@@ -31,7 +31,7 @@ import de.r2soft.space.client.util.Translator;
 import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.Fleet.FleetSize;
 import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.GameObject.SuperType;
+import de.r2soft.space.framework.objects.GameObject.Category;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PlanetType;
 import de.r2soft.space.framework.objects.Ship;
@@ -61,7 +61,7 @@ public class GenericMapObject extends Actor {
   private boolean selected;
 
   /** Global object attributes */
-  private SuperType superclass;
+  private Category superclass;
   private Allegiance allegiance;
   private Player claim;
   private String name;
@@ -167,7 +167,7 @@ public class GenericMapObject extends Actor {
   }
 
   @Deprecated
-  public GenericMapObject(float x, float y, SuperType type, String name, Player claim, Allegiance allegience) {
+  public GenericMapObject(float x, float y, Category type, String name, Player claim, Allegiance allegience) {
 	this.position.x = x;
 	this.position.y = y;
 	this.name = name;
@@ -180,7 +180,7 @@ public class GenericMapObject extends Actor {
 	batch.end();
 	batch.begin();
 
-	if (superclass.equals(SuperType.SHIP)) {
+	if (superclass.equals(Category.SHIP)) {
 	  switch (this.shipType) {
 	  case FIGHTER:
 		batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y, 0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1, 1, 0);
