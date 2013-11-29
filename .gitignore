@@ -4,3 +4,8 @@ Server-runtime/jboss-as-7.1.1.Final/standalone/data
 Server-runtime/jboss-as-7.1.1.Final/standalone/tmp
 Server-runtime/jboss-as-7.1.1.Final/standalone/configuration/standalone_xml_history
 ServerWS/build
+Server-runtime/wildfly-8.0.0.Beta1/standalone/data/wsdl
+Server-runtime/wildfly-8.0.0.Beta1/standalone/deployments
+Server-runtime/wildfly-8.0.0.Beta1/standalone/log
+Server-runtime/wildfly-8.0.0.Beta1/standalone/tmp
+logging.properties

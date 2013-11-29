@@ -159,8 +159,8 @@ public class HexagonScreen implements Screen {
 	}
 
 	private void setupViewscreenMap() {
-		WebServiceClient.getInstance().getPlayerViewScreen(null, Sizes.SIZE_HEX_MAP_X,
-				Sizes.SIZE_HEX_MAP_Y);
+//		WebServiceClient.getInstance().getPlayerViewScreen(null, Sizes.SIZE_HEX_MAP_X,
+//				Sizes.SIZE_HEX_MAP_Y);
 
 	}
 

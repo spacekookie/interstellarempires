@@ -45,7 +45,7 @@ public class SessionManager implements SessionManagerLocal {
 	/**
 	 * Create a new SessionManager. This is called by JBoss due to the @Startup annotation.
 	 */
-	private SessionManager() {
+	public SessionManager() {
 		nextFree = 1000;
 		freeIDs = new PriorityQueue<Integer>();
 		activeSessions = new HashMap<Integer, Player>();
