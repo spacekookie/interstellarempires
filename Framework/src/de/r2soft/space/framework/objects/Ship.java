@@ -54,29 +54,29 @@ public class Ship extends MovingObject {
 
   /** Constructor for ships without modules */
   @Deprecated
-  public Ship(Category superType, ShipType type, String name, Player claim, Vector2 position) {
+  public Ship(Category category, ShipType type, String name, Player claim, Vector2 position) {
 	this.type = type;
 	this.claim = claim;
 	super.setName(name);
 	super.setPosition(position);
-	super.setSuperclass(superType);
+	super.setCategory(category);
   }
 
   /** Constructor for ships with modules */
   @Deprecated
-  public Ship(Category superType, ShipType type, String name, Player claim, Vector2 position, Set<ModuleSlot> slots) {
+  public Ship(Category category, ShipType type, String name, Player claim, Vector2 position, Set<ModuleSlot> slots) {
 	this.type = type;
 	this.claim = claim;
 	super.setName(name);
 	super.setPosition(position);
-	super.setSuperclass(superType);
+	super.setCategory(category);
 	this.slots = slots;
   }
 
   /** DO NOT USE THIS. @SuperClass must not be null */
   @Deprecated
   public Ship() {
-	super.setSuperclass(Category.SHIP);
+	super.setCategory(Category.SHIP);
   }
 
   public Player getClaim() {
@@ -87,7 +87,8 @@ public class Ship extends MovingObject {
 	this.claim = claim;
   }
 
-  public ShipType getType() {
+  @Deprecated
+  public ShipType getShipType() {
 	return type;
   }
 

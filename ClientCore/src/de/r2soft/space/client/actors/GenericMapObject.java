@@ -106,7 +106,7 @@ public class GenericMapObject extends Actor {
 	allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
 	System.out.println(unit.getPosition());
 	position = unit.getPosition();
-	superclass = unit.getSuperclass();
+	superclass = unit.getCategory();
 	this.unit = unit;
 	orbit = unit.getOrbit();
 	System.out.println("Unit in Generic Map Object: " + unit.getName());
@@ -125,7 +125,7 @@ public class GenericMapObject extends Actor {
 	fleetCount = fleet.getCount();
 	allegiance = Translator.friendOrFoe(fleet.getClaim(), Resources.thisPlayer);
 	position = fleet.getPosition();
-	superclass = fleet.getSuperclass();
+	superclass = fleet.getCategory();
 	this.fleet = fleet;
 	orbit = fleet.getOrbit();
   }
@@ -137,7 +137,7 @@ public class GenericMapObject extends Actor {
    */
   public GenericMapObject(Structure structure) {
 	this.structue = structure;
-	superclass = structure.getSuperclass();
+	superclass = structure.getCategory();
 	name = structure.getName();
 	claim = structure.getClaim();
 	position = structure.getPosition();
@@ -156,7 +156,7 @@ public class GenericMapObject extends Actor {
 	planetRadius = planet.getRadius();
 	planetMass = planet.getMass();
 	orbit = planet.getOrbit();
-	superclass = planet.getSuperclass();
+	superclass = planet.getCategory();
 	this.planet = planet;
   }
 

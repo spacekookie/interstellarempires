@@ -46,8 +46,8 @@ public class Planet extends PlayerObject {
 	A, B, C, D, E, F;
   }
 
-  public Planet(Category superclass, float radius, float mass) {
-	super.setSuperclass(superclass);
+  public Planet(Category category, float radius, float mass) {
+	super.setCategory(category);
   }
 
   public float getRadius() {
@@ -66,11 +66,13 @@ public class Planet extends PlayerObject {
 	this.mass = mass;
   }
 
-  public PlanetType getType() {
+  @Deprecated
+  public PlanetType getPlanetType() {
 	return type;
   }
 
-  public void setType(PlanetType type) {
+  @Deprecated
+  public void setPlanetType(PlanetType type) {
 	this.type = type;
   }
 
