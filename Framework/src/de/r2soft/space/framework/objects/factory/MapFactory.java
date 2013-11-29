@@ -38,9 +38,9 @@ public class MapFactory {
 
   public static GalaxyMap generateMap(IntVec2 size, Set<MapParameters> parameters) {
 	GalaxyMap map = new GalaxyMap();
-	
+
 	// TODO: Work Magic here and create a cool galaxy map
-	
+
 	return map;
   }
 

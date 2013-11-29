@@ -31,7 +31,7 @@ import de.r2soft.space.framework.objects.Planet;
  * @author ***REMOVED***
  * 
  */
-public class Player {
+public class Player extends Sociable {
 
 	private boolean admin;
 	private String name;
@@ -59,6 +59,7 @@ public class Player {
 	 * @param name
 	 */
 	public Player(String name) {
+		super();
 		this.name = name;
 	}
 
