@@ -18,12 +18,9 @@
 
 package de.r2soft.space.framework.objects.factory;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import de.r2soft.space.framework.objects.Ship.ShipType;
-import de.r2soft.space.framework.objects.modules.ModuleSlot;
 
+@Deprecated
 public class ShipValues {
 
   // About measurements and units.

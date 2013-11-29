@@ -50,14 +50,36 @@ public abstract class GameObject {
    * One enum to rule them all, One enum to find them, One enum to bring them all and in the darkness bind them
    */
   public static enum Type {
-	/*
-	 * A basic fighter
-	 */
-	FIGHTER_I,
-	/*
-	 * A sample gun
-	 */
-	SAMPLE_GUN_I, SPACE_PUDDING_DISPENSER;
+
+	/* Basic Planes */
+	FIGHTER_I, FIGHTER_II, BOMBER_I,
+
+	/* Stars */
+	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_YELLOW_DWARF, STAR_WHITE_DWARF, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
+
+	/* Planets */
+	EARTH, VULCANIC, ICE, GAS_GIANT, GAS_DWARF, ROCK, ASTEROID_SINGLE, ASTEROID_BELT, METEOR,
+	// TODO: Something to store orbit radii with? Or should we at all?
+
+	/* Structures */
+	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL, MILITARY_LARGE, RESEARCH_BASE_SMALL,
+
+	/* Weapons */
+	LASER_I, GATLING_I, MISSILES_I,
+
+	/* Propulsions */
+	ROCKET_ENGINE_I, ION_ENGINE_I, TRAVERSE_DRIVE_I,
+
+	/* Deserts */
+	SPACE_PUDDING,
+
+	/* Fleet Sizes */
+	FLEET_TINY, FLEET_SMALL, FLEET_MEDIUM, FLEET_LARGE, FLEET_CAPITAL,
+	
+	/* Slot Types */
+	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
+	// High power=Weapons, Medium power = Defense, Low power = Utility.
+
   }
 
   /** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
@@ -101,6 +123,10 @@ public abstract class GameObject {
 
   public void setCategory(Category category) {
 	this.category = category;
+  }
+
+  public Category getCategory() {
+	return category;
   }
 
 }

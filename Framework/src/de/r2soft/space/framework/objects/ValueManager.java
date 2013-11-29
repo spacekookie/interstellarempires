@@ -20,13 +20,21 @@ package de.r2soft.space.framework.objects;
 
 import java.util.HashMap;
 
+import org.apache.commons.math3.util.Pair;
+
 import de.r2soft.space.framework.objects.GameObject.Category;
 import de.r2soft.space.framework.objects.GameObject.Type;
 
 public class ValueManager {
 
   private static final ValueManager instance = new ValueManager();
+  private HashMap<GameObject.Type, Float> hitpoints;
+  private HashMap<GameObject.Type, Float> armour;
   private HashMap<GameObject.Type, Float> damage;
+  private HashMap<GameObject.Type, Float> speed;
+  private HashMap<GameObject.Type, Float> mass;
+  private HashMap<GameObject.Type, Float> size;
+  private HashMap<GameObject.Type, Pair<Integer, Type>> slots;
   private HashMap<GameObject.Type, GameObject.Category> category;
 
   private ValueManager() {

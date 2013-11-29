@@ -101,7 +101,7 @@ public class GenericMapObject extends Actor {
    */
   public GenericMapObject(Ship unit) {
 	name = unit.getName();
-	shipType = unit.getType();
+	shipType = unit.getShipType();
 	claim = unit.getClaim();
 	allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
 	System.out.println(unit.getPosition());
@@ -152,7 +152,7 @@ public class GenericMapObject extends Actor {
    * @param planet
    */
   public GenericMapObject(Planet planet) {
-	planetClass = planet.getType();
+	planetClass = planet.getPlanetType();
 	planetRadius = planet.getRadius();
 	planetMass = planet.getMass();
 	orbit = planet.getOrbit();
