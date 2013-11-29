@@ -9,3 +9,4 @@ Server-runtime/wildfly-8.0.0.Beta1/standalone/deployments
 Server-runtime/wildfly-8.0.0.Beta1/standalone/log
 Server-runtime/wildfly-8.0.0.Beta1/standalone/tmp
 logging.properties
+Server-runtime/wildfly-8.0.0.Beta1/standalone/configuration/standalone_xml_history
