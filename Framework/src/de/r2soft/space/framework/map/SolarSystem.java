@@ -42,7 +42,7 @@ import de.r2soft.space.framework.types.IntVec2;
 @SuppressWarnings("unused")
 public class SolarSystem {
 
-	private IntVec2 id;
+	private GalaxyPosition pos;
 	private Player claimed;
 	private Set<Planet> planets;
 	private Set<Ship> units;
@@ -52,8 +52,8 @@ public class SolarSystem {
 	private boolean explored;
 
 	/** @return: Systems (x,y) id on haxmap */
-	public IntVec2 getId() {
-		return id;
+	public GalaxyPosition getPosition() {
+		return pos;
 	}
 
 	/**
@@ -63,8 +63,8 @@ public class SolarSystem {
 	 * @param id
 	 *            system id on map.
 	 */
-	public void setId(IntVec2 id) {
-		this.id = id;
+	public void setPosition(GalaxyPosition pos) {
+		this.pos = pos;
 	}
 
 	/** Empty constructor */
@@ -94,9 +94,9 @@ public class SolarSystem {
 	 * @param radius
 	 *            the radius of the solar system
 	 */
-	public SolarSystem(IntVec2 id, Player claimed, Set<Planet> planets,
+	public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets,
 			Set<Ship> units, Set<Structure> structures, Star star) {
-		this.id = id;
+		this.pos = pos;
 		this.claimed = claimed;
 		this.planets = planets;
 		this.units = units;

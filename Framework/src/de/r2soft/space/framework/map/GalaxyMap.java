@@ -75,10 +75,11 @@ public class GalaxyMap {
 	}
 
 	/** Gets a specific solar system with an id */
-	public SolarSystem getSystemById(IntVec2 id) {
+	public SolarSystem getSystemWithPosition(GalaxyPosition pos) {
 		for (SolarSystem system : systems) {
-			if (id.equals(system.getId()))
+			if (system.getPosition().equals(pos)) {
 				return system;
+			}
 		}
 		return null;
 	}

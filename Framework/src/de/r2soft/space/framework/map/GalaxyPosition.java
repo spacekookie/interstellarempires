@@ -18,22 +18,40 @@
 
 package de.r2soft.space.framework.map;
 
-import com.badlogic.gdx.math.Vector2;
+import de.r2soft.space.framework.types.IntVec2;
 
-public class Location {
+public class GalaxyPosition {
 
-	private Vector2 pos;
+	private IntVec2 pos;
 
-	public Location(Vector2 pos) {
+	public GalaxyPosition() {
+		pos = new IntVec2();
+	}
+
+	public GalaxyPosition(int x, int y) {
+		pos = new IntVec2(x, y);
+	}
+
+	public GalaxyPosition(IntVec2 pos) {
 		this.pos = pos;
 	}
 
-	public float getX() {
-		return pos.x;
+	public IntVec2 getPos() {
+		return pos;
 	}
 
-	public float getY() {
-		return pos.y;
+	public void setPos(IntVec2 pos) {
+		this.pos = pos;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj instanceof GalaxyPosition)
+			return (this.pos.x == ((GalaxyPosition) obj).getPos().x && this.pos.y == ((GalaxyPosition) obj)
+					.getPos().y);
+		else
+			return false;
+	}
 }

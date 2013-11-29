@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.2rSoftworks.de/map/MapSchema.xsd " >
 
     <map:Size
-        Height="1"
+        Height="2"
         Width="2" />
 
     <map:SolarSystems>
@@ -15,8 +15,8 @@
             Type="REDDWARF" >
 
             <map:Position
-                PosX="1"
-                PosY="1" />
+                PosX="0"
+                PosY="0" />
 
             <map:Planets>
 
@@ -35,7 +35,32 @@
 
             <map:Position
                 PosX="1"
-                PosY="2" />
+                PosY="0" />
+
+            <map:Planets>
+
+                <map:Planet
+                    Distance="2.0"
+                    Name="DemoPlanet2"
+                    Size="0.5"
+                    Type="Green" />
+
+                <map:Planet
+                    Distance="4.0"
+                    Name="DemoPlanet3"
+                    Size="1.0"
+                    Type="Green" />
+            </map:Planets>
+        </map:SolarSystem>
+        
+        <map:SolarSystem
+            Name="DemoSystem2"
+            Owner="null"
+            Type="YELLOWDWARF" >
+
+            <map:Position
+                PosX="1"
+                PosY="1" />
 
             <map:Planets>
 

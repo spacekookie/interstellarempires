@@ -50,9 +50,9 @@ public class MapParser {
 
 			Element position = solarSystem.element("Position");
 
-			temp.setId(new IntVec2(Integer.parseInt(position.attribute("PosX")
-					.getText()), Integer.parseInt(position.attribute("PosY")
-					.getText())));
+			temp.setPosition(new GalaxyPosition(Integer.parseInt(position
+					.attribute("PosX").getText()), Integer.parseInt(position
+					.attribute("PosY").getText())));
 
 			temp.setClaim(new Player(solarSystem.attribute("Owner").getText()));
 			temp.setStar(new Star(STARCLASS.valueOf(solarSystem.attribute(
@@ -68,13 +68,12 @@ public class MapParser {
 
 			}
 			temp.setPlanets(planetary);
+
 			map.addSystem(temp);
 		}
 
 		map.setVersion(0);
 		map.setSize(new IntVec2(1, 2));
-		System.out.println(map.getSystemById(new IntVec2(1, 2)).getClaim()
-				.getName());
 	}
 
 	public GalaxyMap getGalaxyMap() {
