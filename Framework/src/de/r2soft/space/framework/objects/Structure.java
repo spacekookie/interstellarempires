@@ -31,7 +31,7 @@ public class Structure extends PlayerObject {
 
   private UnitFactory factory;
 
-  public Structure(SuperType superType, StationType type, Player claim, Vector2 position) {
+  public Structure(Category superType, StationType type, Player claim, Vector2 position) {
 	super.setSuperclass(superType);
 
 	/** Should the structure have a unit factory? */

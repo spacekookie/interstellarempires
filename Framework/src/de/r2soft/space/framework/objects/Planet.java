@@ -46,7 +46,7 @@ public class Planet extends PlayerObject {
 	A, B, C, D, E, F;
   }
 
-  public Planet(SuperType superclass, float radius, float mass) {
+  public Planet(Category superclass, float radius, float mass) {
 	super.setSuperclass(superclass);
   }
 

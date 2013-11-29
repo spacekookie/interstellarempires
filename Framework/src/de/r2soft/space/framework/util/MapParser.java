@@ -26,7 +26,7 @@ import org.dom4j.Element;
 import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.GalaxyPosition;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.SuperType;
+import de.r2soft.space.framework.objects.GameObject.Category;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.StarType;
@@ -64,7 +64,7 @@ public class MapParser {
 
 	  for (Iterator<Element> p = planets.elementIterator(); p.hasNext();) {
 		Element planet = p.next();
-		planetary.add(new Planet(SuperType.PLANET, Float.parseFloat(planet.attribute("Distance").getValue()), Float.parseFloat(planet
+		planetary.add(new Planet(Category.PLANET, Float.parseFloat(planet.attribute("Distance").getValue()), Float.parseFloat(planet
 			.attribute("Size").getValue())));
 
 	  }

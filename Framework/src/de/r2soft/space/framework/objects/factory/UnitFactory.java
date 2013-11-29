@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.r2soft.space.framework.objects.Fleet;
-import de.r2soft.space.framework.objects.GameObject.SuperType;
+import de.r2soft.space.framework.objects.GameObject.Category;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Ship.ShipType;
 import de.r2soft.space.framework.objects.Structure;
@@ -63,7 +63,7 @@ public class UnitFactory {
 	  return new Ship(); // damage, speed, ...
 	}
 
-	Ship ship = new Ship(SuperType.SHIP, type, null, null, parent.getPosition());
+	Ship ship = new Ship(Category.SHIP, type, null, null, parent.getPosition());
 	return ship;
   }
 
@@ -120,7 +120,7 @@ public class UnitFactory {
 	Set<Ship> requested = new HashSet<Ship>();
 
 	for (ShipType type : types) {
-	  requested.add(new Ship(SuperType.SHIP, type, null, null, parent.getPosition()));
+	  requested.add(new Ship(Category.SHIP, type, null, null, parent.getPosition()));
 	}
 
 	Fleet fleet = new Fleet(requested);

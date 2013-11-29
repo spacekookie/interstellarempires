@@ -35,7 +35,7 @@ public abstract class GameObject {
   /** Any object can orbit around another object */
   private GameObject orbit;
   /** YOUR COMPUTER WILL CRASH AND BURN IF THIS I NOT SET */
-  private SuperType superclass;
+  private Category superclass;
   /** Anything object in the game can be named */
   private String name;
 
@@ -50,12 +50,19 @@ public abstract class GameObject {
   /**
    * One enum to rule them all, One enum to find them, One enum to bring them all and in the darkness bind them
    */
-  public static enum MasterType {
-	FIGHTER_I, SAMPLE_GUN_I, SPACE_PUDDING_DISPENSER;
+  public static enum Type {
+	/*
+	 * A basic fighter
+	 */
+	FIGHTER_I, 
+	/*
+	 * A sample gun
+	 */
+	SAMPLE_GUN_I, SPACE_PUDDING_DISPENSER;
   }
 
   /** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
-  public static enum SuperType {
+  public static enum Category {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
   }
 
@@ -86,11 +93,11 @@ public abstract class GameObject {
   }
 
   /** @return MUST NOT BE NULL */
-  public SuperType getSuperclass() {
+  public Category getSuperclass() {
 	return superclass;
   }
 
-  public void setSuperclass(SuperType superclass) {
+  public void setSuperclass(Category superclass) {
 	this.superclass = superclass;
   }
 
