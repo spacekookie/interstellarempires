@@ -55,8 +55,9 @@ import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
 
 /**
- * New implementation for Prototype 1.2 of the HexMap screen. Uses Groups
- * instead of Actors. Until it is done the @MenuScreen will take it's place.
+ * New implementation for Prototype 1.2 of the HexMap screen. Uses Groups instead of Actors. Until
+ * it is done the @MenuScreen
+ * will take it's place.
  * 
  * @author Katharina
  * 
@@ -130,31 +131,27 @@ public class HexagonScreen implements Screen {
 		float HEX_START_X = -275f;
 		float HEX_START_Y = -105f;
 
-		Set<Ship> units = new HashSet<Ship>(); // for Cycle through 0 to 4 for
-												// X-Axis
-		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia",
-				Resources.thisPlayer, new Vector2(500, 450)));
-		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia",
-				new Player("peter"), new Vector2(450, 450)));
-		units.add(new Ship(SuperClass.SHIP, ShipType.FIGHTER, "Cascadia",
-				Resources.thisPlayer, new Vector2(400, 400)));
+		Set<Ship> units = new HashSet<Ship>(); // for Cycle through 0 to 4 for X-Axis
+		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia", Resources.thisPlayer,
+				new Vector2(500, 450)));
+		units.add(new Ship(SuperClass.SHIP, ShipType.CARGO_SMALL, "Cascadia", new Player("peter"),
+				new Vector2(450, 450)));
+		units.add(new Ship(SuperClass.SHIP, ShipType.FIGHTER, "Cascadia", Resources.thisPlayer,
+				new Vector2(400, 400)));
 
-		// for (int n = 0; n < 5; n++) {
-		// for (int m = 0; m < 5; m++) {
-		// hex.addActor(new GenericMapTile(HEX_START_X + n * (150), HEX_START_Y
-		// + m * (88),
-		// new SolarSystem(new IntVec2(4, 4), Resources._neutralplayer, null,
-		// null, null,
-		// new Star(STARCLASS.REDDWARF))));
-		// }
-		// }
+		for (int n = 0; n < 5; n++) {
+			for (int m = 0; m < 5; m++) {
+				hex.addActor(new GenericMapTile(HEX_START_X + n * (150), HEX_START_Y + m * (88),
+						new SolarSystem(new IntVec2(4, 4), Resources._neutralplayer, null, null, null,
+								new Star(STARCLASS.REDDWARF))));
+			}
+		}
 		for (int n = 0; n < 8; n++) {
 			for (int m = -1; m < 8; m++) {
 				if (m % 2 != 0 && n % 2 != 0)
-					hex.addActor(new GenericMapTile(HEX_START_X + n * (75),
-							HEX_START_Y + m * (44), new SolarSystem(null,
-									new Player("penis"), null, units, null,
-									new Star(STARCLASS.REDGIANT))));
+					hex.addActor(new GenericMapTile(HEX_START_X + n * (75), HEX_START_Y + m * (44),
+							new SolarSystem(null, new Player("penis"), null, units, null, new Star(
+									STARCLASS.REDGIANT))));
 			}
 		}
 
@@ -162,16 +159,15 @@ public class HexagonScreen implements Screen {
 	}
 
 	private void setupViewscreenMap() {
-		WebServiceClient.getInstance().getPlayerViewScreen(null,
-				Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y);
+//		WebServiceClient.getInstance().getPlayerViewScreen(null, Sizes.SIZE_HEX_MAP_X,
+//				Sizes.SIZE_HEX_MAP_Y);
 
 	}
 
 	private void setupProfileDialoge() {
 
 		Table profile_leftTop = new Table();
-		Image profilePicture = new Image(new Texture(
-				Gdx.files.internal("assets/gui/users.png")));
+		Image profilePicture = new Image(new Texture(Gdx.files.internal("assets/gui/users.png")));
 		Label lalalal = new Label("This is a label", ResPack.UI_SKIN);
 		profile_leftTop.add(lalalal);
 
@@ -179,21 +175,17 @@ public class HexagonScreen implements Screen {
 		profileDialog.add(profile_leftTop);
 
 		Table profile_bottomButton = new Table();
-		profile_bottomButton.setSize(Resources.OLD_WIDTH / 2,
-				Resources.OLD_HEIGHT / 2);
+		profile_bottomButton.setSize(Resources.OLD_WIDTH / 2, Resources.OLD_HEIGHT / 2);
 		profileDialog.add(profile_bottomButton).right().bottom();
 		TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
-		profile_bottomButton.add(closeProfile).width(
-				Sizes.SIZE_UI_BUTTON_NAVIGON);
+		profile_bottomButton.add(closeProfile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 		closeProfile.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				profileDialog.remove();
 			}
 		});
@@ -203,67 +195,56 @@ public class HexagonScreen implements Screen {
 	private void setupListeners() {
 
 		refresh.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		});
 
 		profile.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				profileDialog = new Dialog("User Profile", ResPack.UI_SKIN);
 				profileDialog.setSize(450, 300);
-				profileDialog.setPosition((Resources.OLD_WIDTH / 2)
-						- (Resources.OLD_WIDTH / 4), (Resources.OLD_HEIGHT / 2)
-						- (Resources.OLD_HEIGHT / 4));
+				profileDialog.setPosition((Resources.OLD_WIDTH / 2) - (Resources.OLD_WIDTH / 4),
+						(Resources.OLD_HEIGHT / 2) - (Resources.OLD_HEIGHT / 4));
 				stage.addActor(profileDialog);
 				setupProfileDialoge();
 			}
 		});
 
 		settings.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				handler.setScreen(new SettingsScreen(handler));
 			}
 		});
 
 		quit.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				Gdx.app.exit();
 			}
 		});
 
 		logout.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 
 				handler.setScreen(new LoginScreen(handler));
 			}
