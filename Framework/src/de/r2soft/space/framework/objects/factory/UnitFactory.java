@@ -56,7 +56,15 @@ public class UnitFactory {
 	 * @author Katharina
 	 */
 	public Ship requisitionUnit(ShipType type) {
-		Ship ship = new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition());
+		if (type == ShipType.FIGHTER) {
+		  float damage = ShipValues.Fighter_Damage;
+		  float speed = ShipValues.Fighter_Speed;
+		  
+		  return new Ship(); // damage, speed, ...
+		}
+	  
+	  
+	  Ship ship = new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition());
 		return ship;
 	}
 
