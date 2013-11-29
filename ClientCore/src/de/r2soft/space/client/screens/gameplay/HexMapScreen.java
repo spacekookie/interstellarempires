@@ -18,6 +18,10 @@
 
 package de.r2soft.space.client.screens.gameplay;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -52,11 +56,14 @@ import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.map.GalaxyMap;
+import de.r2soft.space.framework.map.MapParser;
+import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
- * Remake of the main menu screen with new camera viewport and UI. Published for
- * Prototype version 1.2
+ * Re-Make of the main menu screen with new camera view port and UI. Published
+ * for Prototype version 1.2
  * 
  * @author Katharina
  * 
@@ -65,10 +72,11 @@ public class HexMapScreen implements Screen {
 
 	/** Global scope */
 	private ScreenHandler handler;
-	private InputMultiplexer input;
+	private InputMultiplexer multiplexer;
 	private String playerName;
 
 	/** Hex Map */
+	private GalaxyMap galaxyMap;
 	private TiledMap map;
 	private OrthographicCamera mapCam;
 	private ShapeRenderer shapeRenderer;
@@ -86,20 +94,36 @@ public class HexMapScreen implements Screen {
 
 	{
 
-		input = new InputMultiplexer();
+		multiplexer = new InputMultiplexer();
 		shapeRenderer = new ShapeRenderer();
-
 	}
 
 	public HexMapScreen(ScreenHandler handler) {
 		this.handler = handler;
 		this.setTitle();
+		this.fetchGalaxyMap();
 	}
 
 	public HexMapScreen(ScreenHandler handler, String playerName) {
 		this.handler = handler;
 		this.setTitle();
 		this.playerName = playerName;
+
+		this.fetchGalaxyMap();
+	}
+
+	private void fetchGalaxyMap() {
+		SAXReader reader = new SAXReader();
+		MapParser parser = new MapParser();
+		Document doc;
+		try {
+			doc = reader
+					.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
+			parser.readXML(doc.getRootElement());
+		} catch (DocumentException e) {
+			return;
+		}
+		galaxyMap = parser.getGalaxyMap();
 	}
 
 	/** Sets the Window title */
@@ -112,6 +136,12 @@ public class HexMapScreen implements Screen {
 		s.append(Resources.SCREENTITLE_HOME);
 		Gdx.graphics.setTitle(s.toString());
 	}
+
+	// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
+	// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
+	// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
+	// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
+	// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
 
 	@Override
 	public void show() {
@@ -128,38 +158,55 @@ public class HexMapScreen implements Screen {
 		uiCam.update();
 
 		mapCamController = new OrthoCamController(mapCam);
-		input.addProcessor(stage);
-		input.addProcessor(mapCamController);
+		multiplexer.addProcessor(stage);
+		multiplexer.addProcessor(mapCamController);
 
-		Gdx.input.setInputProcessor(input);
+		Gdx.input.setInputProcessor(multiplexer);
 
-		// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
-		// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
 		map = new TiledMap();
 		MapLayers layers = map.getLayers();
 		TiledMapTile[] tiles = new TiledMapTile[4];
-		// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
-		// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
-		// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
 
 		tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
 		tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
 		tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
 		tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
 
-		for (int l = 0; l < 1; l++) {
-			TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-			for (int y = 0; y < 30; y++) {
-				for (int x = 0; x < 45; x++) {
-					int id = (int) (Math.random() * 4);
-					Cell cell = new Cell();
+		TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
+		for (int msx = 0; msx < galaxyMap.getSize().x; msx++) {
+			for (int msy = 0; msy < galaxyMap.getSize().y; msy++) {
+				Cell cell = new Cell();
 
-					cell.setTile((TiledMapTile) tiles[id]);
-					layer.setCell(x, y, cell);
-				}
+				SolarSystem temp = galaxyMap
+						.getSystemById(new IntVec2(msx, msy));
+				if (temp != null)
+					System.out.println(temp);
+
+				// if (temp.getClaim().equals(Resources.thisPlayer))
+				// cell.setTile(tiles[1]);
+				// else if (temp.getClaim().equals(Resources._neutralplayer))
+				// cell.setTile(tiles[3]);
+				// else
+				cell.setTile(tiles[2]);
+
+				layer.setCell(msx, msy, cell);
 			}
-			layers.add(layer);
 		}
+		layers.add(layer);
+
+		// for (int l = 0; l < 1; l++) {
+		// TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
+		// for (int y = 0; y < 2; y++) {
+		// for (int x = 0; x < 2; x++) {
+		// int id = (int) (Math.random() * 4);
+		// Cell cell = new Cell();
+		//
+		// cell.setTile((TiledMapTile) tiles[id]);
+		// layer.setCell(x, y, cell);
+		// }
+		// }
+		// layers.add(layer);
+		// }
 
 		hexRenderer = new HexagonalTiledMapRenderer(map);
 

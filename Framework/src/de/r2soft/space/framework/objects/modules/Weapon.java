@@ -22,9 +22,8 @@ import de.r2soft.space.framework.ai.CombatAI;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 
 /**
- * Basic implementation of a weapon. Two constructors, one for weapon module, one for hard-wired
- * into
- * ships frame for sub-frigate ships.
+ * Basic implementation of a weapon. Two constructors, one for weapon module,
+ * one for hard-wired into ships frame for sub-frigate ships.
  * 
  * @author Katharina
  * 
@@ -46,23 +45,25 @@ public class Weapon extends AdvancedModule {
 	private CombatAI combatAI;
 
 	/**
-	 * How many turns does it take to charge this weapon. 1 means it is ready every turn. 0.5 means it
-	 * can fire twice per turn. 3 means that it needs to cool down and is ready for combat again 3
-	 * turns after the original one.
+	 * How many turns does it take to charge this weapon. 1 means it is ready
+	 * every turn. 0.5 means it can fire twice per turn. 3 means that it needs
+	 * to cool down and is ready for combat again 3 turns after the original
+	 * one.
 	 */
-	private int ROF;
+	private int rateOfFire;
 	/**
-	 * The volley damage of this weapon delt in an entire combat round which will be simulated as 60
-	 * seconds on the server. Damage can be spread out onto different targets and doesn't need to
-	 * remain focused.
+	 * The volley damage of this weapon delt in an entire combat round which
+	 * will be simulated as 60 seconds on the server. Damage can be spread out
+	 * onto different targets and doesn't need to remain focused.
 	 */
-	private int DPR;
+	private int damagePerVolley;
 	/**
-	 * a constant that decides what armour thickness this weapon can penetrate. If the enemy armour is
-	 * too thick the weapon only does minor armour damage but not structural. Enemy armour values can
-	 * decrease over long combat making it more vulnerable against smaller ships.
+	 * a constant that decides what armour thickness this weapon can penetrate.
+	 * If the enemy armour is too thick the weapon only does minor armour damage
+	 * but not structural. Enemy armour values can decrease over long combat
+	 * making it more vulnerable against smaller ships.
 	 */
-	private int PUNCH;
+	private int armourPunch;
 
 	public Weapon(ModuleSlot slot, WeaponType weapontype) {
 		this.parent = slot;
@@ -76,17 +77,19 @@ public class Weapon extends AdvancedModule {
 	int Depr_rate, Depr_damage, Depr_punch;
 
 	/**
-	 * Only use for debugging. Will be taken out after basic functionality has been proven.
+	 * Only use for debugging. Will be taken out after basic functionality has
+	 * been proven.
 	 * 
 	 * @param type
-	 *          the type of ship that uses this weapon
+	 *            the type of ship that uses this weapon
 	 * @param ROF
-	 *          the rate of fire of that specific weapon
+	 *            the rate of fire of that specific weapon
 	 * @param DPR
-	 *          the damage per combat round delt with this weapon
+	 *            the damage per combat round delt with this weapon
 	 * 
 	 * @param PUNCH
-	 *          a constant that decides what armour thickness this weapon can penetrate
+	 *            a constant that decides what armour thickness this weapon can
+	 *            penetrate
 	 */
 	@Deprecated
 	public Weapon(ShipType type, int ROF, int DPR, int PUNCH) {
@@ -102,6 +105,30 @@ public class Weapon extends AdvancedModule {
 
 	public void setAimCombatId(long id) {
 		this.aimID = id;
+	}
+
+	public int getRateOfFire() {
+		return rateOfFire;
+	}
+
+	public void setRateOfFire(int rateOfFire) {
+		this.rateOfFire = rateOfFire;
+	}
+
+	public int getDamagePerVolley() {
+		return damagePerVolley;
+	}
+
+	public void setDamagePerVolley(int damagePerVolley) {
+		this.damagePerVolley = damagePerVolley;
+	}
+
+	public int getArmourPunch() {
+		return armourPunch;
+	}
+
+	public void setArmourPunch(int armourPunch) {
+		this.armourPunch = armourPunch;
 	}
 
 }

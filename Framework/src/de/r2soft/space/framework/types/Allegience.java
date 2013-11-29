@@ -16,32 +16,28 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.server.ws.interfaces;
+package de.r2soft.space.framework.types;
 
-import java.util.Set;
-
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-
-import de.r2soft.space.framework.map.Map;
-import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
 
-@WebService(targetNamespace = "http://2rSoftworks.de/")
-public interface MapService {
+/**
+ * Holds information on rendering and combat. ENUM values can hold @SELF,
+ * 
+ * @FRIEND, @FOE and @NEUTRAL
+ */
+public class Allegience {
 
-	@WebMethod
-	public Set<SolarSystem> getGlobalSolarSystems(Integer sessionID);
+	public static enum ALLEGIANCE {
+		SELF, FRIEND, FOE, NEUTRAL, UNKNOWN;
+	}
 
-	@WebMethod
-	public Set<SolarSystem> getPlaySolarSystems(Integer sessionID, Player player);
-
-	@WebMethod
-	public Set<SolarSystem> getKnownSolarSystems(Integer sessionID, Player player);
-
-	@WebMethod
-	public Map getPlayerViewScreen(IntVec2 bottomLeftSystem, float mapWidth, float mapHeight);
-	
-
+	/** TODO: Add the checking for war declarations and FOES on the map */
+	public static ALLEGIANCE validate(Player a, Player b) {
+		if (a.equals(b))
+			return ALLEGIANCE.SELF;
+		else if (a.getAlliance().equals(b.getAlliance()))
+			return ALLEGIANCE.FRIEND;
+		else
+			return ALLEGIANCE.NEUTRAL;
+	}
 }

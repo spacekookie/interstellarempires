@@ -14,13 +14,16 @@
 
     <complexType name="SolarSystem">
     	<sequence>
-    		<element name="Position" type="map:Position" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Position" type="map:Position" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
     		<element name="Planets" type="map:Planets"
     			maxOccurs="unbounded" minOccurs="0">
     		</element>
     	</sequence>
     	<attribute name="Name" type="string"></attribute>
     	<attribute name="Type" type="string"></attribute>
+    	<attribute name="Owner" type="string"></attribute>
     </complexType>
 
     <complexType name="Position">

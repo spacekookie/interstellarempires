@@ -41,6 +41,7 @@ import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Ship;
 
+@Deprecated
 public class StarsystemScreen implements Screen {
 
 	/** Global variables */
@@ -52,7 +53,9 @@ public class StarsystemScreen implements Screen {
 
 	/** Table layouts for navigation, game content and the solar map */
 	private Table navigation, rightbar, resources, leftbar, solarBar;
-	private TextButton backMap, refresh, requisition, details; // Top bar Navigation Buttons
+	private TextButton backMap, refresh, requisition, details; // Top bar
+																// Navigation
+																// Buttons
 	private SolarGroup sol;
 
 	/** Solarsystem */
@@ -124,22 +127,27 @@ public class StarsystemScreen implements Screen {
 
 	private void makeListeners() {
 		refresh.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
 				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 
 		});
 		backMap.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				return true;
 			}
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				Preferences prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+			public void touchUp(InputEvent event, float x, float y,
+					int pointer, int button) {
+				Preferences prefs = Gdx.app
+						.getPreferences(Resources.PREFERENCE_FILE_NAME);
 				handler.setScreen(new HexagonScreen(handler, prefs
 						.getString(Resources.PREFERENCE_SAVED_USER_NAME)));
 			}
@@ -190,8 +198,8 @@ public class StarsystemScreen implements Screen {
 	}
 
 	private void setupSolarGroup() {
-		sol = new SolarGroup(system, Sizes.SIZE_HEX_MAP_X, Sizes.SIZE_HEX_MAP_Y,
-				Sizes.POSITION_HEX_MAP_OFFSET);
+		sol = new SolarGroup(system, Sizes.SIZE_HEX_MAP_X,
+				Sizes.SIZE_HEX_MAP_Y, Sizes.POSITION_HEX_MAP_OFFSET);
 	}
 
 	private void drawChildren() {

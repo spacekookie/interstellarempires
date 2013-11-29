@@ -16,9 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.primitives;
-
-import com.badlogic.gdx.utils.NumberUtils;
+package de.r2soft.space.framework.types;
 
 /**
  * My own integer implementation of the Vector2 class from LibGDX. Only used for

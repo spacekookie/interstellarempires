@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="libs/libgdx/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/Framework/lib/gdx.jar"/>
 	<classpathentry kind="lib" path="libs/tweens/tween-engine-api.jar"/>
+	<classpathentry kind="lib" path="/Framework/lib/xml_parser/dom4j-2.0.0-ALPHA-2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
