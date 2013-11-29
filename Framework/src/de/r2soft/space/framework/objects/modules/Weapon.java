@@ -19,7 +19,7 @@
 package de.r2soft.space.framework.objects.modules;
 
 import de.r2soft.space.framework.ai.CombatAI;
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
+import de.r2soft.space.framework.objects.Ship.ShipType;
 
 /**
  * Basic implementation of a weapon. Two constructors, one for weapon module, one for hard-wired into ships frame for sub-frigate ships.

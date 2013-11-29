@@ -19,8 +19,6 @@ package de.r2soft.space.framework.objects;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
-
 /**
  * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed for rendering purposes. The client will
  * crash if an object doesn't have it set to something!

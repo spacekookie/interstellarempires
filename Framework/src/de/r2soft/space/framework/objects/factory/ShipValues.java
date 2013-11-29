@@ -18,10 +18,42 @@
 
 package de.r2soft.space.framework.objects.factory;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import de.r2soft.space.framework.objects.Ship.ShipType;
+import de.r2soft.space.framework.objects.modules.ModuleSlot;
+
 public class ShipValues {
-  
-  public static final float Fighter_Damage = 10F;
-  public static final float Fighter_Speed = 1F;
-  
-  
+
+  // About measurements and units.
+  // Damage is measured in HP/Volley Damage
+  // Speed is measured in Km/Second
+  // Hitpoints is measured in...Hitpoints. (BASE UNIT)
+  // Armour is measured in Meters. (0.1f = 10cm)
+
+  /** BASIC FIGHTER */
+  public static final ShipType Fighter_Type = ShipType.FIGHTER;
+  public static final float Fighter_Damage = 10f;
+  public static final float Fighter_Speed = 8f;
+  public static final float Fighter_Hitpoints = 100f;
+  public static final float Fighter_Armour = 0.2f;
+  public static final int Fighter_SlotAmount = 0;
+
+  /** SMALL CARGOSHIP */
+  public static final ShipType Cargo_Small_Type = ShipType.CARGO_SMALL;
+  public static final float Cargo_Small_Damage = 0f;
+  public static final float Cargo_Small_Speed = 4f;
+  public static final float Cargo_Small_Hitpoints = 800f;
+  public static final float Cargo_Small_Armour = 1.2f;
+  public static final int Cargo_Small_SlotAmount = 3;
+
+  /** MOTHERSHIP */
+  public static final ShipType MotherShip_Type = ShipType.MOTHERSHIP;
+  public static final float MotherShip_Damage = 1200f;
+  public static final float MotherShip_Speed = 1f;
+  public static final float MotherShip_Hitpoints = 12000f;
+  public static final float MotherShip_Armour = 12f;
+  public static final int MotherShip_SlotAmount = 16;
+
 }

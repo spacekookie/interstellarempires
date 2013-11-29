@@ -22,12 +22,12 @@ import java.util.Set;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.objects.modules.BaseModule;
 import de.r2soft.space.framework.objects.modules.ModuleSlot;
 import de.r2soft.space.framework.objects.modules.Propulsion;
 import de.r2soft.space.framework.objects.modules.Weapon;
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.players.Sociable;
 
 /**
  * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies. Rainbow ponies have infinite shields,
@@ -38,12 +38,22 @@ import de.r2soft.space.framework.players.Player;
  */
 public class Ship extends MovingObject {
 
+  public static enum ShipType {
+	FIGHTER, CARGO_SMALL, MOTHERSHIP;
+  }
+
   private Player claim;
   private ShipType type;
   private Set<ModuleSlot> slots;
   private Propulsion engine;
+  private float damage;
+
+  public Ship(Sociable claim, ShipType type, float damage, float speed, float hp, float armour, Set<ModuleSlot> slots) {
+
+  }
 
   /** Constructor for ships without modules */
+  @Deprecated
   public Ship(SuperType superType, ShipType type, String name, Player claim, Vector2 position) {
 	this.type = type;
 	this.claim = claim;
@@ -53,6 +63,7 @@ public class Ship extends MovingObject {
   }
 
   /** Constructor for ships with modules */
+  @Deprecated
   public Ship(SuperType superType, ShipType type, String name, Player claim, Vector2 position, Set<ModuleSlot> slots) {
 	this.type = type;
 	this.claim = claim;
