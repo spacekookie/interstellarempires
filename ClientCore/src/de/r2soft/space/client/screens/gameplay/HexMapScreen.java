@@ -58,443 +58,419 @@ import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.GalaxyPosition;
-import de.r2soft.space.framework.map.MapParser;
 import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.space.framework.util.MapParser;
 
 /**
- * Re-Make of the main menu screen with new camera view port and UI. Published
- * for Prototype version 1.2
+ * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
  * 
  * @author ***REMOVED***
  * 
  */
 public class HexMapScreen implements Screen {
 
-	/** Global scope */
-	private ScreenHandler handler;
-	private InputMultiplexer multiplexer;
-	private String playerName;
+  /** Global scope */
+  private ScreenHandler handler;
+  private InputMultiplexer multiplexer;
+  private String playerName;
 
-	/** Hex Map */
-	private GalaxyMap galaxyMap;
-	private TiledMap map;
-	private OrthographicCamera mapCam;
-	private ShapeRenderer shapeRenderer;
-	private OrthoCamController mapCamController;
-	private HexagonalTiledMapRenderer hexRenderer;
-	private Texture hexture;
+  /** Hex Map */
+  private GalaxyMap galaxyMap;
+  private TiledMap map;
+  private OrthographicCamera mapCam;
+  private ShapeRenderer shapeRenderer;
+  private OrthoCamController mapCamController;
+  private HexagonalTiledMapRenderer hexRenderer;
+  private Texture hexture;
 
-	/** Scene2D UI */
-	private OrthographicCamera uiCam;
-	private Stage stage;
-	private TextButton settings, quit, logout, profile, refresh, enterSystem;
-	private Table naviRight, naviLeft, centerTop, systemInfo;
-	private Label title, welcome, systemSelector;
-	private Dialog profileDialog, areYouSure;
+  /** Scene2D UI */
+  private OrthographicCamera uiCam;
+  private Stage stage;
+  private TextButton settings, quit, logout, profile, refresh, enterSystem;
+  private Table naviRight, naviLeft, centerTop, systemInfo;
+  private Label title, welcome, systemSelector;
+  private Dialog profileDialog, areYouSure;
 
-	{
+  {
 
-		multiplexer = new InputMultiplexer();
-		shapeRenderer = new ShapeRenderer();
+	multiplexer = new InputMultiplexer();
+	shapeRenderer = new ShapeRenderer();
+  }
+
+  public HexMapScreen(ScreenHandler handler) {
+	this.handler = handler;
+	this.setTitle();
+	this.fetchGalaxyMap();
+  }
+
+  public HexMapScreen(ScreenHandler handler, String playerName) {
+	this.handler = handler;
+	this.setTitle();
+	this.playerName = playerName;
+
+	this.fetchGalaxyMap();
+  }
+
+  /** TODO: This should be moved to be a server call! */
+  private void fetchGalaxyMap() {
+	SAXReader reader = new SAXReader();
+	MapParser parser = new MapParser();
+	Document doc;
+	try {
+	  doc = reader.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/map/MapDemo.xml");
+	  parser.readXML(doc.getRootElement());
 	}
-
-	public HexMapScreen(ScreenHandler handler) {
-		this.handler = handler;
-		this.setTitle();
-		this.fetchGalaxyMap();
+	catch (DocumentException e) {
+	  return;
 	}
+	galaxyMap = parser.getGalaxyMap();
+  }
 
-	public HexMapScreen(ScreenHandler handler, String playerName) {
-		this.handler = handler;
-		this.setTitle();
-		this.playerName = playerName;
+  /** Sets the Window title */
+  private void setTitle() {
+	StringBuilder s = new StringBuilder();
+	s.append(Resources.SUPERTITLE);
+	s.append(" - ");
+	s.append(Resources.VERSION_NUMBER);
+	s.append(" - ");
+	s.append(Resources.SCREENTITLE_HOME);
+	Gdx.graphics.setTitle(s.toString());
+  }
 
-		this.fetchGalaxyMap();
-	}
+  @Override
+  public void show() {
+	float width = Gdx.graphics.getWidth();
+	float hight = Gdx.graphics.getHeight();
+	stage = new Stage(width, hight);
 
-	/** TODO: This should be moved to be a server call! */
-	private void fetchGalaxyMap() {
-		SAXReader reader = new SAXReader();
-		MapParser parser = new MapParser();
-		Document doc;
-		try {
-			doc = reader
-					.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
-			parser.readXML(doc.getRootElement());
-		} catch (DocumentException e) {
-			return;
+	mapCam = new OrthographicCamera();
+	mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
+	mapCam.update();
+
+	uiCam = new OrthographicCamera();
+	uiCam.setToOrtho(false, width, hight);
+	uiCam.update();
+
+	mapCamController = new OrthoCamController(mapCam);
+	multiplexer.addProcessor(stage);
+	multiplexer.addProcessor(mapCamController);
+
+	Gdx.input.setInputProcessor(multiplexer);
+
+	map = new TiledMap();
+	MapLayers layers = map.getLayers();
+	TiledMapTile[] tiles = new TiledMapTile[4];
+
+	// TODO: Make this ugly go away.
+	tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
+	tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
+	tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
+	tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
+
+	TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
+	for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
+	  for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
+		Cell cell = new Cell();
+
+		SolarSystem temp = galaxyMap.getSystemWithPosition(new GalaxyPosition(msx, msy));
+
+		if (temp != null) {
+		  if (temp.getClaim().equals(Resources.thisPlayer)) {
+			cell.setTile(tiles[1]);
+		  }
+		  else if (temp.getClaim().equals(new Player("null"))) {
+			cell.setTile(tiles[3]);
+		  }
+		  else {
+			cell.setTile(tiles[2]);
+		  }
 		}
-		galaxyMap = parser.getGalaxyMap();
+
+		layer.setCell(msx, msy, cell);
+	  }
 	}
+	layers.add(layer);
 
-	/** Sets the Window title */
-	private void setTitle() {
-		StringBuilder s = new StringBuilder();
-		s.append(Resources.SUPERTITLE);
-		s.append(" - ");
-		s.append(Resources.VERSION_NUMBER);
-		s.append(" - ");
-		s.append(Resources.SCREENTITLE_HOME);
-		Gdx.graphics.setTitle(s.toString());
-	}
-
-	@Override
-	public void show() {
-		float width = Gdx.graphics.getWidth();
-		float hight = Gdx.graphics.getHeight();
-		stage = new Stage(width, hight);
-
-		mapCam = new OrthographicCamera();
-		mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
-		mapCam.update();
-
-		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, width, hight);
-		uiCam.update();
-
-		mapCamController = new OrthoCamController(mapCam);
-		multiplexer.addProcessor(stage);
-		multiplexer.addProcessor(mapCamController);
-
-		Gdx.input.setInputProcessor(multiplexer);
-
-		map = new TiledMap();
-		MapLayers layers = map.getLayers();
-		TiledMapTile[] tiles = new TiledMapTile[4];
-
-		// TODO: Make this ugly go away.
-		tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
-		tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
-		tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
-		tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
-
-		TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-		for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
-			for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
-				Cell cell = new Cell();
-
-				SolarSystem temp = galaxyMap
-						.getSystemWithPosition(new GalaxyPosition(msx, msy));
-
-				if (temp != null) {
-					if (temp.getClaim().equals(Resources.thisPlayer)) {
-						cell.setTile(tiles[1]);
-					} else if (temp.getClaim().equals(new Player("null"))) {
-						cell.setTile(tiles[3]);
-					} else {
-						cell.setTile(tiles[2]);
-					}
-				}
-
-				layer.setCell(msx, msy, cell);
-			}
-		}
-		layers.add(layer);
-
-		hexRenderer = new HexagonalTiledMapRenderer(map);
-
-		/** initializing Tables, Items and Groups */
-		this.initializeFrames();
-
-		/** initializing Tables, Items and Groups */
-		this.setupLayout();
-
-		/** Setting up the button listeners */
-		this.setupListeners();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		if (stage != null)
-			stage.setViewport(width, height);
-	}
-
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		/** Sets up map view */
-		Gdx.gl.glViewport(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
-				mapDim.snd.y);
-		mapCam.update();
-		hexRenderer.setView(mapCam);
-		hexRenderer.render();
-
-		/** Sets up stage view */
-		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		uiCam.update();
-
-		shapeRenderer.begin(ShapeType.Line);
-
-		/** Draws debug frame around map view */
-		shapeRenderer.rect(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
-				mapDim.snd.y);
-		shapeRenderer.end();
-
-		stage.act();
-		stage.draw();
-	}
-
-	@Override
-	public void dispose() {
-		shapeRenderer.dispose();
-		hexRenderer.dispose();
-		hexture.dispose();
-		map.dispose();
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	private void setupProfileDialoge() {
-
-		Table profile_leftTop = new Table();
-		Image profilePicture = new Image(new Texture(
-				Gdx.files.internal("assets/gui/users.png")));
-		Label lalalal = new Label("This is a label", ResPack.UI_SKIN);
-		profile_leftTop.add(lalalal);
-
-		profile_leftTop.add(profilePicture).top().center();
-		profileDialog.add(profile_leftTop);
-
-		Table profile_bottomButton = new Table();
-		profile_bottomButton.setSize(Resources.OLD_WIDTH / 2,
-				Resources.OLD_HEIGHT / 2);
-		profileDialog.add(profile_bottomButton).right().bottom();
-		TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
-		profile_bottomButton.add(closeProfile).width(
-				Sizes.SIZE_UI_BUTTON_NAVIGON);
-
-		closeProfile.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				profileDialog.remove();
-			}
-		});
-
-	}
-
-	private void setupListeners() {
-
-		refresh.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			}
-		});
-
-		profile.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				profileDialog = new Dialog("User Profile", ResPack.UI_SKIN);
-				profileDialog.setSize(450, 300);
-				profileDialog.setPosition((Resources.OLD_WIDTH / 2)
-						- (Resources.OLD_WIDTH / 4), (Resources.OLD_HEIGHT / 2)
-						- (Resources.OLD_HEIGHT / 4));
-				stage.addActor(profileDialog);
-				setupProfileDialoge();
-			}
-		});
-
-		settings.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				handler.setScreen(new SettingsScreen(handler));
-			}
-		});
-
-		quit.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				Gdx.app.exit();
-			}
-		});
-
-		logout.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-
-				// TODO: Request logout from server
-				handler.setScreen(new LoginScreen(handler));
-			}
-		});
-
-	}
-
-	private void initializeFrames() {
-		/** Initialize Buttons */
-		profile = new TextButton("Profile", ResPack.UI_SKIN);
-		settings = new TextButton("Settings", ResPack.UI_SKIN);
-		quit = new TextButton("Logout & Quit", ResPack.UI_SKIN);
-		logout = new TextButton("Logout", ResPack.UI_SKIN);
-		refresh = new TextButton("Refresh", ResPack.UI_SKIN);
-		enterSystem = new TextButton("Visit Solar System", ResPack.UI_SKIN);
-
-		/** Initialize Lables */
-		title = new Label("Space Game: Prototype 1.2", ResPack.UI_SKIN);
-		title.setAlignment(Align.center);
-		title.setFontScaleX(1.2f);
-		title.setFontScaleY(1.1f);
-		title.setColor(Color.MAGENTA);
-
-		welcome = new Label("Welcome: " + playerName, ResPack.UI_SKIN);
-		welcome.setAlignment(Align.center);
-
-		/** Initialize right navigation */
-		naviRight = new Table();
-		naviRight.setFillParent(true);
-		naviRight.top().right();
-
-		/** Initialize left navigation */
-		naviLeft = new Table();
-		naviLeft.setFillParent(true);
-		naviLeft.top().left();
-
-		/** Initialize center top label */
-		centerTop = new Table();
-		centerTop.setFillParent(true);
-		centerTop.center().top();
-		centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
-
-		/** Initialize the solar system info table */
-		systemInfo = new Table();
-		systemInfo.setFillParent(true);
-		systemInfo.center().right();
-		systemInfo.setX(-50);
-		systemInfo.setY(175);
-
-		/** Adding tables to stage */
-		stage.addActor(naviLeft);
-		stage.addActor(naviRight);
-		stage.addActor(centerTop);
-		stage.addActor(systemInfo);
-
-	}
-
-	private void setupLayout() {
-		/** Setting up the right navigation */
-		naviRight.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviRight.row();
-
-		/** Setting up the left navigation */
-		naviLeft.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-
-		/** Setting up the center top label table */
-		centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
-		centerTop.row();
-		centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
-		centerTop.row();
-
-		/** Setting up the system info table **/
-
-		Label tempLabel1, tempLabel2;
-
-		tempLabel1 = new Label("Solar System", ResPack.UI_SKIN);
-		tempLabel1.setColor(Color.MAGENTA);
-
-		tempLabel2 = new Label("Information", ResPack.UI_SKIN);
-		tempLabel2.setColor(Color.MAGENTA);
-
-		systemInfo.add(tempLabel1);
-		systemInfo.add(tempLabel2);
-		systemInfo.row();
-		systemInfo.add(new Label("Owner: ", ResPack.UI_SKIN));
-		systemInfo.add(new Label("KateTheAwesome", ResPack.UI_SKIN));
-		systemInfo.row();
-		systemInfo.add(new Label("Size: ", ResPack.UI_SKIN));
-		systemInfo.add(new Label("Something", ResPack.UI_SKIN));
-		systemInfo.row();
-		systemInfo.add(new Label("Coordinates: ", ResPack.UI_SKIN));
-		systemInfo.add(new Label("545-101", ResPack.UI_SKIN));
-		systemInfo.row();
-		systemInfo.add(new Label("Units: ", ResPack.UI_SKIN));
-		systemInfo.add(new Label("42", ResPack.UI_SKIN));
-		systemInfo.row();
-		systemInfo.add(new Label("Exploration: ", ResPack.UI_SKIN));
-		systemInfo.add(new Label("100%", ResPack.UI_SKIN));
-		systemInfo.row();
-		systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT)
-				.colspan(2);
-		systemInfo.row();
-
-		// TODO: Make this pretty!
-		setupInfoLabelBottom();
-
-	}
-
-	@Deprecated
-	/** Hovering display for mouse on map */
-	private void setupInfoLabelBottom() {
-		Table selectorTable = new Table();
-		systemSelector = new Label("Currently selected Solar System: "
-				+ "545-101: KateTheAwesome: Red Giant", ResPack.UI_SKIN);
-		selectorTable.setPosition(mapDim.fst.x + 255, mapDim.fst.y - 10);
-		selectorTable.add(systemSelector);
-		stage.addActor(selectorTable);
-
-	}
-
-	/** Map sizes (for Hexmap and Solar Map) */
-	private static final IntVec2 mapSize = new IntVec2(900, 600);
-
-	/** Screw around on that to position the map! */
-	private static final IntVec2 mapOffset = new IntVec2(150, 25);
-	/**
-	 * First vector holds starting position of map (lower right corner), the
-	 * other holds the actual size
-	 */
-	private static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(
-			new IntVec2(((Gdx.graphics.getWidth() / 2) - mapSize.x / 2)
-					- mapOffset.x,
-					((Gdx.graphics.getHeight() / 2) - mapSize.y / 2)
-							- mapOffset.y), mapSize);
+	hexRenderer = new HexagonalTiledMapRenderer(map);
+
+	/** initializing Tables, Items and Groups */
+	this.initializeFrames();
+
+	/** initializing Tables, Items and Groups */
+	this.setupLayout();
+
+	/** Setting up the button listeners */
+	this.setupListeners();
+  }
+
+  @Override
+  public void resize(int width, int height) {
+	if (stage != null)
+	  stage.setViewport(width, height);
+  }
+
+  @Override
+  public void render(float delta) {
+	Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+	/** Sets up map view */
+	Gdx.gl.glViewport(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x, mapDim.snd.y);
+	mapCam.update();
+	hexRenderer.setView(mapCam);
+	hexRenderer.render();
+
+	/** Sets up stage view */
+	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	uiCam.update();
+
+	shapeRenderer.begin(ShapeType.Line);
+
+	/** Draws debug frame around map view */
+	shapeRenderer.rect(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x, mapDim.snd.y);
+	shapeRenderer.end();
+
+	stage.act();
+	stage.draw();
+  }
+
+  @Override
+  public void dispose() {
+	shapeRenderer.dispose();
+	hexRenderer.dispose();
+	hexture.dispose();
+	map.dispose();
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void hide() {
+
+  }
+
+  private void setupProfileDialoge() {
+
+	Table profile_leftTop = new Table();
+	Image profilePicture = new Image(new Texture(Gdx.files.internal("assets/gui/users.png")));
+	Label lalalal = new Label("This is a label", ResPack.UI_SKIN);
+	profile_leftTop.add(lalalal);
+
+	profile_leftTop.add(profilePicture).top().center();
+	profileDialog.add(profile_leftTop);
+
+	Table profile_bottomButton = new Table();
+	profile_bottomButton.setSize(Resources.OLD_WIDTH / 2, Resources.OLD_HEIGHT / 2);
+	profileDialog.add(profile_bottomButton).right().bottom();
+	TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
+	profile_bottomButton.add(closeProfile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+
+	closeProfile.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		profileDialog.remove();
+	  }
+	});
+
+  }
+
+  private void setupListeners() {
+
+	refresh.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	  }
+	});
+
+	profile.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		profileDialog = new Dialog("User Profile", ResPack.UI_SKIN);
+		profileDialog.setSize(450, 300);
+		profileDialog.setPosition((Resources.OLD_WIDTH / 2) - (Resources.OLD_WIDTH / 4), (Resources.OLD_HEIGHT / 2)
+			- (Resources.OLD_HEIGHT / 4));
+		stage.addActor(profileDialog);
+		setupProfileDialoge();
+	  }
+	});
+
+	settings.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		handler.setScreen(new SettingsScreen(handler));
+	  }
+	});
+
+	quit.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		Gdx.app.exit();
+	  }
+	});
+
+	logout.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+
+		// TODO: Request logout from server
+		handler.setScreen(new LoginScreen(handler));
+	  }
+	});
+
+  }
+
+  private void initializeFrames() {
+	/** Initialize Buttons */
+	profile = new TextButton("Profile", ResPack.UI_SKIN);
+	settings = new TextButton("Settings", ResPack.UI_SKIN);
+	quit = new TextButton("Logout & Quit", ResPack.UI_SKIN);
+	logout = new TextButton("Logout", ResPack.UI_SKIN);
+	refresh = new TextButton("Refresh", ResPack.UI_SKIN);
+	enterSystem = new TextButton("Visit Solar System", ResPack.UI_SKIN);
+
+	/** Initialize Lables */
+	title = new Label("Space Game: Prototype 1.2", ResPack.UI_SKIN);
+	title.setAlignment(Align.center);
+	title.setFontScaleX(1.2f);
+	title.setFontScaleY(1.1f);
+	title.setColor(Color.MAGENTA);
+
+	welcome = new Label("Welcome: " + playerName, ResPack.UI_SKIN);
+	welcome.setAlignment(Align.center);
+
+	/** Initialize right navigation */
+	naviRight = new Table();
+	naviRight.setFillParent(true);
+	naviRight.top().right();
+
+	/** Initialize left navigation */
+	naviLeft = new Table();
+	naviLeft.setFillParent(true);
+	naviLeft.top().left();
+
+	/** Initialize center top label */
+	centerTop = new Table();
+	centerTop.setFillParent(true);
+	centerTop.center().top();
+	centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
+
+	/** Initialize the solar system info table */
+	systemInfo = new Table();
+	systemInfo.setFillParent(true);
+	systemInfo.center().right();
+	systemInfo.setX(-50);
+	systemInfo.setY(175);
+
+	/** Adding tables to stage */
+	stage.addActor(naviLeft);
+	stage.addActor(naviRight);
+	stage.addActor(centerTop);
+	stage.addActor(systemInfo);
+
+  }
+
+  private void setupLayout() {
+	/** Setting up the right navigation */
+	naviRight.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.row();
+
+	/** Setting up the left navigation */
+	naviLeft.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+
+	/** Setting up the center top label table */
+	centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	centerTop.row();
+	centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	centerTop.row();
+
+	/** Setting up the system info table **/
+
+	Label tempLabel1, tempLabel2;
+
+	tempLabel1 = new Label("Solar System", ResPack.UI_SKIN);
+	tempLabel1.setColor(Color.MAGENTA);
+
+	tempLabel2 = new Label("Information", ResPack.UI_SKIN);
+	tempLabel2.setColor(Color.MAGENTA);
+
+	systemInfo.add(tempLabel1);
+	systemInfo.add(tempLabel2);
+	systemInfo.row();
+	systemInfo.add(new Label("Owner: ", ResPack.UI_SKIN));
+	systemInfo.add(new Label("KateTheAwesome", ResPack.UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Size: ", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Something", ResPack.UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Coordinates: ", ResPack.UI_SKIN));
+	systemInfo.add(new Label("545-101", ResPack.UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Units: ", ResPack.UI_SKIN));
+	systemInfo.add(new Label("42", ResPack.UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Exploration: ", ResPack.UI_SKIN));
+	systemInfo.add(new Label("100%", ResPack.UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT).colspan(2);
+	systemInfo.row();
+
+	// TODO: Make this pretty!
+	setupInfoLabelBottom();
+
+  }
+
+  @Deprecated
+  /** Hovering display for mouse on map */
+  private void setupInfoLabelBottom() {
+	Table selectorTable = new Table();
+	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", ResPack.UI_SKIN);
+	selectorTable.setPosition(mapDim.fst.x + 255, mapDim.fst.y - 10);
+	selectorTable.add(systemSelector);
+	stage.addActor(selectorTable);
+
+  }
+
+  /** Map sizes (for Hexmap and Solar Map) */
+  private static final IntVec2 mapSize = new IntVec2(900, 600);
+
+  /** Screw around on that to position the map! */
+  private static final IntVec2 mapOffset = new IntVec2(150, 25);
+  /**
+   * First vector holds starting position of map (lower right corner), the other holds the actual size
+   */
+  private static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(new IntVec2(
+	  ((Gdx.graphics.getWidth() / 2) - mapSize.x / 2) - mapOffset.x, ((Gdx.graphics.getHeight() / 2) - mapSize.y / 2) - mapOffset.y),
+	  mapSize);
 }

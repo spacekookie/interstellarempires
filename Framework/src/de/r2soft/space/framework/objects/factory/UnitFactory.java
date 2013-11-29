@@ -21,9 +21,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.r2soft.space.framework.objects.Fleet;
-import de.r2soft.space.framework.objects.GameObject.SuperClass;
-import de.r2soft.space.framework.objects.Structure;
+import de.r2soft.space.framework.objects.GameObject.SuperType;
 import de.r2soft.space.framework.objects.Ship;
+import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -34,69 +34,68 @@ import de.r2soft.space.framework.players.Player;
  */
 public class UnitFactory {
 
-	public static enum ShipType {
-		FIGHTER, CARGO_SMALL, MOTHERSHIP;
+  public static enum ShipType {
+	FIGHTER, CARGO_SMALL, MOTHERSHIP;
+  }
+
+  private Player owner;
+  private Structure parent;
+
+  /** Constructor to be called from unit producing structures and planets. */
+  public UnitFactory(Player owner, Structure parent) {
+	this.owner = owner;
+	this.parent = parent;
+  }
+
+  /**
+   * Requsition a single unit by the Unit object
+   * 
+   * @param type
+   * @return
+   * 
+   * @author ***REMOVED***
+   */
+  public Ship requisitionUnit(ShipType type) {
+	Ship ship = new Ship(SuperType.SHIP, type, null, owner, parent.getPosition());
+	return ship;
+  }
+
+  /**
+   * Requisitions a fleet of units from a HashSet of shiptypes.
+   * 
+   * @param types
+   *          of ships wanted. Multiple entries mean multiple instances of that requested unit.
+   * @return Fleet object with requested ships. Base constructor without admiral.
+   * 
+   * @author ***REMOVED***
+   */
+  public Fleet requisitionFleet(Set<ShipType> types) {
+
+	Set<Ship> requested = new HashSet<Ship>();
+
+	for (ShipType type : types) {
+	  requested.add(new Ship(SuperType.SHIP, type, null, owner, parent.getPosition()));
 	}
 
-	private Player owner;
-	private Structure parent;
+	Fleet fleet = new Fleet(requested);
+	return fleet;
+  }
 
-	/** Constructor to be called from unit producing structures and planets. */
-	public UnitFactory(Player owner, Structure parent) {
-		this.owner = owner;
-		this.parent = parent;
+  /**
+   * Build a new default unit.
+   * 
+   * @param type
+   * @return
+   */
+  @Deprecated
+  public static Ship buildUnit(ShipType type) {
+	if (type == ShipType.FIGHTER) {
+	  Ship fighter = new Ship();
+	  return fighter;
 	}
-
-	/**
-	 * Requsition a single unit by the Unit object
-	 * 
-	 * @param type
-	 * @return
-	 * 
-	 * @author ***REMOVED***
-	 */
-	public Ship requisitionUnit(ShipType type) {
-		Ship ship = new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition());
-		return ship;
+	else {
+	  return null;
 	}
-
-	/**
-	 * Requisitions a fleet of units from a HashSet of shiptypes.
-	 * 
-	 * @param types
-	 *          of ships wanted. Multiple entries mean multiple instances of that requested unit.
-	 * @return Fleet object with requested ships. Base constructor without admiral.
-	 * 
-	 * @author ***REMOVED***
-	 */
-	public Fleet requisitionFleet(Set<ShipType> types) {
-
-		Set<Ship> requested = new HashSet<Ship>();
-
-		for (ShipType type : types) {
-			requested.add(new Ship(SuperClass.SHIP, type, null, owner, parent.getPosition()));
-		}
-
-		Fleet fleet = new Fleet(requested);
-		return fleet;
-	}
-
-	/**
-	 * Build a new default unit.
-	 * 
-	 * @param type
-	 * @return
-	 */
-	@Deprecated
-	public static Ship buildUnit(ShipType type) {
-		if (type == ShipType.FIGHTER) {
-			Ship fighter = new Ship();
-			return fighter;
-		}
-		else {
-			// Log the error
-			return null;
-		}
-	}
+  }
 
 }

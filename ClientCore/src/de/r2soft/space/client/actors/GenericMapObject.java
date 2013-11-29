@@ -31,249 +31,236 @@ import de.r2soft.space.client.util.Translator;
 import de.r2soft.space.framework.objects.Fleet;
 import de.r2soft.space.framework.objects.Fleet.FleetSize;
 import de.r2soft.space.framework.objects.GameObject;
-import de.r2soft.space.framework.objects.GameObject.SuperClass;
+import de.r2soft.space.framework.objects.GameObject.SuperType;
 import de.r2soft.space.framework.objects.Planet;
-import de.r2soft.space.framework.objects.Planet.PlanetClass;
+import de.r2soft.space.framework.objects.Planet.PlanetType;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
+import de.r2soft.space.framework.types.Allegience.Allegiance;
 
 /**
- * A generic MapObject that will be drawn onto the screen in the Solarmap. May
- * call sub-actors for specific shapes, sizes and habits of objects.
+ * A generic MapObject that will be drawn onto the screen in the Solarmap. May call sub-actors for specific shapes, sizes and habits of
+ * objects.
  * 
  * @author ***REMOVED***
  * 
  */
 public class GenericMapObject extends Actor {
 
-	/** Debug renderer */
-	private ShapeRenderer renderer;
+  /** Debug renderer */
+  private ShapeRenderer renderer;
 
-	/** Position information on screen */
-	private Vector2 position;
-	private GameObject orbit;
+  /** Position information on screen */
+  private Vector2 position;
+  private GameObject orbit;
 
-	/** Is this object selected? */
-	private boolean selected;
+  /** Is this object selected? */
+  private boolean selected;
 
-	/** Global object attributes */
-	private SuperClass superclass;
-	private ALLEGIANCE allegiance;
-	private Player claim;
-	private String name;
+  /** Global object attributes */
+  private SuperType superclass;
+  private Allegiance allegiance;
+  private Player claim;
+  private String name;
 
-	/** Unit information */
+  /** Unit information */
 
-	private ShipType shipType;
+  private ShipType shipType;
 
-	/** Fleet information */
-	private FleetSize fleetSize;
-	private int fleetCount;
+  /** Fleet information */
+  private FleetSize fleetSize;
+  private int fleetCount;
 
-	/** Planet information */
-	private PlanetClass planetClass;
-	private float planetRadius;
-	private float planetMass;
+  /** Planet information */
+  private PlanetType planetClass;
+  private float planetRadius;
+  private float planetMass;
 
-	/** Structure information */
-	private UnitFactory structureFactory;
+  /** Structure information */
+  private UnitFactory structureFactory;
 
-	/** For parent classes to work with */
-	private Ship unit;
-	private Fleet fleet;
-	private Planet planet;
-	private Structure structue;
+  /** For parent classes to work with */
+  private Ship unit;
+  private Fleet fleet;
+  private Planet planet;
+  private Structure structue;
 
-	{
-		renderer = new ShapeRenderer();
-		position = new Vector2();
+  {
+	renderer = new ShapeRenderer();
+	position = new Vector2();
+  }
+
+  /**
+   * Constructor only taking a unit.
+   * 
+   * @param unit
+   *          object to be drawn.
+   */
+  public GenericMapObject(Ship unit) {
+	name = unit.getName();
+	shipType = unit.getType();
+	claim = unit.getClaim();
+	allegiance = Translator.friendOrFoe(unit.getClaim(), Resources.thisPlayer);
+	System.out.println(unit.getPosition());
+	position = unit.getPosition();
+	superclass = unit.getSuperclass();
+	this.unit = unit;
+	orbit = unit.getOrbit();
+	System.out.println("Unit in Generic Map Object: " + unit.getName());
+  }
+
+  /**
+   * Constructor only taking a fleet.
+   * 
+   * @param fleet
+   *          obejct to be drawn.
+   */
+  public GenericMapObject(Fleet fleet) {
+	name = fleet.getName();
+	claim = fleet.getClaim();
+	fleetSize = fleet.getFleetSize();
+	fleetCount = fleet.getCount();
+	allegiance = Translator.friendOrFoe(fleet.getClaim(), Resources.thisPlayer);
+	position = fleet.getPosition();
+	superclass = fleet.getSuperclass();
+	this.fleet = fleet;
+	orbit = fleet.getOrbit();
+  }
+
+  /**
+   * Constructor only taking a structure.
+   * 
+   * @param structure
+   */
+  public GenericMapObject(Structure structure) {
+	this.structue = structure;
+	superclass = structure.getSuperclass();
+	name = structure.getName();
+	claim = structure.getClaim();
+	position = structure.getPosition();
+	allegiance = Translator.friendOrFoe(structure.getClaim(), Resources.thisPlayer);
+	structureFactory = structure.getFactory();
+	orbit = structure.getOrbit();
+  }
+
+  /**
+   * Constructor only taking a planet.
+   * 
+   * @param planet
+   */
+  public GenericMapObject(Planet planet) {
+	planetClass = planet.getType();
+	planetRadius = planet.getRadius();
+	planetMass = planet.getMass();
+	orbit = planet.getOrbit();
+	superclass = planet.getSuperclass();
+	this.planet = planet;
+  }
+
+  @Deprecated
+  public GenericMapObject(float x, float y) {
+	this.position.x = x;
+	this.position.y = y;
+  }
+
+  @Deprecated
+  public GenericMapObject(float x, float y, SuperType type, String name, Player claim, Allegiance allegience) {
+	this.position.x = x;
+	this.position.y = y;
+	this.name = name;
+	this.claim = claim;
+	this.allegiance = allegience;
+  }
+
+  @Override
+  public void draw(SpriteBatch batch, float parentAlpha) {
+	batch.end();
+	batch.begin();
+
+	if (superclass.equals(SuperType.SHIP)) {
+	  switch (this.shipType) {
+	  case FIGHTER:
+		batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y, 0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+		break;
+	  case CARGO_SMALL:
+		batch.draw(ResPack.UNITS_CARGO_SMALL, position.x, position.y, 0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1, 1, 0);
+		break;
+
+	  default:
+		break;
+	  }
 	}
 
-	/**
-	 * Constructor only taking a unit.
-	 * 
-	 * @param unit
-	 *            object to be drawn.
-	 */
-	public GenericMapObject(Ship unit) {
-		name = unit.getName();
-		shipType = unit.getType();
-		claim = unit.getClaim();
-		allegiance = Translator.friendOrFoe(unit.getClaim(),
-				Resources.thisPlayer);
-		System.out.println(unit.getPosition());
-		position = unit.getPosition();
-		superclass = unit.getSuperclass();
-		this.unit = unit;
-		orbit = unit.getOrbit();
-		System.out.println("Unit in Generic Map Object: " + unit.getName());
+	if (selected) {
+	  batch.draw(ResPack.GUI_FRAME_SELECTION, position.x - (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), position.y
+		  - (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY), 0, 0, Sizes.SIZE_GUI_SELECTION_BOX_TINY,
+		  Sizes.SIZE_GUI_SELECTION_BOX_TINY, 1, 1, 0);
 	}
 
-	/**
-	 * Constructor only taking a fleet.
-	 * 
-	 * @param fleet
-	 *            obejct to be drawn.
-	 */
-	public GenericMapObject(Fleet fleet) {
-		name = fleet.getName();
-		claim = fleet.getClaim();
-		fleetSize = fleet.getFleetSize();
-		fleetCount = fleet.getCount();
-		allegiance = Translator.friendOrFoe(fleet.getClaim(),
-				Resources.thisPlayer);
-		position = fleet.getPosition();
-		superclass = fleet.getSuperclass();
-		this.fleet = fleet;
-		orbit = fleet.getOrbit();
-	}
+  }
 
-	/**
-	 * Constructor only taking a structure.
-	 * 
-	 * @param structure
-	 */
-	public GenericMapObject(Structure structure) {
-		this.structue = structure;
-		superclass = structure.getSuperclass();
-		name = structure.getName();
-		claim = structure.getClaim();
-		position = structure.getPosition();
-		allegiance = Translator.friendOrFoe(structure.getClaim(),
-				Resources.thisPlayer);
-		structureFactory = structure.getFactory();
-		orbit = structure.getOrbit();
-	}
+  /**
+   * This will register clicks on the corresponding tile actor.
+   * 
+   * @param x
+   *          position of mouse on screen.
+   * 
+   * @param y
+   *          position of mouse on screen.
+   * 
+   * @param touchable
+   *          Whether the actor allows touch events.
+   * 
+   * @return null
+   */
+  @Override
+  public Actor hit(float x, float y, boolean touchable) {
 
-	/**
-	 * Constructor only taking a planet.
-	 * 
-	 * @param planet
-	 */
-	public GenericMapObject(Planet planet) {
-		planetClass = planet.getType();
-		planetRadius = planet.getRadius();
-		planetMass = planet.getMass();
-		orbit = planet.getOrbit();
-		superclass = planet.getSuperclass();
-		this.planet = planet;
-	}
-
-	@Deprecated
-	public GenericMapObject(float x, float y) {
-		this.position.x = x;
-		this.position.y = y;
-	}
-
-	@Deprecated
-	public GenericMapObject(float x, float y, SuperClass type, String name,
-			Player claim, ALLEGIANCE allegience) {
-		this.position.x = x;
-		this.position.y = y;
-		this.name = name;
-		this.claim = claim;
-		this.allegiance = allegience;
-	}
-
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		batch.end();
-		batch.begin();
-
-		if (superclass.equals(SuperClass.SHIP)) {
-			switch (this.shipType) {
-			case FIGHTER:
-				batch.draw(ResPack.UNITS_FIGHTER_BASIC, position.x, position.y,
-						0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1,
-						1, 0);
-				break;
-			case CARGO_SMALL:
-				batch.draw(ResPack.UNITS_CARGO_SMALL, position.x, position.y,
-						0, 0, Sizes.SIZE_FLEET_TINY, Sizes.SIZE_FLEET_TINY, 1,
-						1, 0);
-				break;
-
-			default:
-				break;
-			}
-		}
-
+	if (touchable && getTouchable() == Touchable.enabled) {
+	  if (Gdx.input.isButtonPressed(1)) {
 		if (selected) {
-			batch.draw(
-					ResPack.GUI_FRAME_SELECTION,
-					position.x
-							- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY),
-					position.y
-							- (Sizes.SIZE_GUI_SELECTION_BOX_TINY - Sizes.SIZE_FLEET_TINY),
-					0, 0, Sizes.SIZE_GUI_SELECTION_BOX_TINY,
-					Sizes.SIZE_GUI_SELECTION_BOX_TINY, 1, 1, 0);
+		  // TODO: Request move on server
+		  position.x = x;
+		  position.y = y;
 		}
-
-	}
-
-	/**
-	 * This will register clicks on the corresponding tile actor.
-	 * 
-	 * @param x
-	 *            position of mouse on screen.
-	 * 
-	 * @param y
-	 *            position of mouse on screen.
-	 * 
-	 * @param touchable
-	 *            Whether the actor allows touch events.
-	 * 
-	 * @return null
-	 */
-	@Override
-	public Actor hit(float x, float y, boolean touchable) {
-
-		if (touchable && getTouchable() == Touchable.enabled) {
-			if (Gdx.input.isButtonPressed(1)) {
-				if (selected) {
-					// TODO: Request move on server
-					position.x = x;
-					position.y = y;
-				}
-			} else if (Gdx.input.isTouched(0)) {
-				if (x > this.position.x
-						&& x < (this.position.x + Sizes.SIZE_GUI_SELECTION_BOX_TINY)
-						&& y > this.position.y
-						&& y < (this.position.y + Sizes.SIZE_GUI_SELECTION_BOX_TINY)) {
-					selected = true;
-					// setParentSelection("metal");
-				} else {
-					selected = false;
-					// setParentSelection(null);
-				}
-			}
+	  }
+	  else if (Gdx.input.isTouched(0)) {
+		if (x > this.position.x && x < (this.position.x + Sizes.SIZE_GUI_SELECTION_BOX_TINY) && y > this.position.y
+			&& y < (this.position.y + Sizes.SIZE_GUI_SELECTION_BOX_TINY)) {
+		  selected = true;
+		  // setParentSelection("metal");
 		}
-		return null;
+		else {
+		  selected = false;
+		  // setParentSelection(null);
+		}
+	  }
 	}
+	return null;
+  }
 
-	// private void setParentSelection(String s) {
-	// if (s != null)
-	// SystemScreen.getInstance().setSelectionfocus(this, superclass);
-	// else
-	// SystemScreen.getInstance().setSelectionfocus(null, null);
-	// }
+  // private void setParentSelection(String s) {
+  // if (s != null)
+  // SystemScreen.getInstance().setSelectionfocus(this, superclass);
+  // else
+  // SystemScreen.getInstance().setSelectionfocus(null, null);
+  // }
 
-	/** @return selected planet */
-	public Planet getPlanetIfExists() {
-		return planet;
-	}
+  /** @return selected planet */
+  public Planet getPlanetIfExists() {
+	return planet;
+  }
 
-	/** @return selected unit */
-	public Ship getUnitIfExists() {
-		return unit;
-	}
+  /** @return selected unit */
+  public Ship getUnitIfExists() {
+	return unit;
+  }
 
-	/** @return selected structure */
-	public Structure getStructureIfExists() {
-		return structue;
-	}
+  /** @return selected structure */
+  public Structure getStructureIfExists() {
+	return structue;
+  }
 }

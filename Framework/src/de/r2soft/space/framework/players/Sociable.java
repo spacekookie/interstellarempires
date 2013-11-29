@@ -23,7 +23,7 @@ import java.util.Map;
 
 import com.esotericsoftware.minlog.Log;
 
-import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
+import de.r2soft.space.framework.types.Allegience.Allegiance;
 
 /**
  * 
@@ -33,32 +33,32 @@ import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
  * */
 public abstract class Sociable {
 
-	private Map<Sociable, ALLEGIANCE> standings;
+  private Map<Sociable, Allegiance> standings;
 
-	public Sociable() {
-		standings = new HashMap<Sociable, ALLEGIANCE>();
-	}
+  public Sociable() {
+	standings = new HashMap<Sociable, Allegiance>();
+  }
 
-	/** Returns a map of all standings of this alliance */
-	public Map<Sociable, ALLEGIANCE> getStandings() {
-		return standings;
-	}
+  /** Returns a map of all standings of this alliance */
+  public Map<Sociable, Allegiance> getStandings() {
+	return standings;
+  }
 
-	/** Removes a specific standing from the Map */
-	public void removeStanding(Sociable subject) {
-		if (standings.containsKey(subject))
-			standings.remove(subject);
-		else
-			Log.info("STANDING DOESN'T EXIST");
-	}
+  /** Removes a specific standing from the Map */
+  public void removeStanding(Sociable subject) {
+	if (standings.containsKey(subject))
+	  standings.remove(subject);
+	else
+	  Log.info("STANDING DOESN'T EXIST");
+  }
 
-	/** Add a specific standing to the Map */
-	public void addStanding(Sociable subject, ALLEGIANCE standing) {
-		standings.put(subject, standing);
-	}
+  /** Add a specific standing to the Map */
+  public void addStanding(Sociable subject, Allegiance standing) {
+	standings.put(subject, standing);
+  }
 
-	/** Overrides all existang standings with new Map */
-	public void setAllStandings(Map<Sociable, ALLEGIANCE> standings) {
-		this.standings = standings;
-	}
+  /** Overrides all existang standings with new Map */
+  public void setAllStandings(Map<Sociable, Allegiance> standings) {
+	this.standings = standings;
+  }
 }

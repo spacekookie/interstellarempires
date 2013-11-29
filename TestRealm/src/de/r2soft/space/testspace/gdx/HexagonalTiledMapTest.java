@@ -1,4 +1,4 @@
-package de.r2soft.space.client.a.testspace;
+package de.r2soft.space.testspace.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

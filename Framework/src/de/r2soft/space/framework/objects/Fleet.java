@@ -31,89 +31,89 @@ import de.r2soft.space.framework.ai.Admiral.CommandType;
  */
 public class Fleet extends PlayerObject {
 
-	public static enum FleetSize {
-		TINY, SMALL, MEDIUM, LARGE, MASSIVE;
+  public static enum FleetSize {
+	TINY, SMALL, MEDIUM, LARGE, MASSIVE;
+  }
+
+  private int count;
+  private Set<Ship> units;
+  private Admiral admiral;
+
+  public Fleet(Set<Ship> units) {
+	this.count = units.size();
+	this.units = units;
+  }
+
+  /**
+   * Determines what icon size will be used for rendering.
+   * 
+   * @return enum for fleet SIZE.
+   */
+  public FleetSize getFleetSize() {
+	if (count < 10)
+	  return FleetSize.TINY;
+	if (count < 25)
+	  return FleetSize.SMALL;
+	if (count < 50)
+	  return FleetSize.MEDIUM;
+	if (count < 100)
+	  return FleetSize.LARGE;
+	if (count < 500)
+	  return FleetSize.MASSIVE;
+	else
+	  return null;
+  }
+
+  /** Add existing fleet to this one */
+  public void addUnits(Set<Ship> newUnits) {
+
+	for (Ship u : newUnits) {
+	  units.add(u);
+	  count++;
 	}
+  }
 
-	private int count;
-	private Set<Ship> units;
-	private Admiral admiral;
+  /** Add single unit to this fleet */
+  public void addUnit(Ship unit) {
+	units.add(unit);
+	count++;
+  }
 
-	public Fleet(Set<Ship> units) {
-		this.count = units.size();
-		this.units = units;
+  /** Remove a specific unit from the fleet */
+  public void removeUnit(Ship unit) {
+	units.remove(unit);
+	count--;
+  }
+
+  public void removeUnits(Set<Ship> units) {
+	for (Ship u : units) {
+	  this.units.remove(u);
+	  count--;
 	}
+  }
 
-	/**
-	 * Determines what icon size will be used for rendering.
-	 * 
-	 * @return enum for fleet SIZE.
-	 */
-	public FleetSize getFleetSize() {
-		if (count < 10)
-			return FleetSize.TINY;
-		if (count < 25)
-			return FleetSize.SMALL;
-		if (count < 50)
-			return FleetSize.MEDIUM;
-		if (count < 100)
-			return FleetSize.LARGE;
-		if (count < 500)
-			return FleetSize.MASSIVE;
-		else
-			return null;
-	}
+  public int getCount() {
+	return count;
+  }
 
-	/** Add existing fleet to this one */
-	public void addUnits(Set<Ship> newUnits) {
+  public void setCount(int count) {
+	this.count = count;
+  }
 
-		for (Ship u : newUnits) {
-			units.add(u);
-			count++;
-		}
-	}
+  public Set<Ship> getUnits() {
+	return units;
+  }
 
-	/** Add single unit to this fleet */
-	public void addUnit(Ship unit) {
-		units.add(unit);
-		count++;
-	}
+  public boolean hasAdmiral() {
+	return admiral == null ? false : true;
+  }
 
-	/** Remove a specific unit from the fleet */
-	public void removeUnit(Ship unit) {
-		units.remove(unit);
-		count--;
-	}
+  public Admiral getAdmiral() {
+	return admiral;
+  }
 
-	public void removeUnits(Set<Ship> units) {
-		for (Ship u : units) {
-			this.units.remove(u);
-			count--;
-		}
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public Set<Ship> getUnits() {
-		return units;
-	}
-
-	public boolean hasAdmiral() {
-		return admiral == null ? false : true;
-	}
-
-	public Admiral getAdmiral() {
-		return admiral;
-	}
-
-	public void setAdmiral(String name, CommandType type) {
-		if (admiral == null)
-			admiral = new Admiral(name, type);
-	}
+  public void setAdmiral(String name, CommandType type) {
+	if (admiral == null)
+	  admiral = new Admiral(name, type);
+  }
 }

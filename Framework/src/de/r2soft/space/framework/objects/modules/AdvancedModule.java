@@ -26,17 +26,17 @@ package de.r2soft.space.framework.objects.modules;
  */
 public abstract class AdvancedModule extends BaseModule {
 
-	/** Defensive values for the modules */
-	private int shields;
+  /** Defensive values for the modules */
+  private int shields;
 
-	/** @return the amount of shields the unit has left */
-	public int getShields() {
-		return shields;
-	}
+  /** @return the amount of shields the unit has left */
+  public int getShields() {
+	return shields;
+  }
 
-	/** Sets the new or initial amount of shields. Should be called in unit creation and after combat */
-	public void setShields(int shields) {
-		this.shields = shields;
-	}
+  /** Sets the new or initial amount of shields. Should be called in unit creation and after combat */
+  public void setShields(int shields) {
+	this.shields = shields;
+  }
 
 }

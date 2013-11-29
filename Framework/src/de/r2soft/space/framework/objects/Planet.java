@@ -20,90 +20,83 @@ package de.r2soft.space.framework.objects;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Planet implementations. Can gain or loose homeworld status by players settling their first colony
- * on them.
- * Capital flag can be transfered.
+ * Planet implementations. Can gain or loose homeworld status by players settling their first colony on them. Capital flag can be
+ * transfered.
  * 
  * @author ***REMOVED***
  * 
  */
 public class Planet extends PlayerObject {
 
-	private float radius;
-	private float mass;
-	private PlanetClass type;
-	private boolean homeworld;
-	private boolean capital;
+  private float radius;
+  private float mass;
+  private PlanetType type;
+  private boolean homeworld;
+  private boolean capital;
 
-	/**
-	 * Planet classification:
-	 * 
-	 * A: Asteroids & Rocks
-	 * B: Volcanic Planet
-	 * C: Desert Planet
-	 * D: Earth Planet
-	 * E: Ice Planet
-	 * F: Gas Planets
-	 * 
-	 * @author ***REMOVED***
-	 * 
-	 */
-	public static enum PlanetClass {
-		A, B, C, D, E, F;
-	}
+  /**
+   * Planet classification:
+   * 
+   * A: Asteroids & Rocks && B: Volcanic Planet && C: Desert Planet && D: Earth Planet && E: Ice Planet && F: Gas Planets
+   * 
+   * @author ***REMOVED***
+   * 
+   */
+  public static enum PlanetType {
+	A, B, C, D, E, F;
+  }
 
-	public Planet(SuperClass superclass, float radius, float mass) {
-		super.setSuperclass(superclass);
-	}
+  public Planet(SuperType superclass, float radius, float mass) {
+	super.setSuperclass(superclass);
+  }
 
-	public float getRadius() {
-		return radius;
-	}
+  public float getRadius() {
+	return radius;
+  }
 
-	public void setRadius(float radius) {
-		this.radius = radius;
-	}
+  public void setRadius(float radius) {
+	this.radius = radius;
+  }
 
-	public float getMass() {
-		return mass;
-	}
+  public float getMass() {
+	return mass;
+  }
 
-	public void setMass(float mass) {
-		this.mass = mass;
-	}
+  public void setMass(float mass) {
+	this.mass = mass;
+  }
 
-	public PlanetClass getType() {
-		return type;
-	}
+  public PlanetType getType() {
+	return type;
+  }
 
-	public void setType(PlanetClass type) {
-		this.type = type;
-	}
+  public void setType(PlanetType type) {
+	this.type = type;
+  }
 
-	/** Set from server side! Homeworld can not be transfered */
-	protected void setHomeworld(Player p) {
-		if (p.hasPlanets())
-			this.homeworld = true;
-		else
-			this.homeworld = false;
-	}
+  /** Set from server side! Homeworld can not be transfered */
+  protected void setHomeworld(Player p) {
+	if (p.hasPlanets())
+	  this.homeworld = true;
+	else
+	  this.homeworld = false;
+  }
 
-	public boolean isCapital() {
-		return capital;
-	}
+  public boolean isCapital() {
+	return capital;
+  }
 
-	/**
-	 * Sets the new capital of the empire. Checks for the old capital and if exists revokes capital
-	 * status from that planet.
-	 */
-	public void setCapital(boolean capital) {
-		Planet old = super.getClaim().getCapital();
-		if (old != null)
-			old.setCapital(false);
-		this.capital = capital;
-	}
+  /**
+   * Sets the new capital of the empire. Checks for the old capital and if exists revokes capital status from that planet.
+   */
+  public void setCapital(boolean capital) {
+	Planet old = super.getClaim().getCapital();
+	if (old != null)
+	  old.setCapital(false);
+	this.capital = capital;
+  }
 
-	public boolean isHomeworld() {
-		return homeworld;
-	}
+  public boolean isHomeworld() {
+	return homeworld;
+  }
 }
