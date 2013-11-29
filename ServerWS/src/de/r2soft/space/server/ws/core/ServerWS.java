@@ -23,7 +23,6 @@ import javax.ejb.Startup;
 
 import org.apache.log4j.Logger;
 
-import de.r2soft.space.framework.util.UtilFactory;
 import de.r2soft.space.server.core.Server;
 import de.r2soft.space.server.ws.interfaces.ServerWSLocal;
 
@@ -31,33 +30,33 @@ import de.r2soft.space.server.ws.interfaces.ServerWSLocal;
 @Singleton
 public class ServerWS implements ServerWSLocal {
 
-	/** Private fields **/
-	private final Logger log = UtilFactory.createLogger(this);
-	private Server server;
+  /** Private fields **/
+  private final Logger log = Logger.getLogger(getClass());
+  private Server server;
 
-	/**
-	 * Create a new ServerWS. This method is called by JBoss once the server is started and the module deployed due to the @Startup
-	 * annotation.
-	 */
-	private ServerWS() {
-		log.info("Creating main server web service");
-		initializeServerWS();
-	}
+  /**
+   * Create a new ServerWS. This method is called by JBoss once the server is started and the module
+   * deployed due to the @Startup annotation.
+   */
+  public ServerWS() {
+	log.info("Creating main server web service");
+	initializeServerWS();
+  }
 
-	/**
-	 * Initialize the ServerWS
-	 */
-	private void initializeServerWS() {
-		server = new Server();
-	}
+  /**
+   * Initialize the ServerWS
+   */
+  private void initializeServerWS() {
+	server = new Server();
+  }
 
-	@PostConstruct
-	private void start() {
-		log.info("Starting main server web service");
-	}
+  @PostConstruct
+  private void start() {
+	log.info("Starting main server web service");
+  }
 
-	public void test() {
-		log.info("Test function");
-	}
+  public void test() {
+	log.info("Test function");
+  }
 
 }
