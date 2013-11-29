@@ -18,6 +18,8 @@
 
 package de.r2soft.space.framework.types;
 
+import de.r2soft.space.framework.map.GalaxyPosition;
+
 /**
  * My own integer implementation of the Vector2 class from LibGDX. Only used for
  * tile coordinates on hexagon map.
@@ -226,18 +228,15 @@ public class IntVec2 {
 		return this.x * y - this.y * x;
 	}
 
-	// public boolean equals(Object obj) {
-	// if (this == obj)
-	// return true;
-	// if (obj == null)
-	// return false;
-	// if (getClass() != obj.getClass())
-	// return false;
-	// IntVec2 other = (IntVec2) obj;
-	// if (NumberUtils.floatToIntBits(x) != NumberUtils.floatToIntBits(other.x))
-	// return false;
-	// if (NumberUtils.floatToIntBits(y) != NumberUtils.floatToIntBits(other.y))
-	// return false;
-	// return true;
-	// }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+
+		IntVec2 other = (IntVec2) obj;
+
+		return (this.x == other.x && this.y == other.y) ? true : false;
+	}
 }

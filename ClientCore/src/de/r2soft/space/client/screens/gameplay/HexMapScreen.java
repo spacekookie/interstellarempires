@@ -57,8 +57,10 @@ import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.GalaxyMap;
+import de.r2soft.space.framework.map.GalaxyPosition;
 import de.r2soft.space.framework.map.MapParser;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
 
 /**
@@ -112,6 +114,7 @@ public class HexMapScreen implements Screen {
 		this.fetchGalaxyMap();
 	}
 
+	/** TODO: This should be moved to be a server call! */
 	private void fetchGalaxyMap() {
 		SAXReader reader = new SAXReader();
 		MapParser parser = new MapParser();
@@ -137,12 +140,6 @@ public class HexMapScreen implements Screen {
 		Gdx.graphics.setTitle(s.toString());
 	}
 
-	// hexture = new Texture(Gdx.files.internal("assets/hexes2.png"));
-	// TextureRegion[][] hexes = TextureRegion.split(hexture, 112, 97);
-	// tiles[0] = new StaticTiledMapTile(new TextureRegion(hexes[0][0]));
-	// tiles[1] = new StaticTiledMapTile(new TextureRegion(hexes[0][1]));
-	// tiles[2] = new StaticTiledMapTile(new TextureRegion(hexes[1][0]));
-
 	@Override
 	public void show() {
 		float width = Gdx.graphics.getWidth();
@@ -167,46 +164,34 @@ public class HexMapScreen implements Screen {
 		MapLayers layers = map.getLayers();
 		TiledMapTile[] tiles = new TiledMapTile[4];
 
+		// TODO: Make this ugly go away.
 		tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
 		tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
 		tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
 		tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
 
 		TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-		for (int msx = 0; msx < galaxyMap.getSize().x; msx++) {
-			for (int msy = 0; msy < galaxyMap.getSize().y; msy++) {
+		for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
+			for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
 				Cell cell = new Cell();
 
 				SolarSystem temp = galaxyMap
-						.getSystemById(new IntVec2(msx, msy));
-				if (temp != null)
-					System.out.println(temp);
+						.getSystemWithPosition(new GalaxyPosition(msx, msy));
 
-				// if (temp.getClaim().equals(Resources.thisPlayer))
-				// cell.setTile(tiles[1]);
-				// else if (temp.getClaim().equals(Resources._neutralplayer))
-				// cell.setTile(tiles[3]);
-				// else
-				cell.setTile(tiles[2]);
+				if (temp != null) {
+					if (temp.getClaim().equals(Resources.thisPlayer)) {
+						cell.setTile(tiles[1]);
+					} else if (temp.getClaim().equals(new Player("null"))) {
+						cell.setTile(tiles[3]);
+					} else {
+						cell.setTile(tiles[2]);
+					}
+				}
 
 				layer.setCell(msx, msy, cell);
 			}
 		}
 		layers.add(layer);
-
-		// for (int l = 0; l < 1; l++) {
-		// TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-		// for (int y = 0; y < 2; y++) {
-		// for (int x = 0; x < 2; x++) {
-		// int id = (int) (Math.random() * 4);
-		// Cell cell = new Cell();
-		//
-		// cell.setTile((TiledMapTile) tiles[id]);
-		// layer.setCell(x, y, cell);
-		// }
-		// }
-		// layers.add(layer);
-		// }
 
 		hexRenderer = new HexagonalTiledMapRenderer(map);
 
@@ -231,17 +216,21 @@ public class HexMapScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		/** Sets up map view */
 		Gdx.gl.glViewport(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
 				mapDim.snd.y);
 		mapCam.update();
 		hexRenderer.setView(mapCam);
 		hexRenderer.render();
 
+		/** Sets up stage view */
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		uiCam.update();
 
 		shapeRenderer.begin(ShapeType.Line);
+
+		/** Draws debug frame around map view */
 		shapeRenderer.rect(mapDim.fst.x, mapDim.fst.y, mapDim.snd.x,
 				mapDim.snd.y);
 		shapeRenderer.end();

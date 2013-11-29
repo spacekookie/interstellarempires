@@ -98,7 +98,7 @@ public class StarsystemScreen implements Screen {
 		s.append(" - ");
 		s.append(Resources.SCREENTITLE_SOLAR);
 		s.append(" - ");
-		s.append(system.getId());
+		s.append(system.getPosition().toString());
 		Gdx.graphics.setTitle(s.toString());
 	}
 

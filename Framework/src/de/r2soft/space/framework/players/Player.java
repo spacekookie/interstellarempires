@@ -25,8 +25,8 @@ import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.Planet;
 
 /**
- * Player object. Will be created from server and called again on login. Name will be returned on
- * login in the console.
+ * Player object. Will be created from server and called again on login. Name
+ * will be returned on login in the console.
  * 
  * @author Katharina
  * 
@@ -39,13 +39,19 @@ public class Player {
 	private Set<Planet> colonies;
 	private Set<SolarSystem> soveregenty;
 
+	{
+		this.colonies = new HashSet<Planet>();
+		this.soveregenty = new HashSet<SolarSystem>();
+	}
+
 	public void setAlliance(Alliance alliance) {
 		this.alliance = alliance;
 	}
 
 	/** TODO: Replace with .getIndipendance() method */
 	public Alliance getAlliance() {
-		return alliance != null ? alliance : new Alliance("Indipendant", "INDI");
+		return alliance != null ? alliance
+				: new Alliance("Indipendant", "INDI");
 	}
 
 	/**
@@ -54,8 +60,6 @@ public class Player {
 	 */
 	public Player(String name) {
 		this.name = name;
-		this.colonies = new HashSet<Planet>();
-		this.soveregenty = new HashSet<SolarSystem>();
 	}
 
 	/**
@@ -68,7 +72,7 @@ public class Player {
 		this.admin = admin;
 	}
 
-	public boolean isAdmin() {
+	public boolean isPony() {
 		return admin;
 	}
 
@@ -102,5 +106,21 @@ public class Player {
 
 	public boolean hasSystems() {
 		return !soveregenty.isEmpty();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		else if (obj instanceof Player) {
+			Player other = (Player) obj;
+
+			if (other.getName().equals(this.getName())) {
+				return true;
+			}
+
+		} else
+			return false;
+		return false;
 	}
 }
