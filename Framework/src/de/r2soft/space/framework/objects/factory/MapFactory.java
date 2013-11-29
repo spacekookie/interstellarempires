@@ -16,32 +16,32 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.server.ws.interfaces;
+package de.r2soft.space.framework.objects.factory;
 
 import java.util.Set;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import de.r2soft.space.framework.map.GalaxyMap;
+import de.r2soft.space.framework.primitives.IntVec2;
 
-import de.r2soft.space.framework.map.Map;
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
+public class MapFactory {
 
-@WebService(targetNamespace = "http://2rSoftworks.de/")
-public interface MapService {
+  public static enum MapParameters {
+	/*
+	 * Create a funny map
+	 */
+	FUNNY,
+	/*
+	 * Create a rather doomy map
+	 */
+	DOOMY;
+  }
 
-	@WebMethod
-	public Set<SolarSystem> getGlobalSolarSystems(Integer sessionID);
-
-	@WebMethod
-	public Set<SolarSystem> getPlaySolarSystems(Integer sessionID, Player player);
-
-	@WebMethod
-	public Set<SolarSystem> getKnownSolarSystems(Integer sessionID, Player player);
-
-	@WebMethod
-	public Map getPlayerViewScreen(IntVec2 bottomLeftSystem, float mapWidth, float mapHeight);
+  public static GalaxyMap generateMap(IntVec2 size, Set<MapParameters> parameters) {
+	GalaxyMap map = new GalaxyMap();
 	
+	// TODO: Work Magic here and create a cool galaxy map
+	
+	return map;
+  }
 
 }

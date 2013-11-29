@@ -31,9 +31,8 @@ import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies.
- * Rainbow ponies have
- * infinite shields, speed and damage.
+ * Common game unit. Can include single ships, ex-ships (debris), fleets and
+ * even rainbow ponies. Rainbow ponies have infinite shields, speed and damage.
  * 
  * @author ***REMOVED***
  * 
@@ -42,12 +41,12 @@ public class Ship extends MovingObject {
 
 	private Player claim;
 	private ShipType type;
-	private Set<Weapon> weapons;
 	private Set<ModuleSlot> slots;
 	private Propulsion engine;
 
 	/** Constructor for ships without modules */
-	public Ship(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position) {
+	public Ship(SuperClass superclass, ShipType type, String name,
+			Player claim, Vector2 position) {
 		this.type = type;
 		this.claim = claim;
 		super.setName(name);
@@ -56,8 +55,8 @@ public class Ship extends MovingObject {
 	}
 
 	/** Constructor for ships with modules */
-	public Ship(SuperClass superclass, ShipType type, String name, Player claim, Vector2 position,
-			Set<ModuleSlot> slots) {
+	public Ship(SuperClass superclass, ShipType type, String name,
+			Player claim, Vector2 position, Set<ModuleSlot> slots) {
 		this.type = type;
 		this.claim = claim;
 		super.setName(name);
@@ -102,7 +101,10 @@ public class Ship extends MovingObject {
 		for (ModuleSlot slot : slots) {
 			stripped.add(slot.getModule());
 		}
-		// TODO: Something with @stripped
+		/**
+		 * TODO: @stripped needs to be returned to the players module bay. TBI =
+		 * To be implemented
+		 */
 	}
 
 	/** Get a quick overview of all modules currently installed on this ship */
@@ -111,5 +113,19 @@ public class Ship extends MovingObject {
 		for (ModuleSlot slot : slots)
 			children.add(slot.getBaseModule());
 		return children;
+	}
+
+	/**
+	 * Get a quick overview of all weapons currently installed on this ship.
+	 * TODO: Change this to have lower runtime and make it more efficient.
+	 * */
+	public Set<Weapon> peekWeapons() {
+		Set<Weapon> weapons = new HashSet<Weapon>();
+		for (BaseModule module : peekModules()) {
+			if (module instanceof Weapon)
+				weapons.add((Weapon) module);
+
+		}
+		return weapons;
 	}
 }

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * 

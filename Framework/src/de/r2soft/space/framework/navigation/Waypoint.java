@@ -18,7 +18,7 @@
 package de.r2soft.space.framework.navigation;
 
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.primitives.IntVec2;
+import de.r2soft.space.framework.types.IntVec2;
 
 public class Waypoint {
 

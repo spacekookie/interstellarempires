@@ -11,8 +11,8 @@
 
         <map:SolarSystem
             Name="DemoSystem1"
-            Owner="KateTheAwesome"
-            Type="REDDWARF" >
+            Type="Blue" 
+	    Owner="KateTheAwesome" >
 
             <map:Position
                 PosX="1"
@@ -30,8 +30,8 @@
 
         <map:SolarSystem
             Name="DemoSystem2"
-            Owner="DarkEagle"
-            Type="YELLOWDWARF" >
+            Type="Red" 
+	    Owner="DarkEagle" >
 
             <map:Position
                 PosX="1"
@@ -43,7 +43,7 @@
                     Distance="2.0"
                     Name="DemoPlanet2"
                     Size="0.5"
-                    Type="Green" />
+                    Type="Red" />
 
                 <map:Planet
                     Distance="4.0"

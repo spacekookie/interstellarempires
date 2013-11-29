@@ -20,7 +20,8 @@ package de.r2soft.space.framework.objects;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * Basic player object that can be manipulated by the player, however not always
+ * moved
  * 
  * @author Leander
  * 
@@ -29,10 +30,12 @@ public abstract class PlayerObject extends GameObject {
 
 	private Player claim;
 	private long combatID;
+	private int hp;
+	private int armour;
 
 	/**
-	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
-	 * high this unit will not do any damage.
+	 * The amount of armour that the units attack can punch through. If the
+	 * enemy armour value is too high this unit will not do any damage.
 	 */
 	private int punch;
 
@@ -50,6 +53,30 @@ public abstract class PlayerObject extends GameObject {
 
 	public void setCombatID(long id) {
 		this.combatID = id;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getArmour() {
+		return armour;
+	}
+
+	public void setArmour(int armour) {
+		this.armour = armour;
+	}
+
+	public int getPunch() {
+		return punch;
+	}
+
+	public void setPunch(int punch) {
+		this.punch = punch;
 	}
 
 }
