@@ -18,21 +18,12 @@
 
 package de.r2soft.space.testspace.combat;
 
-import de.r2soft.space.framework.ai.BasicCombat;
-import de.r2soft.space.framework.objects.Ship;
-import de.r2soft.space.framework.objects.GameObject.SuperType;
-import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
-
 public class CombatTester {
-
-  static Ship shipA = new Ship(SuperType.SHIP, ShipType.FIGHTER, "Ship A", null, null);
-  static Ship shipB = new Ship(SuperType.SHIP, ShipType.FIGHTER, "Ship B", null, null);
 
   public static void main(String[] args) {
 
-	System.out.println("WELCOME TO THE PROTOTYPE SHIP COMBAT SIMULATOR");
+	System.out.println("Nothing to see here...");
 
-	System.out.println(BasicCombat.fight(shipA, shipB));
   }
 
 }
