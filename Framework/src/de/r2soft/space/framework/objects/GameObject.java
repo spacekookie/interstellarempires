@@ -29,24 +29,14 @@ import com.badlogic.gdx.utils.JsonValue.ValueType;
  */
 public abstract class GameObject {
 
-  /** Any object has a size */
   private float size;
-  /** Any object has a position */
   private Vector2 position;
-  /** Any object can orbit around another object */
   private GameObject orbit;
-  /** YOUR COMPUTER WILL CRASH AND BURN IF THIS I NOT SET */
-  private Category superclass;
-  /** Anything object in the game can be named */
   private String name;
-  
-  private Type type;
+
+  /* INSANELY IMPORTANT */
   private Category category;
-  
-  public GameObject(Type type) {
-	this.type = type;
-	this.category = ValueManager.getInstance().getCategory(type);
-  }
+  private Type type;
 
   public String getName() {
 	return name;
@@ -63,7 +53,7 @@ public abstract class GameObject {
 	/*
 	 * A basic fighter
 	 */
-	FIGHTER_I, 
+	FIGHTER_I,
 	/*
 	 * A sample gun
 	 */
@@ -101,13 +91,16 @@ public abstract class GameObject {
 	this.orbit = orbit;
   }
 
-  /** @return MUST NOT BE NULL */
-  public Category getSuperclass() {
-	return superclass;
+  public Type getType() {
+	return type;
   }
 
-  public void setSuperclass(Category superclass) {
-	this.superclass = superclass;
+  public void setType(Type type) {
+	this.type = type;
+  }
+
+  public void setCategory(Category category) {
+	this.category = category;
   }
 
 }
