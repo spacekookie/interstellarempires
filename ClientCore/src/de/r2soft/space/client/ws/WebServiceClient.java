@@ -17,20 +17,23 @@
  ######################################################################### */
 package de.r2soft.space.client.ws;
 
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
+
 import javax.jws.WebMethod;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.Lists;
+
+import de.r2soft.space.client.util.WebServiceUtil;
 import de.r2soft.space.server.ws.interfaces.ConnectionService;
 
 public class WebServiceClient implements ConnectionService {
-  private static WebServiceClient uniqInstance;
+  private static final WebServiceClient instance = new WebServiceClient();;
 
-  private static String WSDL_BASE_URL = "http://localhost:8080/ServerWS/";
   private final Logger log = Logger.getLogger(this.getClass());
 
   private ConnectionService connectionClient;
@@ -38,22 +41,17 @@ public class WebServiceClient implements ConnectionService {
   private Integer sessionID;
 
   private WebServiceClient() {
-	// Initialize variables
-	sessionID = -1;
+	this.sessionID = -1;
 
-	try {
-	  QName connectionServiceName = new QName("http://2rSoftworks.de/", "ConnectionService");
+	QName conServiceQ = ConnectionService.ServiceName;
+	Properties properties = WebServiceUtil.loadProperties("server_config.properties");
+	String serverLocation = properties.getProperty("server", "http://localhost:8080/ServerWS/");
 
-	  URL connectionServiceWsdl = new URL(WSDL_BASE_URL + connectionServiceName.getLocalPart()
-		  + "?wsdl");
+	URL conServiceWsld = WebServiceUtil.buildURL(Lists.newArrayList(serverLocation,
+		conServiceQ.getLocalPart(), "?wsdl"));
+	Service connectionService = Service.create(conServiceWsld, conServiceQ);
 
-	  Service connectionService = Service.create(connectionServiceWsdl, connectionServiceName);
-
-	  connectionClient = connectionService.getPort(ConnectionService.class);
-	}
-	catch (MalformedURLException e) {
-	  log.error("Invalid wsdl URL", e);
-	}
+	connectionClient = connectionService.getPort(ConnectionService.class);
   }
 
   /**
@@ -62,10 +60,7 @@ public class WebServiceClient implements ConnectionService {
    * @return
    */
   public static synchronized WebServiceClient getInstance() {
-	if (uniqInstance == null) {
-	  uniqInstance = new WebServiceClient();
-	}
-	return uniqInstance;
+	return instance;
   }
 
   /**

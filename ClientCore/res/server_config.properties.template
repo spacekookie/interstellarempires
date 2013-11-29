@@ -1,0 +1,3 @@
+# Copy this file and remove the .template file ending
+# Then configure the location of the server you would like to connect to
+server=http://localhost:8080/ServerWS/
