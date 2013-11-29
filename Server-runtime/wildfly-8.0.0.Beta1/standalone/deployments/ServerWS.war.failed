@@ -1,0 +1,9 @@
+{"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {
+    "JBAS014671: Failed services" => {"jboss.deployment.unit.\"ServerWS.war\".INSTALL" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"ServerWS.war\".INSTALL: JBAS018733: Failed to process phase INSTALL of deployment \"ServerWS.war\"
+    Caused by: org.jboss.as.server.deployment.DeploymentUnitProcessingException: JBAS011030: Could not configure component ServerWS
+    Caused by: org.jboss.as.server.deployment.DeploymentUnitProcessingException: JBAS014227: EJB ServerWS of type de.r2soft.space.server.ws.core.ServerWS must have public default constructor"},
+    "JBAS014771: Services with missing/unavailable dependencies" => [
+        "jboss.deployment.unit.\"ServerWS.war\".weld.weldClassIntrospector is missing [jboss.deployment.unit.\"ServerWS.war\".beanmanager]",
+        "jboss.deployment.unit.\"ServerWS.war\".batch is missing [jboss.deployment.unit.\"ServerWS.war\".beanmanager]"
+    ]
+}}}
