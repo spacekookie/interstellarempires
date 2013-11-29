@@ -27,7 +27,6 @@ import de.r2soft.space.framework.objects.modules.BaseModule;
 import de.r2soft.space.framework.objects.modules.ModuleSlot;
 import de.r2soft.space.framework.objects.modules.Propulsion;
 import de.r2soft.space.framework.objects.modules.Weapon;
-import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -87,13 +86,13 @@ public class Ship extends MovingObject {
 		this.type = type;
 	}
 
-	public ALLEGIANCE getAllegiance(Player p) {
-
-		if (p.getAlliance().equals(claim.getAlliance())) {
-			return ALLEGIANCE.FRIENDLY;
-		}
-		return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
-	}
+	// public ALLEGIANCE getAllegiance(Player p) {
+	//
+	// if (p.getAlliance().equals(claim.getAlliance())) {
+	// return ALLEGIANCE.FRIENDLY;
+	// }
+	// return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
+	// }
 
 	/** Strips all modules from their slots */
 	public void stripShip() {

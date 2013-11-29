@@ -18,7 +18,7 @@
 package de.r2soft.space.client.util;
 
 import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
+import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
 
 /**
  * Utility methods to translate stuff into other stuff.
@@ -32,9 +32,9 @@ public class Translator {
 	 * TODO: Implement alliances.
 	 * 
 	 * @param p
-	 *          the player owning the object, system, etc
+	 *            the player owning the object, system, etc
 	 * @param q
-	 *          the player logged into the server
+	 *            the player logged into the server
 	 * @return The relative Allegiance between object and current player
 	 * 
 	 */
@@ -43,14 +43,13 @@ public class Translator {
 		if (p != null) {
 			if (p.getAlliance() != null) {
 				if (p.getAlliance().equals(q.getAlliance())) {
-					return ALLEGIANCE.FRIENDLY;
+					return ALLEGIANCE.FRIEND;
 				}
 			}
 			if (p.equals(q)) {
-				return ALLEGIANCE.PLAYER;
-			}
-			else {
-				return ALLEGIANCE.HOSTILE;
+				return ALLEGIANCE.SELF;
+			} else {
+				return ALLEGIANCE.FOE;
 			}
 
 		}

@@ -34,12 +34,12 @@ import de.r2soft.space.framework.objects.GameObject;
 import de.r2soft.space.framework.objects.GameObject.SuperClass;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Planet.PlanetClass;
-import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.Ship;
+import de.r2soft.space.framework.objects.Structure;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.objects.factory.UnitFactory.ShipType;
-import de.r2soft.space.framework.players.Alliance.ALLEGIANCE;
 import de.r2soft.space.framework.players.Player;
+import de.r2soft.space.framework.types.Allegience.ALLEGIANCE;
 
 /**
  * A generic MapObject that will be drawn onto the screen in the Solarmap. May
