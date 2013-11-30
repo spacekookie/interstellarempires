@@ -36,7 +36,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -54,6 +53,8 @@ import de.r2soft.space.client.io.OrthoCamController;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.types.GalaxyRenderer;
+import de.r2soft.space.client.types.MapCell;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.GalaxyMap;
@@ -82,7 +83,7 @@ public class HexMapScreen implements Screen {
   private OrthographicCamera mapCam;
   private ShapeRenderer shapeRenderer;
   private OrthoCamController mapCamController;
-  private HexagonalTiledMapRenderer hexRenderer;
+  private GalaxyRenderer hexRenderer;
   private Texture hexture;
 
   /** Scene2D UI */
@@ -166,9 +167,9 @@ public class HexMapScreen implements Screen {
 	TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
 	for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
 	  for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
-		Cell cell = new Cell();
 
 		SolarSystem temp = galaxyMap.getSystemWithPosition(new GalaxyPosition(msx, msy));
+		MapCell cell = new MapCell(temp);
 
 		if (temp != null) {
 		  if (temp.getClaim().equals(Resources.thisPlayer)) {
@@ -187,7 +188,7 @@ public class HexMapScreen implements Screen {
 	}
 	layers.add(layer);
 
-	hexRenderer = new HexagonalTiledMapRenderer(map);
+	hexRenderer = new GalaxyRenderer(map);
 
 	/** initializing Tables, Items and Groups */
 	this.initializeFrames();
@@ -198,12 +199,11 @@ public class HexMapScreen implements Screen {
 	/** Setting up the button listeners */
 	this.setupListeners();
 
-	mapCamController = new OrthoCamController(mapCam, map);
+	mapCamController = new OrthoCamController(mapCam, hexRenderer);
 	multiplexer.addProcessor(stage);
 	multiplexer.addProcessor(mapCamController);
 
 	Gdx.input.setInputProcessor(multiplexer);
-
   }
 
   @Override
