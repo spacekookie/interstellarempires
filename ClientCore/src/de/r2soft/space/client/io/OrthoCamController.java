@@ -2,10 +2,9 @@ package de.r2soft.space.client.io;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector3;
 
-import de.r2soft.space.client.screens.gameplay.HexMapScreen;
+import de.r2soft.space.client.types.GalaxyRenderer;
 
 public class OrthoCamController extends InputAdapter {
   final OrthographicCamera camera;
@@ -13,11 +12,11 @@ public class OrthoCamController extends InputAdapter {
   final Vector3 last = new Vector3(-1, -1, -1);
   final Vector3 delta = new Vector3();
 
-  private TiledMap map;
+  private GalaxyRenderer render;
 
-  public OrthoCamController(OrthographicCamera camera, TiledMap map) {
+  public OrthoCamController(OrthographicCamera camera, GalaxyRenderer render) {
 	this.camera = camera;
-	this.map = map;
+	this.render = render;
   }
 
   @Override
@@ -30,7 +29,7 @@ public class OrthoCamController extends InputAdapter {
 	Vector3 tmp = new Vector3(screenX, screenY, 0);
 	camera.unproject(tmp);
 
-	System.out.println("X:" + tmp.x + " Y: " + tmp.y);
+	System.out.println(render.getTileAt(tmp.x, tmp.y).getSystem().getPosition().toString());
 
 	return false;
 	// Tile t = level.getTileMap().getTileAt(tmp.x, tmp.y);
