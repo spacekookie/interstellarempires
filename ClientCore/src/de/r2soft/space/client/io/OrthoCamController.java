@@ -18,6 +18,7 @@ public class OrthoCamController extends InputAdapter {
   public OrthoCamController(OrthographicCamera camera, HexMapRenderer renderer) {
 	this.camera = camera;
 	this.renderer = renderer;
+	camera.zoom = 1;
   }
 
   @Override
@@ -30,7 +31,7 @@ public class OrthoCamController extends InputAdapter {
 	Vector3 tmp = new Vector3(screenX, screenY, 0);
 	camera.unproject(tmp);
 
-	System.out.println(renderer.getTileAt(screenX, screenY).getSystem().getClaim().toString());
+	System.out.println(tmp.x + " " + tmp.y);
 
 	return false;
 	// Tile t = level.getTileMap().getTileAt(tmp.x, tmp.y);
@@ -63,8 +64,8 @@ public class OrthoCamController extends InputAdapter {
 
   @Override
   public boolean scrolled(int amount) {
-	float newZoom = camera.zoom * (1 + (amount < 0 ? 0.1f : -0.1f));
-	changeZoom(newZoom, last.x, last.y);
+	// float newZoom = camera.zoom * (1 + (amount < 0 ? 0.1f : -0.1f));
+	// changeZoom(newZoom, last.x, last.y);
 	return true;
   }
 
