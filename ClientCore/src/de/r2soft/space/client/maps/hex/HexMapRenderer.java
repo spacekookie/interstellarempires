@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.types;
+package de.r2soft.space.client.maps.hex;
 
 import static com.badlogic.gdx.graphics.g2d.SpriteBatch.C1;
 import static com.badlogic.gdx.graphics.g2d.SpriteBatch.C2;
@@ -46,10 +46,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.BatchTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 
@@ -59,13 +57,13 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
  * @author ***REMOVED***
  * 
  * */
-public class GalaxyRenderer extends BatchTiledMapRenderer {
+public class HexMapRenderer extends BatchTiledHexMapRenderer {
   private boolean yDown = false;
   private float tileSizeX, tileSizeY;
-  private Set<TiledMapTileLayer> nodes;
+  private Set<HexMapLayer> nodes;
 
   {
-	nodes = new HashSet<TiledMapTileLayer>();
+	nodes = new HashSet<HexMapLayer>();
   }
 
   public boolean isYdown() {
@@ -76,26 +74,25 @@ public class GalaxyRenderer extends BatchTiledMapRenderer {
 	this.yDown = yDown;
   }
 
-  public GalaxyRenderer(TiledMap map) {
+  public HexMapRenderer(HexTileMap map) {
 	super(map);
   }
 
-  public GalaxyRenderer(TiledMap map, float unitScale) {
+  public HexMapRenderer(HexTileMap map, float unitScale) {
 	super(map, unitScale);
   }
 
-  public GalaxyRenderer(TiledMap map, SpriteBatch spriteBatch) {
+  public HexMapRenderer(HexTileMap map, SpriteBatch spriteBatch) {
 	super(map, spriteBatch);
   }
 
-  public GalaxyRenderer(TiledMap map, float unitScale, SpriteBatch spriteBatch) {
+  public HexMapRenderer(HexTileMap map, float unitScale, SpriteBatch spriteBatch) {
 	super(map, unitScale, spriteBatch);
   }
 
   private float[] vertices = new float[20];
 
-  @Override
-  public void renderTileLayer(TiledMapTileLayer layer) {
+  public void renderTileLayer(HexMapLayer layer) {
 	final Color batchColor = spriteBatch.getColor();
 	final float color = Color.toFloatBits(batchColor.r, batchColor.g, batchColor.b, batchColor.a * layer.getOpacity());
 
@@ -127,7 +124,7 @@ public class GalaxyRenderer extends BatchTiledMapRenderer {
 		float x = layerTileWidth75 * col;
 		float y = (col % 2 == (yDown ? 0 : 1) ? 0 : layerTileHeight50) + (layerTileHeight * row);
 
-		final Cell cell = layer.getCell(col, row);
+		final HexCell cell = (HexCell) layer.getCell(col, row);
 		nodes.add(layer);
 		if (cell == null) {
 		  x += layerTileWidth;
@@ -216,17 +213,19 @@ public class GalaxyRenderer extends BatchTiledMapRenderer {
 
   }
 
-  public MapCell getTileAt(float x, float y) {
+  /** TODO */
+  public HexCell getTileAt(float x, float y) {
 	int ix = Math.round(x);
 	int iy = Math.round(y);
 
-	int tileCol = Math.max((int) Math.floor(ix / tileSizeX), 0);
-	int tileRow = Math.max((int) Math.floor(iy / tileSizeY), 0);
+	int tileCol = Math.max((int) Math.floor(ix / 112), 0);
+	int tileRow = Math.max((int) Math.floor(iy / 97), 0);
 	tileRow = (int) 2 - tileRow - 1;
 
-	for (TiledMapTileLayer l : nodes) {
-	  if (l.getCell(tileRow, tileCol) != null)
-		return (MapCell) l.getCell(tileRow, tileCol);
+	for (HexMapLayer l : nodes) {
+	  if (l.getCell(tileRow, tileCol) != null) {
+		return (HexCell) l.getCell(tileRow, tileCol);
+	  }
 	}
 	return null;
 
@@ -236,4 +235,5 @@ public class GalaxyRenderer extends BatchTiledMapRenderer {
   public void renderObject(MapObject object) {
 
   }
+
 }
