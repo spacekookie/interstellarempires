@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.groups;
+package de.r2soft.space.client.maps.sun;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,9 +25,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.settings.Sizes;
 import de.r2soft.space.client.util.Find;
-import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.SolarSystem;
 
 /**
@@ -78,7 +78,7 @@ public class SolarGroup extends Group {
 		switch (system.getStar().getClassification()) {
 		case BROWNDWARF:
 			batch.draw(
-					ResPack.STARS_BROWN_DWARF,
+					Resources.STARS_BROWN_DWARF,
 					Find.getCenter().x - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2)
 							+ offsetX,
 					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2),
@@ -87,7 +87,7 @@ public class SolarGroup extends Group {
 			break;
 
 		case BLUEGIANT:
-			batch.draw(ResPack.STARS_BLUE_GIANT, Find.getCenter().x
+			batch.draw(Resources.STARS_BLUE_GIANT, Find.getCenter().x
 					- (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2) + offsetX,
 					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2),
 					0, 0, Sizes.SIZE_CELESTIAL_BLUE_GIANT,
@@ -95,7 +95,7 @@ public class SolarGroup extends Group {
 			break;
 
 		case NEUTRON:
-			batch.draw(ResPack.STARS_BLUE_DWARF, Find.getCenter().x
+			batch.draw(Resources.STARS_BLUE_DWARF, Find.getCenter().x
 					- (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2) + offsetX,
 					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2),
 					0, 0, Sizes.SIZE_CELESTIAL_BLUE_DWARF,
@@ -103,7 +103,7 @@ public class SolarGroup extends Group {
 			break;
 
 		case REDDWARF:
-			batch.draw(ResPack.STARS_RED_DWARF, Find.getCenter().x
+			batch.draw(Resources.STARS_RED_DWARF, Find.getCenter().x
 					- (Sizes.SIZE_CELESTIAL_RED_DWARF / 2) + offsetX,
 					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2),
 					0, 0, Sizes.SIZE_CELESTIAL_RED_DWARF,
@@ -111,7 +111,7 @@ public class SolarGroup extends Group {
 			break;
 
 		case REDGIANT:
-			batch.draw(ResPack.STARS_RED_GIANT, Find.getCenter().x
+			batch.draw(Resources.STARS_RED_GIANT, Find.getCenter().x
 					- (Sizes.SIZE_CELESTIAL_RED_GIANT / 2) + offsetX,
 					Find.getCenter().y - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2),
 					0, 0, Sizes.SIZE_CELESTIAL_RED_GIANT,

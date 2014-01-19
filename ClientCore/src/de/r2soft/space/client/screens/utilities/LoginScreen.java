@@ -30,15 +30,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.core.CoreGame;
 import de.r2soft.space.client.screens.gameplay.HexMapScreen;
+import de.r2soft.space.client.settings.BaseSettings;
 import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.client.settings.Sizes;
 
 public class LoginScreen implements Screen {
 
-	private ScreenHandler handler;
+	private CoreGame handler;
 
 	/** UI elements */
 	private Stage stage;
@@ -51,19 +51,19 @@ public class LoginScreen implements Screen {
 	/** Background stuff */
 	private String name_clear, password_clear;
 
-	public LoginScreen(ScreenHandler handler) {
-		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+	public LoginScreen(CoreGame handler) {
+		prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
 		this.handler = handler;
-		login = new TextButton("LOGIN", ResPack.UI_SKIN);
-		passField = new TextField("", ResPack.UI_SKIN);
-		userField = new TextField("", ResPack.UI_SKIN);
-		saveUser = new CheckBox("Save username?", ResPack.UI_SKIN);
+		login = new TextButton("LOGIN", Resources.UI_SKIN);
+		passField = new TextField("", Resources.UI_SKIN);
+		userField = new TextField("", Resources.UI_SKIN);
+		saveUser = new CheckBox("Save username?", Resources.UI_SKIN);
 
-		if (prefs.contains(Resources.PREFERENCE_SAVE_USERNAME)) {
+		if (prefs.contains(BaseSettings.PREFERENCE_SAVE_USERNAME)) {
 			userField.setText(prefs
-					.getString(Resources.PREFERENCE_SAVED_USER_NAME));
+					.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME));
 			saveUser.setChecked(prefs
-					.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+					.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME));
 		}
 
 	}
@@ -82,7 +82,7 @@ public class LoginScreen implements Screen {
 		outro.setFillParent(true);
 
 		// Exiting the game
-		exit = new TextButton("Exit Game", ResPack.UI_SKIN);
+		exit = new TextButton("Exit Game", Resources.UI_SKIN);
 		outro.add(exit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 		outro.row();
 		outro.top().left();
@@ -143,13 +143,13 @@ public class LoginScreen implements Screen {
 		stage.draw();
 
 		if (saveUser.isChecked()) {
-			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, true);
+			prefs.putBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME, true);
 		} else {
-			prefs.putBoolean(Resources.PREFERENCE_SAVE_USERNAME, false);
+			prefs.putBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME, false);
 		}
 
 		saveUser.setChecked(prefs
-				.getBoolean(Resources.PREFERENCE_SAVE_USERNAME));
+				.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME));
 
 		/** What do we do after we're done in the bathroom? :) */
 		prefs.flush();
@@ -160,10 +160,10 @@ public class LoginScreen implements Screen {
 		name_clear = userField.getText().toString();
 		password_clear = passField.getText().toString();
 
-		if (prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME))
-			prefs.putString(Resources.PREFERENCE_SAVED_USER_NAME, name_clear);
-		if (!prefs.getBoolean(Resources.PREFERENCE_SAVE_USERNAME))
-			prefs.putString(Resources.PREFERENCE_SAVED_USER_NAME, "");
+		if (prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME))
+			prefs.putString(BaseSettings.PREFERENCE_SAVED_USER_NAME, name_clear);
+		if (!prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME))
+			prefs.putString(BaseSettings.PREFERENCE_SAVED_USER_NAME, "");
 
 		prefs.flush();
 

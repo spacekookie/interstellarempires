@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.util;
+package de.r2soft.space.client.settings;
 
 public class Sizes {
 	/** Star sizes */
