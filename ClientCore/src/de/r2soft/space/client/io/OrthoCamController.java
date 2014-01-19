@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
+import de.r2soft.space.client.maps.hex.HexMapRenderer;
 import de.r2soft.space.client.types.GalaxyRenderer;
 
 public class OrthoCamController extends InputAdapter {
@@ -12,11 +13,11 @@ public class OrthoCamController extends InputAdapter {
   final Vector3 last = new Vector3(-1, -1, -1);
   final Vector3 delta = new Vector3();
 
-  private GalaxyRenderer render;
+  private HexMapRenderer renderer;
 
-  public OrthoCamController(OrthographicCamera camera, GalaxyRenderer render) {
+  public OrthoCamController(OrthographicCamera camera, HexMapRenderer renderer) {
 	this.camera = camera;
-	this.render = render;
+	this.renderer = renderer;
   }
 
   @Override
@@ -29,7 +30,7 @@ public class OrthoCamController extends InputAdapter {
 	Vector3 tmp = new Vector3(screenX, screenY, 0);
 	camera.unproject(tmp);
 
-	System.out.println(render.getTileAt(tmp.x, tmp.y).getSystem().getPosition().toString());
+	System.out.println(renderer.getTileAt(screenX, screenY).getSystem().getClaim().toString());
 
 	return false;
 	// Tile t = level.getTileMap().getTileAt(tmp.x, tmp.y);
