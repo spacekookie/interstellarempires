@@ -17,56 +17,136 @@
  ######################################################################### */
 package de.r2soft.space.client.settings;
 
-import de.r2soft.space.framework.players.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
- * Initializes the settings for the game. Also responsible for setting new
- * Settings.
+ * Global resource loader for the game client. Will distribute all texture
+ * files.
  * 
- * @author: Katharina
+ * @author Katharina
+ * 
  */
 public class Resources {
 
-	/** Just going with 720p game resolution here */
-	public static int OLD_WIDTH = 1280;
-	public static int OLD_HEIGHT = 720;
-	public static int NEW_WIDTH = OLD_WIDTH;
-	public static int NEW_HEIGHT = OLD_HEIGHT;
-	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.2";
-	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
-	public static final String SCREENTITLE_HOME = "HOME";
-	public static final String SCREENTITLE_LOGIN = "LOGIN";
-	public static final String SCREENTITLE_SOLAR = "SOL SYSTEM";
+	// Textures
 
-	/** Log sings */
-	public final static String LOG_GLOBAL = "From Client";
-	public final static String LOG_HEXMAP = "From HexMap";
-	public final static String LOG_HEX_TILE = "From HexMap";
-	public final static String LOG_SOLAR_MAP = "From System";
-	public final static String LOG_MAP_OBJECT = "From Object";
+	/** NEW HEX TILES */
+	private static final TextureAtlas atlas = new TextureAtlas(
+			Gdx.files.internal("assets/map/v2/v2hexmap.atlas"));
+	public static final TextureRegion TILES_BLUE = atlas
+			.findRegion("hextile_blue");
+	public static final TextureRegion TILES_GREEN = atlas
+			.findRegion("hextile_green");
+	public static final TextureRegion TILES_RED = atlas
+			.findRegion("hextile_red");
+	public static final TextureRegion TILES_WHITE = atlas
+			.findRegion("hextile_white");
 
-	public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
-	public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
-	public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
-	public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
-	public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
+	/** Atlas imports */
+	private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(
+			Gdx.files.internal("assets/map/prot-map-tiles.pack"));
+	private static final TextureAtlas INITIAL_MAP_SOLAR = new TextureAtlas(
+			Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
+	private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(
+			Gdx.files.internal("assets/gui/prot-selected.atlas"));
+	private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(
+			Gdx.files.internal("assets/map/adds/prot-tile-additions.atlas"));
+	private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(
+			Gdx.files.internal("assets/ships/basic-ships.pack"));
 
-	@Deprecated
-	/** Needs to be made dynamic and fetched from server */
-	public static final Player thisPlayer = new Player("KateTheAwesome");
-	public static final Player _neutralplayer = new Player("_no_owning_player_");
+	/** Skins */
 
-	/** Hexmap formulas */
-	@Deprecated
-	public static final float HEX_START_X = -275f;
-	@Deprecated
-	public static final float HEX_START_Y = -100f;
-	@Deprecated
-	public static final float HEX_RADIUS = 64f;
-	@Deprecated
-	public static final float HEX_COORD_X = (1 / 2) * 64f;
-	@Deprecated
-	public static final float HEX_COORD_Y = (float) ((Math.sqrt(3) * 64f) / 2);
+	/** The default skin for ui elements */
+	public static final Skin UI_SKIN = new Skin(
+			Gdx.files.internal("assets/gui/skins/evolved/uiskin.json"));
 
+	/** UI regions */
+
+	/** Selection box for units and planets */
+	public static final TextureRegion GUI_FRAME_SELECTION = INITIAL_UI_SELECTION
+			.findRegion("selected");
+
+	/** Tile regions */
+
+	/** Hostile occupied tile */
+	public static final TextureRegion TILE_HEX_ENEMY = INITIAL_MAP_HEX
+			.findRegion("prot-map-tile-hostile");
+	/** Allied tile */
+	public static final TextureRegion TILE_HEX_FRIEND = INITIAL_MAP_HEX
+			.findRegion("prot-map-tile-friend");
+	/** Neutral tile */
+	public static final TextureRegion TILE_HEX_NEUTRAL = INITIAL_MAP_HEX
+			.findRegion("prot-map-tile-neutral");
+	/** Player owned tile */
+	public static final TextureRegion TILE_HEX_PLAYER = INITIAL_MAP_HEX
+			.findRegion("prot-map-tile-player");
+
+	/** System contains player fleet */
+	public static final TextureRegion TILE_ADD_FLEET_PLAYER = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-player");
+	/** System contains friendly fleet */
+	public static final TextureRegion TILE_ADD_FLEET_FRIENDLY = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-allied");
+	/** System contains hostile fleet */
+	public static final TextureRegion TILE_ADD_FLEET_ENEMY = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-fleet-hostile");
+	/** System contains player station */
+	public static final TextureRegion TILE_ADD_STATION_PLAYER = INITIAL_MAP_ADDITIONS
+			.findRegion("prot-tile-station");
+	/** The tile addition size used for position and size */
+	public static final float SIZE_TILE_ADD_SIZE = 20;
+
+	/** Fleet regions */
+
+	/** Player owned fighter fleet */
+	public static final TextureRegion FLEET_FIGHTER_PLAYER = INITIAL_MAP_SOLAR
+			.findRegion("prot-fleet-fighter-player");
+	/** Hostile fighter fleet */
+	public static final TextureRegion FLEET_FIGHTER_ENEMY = INITIAL_MAP_SOLAR
+			.findRegion("prot-fleet-fighter-hostile");
+	/** Allied fighter fleet */
+	public static final TextureRegion FLEET_FIGHTER_FRIEND = INITIAL_MAP_SOLAR
+			.findRegion("prot-fleet-fighter-ally");
+
+	/** Single unit regions */
+
+	/** Single basic fighter unit. No colour coding for alliances */
+	public static final TextureRegion UNITS_FIGHTER_BASIC = INITIAL_BASIC_UNITS
+			.findRegion("small_fighter");
+	/** Single small cargo freighter unit. No colour coding for alliances */
+	public static final TextureRegion UNITS_CARGO_SMALL = INITIAL_BASIC_UNITS
+			.findRegion("cargo_freighter_small");
+
+	/** Star regions */
+
+	/**
+	 * ### Star classification definitions: ###
+	 * 
+	 * Class O: 40'000K Class B: 20'000K Class A: 10'000K Class F: 7'500K Class
+	 * G: 5'500K Class K: 4'500K Class M: 3'000K
+	 * 
+	 * Size magnitudes: 15: Neutron Stars 13: Brown Dwarfs 10: Red Dwarfs 8:
+	 * Yellow Dwarfs 5: Pretty green stars 0: Red giants/ (Main sequence: teal
+	 * giants) -5: Blue Giants, Red Super-giants -10: Super big ass stars (Red
+	 * and blue)
+	 */
+
+	/** Brown dwarf star */
+	public static final TextureRegion STARS_BROWN_DWARF = INITIAL_MAP_SOLAR
+			.findRegion("prot-star-browndwarf");
+	/** Red dwarf star */
+	public static final TextureRegion STARS_RED_DWARF = INITIAL_MAP_SOLAR
+			.findRegion("prot-star-reddwarf");
+	/** Red giant star */
+	public static final TextureRegion STARS_RED_GIANT = INITIAL_MAP_SOLAR
+			.findRegion("prot-star-reddwarf");
+	/** Neutron star */
+	public static final TextureRegion STARS_BLUE_DWARF = INITIAL_MAP_SOLAR
+			.findRegion("prot-star-neutron");
+	/** Blue super-giant */
+	public static final TextureRegion STARS_BLUE_GIANT = INITIAL_MAP_SOLAR
+			.findRegion("prot-star-neutron");
 }

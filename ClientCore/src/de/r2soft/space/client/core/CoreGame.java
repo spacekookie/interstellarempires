@@ -25,7 +25,7 @@ import com.badlogic.gdx.audio.Music;
 import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.screens.utilities.IntroductionScreen;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
-import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.settings.BaseSettings;
 
 /**
  * 
@@ -34,9 +34,9 @@ import de.r2soft.space.client.settings.Resources;
  * 
  * @author: Katharina
  */
-public class ScreenHandler extends Game {
+public class CoreGame extends Game {
 
-	private static ScreenHandler handler;
+	private static CoreGame handler;
 	private Music music;
 	private Preferences prefs;
 
@@ -47,7 +47,7 @@ public class ScreenHandler extends Game {
 	 * 
 	 * @return The main Screenhandler.
 	 */
-	public static ScreenHandler getInstance() {
+	public static CoreGame getInstance() {
 		return handler;
 	}
 
@@ -58,7 +58,7 @@ public class ScreenHandler extends Game {
 	 * @author Katharina
 	 */
 	public void onUpdate() {
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC)) {
+		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC)) {
 			if (!music.isPlaying()) {
 				music.play();
 				music.setLooping(true);
@@ -76,17 +76,17 @@ public class ScreenHandler extends Game {
 
 		music = Gdx.audio.newMusic(Gdx.files
 				.internal("assets/sounds/music/intro_music.mp3"));
-		prefs = Gdx.app.getPreferences(Resources.PREFERENCE_FILE_NAME);
+		prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
 
-		if (!prefs.contains(Resources.PREFERENCE_PLAY_MUSIC))
-			prefs.putBoolean(Resources.PREFERENCE_PLAY_MUSIC, true);
+		if (!prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
+			prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
 
-		if (!prefs.contains(Resources.PREFERENCE_SKIP_INTRO))
-			prefs.putBoolean(Resources.PREFERENCE_SKIP_INTRO, true);
+		if (!prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
+			prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
 
 		onUpdate();
 
-		if (!prefs.getBoolean(Resources.PREFERENCE_SKIP_INTRO))
+		if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
 			setScreen(new IntroductionScreen(this));
 		else
 			setScreen(new LoginScreen(this));
@@ -95,7 +95,7 @@ public class ScreenHandler extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
 			music.stop();
 	}
 
@@ -113,14 +113,14 @@ public class ScreenHandler extends Game {
 	public void pause() {
 		super.pause();
 
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
 			music.pause();
 	}
 
 	@Override
 	public void resume() {
 		super.resume();
-		if (prefs.getBoolean(Resources.PREFERENCE_PLAY_MUSIC))
+		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
 			music.play();
 	}
 
