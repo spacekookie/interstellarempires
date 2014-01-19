@@ -50,17 +50,23 @@ import com.sun.tools.javac.util.Pair;
 
 import de.r2soft.space.client.core.ScreenHandler;
 import de.r2soft.space.client.io.OrthoCamController;
+import de.r2soft.space.client.maps.hex.HexCell;
+import de.r2soft.space.client.maps.hex.HexMapLayer;
+import de.r2soft.space.client.maps.hex.HexMapLayers;
+import de.r2soft.space.client.maps.hex.HexMapRenderer;
+import de.r2soft.space.client.maps.hex.HexTileMap;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
 import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.client.types.GalaxyRenderer;
-import de.r2soft.space.client.types.MapCell;
 import de.r2soft.space.client.util.ResPack;
 import de.r2soft.space.client.util.Sizes;
 import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.GalaxyPosition;
 import de.r2soft.space.framework.map.MapParser;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
 
@@ -79,11 +85,11 @@ public class HexMapScreen implements Screen {
 
   /** Hex Map */
   private GalaxyMap galaxyMap;
-  private TiledMap map;
+  private HexTileMap map;
   private OrthographicCamera mapCam;
   private ShapeRenderer shapeRenderer;
   private OrthoCamController mapCamController;
-  private GalaxyRenderer hexRenderer;
+  private HexMapRenderer hexRenderer;
   private Texture hexture;
 
   /** Scene2D UI */
@@ -140,6 +146,8 @@ public class HexMapScreen implements Screen {
 	Gdx.graphics.setTitle(s.toString());
   }
 
+  private HexMapRenderer _renderer;
+
   @Override
   public void show() {
 	float width = Gdx.graphics.getWidth();
@@ -154,8 +162,9 @@ public class HexMapScreen implements Screen {
 	uiCam.setToOrtho(false, width, hight);
 	uiCam.update();
 
-	map = new TiledMap();
-	MapLayers layers = map.getLayers();
+	HexTileMap map = new HexTileMap();
+	HexMapLayers layers = map.getHexLayers();
+
 	TiledMapTile[] tiles = new TiledMapTile[4];
 
 	// TODO: Make this ugly go away.
@@ -164,31 +173,30 @@ public class HexMapScreen implements Screen {
 	tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
 	tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
 
-	TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-	for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
-	  for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
+	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
+	for (int mx = 0; mx < 3; mx++) {
+	  for (int my = 0; my < 3; my++) {
+		SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
+			STARCLASS.GIANTSPACEPUDDING));
+		HexCell cell = new HexCell(sys);
 
-		SolarSystem temp = galaxyMap.getSystemWithPosition(new GalaxyPosition(msx, msy));
-		MapCell cell = new MapCell(temp);
-
-		if (temp != null) {
-		  if (temp.getClaim().equals(Resources.thisPlayer)) {
+		if (sys != null) {
+		  if (sys.getClaim().equals(Resources.thisPlayer)) {
 			cell.setTile(tiles[1]);
 		  }
-		  else if (temp.getClaim().equals(new Player("null"))) {
+		  else if (sys.getClaim().equals(new Player("Julie"))) {
 			cell.setTile(tiles[3]);
 		  }
 		  else {
 			cell.setTile(tiles[2]);
 		  }
 		}
-
-		layer.setCell(msx, msy, cell);
+		layer.setCell(mx, my, cell);
 	  }
 	}
 	layers.add(layer);
 
-	hexRenderer = new GalaxyRenderer(map);
+	hexRenderer = new HexMapRenderer(map);
 
 	/** initializing Tables, Items and Groups */
 	this.initializeFrames();
