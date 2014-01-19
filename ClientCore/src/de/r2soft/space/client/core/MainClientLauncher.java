@@ -25,7 +25,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
-import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.settings.BaseSettings;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be added in the future
@@ -35,12 +35,12 @@ import de.r2soft.space.client.settings.Resources;
 public class MainClientLauncher {
   public static void main(String[] args) {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = Resources.SUPERTITLE + " - " + Resources.VERSION_NUMBER;
+	cfg.title = BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER;
 	cfg.useGL20 = false;
 	cfg.resizable = false;
 	cfg.fullscreen = false;
-	cfg.width = Resources.OLD_WIDTH;
-	cfg.height = Resources.OLD_HEIGHT;
+	cfg.width = BaseSettings.OLD_WIDTH;
+	cfg.height = BaseSettings.OLD_HEIGHT;
 	cfg.initialBackgroundColor = Color.BLACK;
 
 	/** Sets the Application Icon for different operating systems */
@@ -50,6 +50,6 @@ public class MainClientLauncher {
 	  app.setDockIconImage(image);
 	}
 
-	new LwjglApplication(new ScreenHandler(), cfg);
+	new LwjglApplication(new CoreGame(), cfg);
   }
 }

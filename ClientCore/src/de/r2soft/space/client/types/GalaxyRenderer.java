@@ -59,6 +59,7 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
  * @author ***REMOVED***
  * 
  * */
+@Deprecated
 public class GalaxyRenderer extends BatchTiledMapRenderer {
   private boolean yDown = false;
   private float tileSizeX, tileSizeY;

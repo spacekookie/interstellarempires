@@ -38,8 +38,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.animators.IntroAnimator;
-import de.r2soft.space.client.core.ScreenHandler;
-import de.r2soft.space.client.util.ResPack;
+import de.r2soft.space.client.core.CoreGame;
+import de.r2soft.space.client.settings.Resources;
 
 /**
  * 
@@ -56,13 +56,13 @@ public class IntroductionScreen implements Screen {
 	private Texture splashTitle;
 	private Sprite splashSprite;
 	private SpriteBatch batch;
-	private ScreenHandler handler;
+	private CoreGame handler;
 	private TweenManager man;
 	private TweenCallback tc;
 
 	private Stage stage;
 
-	public IntroductionScreen(ScreenHandler handler) {
+	public IntroductionScreen(CoreGame handler) {
 		this.handler = handler;
 	}
 
@@ -79,7 +79,7 @@ public class IntroductionScreen implements Screen {
 		stage.addActor(backToIntro);
 		backToIntro.setFillParent(true);
 
-		TextButton backham = new TextButton("SKIP THIS INTRO", ResPack.UI_SKIN);
+		TextButton backham = new TextButton("SKIP THIS INTRO", Resources.UI_SKIN);
 		backham.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {

@@ -22,6 +22,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import de.r2soft.space.framework.map.SolarSystem;
 
+@Deprecated
 public class MapCell extends Cell {
 
   private SolarSystem system;
