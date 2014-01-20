@@ -21,11 +21,12 @@ package de.r2soft.space.client.io;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import de.r2soft.space.client.maps.hex.HexMapRenderer;
+import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.settings.BaseSettings;
+import de.r2soft.space.framework.map.SolarSystem;
 
 public class OrthoCamController extends InputAdapter {
   final OrthographicCamera camera;
@@ -34,10 +35,12 @@ public class OrthoCamController extends InputAdapter {
   final Vector3 delta = new Vector3();
 
   private HexMapRenderer renderer;
+  private HexMapScreen parent;
 
-  public OrthoCamController(OrthographicCamera camera, HexMapRenderer renderer) {
+  public OrthoCamController(HexMapScreen parent, OrthographicCamera camera, HexMapRenderer renderer) {
 	this.camera = camera;
 	this.renderer = renderer;
+	this.parent = parent;
   }
 
   @Override
@@ -53,15 +56,14 @@ public class OrthoCamController extends InputAdapter {
 
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);
-	System.out.println((int) tmp.x + " " + (int) tmp.y);
-	// Tile t = level.getTileMap().getTileAt(tmp.x, tmp.y);
-	// System.out.println(renderer.getTileAt(tmp.x, tmp.y).getSystem().getClaim().toString());
+
+	SolarSystem system = renderer.getTileWithPos(tmp.x, tmp.y).getSystem();
+	if (system != null)
+	  parent.updateFocus(system);
 
 	return false;
   }
 
-  // camera.unproject();
-  // camera.unproject(delta.set(last.x, last.y, 0));
   @Override
   public boolean touchDragged(int x, int y, int pointer) {
 	curr.set(x, y, 0);

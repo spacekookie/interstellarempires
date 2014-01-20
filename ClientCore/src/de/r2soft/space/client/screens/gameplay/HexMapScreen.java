@@ -146,15 +146,14 @@ public class HexMapScreen implements Screen {
 	Gdx.graphics.setTitle(s.toString());
   }
 
-  private HexMapRenderer _renderer;
-
   @Override
   public void show() {
 	float width = Gdx.graphics.getWidth();
 	float hight = Gdx.graphics.getHeight();
 	stage = new Stage(width, hight);
 
-	mapCam = new OrthographicCamera(mapDim.snd.x, mapDim.snd.y);
+	mapCam = new OrthographicCamera();
+	mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
@@ -206,7 +205,7 @@ public class HexMapScreen implements Screen {
 	/** Setting up the button listeners */
 	this.setupListeners();
 
-	mapCamController = new OrthoCamController(mapCam, hexRenderer);
+	mapCamController = new OrthoCamController(this, mapCam, hexRenderer);
 	multiplexer.addProcessor(stage);
 	multiplexer.addProcessor(mapCamController);
 
@@ -265,6 +264,11 @@ public class HexMapScreen implements Screen {
   @Override
   public void hide() {
 
+  }
+
+  /** Updates the selection focus solar system */
+  public void updateFocus(SolarSystem system) {
+	System.out.println(system.getPosition());
   }
 
   private void setupProfileDialoge() {

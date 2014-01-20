@@ -213,22 +213,21 @@ public class HexMapRenderer extends BatchTiledHexMapRenderer {
 
   }
 
-  /** TODO */
-  public HexCell getTileAt(float x, float y) {
-	int ix = Math.round(x);
-	int iy = Math.round(y);
+  /** TODO: Improve collision detection accuracy!!! */
+  public HexCell getTileWithPos(float ix, float iy) {
+	int x = Math.round(ix);
+	int y = Math.round(iy);
 
-	int tileCol = Math.max((int) Math.floor(ix / 112), 0);
-	int tileRow = Math.max((int) Math.floor(iy / 97), 0);
-	tileRow = (int) 2 - tileRow - 1;
+	int tileCol = Math.max((int) Math.floor(x / 112), 0);
+	int tileRow = Math.max((int) Math.floor(y / 97), 0);
 
 	for (HexMapLayer l : nodes) {
-	  if (l.getCell(tileRow, tileCol) != null) {
-		return (HexCell) l.getCell(tileRow, tileCol);
-	  }
+	  HexCell cell = l.getCell(tileRow, tileCol);
+	  if (cell != null)
+		return cell;
 	}
-	return null;
 
+	return null;
   }
 
   @Override
