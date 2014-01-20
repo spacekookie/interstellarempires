@@ -53,4 +53,9 @@ public class GalaxyPosition {
 	else
 	  return false;
   }
+
+  @Override
+  public String toString() {
+	return pos.x + "-" + pos.y;
+  }
 }
