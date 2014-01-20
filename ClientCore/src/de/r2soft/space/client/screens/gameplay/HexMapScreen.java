@@ -36,7 +36,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -49,19 +48,27 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sun.tools.javac.util.Pair;
 
-import de.r2soft.space.client.core.ScreenHandler;
+import de.r2soft.space.client.core.CoreGame;
 import de.r2soft.space.client.io.OrthoCamController;
+import de.r2soft.space.client.maps.hex.HexCell;
+import de.r2soft.space.client.maps.hex.HexMapLayer;
+import de.r2soft.space.client.maps.hex.HexMapLayers;
+import de.r2soft.space.client.maps.hex.HexMapRenderer;
+import de.r2soft.space.client.maps.hex.HexTileMap;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.screens.utilities.SettingsScreen;
+import de.r2soft.space.client.settings.BaseSettings;
 import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.util.ResPack;
-import de.r2soft.space.client.util.Sizes;
+import de.r2soft.space.client.settings.Sizes;
+import de.r2soft.space.client.types.GalaxyRenderer;
 import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.GalaxyPosition;
+import de.r2soft.space.framework.map.MapParser;
 import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.space.framework.objects.Star;
+import de.r2soft.space.framework.objects.Star.STARCLASS;
 import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
-import de.r2soft.space.framework.util.MapParser;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
@@ -72,17 +79,17 @@ import de.r2soft.space.framework.util.MapParser;
 public class HexMapScreen implements Screen {
 
   /** Global scope */
-  private ScreenHandler handler;
+  private CoreGame handler;
   private InputMultiplexer multiplexer;
   private String playerName;
 
   /** Hex Map */
   private GalaxyMap galaxyMap;
-  private TiledMap map;
+  private HexTileMap map;
   private OrthographicCamera mapCam;
   private ShapeRenderer shapeRenderer;
   private OrthoCamController mapCamController;
-  private HexagonalTiledMapRenderer hexRenderer;
+  private HexMapRenderer hexRenderer;
   private Texture hexture;
 
   /** Scene2D UI */
@@ -99,13 +106,13 @@ public class HexMapScreen implements Screen {
 	shapeRenderer = new ShapeRenderer();
   }
 
-  public HexMapScreen(ScreenHandler handler) {
+  public HexMapScreen(CoreGame handler) {
 	this.handler = handler;
 	this.setTitle();
 	this.fetchGalaxyMap();
   }
 
-  public HexMapScreen(ScreenHandler handler, String playerName) {
+  public HexMapScreen(CoreGame handler, String playerName) {
 	this.handler = handler;
 	this.setTitle();
 	this.playerName = playerName;
@@ -119,7 +126,7 @@ public class HexMapScreen implements Screen {
 	MapParser parser = new MapParser();
 	Document doc;
 	try {
-	  doc = reader.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/map/MapDemo.xml");
+	  doc = reader.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
 	  parser.readXML(doc.getRootElement());
 	}
 	catch (DocumentException e) {
@@ -131,11 +138,11 @@ public class HexMapScreen implements Screen {
   /** Sets the Window title */
   private void setTitle() {
 	StringBuilder s = new StringBuilder();
-	s.append(Resources.SUPERTITLE);
+	s.append(BaseSettings.SUPERTITLE);
 	s.append(" - ");
-	s.append(Resources.VERSION_NUMBER);
+	s.append(BaseSettings.VERSION_NUMBER);
 	s.append(" - ");
-	s.append(Resources.SCREENTITLE_HOME);
+	s.append(BaseSettings.SCREENTITLE_HOME);
 	Gdx.graphics.setTitle(s.toString());
   }
 
@@ -145,54 +152,49 @@ public class HexMapScreen implements Screen {
 	float hight = Gdx.graphics.getHeight();
 	stage = new Stage(width, hight);
 
-	mapCam = new OrthographicCamera(mapDim.snd.x, mapDim.snd.y);
+	mapCam = new OrthographicCamera();
+	mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
 	uiCam.setToOrtho(false, width, hight);
 	uiCam.update();
 
-	mapCamController = new OrthoCamController(mapCam);
-	multiplexer.addProcessor(stage);
-	multiplexer.addProcessor(mapCamController);
+	HexTileMap map = new HexTileMap();
+	HexMapLayers layers = map.getHexLayers();
 
-	Gdx.input.setInputProcessor(multiplexer);
-
-	map = new TiledMap();
-	MapLayers layers = map.getLayers();
 	TiledMapTile[] tiles = new TiledMapTile[4];
 
 	// TODO: Make this ugly go away.
-	tiles[0] = new StaticTiledMapTile(ResPack.TILES_BLUE);
-	tiles[1] = new StaticTiledMapTile(ResPack.TILES_GREEN);
-	tiles[2] = new StaticTiledMapTile(ResPack.TILES_RED);
-	tiles[3] = new StaticTiledMapTile(ResPack.TILES_WHITE);
+	tiles[0] = new StaticTiledMapTile(Resources.TILES_BLUE);
+	tiles[1] = new StaticTiledMapTile(Resources.TILES_GREEN);
+	tiles[2] = new StaticTiledMapTile(Resources.TILES_RED);
+	tiles[3] = new StaticTiledMapTile(Resources.TILES_WHITE);
 
-	TiledMapTileLayer layer = new TiledMapTileLayer(45, 30, 112, 97);
-	for (int msx = 0; msx < galaxyMap.getSize().x + 1; msx++) {
-	  for (int msy = 0; msy < galaxyMap.getSize().y + 1; msy++) {
-		Cell cell = new Cell();
+	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
+	for (int mx = 0; mx < 3; mx++) {
+	  for (int my = 0; my < 3; my++) {
+		SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
+			STARCLASS.GIANTSPACEPUDDING));
+		HexCell cell = new HexCell(sys);
 
-		SolarSystem temp = galaxyMap.getSystemWithPosition(new GalaxyPosition(msx, msy));
-
-		if (temp != null) {
-		  if (temp.getClaim().equals(Resources.thisPlayer)) {
+		if (sys != null) {
+		  if (sys.getClaim().equals(BaseSettings.thisPlayer)) {
 			cell.setTile(tiles[1]);
 		  }
-		  else if (temp.getClaim().equals(new Player("null"))) {
+		  else if (sys.getClaim().equals(new Player("Julie"))) {
 			cell.setTile(tiles[3]);
 		  }
 		  else {
 			cell.setTile(tiles[2]);
 		  }
 		}
-
-		layer.setCell(msx, msy, cell);
+		layer.setCell(mx, my, cell);
 	  }
 	}
 	layers.add(layer);
 
-	hexRenderer = new HexagonalTiledMapRenderer(map);
+	hexRenderer = new HexMapRenderer(map);
 
 	/** initializing Tables, Items and Groups */
 	this.initializeFrames();
@@ -202,6 +204,12 @@ public class HexMapScreen implements Screen {
 
 	/** Setting up the button listeners */
 	this.setupListeners();
+
+	mapCamController = new OrthoCamController(this, mapCam, hexRenderer);
+	multiplexer.addProcessor(stage);
+	multiplexer.addProcessor(mapCamController);
+
+	Gdx.input.setInputProcessor(multiplexer);
   }
 
   @Override
@@ -258,20 +266,25 @@ public class HexMapScreen implements Screen {
 
   }
 
+  /** Updates the selection focus solar system */
+  public void updateFocus(SolarSystem system) {
+	System.out.println(system.getPosition());
+  }
+
   private void setupProfileDialoge() {
 
 	Table profile_leftTop = new Table();
 	Image profilePicture = new Image(new Texture(Gdx.files.internal("assets/gui/users.png")));
-	Label lalalal = new Label("This is a label", ResPack.UI_SKIN);
+	Label lalalal = new Label("This is a label", Resources.UI_SKIN);
 	profile_leftTop.add(lalalal);
 
 	profile_leftTop.add(profilePicture).top().center();
 	profileDialog.add(profile_leftTop);
 
 	Table profile_bottomButton = new Table();
-	profile_bottomButton.setSize(Resources.OLD_WIDTH / 2, Resources.OLD_HEIGHT / 2);
+	profile_bottomButton.setSize(BaseSettings.OLD_WIDTH / 2, BaseSettings.OLD_HEIGHT / 2);
 	profileDialog.add(profile_bottomButton).right().bottom();
-	TextButton closeProfile = new TextButton("Close", ResPack.UI_SKIN);
+	TextButton closeProfile = new TextButton("Close", Resources.UI_SKIN);
 	profile_bottomButton.add(closeProfile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 
 	closeProfile.addListener(new ClickListener() {
@@ -304,10 +317,10 @@ public class HexMapScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		profileDialog = new Dialog("User Profile", ResPack.UI_SKIN);
+		profileDialog = new Dialog("User Profile", Resources.UI_SKIN);
 		profileDialog.setSize(450, 300);
-		profileDialog.setPosition((Resources.OLD_WIDTH / 2) - (Resources.OLD_WIDTH / 4), (Resources.OLD_HEIGHT / 2)
-			- (Resources.OLD_HEIGHT / 4));
+		profileDialog.setPosition((BaseSettings.OLD_WIDTH / 2) - (BaseSettings.OLD_WIDTH / 4), (BaseSettings.OLD_HEIGHT / 2)
+			- (BaseSettings.OLD_HEIGHT / 4));
 		stage.addActor(profileDialog);
 		setupProfileDialoge();
 	  }
@@ -349,21 +362,21 @@ public class HexMapScreen implements Screen {
 
   private void initializeFrames() {
 	/** Initialize Buttons */
-	profile = new TextButton("Profile", ResPack.UI_SKIN);
-	settings = new TextButton("Settings", ResPack.UI_SKIN);
-	quit = new TextButton("Logout & Quit", ResPack.UI_SKIN);
-	logout = new TextButton("Logout", ResPack.UI_SKIN);
-	refresh = new TextButton("Refresh", ResPack.UI_SKIN);
-	enterSystem = new TextButton("Visit Solar System", ResPack.UI_SKIN);
+	profile = new TextButton("Profile", Resources.UI_SKIN);
+	settings = new TextButton("Settings", Resources.UI_SKIN);
+	quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
+	logout = new TextButton("Logout", Resources.UI_SKIN);
+	refresh = new TextButton("Refresh", Resources.UI_SKIN);
+	enterSystem = new TextButton("Visit Solar System", Resources.UI_SKIN);
 
 	/** Initialize Lables */
-	title = new Label("Space Game: Prototype 1.2", ResPack.UI_SKIN);
+	title = new Label("Space Game: Prototype 1.2", Resources.UI_SKIN);
 	title.setAlignment(Align.center);
 	title.setFontScaleX(1.2f);
 	title.setFontScaleY(1.1f);
 	title.setColor(Color.MAGENTA);
 
-	welcome = new Label("Welcome: " + playerName, ResPack.UI_SKIN);
+	welcome = new Label("Welcome: " + playerName, Resources.UI_SKIN);
 	welcome.setAlignment(Align.center);
 
 	/** Initialize right navigation */
@@ -418,29 +431,29 @@ public class HexMapScreen implements Screen {
 
 	Label tempLabel1, tempLabel2;
 
-	tempLabel1 = new Label("Solar System", ResPack.UI_SKIN);
+	tempLabel1 = new Label("Solar System", Resources.UI_SKIN);
 	tempLabel1.setColor(Color.MAGENTA);
 
-	tempLabel2 = new Label("Information", ResPack.UI_SKIN);
+	tempLabel2 = new Label("Information", Resources.UI_SKIN);
 	tempLabel2.setColor(Color.MAGENTA);
 
 	systemInfo.add(tempLabel1);
 	systemInfo.add(tempLabel2);
 	systemInfo.row();
-	systemInfo.add(new Label("Owner: ", ResPack.UI_SKIN));
-	systemInfo.add(new Label("KateTheAwesome", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Owner: ", Resources.UI_SKIN));
+	systemInfo.add(new Label("KateTheAwesome", Resources.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Size: ", ResPack.UI_SKIN));
-	systemInfo.add(new Label("Something", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Size: ", Resources.UI_SKIN));
+	systemInfo.add(new Label("Something", Resources.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Coordinates: ", ResPack.UI_SKIN));
-	systemInfo.add(new Label("545-101", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Coordinates: ", Resources.UI_SKIN));
+	systemInfo.add(new Label("545-101", Resources.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Units: ", ResPack.UI_SKIN));
-	systemInfo.add(new Label("42", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Units: ", Resources.UI_SKIN));
+	systemInfo.add(new Label("42", Resources.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Exploration: ", ResPack.UI_SKIN));
-	systemInfo.add(new Label("100%", ResPack.UI_SKIN));
+	systemInfo.add(new Label("Exploration: ", Resources.UI_SKIN));
+	systemInfo.add(new Label("100%", Resources.UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT).colspan(2);
 	systemInfo.row();
@@ -454,7 +467,7 @@ public class HexMapScreen implements Screen {
   /** Hovering display for mouse on map */
   private void setupInfoLabelBottom() {
 	Table selectorTable = new Table();
-	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", ResPack.UI_SKIN);
+	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", Resources.UI_SKIN);
 	selectorTable.setPosition(mapDim.fst.x + 255, mapDim.fst.y - 10);
 	selectorTable.add(systemSelector);
 	stage.addActor(selectorTable);
@@ -471,7 +484,7 @@ public class HexMapScreen implements Screen {
   /**
    * First vector holds starting position of map (lower right corner), the other holds the actual size
    */
-  private static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(new IntVec2(
+  public static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(new IntVec2(
 	  ((Gdx.graphics.getWidth() / 2) - mapSize.x / 2) - mapOffset.x, ((Gdx.graphics.getHeight() / 2) - mapSize.y / 2) - mapOffset.y),
 	  mapSize);
 
