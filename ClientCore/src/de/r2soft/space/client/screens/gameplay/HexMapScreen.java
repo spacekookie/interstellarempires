@@ -145,8 +145,7 @@ public class HexMapScreen implements Screen {
 	float hight = Gdx.graphics.getHeight();
 	stage = new Stage(width, hight);
 
-	mapCam = new OrthographicCamera();
-	mapCam.setToOrtho(false, mapDim.snd.x, mapDim.snd.y);
+	mapCam = new OrthographicCamera(mapDim.snd.x, mapDim.snd.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
@@ -463,7 +462,9 @@ public class HexMapScreen implements Screen {
   }
 
   /** Map sizes (for Hexmap and Solar Map) */
-  private static final IntVec2 mapSize = new IntVec2(900, 600);
+
+  /** Map Sub-sizes */
+  public static final IntVec2 mapSize = new IntVec2(900, 600);
 
   /** Screw around on that to position the map! */
   private static final IntVec2 mapOffset = new IntVec2(150, 25);
@@ -473,4 +474,5 @@ public class HexMapScreen implements Screen {
   private static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(new IntVec2(
 	  ((Gdx.graphics.getWidth() / 2) - mapSize.x / 2) - mapOffset.x, ((Gdx.graphics.getHeight() / 2) - mapSize.y / 2) - mapOffset.y),
 	  mapSize);
+
 }
