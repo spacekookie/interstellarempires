@@ -20,11 +20,11 @@ package de.r2soft.space.client.maps.sun;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.objects.GameObject;
+import de.r2soft.space.framework.objects.BaseObject;
 
 public abstract class SunType {
 
-  private GameObject parentBody;
+  private BaseObject parentBody;
   private Vector2 orbitalVelocity;
   private float orbitalAngle;
   private float radius;
