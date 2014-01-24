@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,31 +13,26 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.space.framework.objects;
 
-import java.util.Set;
+/**
+ * Object that gets built on a colony. Colonies can be on Planets, moons and large asteroids.
+ * 
+ * @author ***REMOVED***
+ * */
+public class PlanetaryStructures extends PlayerObject {
 
-import net.sf.javaml.core.kdtree.KDTree;
+  private boolean isStarbucks;
 
-import com.google.common.collect.Sets;
-
-import de.r2soft.space.framework.objects.BaseObject;
-
-public class Map {
-
-  private KDTree objects;
-
-  public Map() {
-	objects = new KDTree(2);
+  public boolean isStarbucks() {
+	return isStarbucks;
   }
 
-  public Set<BaseObject> getObjectsAt(Location location, double range) {
-	double[] lowk = { location.getX() - range, location.getY() - range };
-	double[] uppk = { location.getX() + range, location.getY() + range };
-
-	BaseObject[] obj = (BaseObject[]) objects.range(lowk, uppk);
-	return Sets.newHashSet(obj);
+  public void setStarbucks(boolean isStarbucks) {
+	this.isStarbucks = isStarbucks;
   }
+
 }

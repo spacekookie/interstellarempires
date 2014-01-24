@@ -20,17 +20,24 @@ package de.r2soft.space.framework.objects;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Basic player object that can be manipulated by the player, however not always moved
+ * 
+ * Basic player object that can be claimed and interacted with. Not move. Has Shields and armour and can engage in combat. Is extended by
+ * Planetary Object and OrbitalObject
+ * 
+ * @author ***REMOVED***
+ * 
+ *         #
+ * 
+ *         Basic player object that can be manipulated by the player, however not always moved
  * 
  * @author Leander
  * 
  */
-public abstract class PlayerObject extends GameObject {
+public abstract class PlayerObject extends BaseObject {
 
   private Player claim;
   private long combatID;
-  private int hp;
-  private int armour;
+  private int hp, shields, armour;
 
   /**
    * The amount of armour that the units attack can punch through. If the enemy armour value is too high this unit will not do any damage.
@@ -75,6 +82,14 @@ public abstract class PlayerObject extends GameObject {
 
   public void setPunch(int punch) {
 	this.punch = punch;
+  }
+
+  public int getShields() {
+	return shields;
+  }
+
+  public void setShields(int shields) {
+	this.shields = shields;
   }
 
 }

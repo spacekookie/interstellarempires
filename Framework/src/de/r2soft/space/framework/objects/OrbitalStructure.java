@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.players.Player;
 
-public class Structure extends PlayerObject {
+public class OrbitalStructure extends OrbitalObject {
 
   /** The type of station */
   public static enum StationType {
@@ -31,7 +31,7 @@ public class Structure extends PlayerObject {
 
   private UnitFactory factory;
 
-  public Structure(Category category, StationType type, Player claim, Vector2 position) {
+  public OrbitalStructure(Category category, StationType type, Player claim, Vector2 position) {
 	super.setCategory(category);
 
 	/** Should the structure have a unit factory? */
