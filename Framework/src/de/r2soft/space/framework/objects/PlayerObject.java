@@ -84,4 +84,12 @@ public abstract class PlayerObject extends BaseObject {
 	this.punch = punch;
   }
 
+  public int getShields() {
+	return shields;
+  }
+
+  public void setShields(int shields) {
+	this.shields = shields;
+  }
+
 }
