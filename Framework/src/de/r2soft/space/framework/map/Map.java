@@ -23,21 +23,21 @@ import net.sf.javaml.core.kdtree.KDTree;
 
 import com.google.common.collect.Sets;
 
-import de.r2soft.space.framework.objects.GameObject;
+import de.r2soft.space.framework.objects.BaseObject;
 
 public class Map {
 
-	private KDTree objects;
+  private KDTree objects;
 
-	public Map() {
-		objects = new KDTree(2);
-	}
+  public Map() {
+	objects = new KDTree(2);
+  }
 
-	public Set<GameObject> getObjectsAt(Location location, double range) {
-		double[] lowk = { location.getX() - range, location.getY() - range };
-		double[] uppk = { location.getX() + range, location.getY() + range };
+  public Set<BaseObject> getObjectsAt(Location location, double range) {
+	double[] lowk = { location.getX() - range, location.getY() - range };
+	double[] uppk = { location.getX() + range, location.getY() + range };
 
-		GameObject[] obj = (GameObject[]) objects.range(lowk, uppk);
-		return Sets.newHashSet(obj);
-	}
+	BaseObject[] obj = (BaseObject[]) objects.range(lowk, uppk);
+	return Sets.newHashSet(obj);
+  }
 }

@@ -17,53 +17,51 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
-public class Star extends GameObject {
+public class Star extends BaseObject {
 
-	/**
-	 * Holds all possible star types for the ENTIRE game to use. No pressure.
-	 * Don't add more candy, it'll just become fat.
-	 */
-	public enum STARCLASS {
-		BROWNDWARF("Brown"), REDDWARF("SmallRed"), YELLOWDWARF("SmallYellow"), WHITEDWARF(
-				"White"), REDGIANT("BigRed"), BLUEGIANT("BigBlue"), NEUTRON(
-				"Neutron"), BLACKHOLE("Black"), GIANTSPACEPUDDING("Nom");
+  /**
+   * Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy, it'll just become fat.
+   */
+  public enum StarType {
+	BROWNDWARF("Brown"), REDDWARF("SmallRed"), YELLOWDWARF("SmallYellow"), WHITEDWARF("White"), REDGIANT("BigRed"), BLUEGIANT("BigBlue"), NEUTRON(
+		"Neutron"), BLACKHOLE("Black"), GIANTSPACEPUDDING("Nom");
 
-		private final String alias;
+	private final String alias;
 
-		private STARCLASS(final String alias) {
-			this.alias = alias;
-		}
-
-		@Override
-		public String toString() {
-			return alias;
-		}
-
+	private StarType(final String alias) {
+	  this.alias = alias;
 	}
 
-	private STARCLASS classification;
-
-	/**
-	 * master constructor to create a star with its type
-	 * 
-	 * @param type
-	 *            The Type of the star
-	 */
-	public Star(STARCLASS classification) {
-		this.classification = classification;
+	@Override
+	public String toString() {
+	  return alias;
 	}
 
-	/**
-	 * @param type
-	 *            The type of star we're dealing with here
-	 */
-	public void setClassification(STARCLASS classification) {
-		this.classification = classification;
-	}
+  }
 
-	/** @return: the stars classification */
-	public STARCLASS getClassification() {
-		return classification;
-	}
+  private StarType classification;
+
+  /**
+   * master constructor to create a star with its type
+   * 
+   * @param type
+   *          The Type of the star
+   */
+  public Star(StarType classification) {
+	this.classification = classification;
+  }
+
+  /**
+   * @param type
+   *          The type of star we're dealing with here
+   */
+  public void setClassification(StarType classification) {
+	this.classification = classification;
+  }
+
+  /** @return: the stars classification */
+  public StarType getClassification() {
+	return classification;
+  }
 
 }

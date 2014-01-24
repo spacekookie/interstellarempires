@@ -24,133 +24,136 @@ import de.r2soft.space.framework.objects.modules.Weapon.WeaponType;
 
 public class ModuleSlot {
 
-	public static enum SlotType {
+  public static enum SlotType {
 
-		/* Modules that can attack the enemy with damage or abilities */
-		WEAPON,
+	/* Modules that can attack the enemy with damage or abilities */
+	WEAPON,
 
-		/* Modules that make a ship move. If destroyed can no longer move */
-		PROPULSION,
+	/* Modules that make a ship move. If destroyed can no longer move */
+	PROPULSION,
 
-		/* Modules for communication, sensors, logistics, etc. */
-		UTILITY,
+	/* Modules for communication, sensors, logistics, etc. */
+	UTILITY,
 
-		/*
-		 * Modules that can defend the ship actively or passively but
-		 * not deal damage to enemies.
-		 */
-		DEFENCE;
-	}
-
-	public static enum SlotSize {
-
-		/* Used on frigates */
-		SMALL,
-
-		/* Used on Cruisers and Destroyers */
-		MEDIUM,
-
-		/* Used on Battle-Cruisers and Battleships */
-		LARGE,
-
-		/* Used on capital ships: Dreadnoughts, Carriers, Motherships, etc. */
-		CAPITAL;
-	}
-
-	private SlotType type;
-	private SlotSize size;
-	private WeaponType weaponType;
-	private BaseModule child;
-
-	/**
-	 * Creates a new Module slot for a weapon of appropriate size to be added into it.
+	/*
+	 * Modules that can defend the ship actively or passively but not deal damage to enemies.
 	 */
-	public ModuleSlot(SlotType type, SlotSize size, WeaponType weaponType) {
-		this.type = type;
-		this.size = size;
-		this.weaponType = weaponType;
-	}
+	DEFENCE;
+  }
 
-	public void addModule(BaseModule module) {
-		if (child == null)
-			this.child = module;
-		else
-			logError(child);
-	}
+  public static enum SlotSize {
 
-	private Weapon w;
+	/* Used on frigates */
+	SMALL,
 
-	/** Adds a weapon into the slot if it's not occupied yet. */
-	@Deprecated
-	public void addModule(Weapon w) {
-		if (w == null)
-			this.w = w;
-		else
-			logError(w);
-	}
+	/* Used on Cruisers and Destroyers */
+	MEDIUM,
 
-	private Propulsion p;
+	/* Used on Battle-Cruisers and Battleships */
+	LARGE,
 
-	/** Adds engines into the slot if it's not occupied yet. */
-	@Deprecated
-	public void addModule(Propulsion p) {
-		if (p == null)
-			this.p = p;
-		else
-			logError(p);
-	}
+	/* Used on capital ships: Dreadnoughts, Carriers, Motherships, etc. */
+	CAPITAL;
+  }
 
-	/** Returns the fitted module. Must be cast to specific type */
-	public BaseModule getBaseModule() {
-		return child;
-	}
+  private SlotType type;
+  private SlotSize size;
+  private WeaponType weaponType;
+  private BaseModule child;
 
-	/**
-	 * Returns the fitted module inside the slot
-	 * TODO: This needs to be changed in the future!
-	 */
-	@Deprecated
-	public BaseModule getModule() {
-		return (w != null) ? w : p;
-	}
+  /** Creates an empty slot to be filled later */
+  public ModuleSlot() {
 
-	private void logError(BaseModule module) {
-		Gdx.app.log("Framework: ", "Slot for" + module.toString() + "already occupied");
-		// TODO: Promt user to clear the slot first.
-	}
+  }
 
-	public SlotType getType() {
-		return type;
-	}
+  /**
+   * Creates a new Module slot for a weapon of appropriate size to be added into it.
+   */
+  public ModuleSlot(SlotType type, SlotSize size, WeaponType weaponType) {
+	this.type = type;
+	this.size = size;
+	this.weaponType = weaponType;
+  }
 
-	/** Should never be called */
-	private void setType(SlotType type) {
-		this.type = type;
-	}
+  public void addModule(BaseModule module) {
+	if (child == null)
+	  this.child = module;
+	else
+	  logError(child);
+  }
 
-	public SlotSize getSize() {
-		return size;
-	}
+  private Weapon w;
 
-	/** Should never be called */
-	private void setSize(SlotSize size) {
-		this.size = size;
-	}
+  /** Adds a weapon into the slot if it's not occupied yet. */
+  @Deprecated
+  public void addModule(Weapon w) {
+	if (w == null)
+	  this.w = w;
+	else
+	  logError(w);
+  }
 
-	public WeaponType getWeaponType() {
-		return weaponType;
-	}
+  private Propulsion p;
 
-	public void setWeaponType(WeaponType weaponType) {
-		this.weaponType = weaponType;
-	}
+  /** Adds engines into the slot if it's not occupied yet. */
+  @Deprecated
+  public void addModule(Propulsion p) {
+	if (p == null)
+	  this.p = p;
+	else
+	  logError(p);
+  }
 
-	public BaseModule getChild() {
-		return child;
-	}
+  /** Returns the fitted module. Must be cast to specific type */
+  public BaseModule getBaseModule() {
+	return child;
+  }
 
-	public void setChild(BaseModule child) {
-		this.child = child;
-	}
+  /**
+   * Returns the fitted module inside the slot TODO: This needs to be changed in the future!
+   */
+  @Deprecated
+  public BaseModule getModule() {
+	return (w != null) ? w : p;
+  }
+
+  private void logError(BaseModule module) {
+	Gdx.app.log("Framework: ", "Slot for" + module.toString() + "already occupied");
+	// TODO: Promt user to clear the slot first.
+  }
+
+  public SlotType getType() {
+	return type;
+  }
+
+  /** Should never be called */
+  private void setType(SlotType type) {
+	this.type = type;
+  }
+
+  public SlotSize getSize() {
+	return size;
+  }
+
+  /** Should never be called */
+  private void setSize(SlotSize size) {
+	this.size = size;
+  }
+
+  public WeaponType getWeaponType() {
+	return weaponType;
+  }
+
+  public void setWeaponType(WeaponType weaponType) {
+	this.weaponType = weaponType;
+  }
+
+  public BaseModule getChild() {
+	return child;
+  }
+
+  public void setChild(BaseModule child) {
+	this.child = child;
+  }
 
 }

@@ -22,20 +22,20 @@ import de.r2soft.space.framework.types.IntVec2;
 
 public class Waypoint {
 
-	private SolarSystem container;
-	private IntVec2 solarPosition;
+  private SolarSystem container;
+  private IntVec2 solarPosition;
 
-	public Waypoint(IntVec2 position, SolarSystem system) {
-		this.container = system;
-		this.solarPosition = position;
-	}
+  public Waypoint(IntVec2 position, SolarSystem system) {
+	this.container = system;
+	this.solarPosition = position;
+  }
 
-	public SolarSystem getContainer() {
-		return container;
-	}
+  public SolarSystem getContainer() {
+	return container;
+  }
 
-	public IntVec2 getSolarPosition() {
-		return solarPosition;
-	}
+  public IntVec2 getSolarPosition() {
+	return solarPosition;
+  }
 
 }
