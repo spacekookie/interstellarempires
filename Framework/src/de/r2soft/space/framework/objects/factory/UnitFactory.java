@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.r2soft.space.framework.objects.Fleet;
-import de.r2soft.space.framework.objects.GameObject.Category;
+import de.r2soft.space.framework.objects.BaseObject.Category;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Ship.ShipType;
 import de.r2soft.space.framework.objects.Structure;

@@ -22,20 +22,20 @@ import java.util.HashMap;
 
 import org.apache.commons.math3.util.Pair;
 
-import de.r2soft.space.framework.objects.GameObject.Category;
-import de.r2soft.space.framework.objects.GameObject.Type;
+import de.r2soft.space.framework.objects.BaseObject.Category;
+import de.r2soft.space.framework.objects.BaseObject.Type;
 
 public class ValueManager {
 
   private static final ValueManager instance = new ValueManager();
-  private HashMap<GameObject.Type, Float> hitpoints;
-  private HashMap<GameObject.Type, Float> armour;
-  private HashMap<GameObject.Type, Float> damage;
-  private HashMap<GameObject.Type, Float> speed;
-  private HashMap<GameObject.Type, Float> mass;
-  private HashMap<GameObject.Type, Float> size;
-  private HashMap<GameObject.Type, Pair<Integer, Type>> slots;
-  private HashMap<GameObject.Type, GameObject.Category> category;
+  private HashMap<BaseObject.Type, Float> hitpoints;
+  private HashMap<BaseObject.Type, Float> armour;
+  private HashMap<BaseObject.Type, Float> damage;
+  private HashMap<BaseObject.Type, Float> speed;
+  private HashMap<BaseObject.Type, Float> mass;
+  private HashMap<BaseObject.Type, Float> size;
+  private HashMap<BaseObject.Type, Pair<Integer, Type>> slots;
+  private HashMap<BaseObject.Type, BaseObject.Category> category;
 
   private ValueManager() {
 	// Initialize values
@@ -53,7 +53,7 @@ public class ValueManager {
 	return instance;
   }
 
-  public Float getDamage(GameObject.Type type) {
+  public Float getDamage(BaseObject.Type type) {
 	Float dmg = damage.get(type);
 
 	if (dmg != null)

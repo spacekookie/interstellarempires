@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,14 +13,13 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
  * 
- */
+ ######################################################################### */
 package de.r2soft.space.framework.objects;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+import de.r2soft.space.framework.types.IntVec2;
 
 /**
  * An object that can be moved by a player.
@@ -29,10 +28,12 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  * @Comment: Is there even something that is going to extend this?
  * 
  */
-public abstract class MovingObject extends PlayerObject {
+public abstract class MovableObject extends OrbitalObject {
 
   private Vector2D trajectory;
   private float speed;
+  /* x = current fuel, y = max fuel */
+  private IntVec2 fuel;
 
   /** For CombatObject */
 

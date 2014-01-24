@@ -21,20 +21,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 
 /**
- * Basic Gameobject to be extended by other objects. The superclass flag is currently 100% needed for rendering purposes. The client will
- * crash if an object doesn't have it set to something!
+ * Basic Gameobject. Contrains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
  * 
  * @author Katharina
  * 
  */
-public abstract class GameObject {
+public abstract class BaseObject {
 
-  private float size;
   private Vector2 position;
-  private GameObject orbit;
+  private float mass;
   private String name;
 
-  /* INSANELY IMPORTANT */
+  @Deprecated
   private Category category;
   private Type type;
 
@@ -75,14 +73,16 @@ public abstract class GameObject {
 
 	/* Fleet Sizes */
 	FLEET_TINY, FLEET_SMALL, FLEET_MEDIUM, FLEET_LARGE, FLEET_CAPITAL,
-	
+
 	/* Slot Types */
 	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
 	// High power=Weapons, Medium power = Defense, Low power = Utility.
 
   }
 
-  /** For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET! */
+  /**
+   * For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET!
+   */
   public static enum Category {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
   }
@@ -95,22 +95,12 @@ public abstract class GameObject {
 	this.position = vec;
   }
 
-  public float getSize() {
-	return size;
+  public float getMass() {
+	return mass;
   }
 
-  public void setSize(float size) {
-	this.size = size;
-  }
-
-  /** @return the GameObject that another object orbits around */
-  public GameObject getOrbit() {
-	return orbit;
-  }
-
-  /** Set the center of orbit object */
-  public void setOrbit(GameObject orbit) {
-	this.orbit = orbit;
+  public void setMass(float mass) {
+	this.mass = mass;
   }
 
   public Type getType() {
