@@ -29,7 +29,7 @@ import de.r2soft.space.framework.ai.Admiral.CommandType;
  * @author ***REMOVED***
  * 
  */
-public class Fleet extends PlayerObject {
+public class Fleet extends MovableObject {
 
   public static enum FleetSize {
 	TINY, SMALL, MEDIUM, LARGE, MASSIVE;

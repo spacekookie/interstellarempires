@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.players.Player;
 
-public class Structure extends PlayerObject {
+public class Structure extends OrbitalObject {
 
   /** The type of station */
   public static enum StationType {

@@ -17,7 +17,7 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
-public class Star extends GameObject {
+public class Star extends BaseObject {
 
   /**
    * Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy, it'll just become fat.
