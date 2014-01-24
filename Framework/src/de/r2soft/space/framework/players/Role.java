@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2012 Leander Sabel
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,65 +13,92 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ * 
+ ######################################################################### */
 
 package de.r2soft.space.framework.players;
 
+import java.util.HashSet;
+
 public class Role {
 
-	private String title;
+  /** Determines the level of access a player has in an alliance */
+  private enum Right {
+	RESOURCES, PROMOTE_DEMOTE, SETTINGS, HANGAR_MANAGEMENT, FLEET_MANAGEMENT, DIPLOMACY;
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Role other = (Role) obj;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
+  private String title;
+  private HashSet<Right> rights;
+
+  public Role(HashSet<Right> rights) {
+	this.rights = rights;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+	if (this == obj)
+	  return true;
+	if (obj == null)
+	  return false;
+	if (getClass() != obj.getClass())
+	  return false;
+	Role other = (Role) obj;
+	if (title == null) {
+	  if (other.title != null)
+		return false;
 	}
+	else if (!title.equals(other.title))
+	  return false;
+	return true;
+  }
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * @return the title
+   */
+  public String getTitle() {
+	return title;
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((title == null) ? 0 : title.hashCode());
+	return result;
+  }
 
-	/**
-	 * @param title
-	 *            the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  /**
+   * @param title
+   *          the title to set
+   */
+  public void setTitle(String title) {
+	this.title = title;
+  }
 
-	// TODO: Add possible alliance abilities to the list. i.e. accept new
-	// members
+  public HashSet<Right> getRights() {
+	return rights;
+  }
 
+  public boolean isSpecificRight(Right right) {
+	return this.rights.contains(right);
+  }
+
+  public void addSpecificRight(Right right) {
+	if (!this.rights.contains(right))
+	  this.rights.add(right);
+  }
+
+  public void setRights(HashSet<Right> rights) {
+	this.rights = rights;
+  }
 }

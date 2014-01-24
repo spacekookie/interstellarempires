@@ -48,8 +48,7 @@ public class PasswordHash {
    *          the password to hash
    * @return a salted PBKDF2 hash of the password
    */
-  public static String createHash(String password) throws NoSuchAlgorithmException,
-	  InvalidKeySpecException {
+  public static String createHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 	return createHash(password.toCharArray());
   }
 
@@ -60,8 +59,7 @@ public class PasswordHash {
    *          the password to hash
    * @return a salted PBKDF2 hash of the password
    */
-  public static String createHash(char[] password) throws NoSuchAlgorithmException,
-	  InvalidKeySpecException {
+  public static String createHash(char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 	// Generate a random salt
 	SecureRandom random = new SecureRandom();
 	byte[] salt = new byte[SALT_BYTES];
@@ -82,8 +80,7 @@ public class PasswordHash {
    *          the hash of the valid password
    * @return true if the password is correct, false if not
    */
-  public static boolean validatePassword(String password, String goodHash)
-	  throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public static boolean validatePassword(String password, String goodHash) throws NoSuchAlgorithmException, InvalidKeySpecException {
 	return validatePassword(password.toCharArray(), goodHash);
   }
 
@@ -96,8 +93,7 @@ public class PasswordHash {
    *          the hash of the valid password
    * @return true if the password is correct, false if not
    */
-  public static boolean validatePassword(char[] password, String goodHash)
-	  throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public static boolean validatePassword(char[] password, String goodHash) throws NoSuchAlgorithmException, InvalidKeySpecException {
 	// Decode the hash into its parameters
 	String[] params = goodHash.split(":");
 	int iterations = Integer.parseInt(params[ITERATION_INDEX]);
@@ -112,9 +108,8 @@ public class PasswordHash {
   }
 
   /**
-   * Compares two byte arrays in length-constant time. This comparison method is used so that
-   * password hashes cannot be extracted from an on-line system using a timing attack and then
-   * attacked off-line.
+   * Compares two byte arrays in length-constant time. This comparison method is used so that password hashes cannot be extracted from an
+   * on-line system using a timing attack and then attacked off-line.
    * 
    * @param a
    *          the first byte array
@@ -142,8 +137,8 @@ public class PasswordHash {
    *          the length of the hash to compute in bytes
    * @return the PBDKF2 hash of the password
    */
-  private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
-	  throws NoSuchAlgorithmException, InvalidKeySpecException {
+  private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes) throws NoSuchAlgorithmException,
+	  InvalidKeySpecException {
 	PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
 	SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
 	return skf.generateSecret(spec).getEncoded();

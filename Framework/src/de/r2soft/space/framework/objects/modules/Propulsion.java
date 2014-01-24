@@ -28,24 +28,24 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Propulsion extends BaseModule {
 
-	private float strength;
+  private float strength;
 
-	public Propulsion(float strength) {
-		this.strength = strength;
-	}
+  public Propulsion(float strength) {
+	this.strength = strength;
+  }
 
-	public void move(Vector2 target) {
-		// TODO: magic here to make ships fly
-	}
+  public void move(Vector2 target) {
+	// TODO: magic here to make ships fly
+  }
 
-	/** @return the absolute output of the drive. Not taking ship mass into account */
-	public float getStrength() {
-		return strength;
-	}
+  /** @return the absolute output of the drive. Not taking ship mass into account */
+  public float getStrength() {
+	return strength;
+  }
 
-	/** set new drive strength. Called on drive overload and after engineering upgrades */
-	public void setStrength(float strength) {
-		this.strength = strength;
-	}
+  /** set new drive strength. Called on drive overload and after engineering upgrades */
+  public void setStrength(float strength) {
+	this.strength = strength;
+  }
 
 }

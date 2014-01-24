@@ -24,64 +24,63 @@ import java.util.Set;
 import de.r2soft.space.framework.types.IntVec2;
 
 /**
- * The public galaxymap that holds all "public" instances of data. Solarsystems
- * with their planets, asteroid belts, etc.
+ * The public galaxymap that holds all "public" instances of data. Solarsystems with their planets, asteroid belts, etc.
  */
 public class GalaxyMap {
 
-	private IntVec2 size;
-	private Set<SolarSystem> systems;
-	private int version;
+  private IntVec2 size;
+  private Set<SolarSystem> systems;
+  private int version;
 
-	public GalaxyMap() {
-		size = new IntVec2();
-		systems = new HashSet<SolarSystem>();
-	}
+  public GalaxyMap() {
+	size = new IntVec2();
+	systems = new HashSet<SolarSystem>();
+  }
 
-	public GalaxyMap(Set<SolarSystem> systems) {
-		size = new IntVec2();
-		this.systems = systems;
-	}
+  public GalaxyMap(Set<SolarSystem> systems) {
+	size = new IntVec2();
+	this.systems = systems;
+  }
 
-	public IntVec2 getSize() {
-		return size;
-	}
+  public IntVec2 getSize() {
+	return size;
+  }
 
-	public void setSize(IntVec2 size) {
-		this.size = size;
-	}
+  public void setSize(IntVec2 size) {
+	this.size = size;
+  }
 
-	/** Gets the solarsystems */
-	public Set<SolarSystem> getSystems() {
-		return systems;
-	}
+  /** Gets the solarsystems */
+  public Set<SolarSystem> getSystems() {
+	return systems;
+  }
 
-	/** Adds a single system to the Set */
-	public void addSystem(SolarSystem system) {
-		systems.add(system);
-	}
+  /** Adds a single system to the Set */
+  public void addSystem(SolarSystem system) {
+	systems.add(system);
+  }
 
-	/** Sets an entire Set to the set */
-	public void setSystems(Set<SolarSystem> systems) {
-		this.systems = systems;
-	}
+  /** Sets an entire Set to the set */
+  public void setSystems(Set<SolarSystem> systems) {
+	this.systems = systems;
+  }
 
-	public int getVersion() {
-		return version;
-	}
+  public int getVersion() {
+	return version;
+  }
 
-	public void setVersion(int version) {
-		this.version = version;
-	}
+  public void setVersion(int version) {
+	this.version = version;
+  }
 
-	/** Gets a specific solar system with an id */
-	public SolarSystem getSystemWithPosition(GalaxyPosition pos) {
-		for (SolarSystem system : systems) {
-			if (system.getPosition().equals(pos)) {
-				return system;
-			}
-		}
-		return null;
+  /** Gets a specific solar system with an id */
+  public SolarSystem getSystemWithPosition(GalaxyPosition pos) {
+	for (SolarSystem system : systems) {
+	  if (system.getPosition().equals(pos)) {
+		return system;
+	  }
 	}
+	return null;
+  }
 
 }

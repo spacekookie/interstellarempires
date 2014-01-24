@@ -25,102 +25,102 @@ import de.r2soft.space.framework.map.SolarSystem;
 import de.r2soft.space.framework.objects.Planet;
 
 /**
- * Player object. Will be created from server and called again on login. Name
- * will be returned on login in the console.
+ * Player object. Will be created from server and called again on login. Name will be returned on login in the console.
  * 
  * @author ***REMOVED***
  * 
  */
-public class Player {
+public class Player extends Sociable {
 
-	private boolean admin;
-	private String name;
-	private Alliance alliance;
-	private Set<Planet> colonies;
-	private Set<SolarSystem> soveregenty;
+  private boolean admin;
+  private String name;
+  private Alliance alliance;
+  private Set<Planet> colonies;
+  private Set<SolarSystem> soveregenty;
 
-	{
-		this.colonies = new HashSet<Planet>();
-		this.soveregenty = new HashSet<SolarSystem>();
+  {
+	this.colonies = new HashSet<Planet>();
+	this.soveregenty = new HashSet<SolarSystem>();
+  }
+
+  public void setAlliance(Alliance alliance) {
+	this.alliance = alliance;
+  }
+
+  /** TODO: Replace with .getIndipendance() method */
+  public Alliance getAlliance() {
+	return alliance;
+  }
+
+  /**
+   * 
+   * @param name
+   */
+  public Player(String name) {
+	super();
+	this.name = name;
+  }
+
+  /**
+   * Empty constructor required for JavaEE
+   */
+  public Player() {
+  }
+
+  public void setPony(boolean admin) {
+	this.admin = admin;
+  }
+
+  public boolean isPony() {
+	return admin;
+  }
+
+  public String getName() {
+	return name;
+  }
+
+  public void setName(String name) {
+	this.name = name;
+  }
+
+  public void addPlanet(Planet p) {
+	colonies.add(p);
+  }
+
+  public boolean hasPlanets() {
+	return !colonies.isEmpty();
+  }
+
+  public Planet getCapital() {
+	for (Planet p : colonies) {
+	  if (p.isCapital())
+		return p;
 	}
+	return null;
+  }
 
-	public void setAlliance(Alliance alliance) {
-		this.alliance = alliance;
+  public void addSystem(SolarSystem s) {
+	soveregenty.add(s);
+  }
+
+  public boolean hasSystems() {
+	return !soveregenty.isEmpty();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+	if (obj == null)
+	  return false;
+	else if (obj instanceof Player) {
+	  Player other = (Player) obj;
+
+	  if (other.getName().equals(this.getName())) {
+		return true;
+	  }
+
 	}
-
-	/** TODO: Replace with .getIndipendance() method */
-	public Alliance getAlliance() {
-		return alliance != null ? alliance
-				: new Alliance("Indipendant", "INDI");
-	}
-
-	/**
-	 * 
-	 * @param name
-	 */
-	public Player(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Empty constructor required for JavaEE
-	 */
-	public Player() {
-	}
-
-	public void setPony(boolean admin) {
-		this.admin = admin;
-	}
-
-	public boolean isPony() {
-		return admin;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void addPlanet(Planet p) {
-		colonies.add(p);
-	}
-
-	public boolean hasPlanets() {
-		return !colonies.isEmpty();
-	}
-
-	public Planet getCapital() {
-		for (Planet p : colonies) {
-			if (p.isCapital())
-				return p;
-		}
-		return null;
-	}
-
-	public void addSystem(SolarSystem s) {
-		soveregenty.add(s);
-	}
-
-	public boolean hasSystems() {
-		return !soveregenty.isEmpty();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		else if (obj instanceof Player) {
-			Player other = (Player) obj;
-
-			if (other.getName().equals(this.getName())) {
-				return true;
-			}
-
-		} else
-			return false;
-		return false;
-	}
+	else
+	  return false;
+	return false;
+  }
 }

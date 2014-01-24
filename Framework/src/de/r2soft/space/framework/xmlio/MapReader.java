@@ -1,17 +1,3 @@
-package de.r2soft.space.framework.xml;
-
-import java.io.IOException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 /* #########################################################################
  * Copyright (c) 2013 Random Robot Softworks
  * 
@@ -29,6 +15,19 @@ import org.xml.sax.SAXException;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+package de.r2soft.space.framework.xmlio;
+
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * 
@@ -41,12 +40,12 @@ public class MapReader {
 
   private void readMap(String xmlFile) {
 	Document doc = parseXML(xmlFile);
-	
+
 	NodeList solarSystems = doc.getElementsByTagName("SolarSystem");
 
 	for (int i = 0; i < solarSystems.getLength(); i++) {
 	  Node solarSystem = solarSystems.item(i);
-	  
+
 	  NodeList systemChildNodes = solarSystem.getChildNodes();
 	}
 

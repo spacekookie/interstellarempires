@@ -26,18 +26,18 @@ import de.r2soft.space.framework.players.Player;
  * @FRIEND, @FOE and @NEUTRAL
  */
 public class Allegience {
+  public static enum Allegiance {
+	SELF, FRIEND, FOE, NEUTRAL, UNKNOWN;
+  }
 
-	public static enum ALLEGIANCE {
-		SELF, FRIEND, FOE, NEUTRAL, UNKNOWN;
-	}
+  /** TODO: Add the checking for war declarations and FOES on the map */
+  public static Allegiance validate(Player a, Player b) {
+	if (a.equals(b))
+	  return Allegiance.SELF;
+	else if (a.getAlliance().equals(b.getAlliance()))
+	  return Allegiance.FRIEND;
+	else
+	  return Allegiance.NEUTRAL;
+  }
 
-	/** TODO: Add the checking for war declarations and FOES on the map */
-	public static ALLEGIANCE validate(Player a, Player b) {
-		if (a.equals(b))
-			return ALLEGIANCE.SELF;
-		else if (a.getAlliance().equals(b.getAlliance()))
-			return ALLEGIANCE.FRIEND;
-		else
-			return ALLEGIANCE.NEUTRAL;
-	}
 }

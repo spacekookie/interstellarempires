@@ -22,35 +22,34 @@ import com.badlogic.gdx.math.Vector2;
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.players.Player;
 
-public class Structure extends PlayerObject {
+public class OrbitalStructure extends OrbitalObject {
 
-	/** The type of station */
-	public static enum StationType {
-		IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL;
+  /** The type of station */
+  public static enum StationType {
+	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL;
+  }
+
+  private UnitFactory factory;
+
+  public OrbitalStructure(Category category, StationType type, Player claim, Vector2 position) {
+	super.setCategory(category);
+
+	/** Should the structure have a unit factory? */
+	if (type.equals(StationType.FACTORY_SMALL) || type.equals(StationType.FACTORY_CAPITAL) || type.equals(StationType.MILITARY_SMALL)) {
+	  factory = new UnitFactory(claim, this);
 	}
 
-	private UnitFactory factory;
+	super.setClaim(claim);
+	super.setPosition(position);
+  }
 
-	public Structure(SuperClass superclass, StationType type, Player claim, Vector2 position) {
-		super.setSuperclass(superclass);
+  /** Check if the structure has a UnitFactory */
+  public boolean hasFactory() {
+	return factory == null ? false : true;
+  }
 
-		/** Should the structure have a unit factory? */
-		if (type.equals(StationType.FACTORY_SMALL) || type.equals(StationType.FACTORY_CAPITAL)
-				|| type.equals(StationType.MILITARY_SMALL)) {
-			factory = new UnitFactory(claim, this);
-		}
-
-		super.setClaim(claim);
-		super.setPosition(position);
-	}
-
-	/** Check if the structure has a UnitFactory */
-	public boolean hasFactory() {
-		return factory == null ? false : true;
-	}
-
-	/** @return UnitFactory if exists. Can be null */
-	public UnitFactory getFactory() {
-		return hasFactory() ? factory : null;
-	}
+  /** @return UnitFactory if exists. Can be null */
+  public UnitFactory getFactory() {
+	return hasFactory() ? factory : null;
+  }
 }

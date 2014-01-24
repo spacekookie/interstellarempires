@@ -19,9 +19,12 @@ package de.r2soft.space.server.ws.interfaces;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.namespace.QName;
 
 @WebService(targetNamespace = "http://2rSoftworks.de/")
 public interface ConnectionService {
+  
+  public static QName ServiceName = new QName("http://2rSoftworks.de/", "ConnectionService");
 
   @WebMethod
   public Integer connect(String username, String password);
