@@ -23,7 +23,7 @@ package de.r2soft.space.framework.objects;
  * 
  * @author ***REMOVED***
  * */
-public class PlanetaryObject extends PlayerObject {
+public class PlanetaryStructures extends PlayerObject {
 
   private boolean isStarbucks;
 
