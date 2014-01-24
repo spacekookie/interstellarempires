@@ -17,20 +17,16 @@
 
 package de.r2soft.space.server.core;
 
-
 import org.apache.log4j.Logger;
 
 import de.r2soft.space.framework.util.UtilFactory;
 
-
-
-
 public class Server {
 
-	private final Logger log = UtilFactory.createLogger(this);
+  private final Logger log = UtilFactory.createLogger(this);
 
-	public Server() {
-		log.info("Creating main server class");
-	}
+  public Server() {
+	log.info("Creating main server class");
+  }
 
 }
