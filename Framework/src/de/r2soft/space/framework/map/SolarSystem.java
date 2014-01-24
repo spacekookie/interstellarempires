@@ -24,7 +24,7 @@ import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Ship;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.StarType;
-import de.r2soft.space.framework.objects.Structure;
+import de.r2soft.space.framework.objects.OrbitalStructure;
 import de.r2soft.space.framework.players.Player;
 
 /**
@@ -42,7 +42,7 @@ public class SolarSystem {
   private Player claimed;
   private Set<Planet> planets;
   private Set<Ship> units;
-  private Set<Structure> structures;
+  private Set<OrbitalStructure> structures;
   private Star star;
   private float radius;
   private boolean explored;
@@ -67,7 +67,7 @@ public class SolarSystem {
 
 	units = new HashSet<Ship>();
 	planets = new HashSet<Planet>();
-	structures = new HashSet<Structure>();
+	structures = new HashSet<OrbitalStructure>();
 
   }
 
@@ -89,7 +89,7 @@ public class SolarSystem {
    * @param radius
    *          the radius of the solar system
    */
-  public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets, Set<Ship> units, Set<Structure> structures, Star star) {
+  public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets, Set<Ship> units, Set<OrbitalStructure> structures, Star star) {
 	this.pos = pos;
 	this.claimed = claimed;
 	this.planets = planets;

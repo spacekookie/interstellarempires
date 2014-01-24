@@ -26,7 +26,7 @@ import org.dom4j.Element;
 import de.r2soft.space.framework.map.GalaxyMap;
 import de.r2soft.space.framework.map.GalaxyPosition;
 import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.GameObject.Category;
+import de.r2soft.space.framework.objects.BaseObject.Category;
 import de.r2soft.space.framework.objects.Planet;
 import de.r2soft.space.framework.objects.Star;
 import de.r2soft.space.framework.objects.Star.StarType;

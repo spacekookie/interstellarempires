@@ -36,7 +36,7 @@ import de.r2soft.space.framework.players.Sociable;
  * @author Katharina
  * 
  */
-public class Ship extends MovingObject {
+public class Ship extends MovableObject {
 
   public static enum ShipType {
 	FIGHTER, CARGO_SMALL, MOTHERSHIP;
@@ -46,6 +46,7 @@ public class Ship extends MovingObject {
   private ShipType type;
   private Set<ModuleSlot> slots;
   private Propulsion engine;
+  /* Remove? */
   private float damage;
 
   public Ship(Sociable claim, ShipType type, float damage, float speed, float hp, float armour, Set<ModuleSlot> slots) {

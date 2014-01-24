@@ -26,7 +26,7 @@ import de.r2soft.space.framework.players.Player;
  * @author Katharina
  * 
  */
-public class Planet extends PlayerObject {
+public class Planet extends OrbitalObject {
 
   private float radius;
   private float mass;
@@ -44,6 +44,9 @@ public class Planet extends PlayerObject {
    */
   public static enum PlanetType {
 	A, B, C, D, E, F;
+  }
+
+  public Planet(Category c, float radius, BaseObject parent) {
   }
 
   public Planet(Category category, float radius, float mass) {
