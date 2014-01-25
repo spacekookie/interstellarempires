@@ -16,12 +16,13 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects;
+package de.r2soft.space.framework.objects.factory;
 
 import java.util.HashMap;
 
 import org.apache.commons.math3.util.Pair;
 
+import de.r2soft.space.framework.objects.BaseObject;
 import de.r2soft.space.framework.objects.BaseObject.Category;
 import de.r2soft.space.framework.objects.BaseObject.Type;
 
