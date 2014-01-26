@@ -74,7 +74,6 @@ import de.r2soft.space.framework.util.MapParser;
 public class HexMapScreen implements Screen {
 
   /** Global scope */
-  private CoreGame handler;
   private InputMultiplexer multiplexer;
   private String playerName;
 
@@ -90,7 +89,7 @@ public class HexMapScreen implements Screen {
   /** Scene2D UI */
   private OrthographicCamera uiCam;
   private Stage stage;
-  private TextButton settings, quit, logout, profile, refresh, enterSystem;
+  private TextButton settings, quit, logout, profile, research, enterSystem;
   private Table naviRight, naviLeft, centerTop, systemInfo;
   private Label title, welcome, systemSelector;
   private Dialog profileDialog, areYouSure;
@@ -101,14 +100,12 @@ public class HexMapScreen implements Screen {
 	shapeRenderer = new ShapeRenderer();
   }
 
-  public HexMapScreen(CoreGame handler) {
-	this.handler = handler;
+  public HexMapScreen() {
 	this.setTitle();
 	this.fetchGalaxyMap();
   }
 
-  public HexMapScreen(CoreGame handler, String playerName) {
-	this.handler = handler;
+  public HexMapScreen(String playerName) {
 	this.setTitle();
 	this.playerName = playerName;
 
@@ -296,13 +293,22 @@ public class HexMapScreen implements Screen {
 
   private void setupListeners() {
 
-	refresh.addListener(new ClickListener() {
+	enterSystem.addListener(new ClickListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		return true;
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		CoreGame.getInstance().setScreen(new SolMapScreen(null, new SolarSystem()));
+	  }
+	});
+
+	research.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 	  }
 	});
 
@@ -327,7 +333,7 @@ public class HexMapScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		handler.setScreen(new SettingsScreen(handler));
+		CoreGame.getInstance().setScreen(new SettingsScreen());
 	  }
 	});
 
@@ -349,7 +355,7 @@ public class HexMapScreen implements Screen {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 
 		// TODO: Request logout from server
-		handler.setScreen(new LoginScreen(handler));
+		CoreGame.getInstance().setScreen(new LoginScreen());
 	  }
 	});
 
@@ -361,7 +367,7 @@ public class HexMapScreen implements Screen {
 	settings = new TextButton("Settings", Resources.UI_SKIN);
 	quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
 	logout = new TextButton("Logout", Resources.UI_SKIN);
-	refresh = new TextButton("Refresh", Resources.UI_SKIN);
+	research = new TextButton("Research", Resources.UI_SKIN);
 	enterSystem = new TextButton("Visit Solar System", Resources.UI_SKIN);
 
 	/** Initialize Lables */
@@ -407,7 +413,7 @@ public class HexMapScreen implements Screen {
 
   private void setupLayout() {
 	/** Setting up the right navigation */
-	naviRight.add(refresh).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(research).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 	naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 	naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
 	naviRight.row();

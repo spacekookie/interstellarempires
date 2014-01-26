@@ -29,99 +29,96 @@ import de.r2soft.space.client.settings.BaseSettings;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game.
- * Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in the future
  * 
  * @author: ***REMOVED***
  */
 public class CoreGame extends Game {
 
-	private static CoreGame handler;
-	private Music music;
-	private Preferences prefs;
+  private static CoreGame handler;
+  private Music music;
+  private Preferences prefs;
 
-	/**
-	 * 
-	 * Returns The Games screenhandler to start new screens from actors, groups
-	 * and sub-classes. Accessed in a static way.
-	 * 
-	 * @return The main Screenhandler.
-	 */
-	public static CoreGame getInstance() {
-		return handler;
+  /**
+   * 
+   * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
+   * 
+   * @return The main Screenhandler.
+   */
+  public static CoreGame getInstance() {
+	return handler;
+  }
+
+  /**
+   * Called every time something major is being updated such as screen resolution, settings or big server syncs.
+   * 
+   * @author ***REMOVED***
+   */
+  public void onUpdate() {
+	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC)) {
+	  if (!music.isPlaying()) {
+		music.play();
+		music.setLooping(true);
+		music.setVolume(0.95f);
+	  }
 	}
-
-	/**
-	 * Called every time something major is being updated such as screen
-	 * resolution, settings or big server syncs.
-	 * 
-	 * @author ***REMOVED***
-	 */
-	public void onUpdate() {
-		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC)) {
-			if (!music.isPlaying()) {
-				music.play();
-				music.setLooping(true);
-				music.setVolume(0.95f);
-			}
-		} else {
-			if (music.isPlaying())
-				music.stop();
-		}
+	else {
+	  if (music.isPlaying())
+		music.stop();
 	}
+  }
 
-	@Override
-	public void create() {
-		handler = this;
+  @Override
+  public void create() {
+	handler = this;
 
-		music = Gdx.audio.newMusic(Gdx.files
-				.internal("assets/sounds/music/intro_music.mp3"));
-		prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
+	music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
 
-		if (!prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
-			prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
+	if (!prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
 
-		if (!prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
-			prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
+	if (!prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
+	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
 
-		onUpdate();
+	onUpdate();
 
-		if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
-			setScreen(new IntroductionScreen(this));
-		else
-			setScreen(new LoginScreen(this));
-	}
+	if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
+	  setScreen(new IntroductionScreen());
+	else
+	  setScreen(new LoginScreen());
+  }
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
-			music.stop();
-	}
+  @Override
+  public void dispose() {
+	super.dispose();
+	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	  music.stop();
+  }
 
-	@Override
-	public void render() {
-		super.render();
-	}
+  @Override
+  public void render() {
+	super.render();
+  }
 
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
+  @Override
+  public void resize(int width, int height) {
+	super.resize(width, height);
+  }
 
-	@Override
-	public void pause() {
-		super.pause();
+  @Override
+  public void pause() {
+	super.pause();
 
-		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
-			music.pause();
-	}
+	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	  music.pause();
+  }
 
-	@Override
-	public void resume() {
-		super.resume();
-		if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
-			music.play();
-	}
+  @Override
+  public void resume() {
+	super.resume();
+	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	  music.play();
+  }
 
 }
