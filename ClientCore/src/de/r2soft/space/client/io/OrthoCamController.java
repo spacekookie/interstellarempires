@@ -48,8 +48,12 @@ public class OrthoCamController extends InputAdapter {
 	return false;
   }
 
+  private SolarSystem system;
+
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+	// TODO: Check wether mouse is in
 
 	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.mapSize.x;
 	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.mapSize.y;
@@ -57,10 +61,16 @@ public class OrthoCamController extends InputAdapter {
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);
 
-	SolarSystem system = renderer.getTileWithPos(tmp.x, tmp.y).getSystem();
-	if (system != null)
-	  parent.updateFocus(system);
-
+	try {
+	  system = renderer.getTileWithPos(tmp.x, tmp.y).getSystem();
+	}
+	catch (Exception e) {
+	  Gdx.app.log("Cam Controler", "OUT OF MAP BOUNDS");
+	}
+	finally {
+	  if (system != null)
+		parent.updateFocus(system);
+	}
 	return false;
   }
 
