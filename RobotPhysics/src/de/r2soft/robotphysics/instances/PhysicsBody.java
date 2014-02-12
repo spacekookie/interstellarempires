@@ -20,14 +20,24 @@ package de.r2soft.robotphysics.instances;
 
 import java.util.Vector;
 
-public class PhysicsBody {
+public abstract class PhysicsBody {
 
   private float mass;
   private float velocity;
   private Vector<Integer> position;
 
-  public PhysicsBody() {
+  public PhysicsBody(float mass) {
+	this(mass, new Vector<Integer>(0, 0));
+  }
 
+  public PhysicsBody(float mass, Vector<Integer> position) {
+	this(mass, 0, new Vector<Integer>(0, 0));
+  }
+
+  public PhysicsBody(float mass, float velocity, Vector<Integer> position) {
+	this.mass = mass;
+	this.velocity = velocity;
+	this.position = position;
   }
 
 }

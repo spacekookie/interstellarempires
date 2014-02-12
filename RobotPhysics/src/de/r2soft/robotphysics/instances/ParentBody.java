@@ -21,16 +21,26 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PhysicsWorld {
+public class ParentBody extends PhysicsBody {
 
-  private Set<PhysicsBody> children;
-
-  public PhysicsWorld() {
-	children = new HashSet<PhysicsBody>();
+  /** The type of this parent body. Version 0.0.2 adds nested parent bodies */
+  public static enum PARENT_BODY_TYPE {
+	PLANET, MOON, CELESTIAL_CENTER;
   }
 
-  /** Update movement for each body */
-  public void update(float delta) {
+  private PARENT_BODY_TYPE type;
+  private Set<OrbitalBody> orbitalChildren;
 
+  /** Do not use! */
+  public ParentBody(float mass) {
+	this(mass, null);
   }
+
+  /** Constructor to overwrite {@link #PARENT_BODY_TYPE} */
+  public ParentBody(float mass, PARENT_BODY_TYPE type) {
+	super(mass);
+	this.type = type;
+	orbitalChildren = new HashSet<OrbitalBody>();
+  }
+
 }
