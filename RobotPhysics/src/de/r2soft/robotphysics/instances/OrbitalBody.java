@@ -19,18 +19,13 @@
 package de.r2soft.robotphysics.instances;
 
 import java.util.HashSet;
-import java.util.Set;
 
-public class PhysicsWorld {
+import de.r2soft.robotphysics.instances.ParentBody.PARENT_BODY_TYPE;
 
-  private Set<PhysicsBody> children;
+public class OrbitalBody extends PhysicsBody {
 
-  public PhysicsWorld() {
-	children = new HashSet<PhysicsBody>();
+  public OrbitalBody(float mass) {
+	super(mass);
   }
 
-  /** Update movement for each body */
-  public void update(float delta) {
-
-  }
 }
