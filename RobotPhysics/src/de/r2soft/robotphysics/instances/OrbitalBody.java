@@ -19,13 +19,32 @@
 package de.r2soft.robotphysics.instances;
 
 import java.util.HashSet;
-
-import de.r2soft.robotphysics.instances.ParentBody.PARENT_BODY_TYPE;
+import java.util.Set;
 
 public class OrbitalBody extends PhysicsBody {
 
-  public OrbitalBody(float mass) {
-	super(mass);
+  /**
+   * Determines if the body can have children of it's own. If @FALSE it will act as an end-instance. If @TRUE it will initiate it's Set for
+   * own children
+   */
+  public boolean bifunction = false;
+
+  private PhysicsBody orbital_parent;
+  private Set<OrbitalBody> orbital_children;
+
+  public OrbitalBody(boolean bifunction) {
+	super();
+	if (bifunction)
+	  orbital_children = new HashSet<OrbitalBody>();
+  }
+
+  public void computeGravity() {
+	if (bifunction) {
+
+	}
+	else {
+
+	}
   }
 
 }

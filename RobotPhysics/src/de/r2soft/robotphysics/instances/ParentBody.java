@@ -20,27 +20,23 @@ package de.r2soft.robotphysics.instances;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
+/**
+ * A body that is only a parent. It has no velocity around another parent and can only hold children. Will only attract other bodies and not
+ * be attracted back.
+ * 
+ * @author Katharina
+ * 
+ */
 public class ParentBody extends PhysicsBody {
 
-  /** The type of this parent body. Version 0.0.2 adds nested parent bodies */
-  public static enum PARENT_BODY_TYPE {
-	PLANET, MOON, CELESTIAL_CENTER;
-  }
+  private Set<OrbitalBody> orbital_children;
+  private float orbital_radius;
+  private Vector<Integer> orbital_position;
 
-  private PARENT_BODY_TYPE type;
-  private Set<OrbitalBody> orbitalChildren;
-
-  /** Do not use! */
   public ParentBody(float mass) {
-	this(mass, null);
-  }
-
-  /** Constructor to overwrite {@link #PARENT_BODY_TYPE} */
-  public ParentBody(float mass, PARENT_BODY_TYPE type) {
-	super(mass);
-	this.type = type;
-	orbitalChildren = new HashSet<OrbitalBody>();
+	orbital_children = new HashSet<OrbitalBody>();
   }
 
 }
