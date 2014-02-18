@@ -24,6 +24,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.r2soft.robotphysics.instances.OrbitalBody;
+import de.r2soft.robotphysics.instances.ParentBody;
 import de.r2soft.robotphysics.instances.PhysicsWorld;
 import de.r2soft.robotphysics.tests.Body.TYPE;
 
@@ -54,6 +56,8 @@ public class GravityTest extends GdxTest {
 	star = new Body(TYPE.STAR);
 
 	world = new PhysicsWorld();
+	((ParentBody) star.getBody()).addChild((OrbitalBody) planet.getBody());
+	((OrbitalBody) planet.getBody()).setOrbitalParent((ParentBody) star.getBody());
 	world.addChild(planet.getBody());
 	world.addChild(star.getBody());
 
@@ -64,6 +68,7 @@ public class GravityTest extends GdxTest {
   @Override
   public void render() {
 	batch.setProjectionMatrix(camera.combined);
+	camera.update();
 
 	planet.update(batch);
 	star.update(batch);

@@ -31,7 +31,10 @@ public class PhysicsWorld {
 
   /** Update movement for each body */
   public void update(float delta) {
-
+	for (PhysicsBody body : children) {
+	  if (body instanceof OrbitalBody)
+		((OrbitalBody) body).update();
+	}
   }
 
   public void addChild(PhysicsBody child) {

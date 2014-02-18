@@ -39,18 +39,22 @@ public class Body {
 
   private Sprite sprite;
   private PhysicsBody body;
+
+  /** Pixel position on screen */
   private Vector2 position;
 
   public Body(TYPE type) {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
 	  body = new OrbitalBody(false);
-	  ((OrbitalBody) body).setInitialPosition(new R2Int(400, 150));
+	  ((OrbitalBody) body).setInitialPosition(new R2Int(100, 50));
+	  sprite.setPosition(100, 50);
 	}
 	else if (type.equals(TYPE.STAR)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/star.png")));
 	  body = new ParentBody(100f);
-	  ((ParentBody) body).setPosition(new R2Int(250, 150));
+	  ((ParentBody) body).setPosition(new R2Int(-150, 150));
+	  sprite.setPosition(-150, 150);
 	}
   }
 
