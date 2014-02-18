@@ -20,7 +20,8 @@ package de.r2soft.robotphysics.instances;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
+
+import de.r2soft.robotphysics.primatives.R2Int;
 
 /**
  * A body that is only a parent. It has no velocity around another parent and can only hold children. Will only attract other bodies and not
@@ -31,12 +32,36 @@ import java.util.Vector;
  */
 public class ParentBody extends PhysicsBody {
 
-  private Set<OrbitalBody> orbital_children;
-  private float orbital_radius;
-  private Vector<Integer> orbital_position;
+  private Set<OrbitalBody> children;
+  private float radius;
+  private R2Int position;
+  private float mass;
 
+  /** Takes mass in Kilograms */
   public ParentBody(float mass) {
-	orbital_children = new HashSet<OrbitalBody>();
+
+	children = new HashSet<OrbitalBody>();
+  }
+
+  public void addChild(OrbitalBody body) {
+	if (children.contains(body))
+	  children.add(body);
+  }
+
+  public float getRadius() {
+	return radius;
+  }
+
+  public void setRadius(float orbitalRadius) {
+	this.radius = orbitalRadius;
+  }
+
+  public R2Int getPosition() {
+	return position;
+  }
+
+  public void setPosition(R2Int position) {
+	this.position = position;
   }
 
 }

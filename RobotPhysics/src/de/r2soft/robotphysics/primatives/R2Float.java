@@ -16,36 +16,8 @@
  * 
  ######################################################################### */
 
-package de.r2soft.robotphysics.instances;
+package de.r2soft.robotphysics.primatives;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class PhysicsWorld {
-
-  private Set<PhysicsBody> children;
-
-  public PhysicsWorld() {
-	children = new HashSet<PhysicsBody>();
-  }
-
-  /** Update movement for each body */
-  public void update(float delta) {
-
-  }
-
-  public void addChild(PhysicsBody child) {
-	if (!children.contains(child))
-	  children.add(child);
-  }
-
-  public void removeChild(PhysicsBody child) {
-	if (children.contains(child))
-	  children.remove(child);
-  }
-
-  public Set<PhysicsBody> getChildren() {
-	return children;
-  }
+public class R2Float {
 
 }
