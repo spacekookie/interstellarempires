@@ -19,6 +19,7 @@
 package de.r2soft.robotphysics.tests;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL10;
@@ -49,6 +50,8 @@ public class GravityTest extends GdxTest {
   private SpriteBatch batch;
   private Body planet, star;
   private InputHandler handler;
+  private CameraController cam;
+  private InputMultiplexer plex;
 
   /** Physics */
   private PhysicsWorld world;
@@ -62,7 +65,11 @@ public class GravityTest extends GdxTest {
 	camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	batch = new SpriteBatch();
 	handler = new InputHandler(planet, camera);
-	Gdx.input.setInputProcessor(handler);
+	cam = new CameraController(camera);
+	plex = new InputMultiplexer();
+	plex.addProcessor(handler);
+	plex.addProcessor(cam);
+	Gdx.input.setInputProcessor(plex);
 
 	world = new PhysicsWorld(handler, camera);
 	((ParentBody) star.getBody()).addChild((OrbitalBody) planet.getBody());
