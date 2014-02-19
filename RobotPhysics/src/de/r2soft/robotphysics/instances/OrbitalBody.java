@@ -21,6 +21,11 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
+
 import de.r2soft.robotphysics.primatives.R2Float;
 import de.r2soft.robotphysics.primatives.R2P;
 import de.r2soft.robotphysics.tests.Body;
@@ -45,15 +50,16 @@ public class OrbitalBody extends PhysicsBody {
 	this.parent = parent;
 	position = new R2Float();
 	movement = new R2Float(1, 0);
+	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
 	  children = new HashSet<OrbitalBody>();
   }
 
-  public void update(boolean clicked) {
+  public void update(boolean clicked, OrthographicCamera camera) {
 	if (clicked)
 	  return;
 	calculateAngle();
-	computeGravity();
+	computeGravity(camera);
   }
 
   public void updatePosition(float x, float y) {
@@ -72,12 +78,14 @@ public class OrbitalBody extends PhysicsBody {
 	  angle += 360;
   }
 
+  ShapeRenderer renderer;
+
   /** Called every tick to compute gravity for this object */
-  private void computeGravity() {
+  private void computeGravity(OrthographicCamera camera) {
 	if (bifunction) {
 	  // Compute gravity for children
 	  for (OrbitalBody body : children) {
-		body.computeGravity();
+		body.computeGravity(null);
 	  }
 	}
 	else {
@@ -88,14 +96,20 @@ public class OrbitalBody extends PhysicsBody {
 	  movement.x = force;
 	  movement.rotate((float) angle);
 
-	  this.applyForce();
+	  this.applyForce(camera);
 
 	}
   }
 
-  private void applyForce() {
+  private void applyForce(OrthographicCamera camera) {
 	R2Float temp = new R2Float(parent.getPosition().x, parent.getPosition().y);
 	temp.add(movement);
+
+	renderer.setProjectionMatrix(camera.combined);
+	renderer.begin(ShapeType.Line);
+	renderer.setColor(1, 1, 1, 1);
+	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), temp.cpy().scl(10f));
+	renderer.end();
 
 	parent.updatePosition(temp);
   }

@@ -64,7 +64,7 @@ public class GravityTest extends GdxTest {
 	handler = new InputHandler(planet, camera);
 	Gdx.input.setInputProcessor(handler);
 
-	world = new PhysicsWorld(handler);
+	world = new PhysicsWorld(handler, camera);
 	((ParentBody) star.getBody()).addChild((OrbitalBody) planet.getBody());
 	((OrbitalBody) planet.getBody()).setOrbitalParent((ParentBody) star.getBody());
 	star.getBody().setMass(R2P.R2_PHYSICS_MASS_FUN_MASSIVE);

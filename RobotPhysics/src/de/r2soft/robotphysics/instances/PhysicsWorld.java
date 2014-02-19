@@ -21,23 +21,27 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import de.r2soft.robotphysics.tests.InputHandler;
 
 public class PhysicsWorld {
 
   private Set<PhysicsBody> children;
   private InputHandler handler;
+  private OrthographicCamera camera;
 
-  public PhysicsWorld(InputHandler handler) {
+  public PhysicsWorld(InputHandler handler, OrthographicCamera camera) {
 	children = new HashSet<PhysicsBody>();
 	this.handler = handler;
+	this.camera = camera;
   }
 
   /** Update movement for each body */
   public void update(float delta) {
 	for (PhysicsBody body : children) {
 	  if (body instanceof OrbitalBody)
-		((OrbitalBody) body).update(handler.isClicked());
+		((OrbitalBody) body).update(handler.isClicked(), camera);
 	}
   }
 
