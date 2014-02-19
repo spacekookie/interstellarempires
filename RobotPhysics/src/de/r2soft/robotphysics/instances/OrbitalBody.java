@@ -50,8 +50,8 @@ public class OrbitalBody extends PhysicsBody {
   public OrbitalBody(int bifunction, Body parent) {
 	super();
 	this.parent = parent;
-	position = new R2Float(300, 150);
-	velocity = new R2Float(0, 70);
+	position = parent.getPosition();
+	velocity = new R2Float(0, 100);
 	acceleration = new R2Float(0, 0);
 	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
@@ -92,10 +92,12 @@ public class OrbitalBody extends PhysicsBody {
 	  float tempX = ((ParentBody) orbitalParent).getPosition().x - position.x;
 	  float tempY = ((ParentBody) orbitalParent).getPosition().y - position.y;
 	  float distance = (float) trigeometry(tempX, tempY);
+
+	  /** Gravitational force */
 	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / Math.pow(distance, 2));
 
 	  /** Adding forces proportionally to the acceleration vector */
-	  acceleration.x = 5000 * tempX * (force / distance);
+	  acceleration.x = 5000 * tempX * (force / distance); // TODO: Divide by mass
 	  acceleration.y = 5000 * tempY * (force / distance);
 
 	  this.applyForce(camera);
@@ -105,21 +107,19 @@ public class OrbitalBody extends PhysicsBody {
 
   private void applyForce(OrthographicCamera camera) {
 
-	R2Float Accdt = new R2Float(acceleration.x, acceleration.y);
-	Accdt.scl(Gdx.graphics.getDeltaTime()); // todo get delta t
-	velocity.add(Accdt);
-	R2Float Veldt = new R2Float(velocity.x, velocity.y);
-	Veldt.scl(Gdx.graphics.getDeltaTime()); // todo get delta t
-	position.add(Veldt);
-	System.out.println("Position;velocity;acceleration;angle " + position.x + "," + position.y + ";" + velocity.x + "," + velocity.y + ";"
-		+ acceleration.x + "," + acceleration.y + ";" + angle);
+	R2Float AccDT = new R2Float(acceleration.x, acceleration.y);
+	AccDT.scl(Gdx.graphics.getDeltaTime());
+	velocity.add(AccDT);
+	R2Float VelDT = new R2Float(velocity.x, velocity.y);
+	VelDT.scl(Gdx.graphics.getDeltaTime());
+	position.add(VelDT);
+
+	Vector2 tmp = parent.getPosition().cpy();
 
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Line);
 	renderer.setColor(1, 1, 1, 1);
-
-	Vector2 tmp = new Vector2(parent.getPosition().cpy());
-	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), tmp.add(acceleration.scl(10f)));
+	renderer.line(new Vector2(tmp.x, tmp.y), tmp.add(acceleration.scl(10f)));
 	renderer.end();
 
 	parent.updatePosition(position);
