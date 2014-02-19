@@ -30,6 +30,7 @@ import de.r2soft.robotphysics.instances.OrbitalBody;
 import de.r2soft.robotphysics.instances.ParentBody;
 import de.r2soft.robotphysics.instances.PhysicsBody;
 import de.r2soft.robotphysics.primatives.R2Int;
+import de.r2soft.robotphysics.primatives.R2P;
 
 public class Body {
 
@@ -46,9 +47,9 @@ public class Body {
   public Body(TYPE type) {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
-	  body = new OrbitalBody(false);
-	  ((OrbitalBody) body).setInitialPosition(new R2Int(100, 50));
-	  sprite.setPosition(100, 50);
+	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION);
+	  ((OrbitalBody) body).setInitialPosition(new R2Int(-300, 50));
+	  sprite.setPosition(-300, 50);
 	}
 	else if (type.equals(TYPE.STAR)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/star.png")));
