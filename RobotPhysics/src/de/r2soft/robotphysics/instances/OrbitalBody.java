@@ -49,7 +49,7 @@ public class OrbitalBody extends PhysicsBody {
 	super();
 	this.parent = parent;
 	position = parent.getPosition();
-	velocity = new R2Float(0, 93);
+	velocity = new R2Float(0, 88); // 92.75
 	acceleration = new R2Float(0, 0);
 	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
