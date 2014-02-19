@@ -42,14 +42,16 @@ public class OrbitalBody extends PhysicsBody {
   private PhysicsBody orbitalParent;
   private Set<OrbitalBody> children;
   private R2Float position;
-  private R2Float movement;
+  private R2Float velocity;
+  private R2Float acceleration;
   private double angle;
 
   public OrbitalBody(int bifunction, Body parent) {
 	super();
 	this.parent = parent;
-	position = new R2Float();
-	movement = new R2Float(1, 0);
+	position = new R2Float(300,300);
+	velocity = new R2Float(0,0);
+	acceleration = new R2Float(0,0);
 	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
 	  children = new HashSet<OrbitalBody>();
@@ -93,8 +95,8 @@ public class OrbitalBody extends PhysicsBody {
 	  double tempY = Math.abs(((ParentBody) orbitalParent).getPosition().y - position.y);
 
 	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / trigeometry(tempX, tempY));
-	  movement.x = force;
-	  movement.rotate((float) angle);
+	  acceleration.x = force; //divide by mass here
+	  acceleration.rotate((float) angle);
 
 	  this.applyForce(camera);
 
@@ -102,16 +104,24 @@ public class OrbitalBody extends PhysicsBody {
   }
 
   private void applyForce(OrthographicCamera camera) {
-	R2Float temp = new R2Float(parent.getPosition().x, parent.getPosition().y);
-	temp.add(movement);
-
-	renderer.setProjectionMatrix(camera.combined);
-	renderer.begin(ShapeType.Line);
-	renderer.setColor(1, 1, 1, 1);
-	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), temp.cpy().scl(10f));
-	renderer.end();
-
-	parent.updatePosition(temp);
+//	R2Float temp = new R2Float(parent.getPosition().x, parent.getPosition().y);
+//	temp.add(movement);
+//
+//	renderer.setProjectionMatrix(camera.combined);
+//	renderer.begin(ShapeType.Line);
+//	renderer.setColor(1, 1, 1, 1);
+//	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), temp.cpy().scl(3f));
+//	renderer.end();
+//
+//	parent.updatePosition(temp);
+	R2Float Accdt = new R2Float(acceleration.x,acceleration.y);
+	Accdt.scl(0.1f); //todo get delta t
+	velocity.add(Accdt);
+	R2Float Veldt = new R2Float(velocity.x,velocity.y);
+	Veldt.scl(0.1f); //todo get delta t
+	position.add(Veldt);
+	parent.updatePosition(position);
+	
   }
 
   /** Determines the distance between two objects */

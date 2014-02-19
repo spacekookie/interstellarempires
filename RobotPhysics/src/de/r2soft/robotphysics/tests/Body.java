@@ -64,7 +64,7 @@ public class Body {
   public void updatePosition(R2Float position) {
 	this.position = position;
 	sprite.setPosition(position.x - 64, position.y - 64);
-	((OrbitalBody) body).updatePosition(position.x, position.y);
+	//((OrbitalBody) body).updatePosition(position.x, position.y);
   }
 
   public R2Float getPosition() {
