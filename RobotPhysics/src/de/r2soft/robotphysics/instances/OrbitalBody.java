@@ -50,8 +50,8 @@ public class OrbitalBody extends PhysicsBody {
   public OrbitalBody(int bifunction, Body parent) {
 	super();
 	this.parent = parent;
-	position = new R2Float(300,150);
-	velocity = new R2Float(20,50);
+	position = new R2Float(300,300);
+	velocity = new R2Float(0,90);
 	acceleration = new R2Float(0,0);
 	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
