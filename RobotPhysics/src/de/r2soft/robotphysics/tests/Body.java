@@ -49,7 +49,7 @@ public class Body {
   public Body(TYPE type) {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
-	  sprite.setScale(0.1f);
+	  sprite.setScale(0.5f);
 	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION, this);
 	  updatePosition(new R2Float(300, 150));
 	}
@@ -65,7 +65,7 @@ public class Body {
   public void updatePosition(R2Float position) {
 	this.position = position;
 	sprite.setPosition(position.x - 64, position.y - 64);
-	//((OrbitalBody) body).updatePosition(position.x, position.y);
+	// ((OrbitalBody) body).updatePosition(position.x, position.y);
   }
 
   public R2Float getPosition() {

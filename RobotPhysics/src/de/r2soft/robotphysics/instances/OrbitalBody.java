@@ -50,9 +50,9 @@ public class OrbitalBody extends PhysicsBody {
   public OrbitalBody(int bifunction, Body parent) {
 	super();
 	this.parent = parent;
-	position = new R2Float(300,150);
-	velocity = new R2Float(20,50);
-	acceleration = new R2Float(0,0);
+	position = new R2Float(300, 150);
+	velocity = new R2Float(0, 70);
+	acceleration = new R2Float(0, 0);
 	renderer = new ShapeRenderer();
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
 	  children = new HashSet<OrbitalBody>();
@@ -73,11 +73,7 @@ public class OrbitalBody extends PhysicsBody {
 	double parentX = ((ParentBody) orbitalParent).getPosition().x;
 	double parentY = ((ParentBody) orbitalParent).getPosition().y;
 
-	// double parentX = Gdx.input.getX();
-	// double parentY = Gdx.input.getY();
-
-	angle = (float) Math.toDegrees(Math.atan2(parentY - position.y,parentX - position.x ));
-	//angle = Math.atan2(parentX - position.x, parentY - position.y);
+	angle = (float) Math.toDegrees(Math.atan2(parentY - position.y, parentX - position.x));
 	if (angle < 0)
 	  angle += 360;
   }
@@ -95,11 +91,12 @@ public class OrbitalBody extends PhysicsBody {
 	else {
 	  float tempX = ((ParentBody) orbitalParent).getPosition().x - position.x;
 	  float tempY = ((ParentBody) orbitalParent).getPosition().y - position.y;
-	  float distance = (float)trigeometry(tempX, tempY);
+	  float distance = (float) trigeometry(tempX, tempY);
 	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / distance);
-	  acceleration.x = 20*tempX*(force/distance); //divide by mass here
-	  acceleration.y = 20*tempY*(force/distance); //divide by mass here
-	  //acceleration.rotate(angle);
+
+	  /** Adding forces proportionally to the acceleration vector */
+	  acceleration.x = 20 * tempX * (force / distance);
+	  acceleration.y = 20 * tempY * (force / distance);
 
 	  this.applyForce(camera);
 
@@ -107,33 +104,25 @@ public class OrbitalBody extends PhysicsBody {
   }
 
   private void applyForce(OrthographicCamera camera) {
-//	R2Float temp = new R2Float(parent.getPosition().x, parent.getPosition().y);
-//	temp.add(movement);
-//
-//	renderer.setProjectionMatrix(camera.combined);
-//	renderer.begin(ShapeType.Line);
-//	renderer.setColor(1, 1, 1, 1);
-//	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), temp.cpy().scl(3f));
-//	renderer.end();
-//
-//	parent.updatePosition(temp);
-	R2Float Accdt = new R2Float(acceleration.x,acceleration.y);
-	Accdt.scl(Gdx.graphics.getDeltaTime()); //todo get delta t
+
+	R2Float Accdt = new R2Float(acceleration.x, acceleration.y);
+	Accdt.scl(Gdx.graphics.getDeltaTime()); // todo get delta t
 	velocity.add(Accdt);
-	R2Float Veldt = new R2Float(velocity.x,velocity.y);
-	Veldt.scl(Gdx.graphics.getDeltaTime()); //todo get delta t
+	R2Float Veldt = new R2Float(velocity.x, velocity.y);
+	Veldt.scl(Gdx.graphics.getDeltaTime()); // todo get delta t
 	position.add(Veldt);
-	System.out.println("Position;velocity;acceleration;angle "+position.x+","+position.y+";"+velocity.x+","+velocity.y+";"+acceleration.x+","+acceleration.y+";"+angle);
-	
+	System.out.println("Position;velocity;acceleration;angle " + position.x + "," + position.y + ";" + velocity.x + "," + velocity.y + ";"
+		+ acceleration.x + "," + acceleration.y + ";" + angle);
+
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Line);
 	renderer.setColor(1, 1, 1, 1);
-	Vector2 tmp = new Vector2(parent.getPosition().cpy());
+	Vector2 tmp = parent.getPosition().cpy();
 	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), tmp.add(acceleration));
 	renderer.end();
-	
+
 	parent.updatePosition(position);
-	
+
   }
 
   /** Determines the distance between two objects */
