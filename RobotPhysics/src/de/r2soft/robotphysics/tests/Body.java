@@ -18,17 +18,15 @@
 
 package de.r2soft.robotphysics.tests;
 
-import java.util.Vector;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 import de.r2soft.robotphysics.instances.OrbitalBody;
 import de.r2soft.robotphysics.instances.ParentBody;
 import de.r2soft.robotphysics.instances.PhysicsBody;
+import de.r2soft.robotphysics.primatives.R2Float;
 import de.r2soft.robotphysics.primatives.R2Int;
 import de.r2soft.robotphysics.primatives.R2P;
 
@@ -42,21 +40,35 @@ public class Body {
   private PhysicsBody body;
 
   /** Pixel position on screen */
-  private Vector2 position;
+  private R2Float position;
+
+  /** TODO: Remove this! */
+  @Deprecated
+  public final R2Float spriteSize = new R2Float(128, 128);
 
   public Body(TYPE type) {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
-	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION);
-	  ((OrbitalBody) body).setInitialPosition(new R2Int(-300, 50));
-	  sprite.setPosition(-300, 50);
+	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION, this);
+	  updatePosition(new R2Float(150, 150));
 	}
 	else if (type.equals(TYPE.STAR)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/star.png")));
 	  body = new ParentBody(100f);
-	  ((ParentBody) body).setPosition(new R2Int(-150, 150));
-	  sprite.setPosition(-150, 150);
+	  ((ParentBody) body).setPosition(new R2Int(300, 300));
+	  sprite.setPosition(300 - 64, 300 - 64);
 	}
+  }
+
+  /** Make compatible with other object types */
+  public void updatePosition(R2Float position) {
+	this.position = position;
+	sprite.setPosition(position.x - 64, position.y - 64);
+	((OrbitalBody) body).updatePosition(position.x, position.y);
+  }
+
+  public R2Float getPosition() {
+	return position;
   }
 
   public void update(SpriteBatch batch) {

@@ -26,7 +26,7 @@ package de.r2soft.robotphysics.instances;
  */
 public abstract class PhysicsBody {
 
-  private float mass, density;
+  private double mass, density;
   private float radius;
   private float gravRadius, gravCoef;
 
@@ -35,7 +35,7 @@ public abstract class PhysicsBody {
 	this(0, 0, 0);
   }
 
-  public PhysicsBody(float mass, float radius, float gravCoef) {
+  public PhysicsBody(double mass, float radius, float gravCoef) {
 	this.mass = mass;
 	this.radius = radius;
 	this.gravCoef = gravCoef;
@@ -46,15 +46,15 @@ public abstract class PhysicsBody {
 	density = mass / radius;
   }
 
-  public float getMass() {
+  public double getMass() {
 	return mass;
   }
 
-  public void setMass(float mass) {
+  public void setMass(double mass) {
 	this.mass = mass;
   }
 
-  public float getDensity() {
+  public double getDensity() {
 	return density;
   }
 

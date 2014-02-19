@@ -21,11 +21,9 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.badlogic.gdx.Gdx;
-
 import de.r2soft.robotphysics.primatives.R2Float;
-import de.r2soft.robotphysics.primatives.R2Int;
 import de.r2soft.robotphysics.primatives.R2P;
+import de.r2soft.robotphysics.tests.Body;
 
 public class OrbitalBody extends PhysicsBody {
 
@@ -35,38 +33,43 @@ public class OrbitalBody extends PhysicsBody {
    */
   private boolean bifunction = false;
 
+  private Body parent;
   private PhysicsBody orbitalParent;
   private Set<OrbitalBody> children;
-  private R2Int position;
+  private R2Float position;
   private R2Float movement;
   private double angle;
 
-  public OrbitalBody(int bifunction) {
+  public OrbitalBody(int bifunction, Body parent) {
 	super();
-	position = new R2Int();
-	movement = new R2Float();
+	this.parent = parent;
+	position = new R2Float();
+	movement = new R2Float(1, 0);
 	if (bifunction == R2P.R2_BODY_BIFUNCTION)
 	  children = new HashSet<OrbitalBody>();
   }
 
-  public void update() {
+  public void update(boolean clicked) {
+	if (clicked)
+	  return;
 	calculateAngle();
 	computeGravity();
   }
 
+  public void updatePosition(float x, float y) {
+	position.set(x, y);
+  }
+
   private void calculateAngle() {
-	// double parentX = ((ParentBody) orbitalParent).getPosition().x;
-	// double parentY = ((ParentBody) orbitalParent).getPosition().y;
+	double parentX = ((ParentBody) orbitalParent).getPosition().x;
+	double parentY = ((ParentBody) orbitalParent).getPosition().y;
 
-	double parentX = Gdx.input.getX();
-	double parentY = Gdx.input.getY();
+	// double parentX = Gdx.input.getX();
+	// double parentY = Gdx.input.getY();
 
-	double tempX = Math.abs(parentX - position.x);
-	double tempY = Math.abs(parentY - position.y);
-
-	angle = Math.toDegrees(Math.atan(tempX / tempY));
-	System.out.println(angle);
-
+	angle = Math.toDegrees(Math.atan2(parentX - position.x, parentY - position.y));
+	if (angle < 0)
+	  angle += 360;
   }
 
   /** Called every tick to compute gravity for this object */
@@ -78,10 +81,28 @@ public class OrbitalBody extends PhysicsBody {
 	  }
 	}
 	else {
-	  // Mass of the object * (µ of the body)/ Radius of the ship^2
-	  float forceGravity = orbitalParent.getMass() * (orbitalParent.getGravCoef() / getRadius());
+	  double tempX = Math.abs(((ParentBody) orbitalParent).getPosition().x - position.x);
+	  double tempY = Math.abs(((ParentBody) orbitalParent).getPosition().y - position.y);
+
+	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / trigeometry(tempX, tempY));
+	  movement.x = force;
+	  movement.rotate((float) angle);
+
+	  this.applyForce();
 
 	}
+  }
+
+  private void applyForce() {
+	R2Float temp = new R2Float(parent.getPosition().x, parent.getPosition().y);
+	temp.add(movement);
+
+	parent.updatePosition(temp);
+  }
+
+  /** Determines the distance between two objects */
+  private double trigeometry(double x, double y) {
+	return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
   }
 
   public boolean isBifunction() {
@@ -116,11 +137,11 @@ public class OrbitalBody extends PhysicsBody {
 	this.children = children;
   }
 
-  public R2Int getInitialPosition() {
+  public R2Float getPosition() {
 	return position;
   }
 
-  public void setInitialPosition(R2Int initialPosition) {
+  public void setInitialPosition(R2Float initialPosition) {
 	this.position = initialPosition;
   }
 
