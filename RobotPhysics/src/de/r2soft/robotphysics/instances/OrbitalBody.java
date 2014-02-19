@@ -21,6 +21,7 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -76,6 +77,7 @@ public class OrbitalBody extends PhysicsBody {
 	// double parentY = Gdx.input.getY();
 
 	angle = Math.toDegrees(Math.atan2(parentX - position.x, parentY - position.y));
+	//angle = Math.atan2(parentX - position.x, parentY - position.y);
 	if (angle < 0)
 	  angle += 360;
   }
@@ -96,7 +98,7 @@ public class OrbitalBody extends PhysicsBody {
 
 	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / trigeometry(tempX, tempY));
 	  acceleration.x = force; //divide by mass here
-	  acceleration.rotate((float) angle);
+	  acceleration.rotate((float) angle - 90);
 
 	  this.applyForce(camera);
 
@@ -115,10 +117,10 @@ public class OrbitalBody extends PhysicsBody {
 //
 //	parent.updatePosition(temp);
 	R2Float Accdt = new R2Float(acceleration.x,acceleration.y);
-	Accdt.scl(0.1f); //todo get delta t
+	Accdt.scl(Gdx.graphics.getDeltaTime()); //todo get delta t
 	velocity.add(Accdt);
 	R2Float Veldt = new R2Float(velocity.x,velocity.y);
-	Veldt.scl(0.1f); //todo get delta t
+	Veldt.scl(Gdx.graphics.getDeltaTime()); //todo get delta t
 	position.add(Veldt);
 	parent.updatePosition(position);
 	
