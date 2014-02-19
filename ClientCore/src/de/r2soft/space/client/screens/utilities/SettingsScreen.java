@@ -43,165 +43,153 @@ import de.r2soft.space.client.settings.Sizes;
  */
 public class SettingsScreen implements Screen {
 
-	/** Container and Backends */
-	private CoreGame handler;
-	private Stage stage;
-	private TextButton button;
-	private Table table;
-	private Table navigation;
-	private Preferences prefs;
+  /** Container and Backends */
+  private Stage stage;
+  private TextButton button;
+  private Table table;
+  private Table navigation;
+  private Preferences prefs;
 
-	private CheckBox skipIntro, playMusic;
+  private CheckBox skipIntro, playMusic;
 
-	public SettingsScreen(CoreGame handler) {
-		this.handler = handler;
-		Gdx.graphics.setTitle(BaseSettings.SUPERTITLE + " - "
-				+ BaseSettings.VERSION_NUMBER + " - "
-				+ BaseSettings.SCREENTITLE_SETTINGS);
-		prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
+  public SettingsScreen() {
+	Gdx.graphics.setTitle(BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER + " - " + BaseSettings.SCREENTITLE_SETTINGS);
+	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
 
-		skipIntro = new CheckBox("Skip the intro", Resources.UI_SKIN);
-		playMusic = new CheckBox("Play background music", Resources.UI_SKIN);
+	skipIntro = new CheckBox("Skip the intro", Resources.UI_SKIN);
+	playMusic = new CheckBox("Play background music", Resources.UI_SKIN);
 
-		if (prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
-			skipIntro.setChecked(prefs
-					.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
+	if (prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
+	  skipIntro.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
 
-		if (prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
-			playMusic.setChecked(prefs
-					.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
+	if (prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	  playMusic.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
+  }
+
+  @Override
+  public void render(float delta) {
+	Gdx.gl.glClearColor(0, 0, 0, 1);
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+	stage.act(delta);
+	stage.draw();
+
+	if (skipIntro.isChecked()) {
+	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
+	}
+	else {
+	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, false);
 	}
 
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		stage.act(delta);
-		stage.draw();
-
-		if (skipIntro.isChecked()) {
-			prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
-		} else {
-			prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, false);
-		}
-
-		if (playMusic.isChecked()) {
-			prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
-		} else {
-			prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, false);
-		}
-
-		skipIntro.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
-		playMusic.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
-
-		/** What do we do after we're done in the bathroom? :) */
-		prefs.flush();
-
+	if (playMusic.isChecked()) {
+	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
+	}
+	else {
+	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, false);
 	}
 
-	@Override
-	public void resize(int width, int height) {
-		if (stage == null)
-			stage = new Stage(width, height, true);
-		stage.clear();
+	skipIntro.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
+	playMusic.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
 
-		// Collect touchdown events
-		Gdx.input.setInputProcessor(stage);
-		stage.setViewport(width, height, true);
+	/** What do we do after we're done in the bathroom? :) */
+	prefs.flush();
 
-		navigation = new Table();
-		navigation.setFillParent(true);
-		stage.addActor(navigation);
-		button = new TextButton("Back to main screen", Resources.UI_SKIN);
+  }
 
-		navigation.add(button).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-		navigation.row();
+  @Override
+  public void resize(int width, int height) {
+	if (stage == null)
+	  stage = new Stage(width, height, true);
+	stage.clear();
 
-		navigation.top().right();
+	// Collect touchdown events
+	Gdx.input.setInputProcessor(stage);
+	stage.setViewport(width, height, true);
 
-		stage.addActor(navigation);
+	navigation = new Table();
+	navigation.setFillParent(true);
+	stage.addActor(navigation);
+	button = new TextButton("Back to main screen", Resources.UI_SKIN);
 
-		button.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
+	navigation.add(button).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	navigation.row();
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				handler.onUpdate();
-				handler.setScreen(new HexMapScreen(handler, prefs
-						.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
-			}
-		});
+	navigation.top().right();
 
-		/** Settings Table */
+	stage.addActor(navigation);
 
-		table = new Table();
-		table.setFillParent(true);
+	button.addListener(new InputListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
 
-		table.add(skipIntro).left();
-		table.row();
-		table.add(playMusic).left();
-		table.row();
-		table.center();
-		stage.addActor(table);
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		CoreGame.getInstance().onUpdate();
+		CoreGame.getInstance().setScreen(new HexMapScreen(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
+	  }
+	});
 
-		Table credits = new Table(Resources.UI_SKIN);
-		credits.setBackground("default-window");
-		credits.setSize(325, 125);
-		credits.bottom().left();
-		credits.add(new Label("Credits", Resources.UI_SKIN)).colspan(2).center();
-		credits.row();
-		credits.add(new Label("Leander Sabel", Resources.UI_SKIN)).left()
-				.width(150);
-		credits.add(new Label("Coding", Resources.UI_SKIN)).left();
-		credits.row();
-		credits.add(new Label("Katharina Fey", Resources.UI_SKIN)).left()
-				.width(150);
-		credits.add(new Label("Coding & Graphics", Resources.UI_SKIN)).left();
-		credits.row();
-		credits.add(new Label("Steve Teufel", Resources.UI_SKIN)).left()
-				.width(150);
-		credits.add(new Label("Sounds & Music", Resources.UI_SKIN)).left();
-		credits.row();
-		credits.add(
-				new Label("(c)2013 Random Robot Softworks", Resources.UI_SKIN))
-				.colspan(2).left();
-		credits.row();
-		stage.addActor(credits);
+	/** Settings Table */
 
-	}
+	table = new Table();
+	table.setFillParent(true);
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
+	table.add(skipIntro).left();
+	table.row();
+	table.add(playMusic).left();
+	table.row();
+	table.center();
+	stage.addActor(table);
 
-	}
+	Table credits = new Table(Resources.UI_SKIN);
+	credits.setBackground("default-window");
+	credits.setSize(325, 125);
+	credits.bottom().left();
+	credits.add(new Label("Credits", Resources.UI_SKIN)).colspan(2).center();
+	credits.row();
+	credits.add(new Label("Leander Sabel", Resources.UI_SKIN)).left().width(150);
+	credits.add(new Label("Coding", Resources.UI_SKIN)).left();
+	credits.row();
+	credits.add(new Label("Katharina Fey", Resources.UI_SKIN)).left().width(150);
+	credits.add(new Label("Coding & Graphics", Resources.UI_SKIN)).left();
+	credits.row();
+	credits.add(new Label("Steve Teufel", Resources.UI_SKIN)).left().width(150);
+	credits.add(new Label("Sounds & Music", Resources.UI_SKIN)).left();
+	credits.row();
+	credits.add(new Label("(c)2013 Random Robot Softworks", Resources.UI_SKIN)).colspan(2).left();
+	credits.row();
+	stage.addActor(credits);
 
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
+  }
 
-	}
+  @Override
+  public void show() {
+	// TODO Auto-generated method stub
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+  }
 
-	}
+  @Override
+  public void hide() {
+	// TODO Auto-generated method stub
 
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
+  }
 
-	}
+  @Override
+  public void pause() {
+	// TODO Auto-generated method stub
 
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
+  }
 
-	}
+  @Override
+  public void resume() {
+	// TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void dispose() {
+	// TODO Auto-generated method stub
+
+  }
 
 }

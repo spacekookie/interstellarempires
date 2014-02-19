@@ -43,8 +43,7 @@ import de.r2soft.space.client.settings.Resources;
 
 /**
  * 
- * Intro screen to display studio, game and other animations and credits. Can be
- * skipped easily by directly calling
+ * Intro screen to display studio, game and other animations and credits. Can be skipped easily by directly calling
  * 
  * @tweenCompleted()
  * 
@@ -53,126 +52,117 @@ import de.r2soft.space.client.settings.Resources;
 
 public class IntroductionScreen implements Screen {
 
-	private Texture splashTitle;
-	private Sprite splashSprite;
-	private SpriteBatch batch;
-	private CoreGame handler;
-	private TweenManager man;
-	private TweenCallback tc;
+  private Texture splashTitle;
+  private Sprite splashSprite;
+  private SpriteBatch batch;
+  private TweenManager man;
+  private TweenCallback tc;
 
-	private Stage stage;
+  private Stage stage;
 
-	public IntroductionScreen(CoreGame handler) {
-		this.handler = handler;
-	}
+  public IntroductionScreen() {
+  }
 
-	@Override
-	public void resize(int w, int h) {
-		if (stage == null)
-			stage = new Stage(w, h, true);
-		stage.clear();
+  @Override
+  public void resize(int w, int h) {
+	if (stage == null)
+	  stage = new Stage(w, h, true);
+	stage.clear();
 
-		Gdx.input.setInputProcessor(stage);
+	Gdx.input.setInputProcessor(stage);
 
-		Table backToIntro = new Table();
+	Table backToIntro = new Table();
 
-		stage.addActor(backToIntro);
-		backToIntro.setFillParent(true);
+	stage.addActor(backToIntro);
+	backToIntro.setFillParent(true);
 
-		TextButton backham = new TextButton("SKIP THIS INTRO", Resources.UI_SKIN);
-		backham.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				return true;
-			}
+	TextButton backham = new TextButton("SKIP THIS INTRO", Resources.UI_SKIN);
+	backham.addListener(new InputListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
 
-			public void touchUp(InputEvent event, float x, float y,
-					int pointer, int button) {
-				tweenCompleted();
-			}
-		});
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		tweenCompleted();
+	  }
+	});
 
-		backToIntro.add(backham);
-		backToIntro.row();
-		backToIntro.bottom().right();
+	backToIntro.add(backham);
+	backToIntro.row();
+	backToIntro.bottom().right();
 
-	}
+  }
 
-	@Override
-	public void show() {
-		splashTitle = new Texture(
-				"assets/gui/title_graphics/prot-splash-title.png");
-		splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+  @Override
+  public void show() {
+	splashTitle = new Texture("assets/gui/title_graphics/prot-splash-title.png");
+	splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		splashSprite = new Sprite(splashTitle);
-		splashSprite.setColor(1, 1, 1, 0);
-		splashSprite.setX(Gdx.graphics.getWidth() / 2
-				- (splashSprite.getWidth() / 2));
-		splashSprite.setY(Gdx.graphics.getHeight() / 2
-				- (splashSprite.getHeight() / 2));
+	splashSprite = new Sprite(splashTitle);
+	splashSprite.setColor(1, 1, 1, 0);
+	splashSprite.setX(Gdx.graphics.getWidth() / 2 - (splashSprite.getWidth() / 2));
+	splashSprite.setY(Gdx.graphics.getHeight() / 2 - (splashSprite.getHeight() / 2));
 
-		batch = new SpriteBatch();
+	batch = new SpriteBatch();
 
-		Tween.registerAccessor(Sprite.class, new IntroAnimator());
+	Tween.registerAccessor(Sprite.class, new IntroAnimator());
 
-		man = new TweenManager();
+	man = new TweenManager();
 
-		tc = new TweenCallback() {
+	tc = new TweenCallback() {
 
-			@Override
-			public void onEvent(int type, BaseTween<?> source) {
-				// Will be called when Tween is completed
+	  @Override
+	  public void onEvent(int type, BaseTween<?> source) {
+		// Will be called when Tween is completed
 
-				tweenCompleted();
+		tweenCompleted();
 
-			}
-		};
+	  }
+	};
 
-		Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1)
-				.ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f)
-				.setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE)
-				.start(man);
+	Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
+		.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
-	}
+  }
 
-	private void tweenCompleted() {
-		handler.setScreen(new LoginScreen(handler));
-	}
+  private void tweenCompleted() {
+	CoreGame.getInstance().setScreen(new LoginScreen());
+  }
 
-	public void render(float delta) {
+  public void render(float delta) {
 
-		Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		man.update(delta);
+	Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	man.update(delta);
 
-		stage.act(delta);
-		stage.draw();
+	stage.act(delta);
+	stage.draw();
 
-		batch.begin();
+	batch.begin();
 
-		splashSprite.draw(batch);
+	splashSprite.draw(batch);
 
-		batch.end();
+	batch.end();
 
-	}
+  }
 
-	@Override
-	public void hide() {
+  @Override
+  public void hide() {
 
-	}
+  }
 
-	@Override
-	public void dispose() {
-	}
+  @Override
+  public void dispose() {
+  }
 
-	@Override
-	public void pause() {
+  @Override
+  public void pause() {
 
-	}
+  }
 
-	@Override
-	public void resume() {
+  @Override
+  public void resume() {
 
-	}
+  }
 
 }
