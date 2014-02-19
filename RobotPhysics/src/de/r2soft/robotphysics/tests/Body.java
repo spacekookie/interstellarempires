@@ -50,8 +50,8 @@ public class Body {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
 	  sprite.setScale(0.5f);
-	  updatePosition(new R2Float(300, 300));
 	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION, this);
+	  updatePosition(new R2Float(300, 150));
 	}
 	else if (type.equals(TYPE.STAR)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/star.png")));
