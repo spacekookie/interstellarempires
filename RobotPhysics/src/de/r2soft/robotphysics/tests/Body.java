@@ -42,7 +42,7 @@ public class Body {
   /** Pixel position on screen */
   private R2Float position;
 
-  /** TODO: Remove this! */
+  /** TODO: Change this! */
   @Deprecated
   public final R2Float spriteSize = new R2Float(128, 128);
 
@@ -50,8 +50,8 @@ public class Body {
 	if (type.equals(TYPE.PLANET)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/planet.png")));
 	  sprite.setScale(0.5f);
+	  updatePosition(new R2Float(300, 300));
 	  body = new OrbitalBody(R2P.R2_BODY_BIFUNCTION, this);
-	  updatePosition(new R2Float(300, 150));
 	}
 	else if (type.equals(TYPE.STAR)) {
 	  sprite = new Sprite(new Texture(Gdx.files.internal("assets/star.png")));
@@ -65,13 +65,13 @@ public class Body {
   public void updatePosition(R2Float position) {
 	this.position = position;
 	sprite.setPosition(position.x - 64, position.y - 64);
-	// ((OrbitalBody) body).updatePosition(position.x, position.y);
   }
 
   public R2Float getPosition() {
 	return position;
   }
 
+  /** Updating the unit every frame (animation and sprite) */
   public void update(SpriteBatch batch) {
 	batch.begin();
 	sprite.draw(batch);
