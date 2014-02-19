@@ -20,9 +20,12 @@ package de.r2soft.robotphysics.instances;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
+import com.badlogic.gdx.Gdx;
+
+import de.r2soft.robotphysics.primatives.R2Float;
 import de.r2soft.robotphysics.primatives.R2Int;
+import de.r2soft.robotphysics.primatives.R2P;
 
 public class OrbitalBody extends PhysicsBody {
 
@@ -35,32 +38,39 @@ public class OrbitalBody extends PhysicsBody {
   private PhysicsBody orbitalParent;
   private Set<OrbitalBody> children;
   private R2Int position;
+  private R2Float movement;
   private double angle;
 
-  public OrbitalBody(boolean bifunction) {
+  public OrbitalBody(int bifunction) {
 	super();
 	position = new R2Int();
-	if (bifunction)
+	movement = new R2Float();
+	if (bifunction == R2P.R2_BODY_BIFUNCTION)
 	  children = new HashSet<OrbitalBody>();
   }
 
   public void update() {
 	calculateAngle();
+	computeGravity();
   }
 
   private void calculateAngle() {
-	double parentX = ((ParentBody) orbitalParent).getPosition().x;
-	double parentY = ((ParentBody) orbitalParent).getPosition().y;
+	// double parentX = ((ParentBody) orbitalParent).getPosition().x;
+	// double parentY = ((ParentBody) orbitalParent).getPosition().y;
+
+	double parentX = Gdx.input.getX();
+	double parentY = Gdx.input.getY();
 
 	double tempX = Math.abs(parentX - position.x);
 	double tempY = Math.abs(parentY - position.y);
 
 	angle = Math.toDegrees(Math.atan(tempX / tempY));
 	System.out.println(angle);
+
   }
 
   /** Called every tick to compute gravity for this object */
-  public void computeGravity() {
+  private void computeGravity() {
 	if (bifunction) {
 	  // Compute gravity for children
 	  for (OrbitalBody body : children) {
