@@ -18,6 +18,25 @@
 
 package de.r2soft.robotphysics.primatives;
 
-public class R2Float {
+import com.badlogic.gdx.math.Vector2;
+
+/**
+ * TODO: FIX ALL OF THIS NONSENSE!
+ * */
+@Deprecated
+public class R2Float extends Vector2 {
+
+  public R2Float() {
+	super();
+  }
+
+  public R2Float(float f, float g) {
+	super(f, g);
+  }
+
+  /**
+   * FIX THIS NONSENSE AS WELL!
+   */
+  private static final long serialVersionUID = -8303716750360393247L;
 
 }

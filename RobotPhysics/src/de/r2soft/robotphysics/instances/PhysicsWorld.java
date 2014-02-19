@@ -21,19 +21,23 @@ package de.r2soft.robotphysics.instances;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.r2soft.robotphysics.tests.InputHandler;
+
 public class PhysicsWorld {
 
   private Set<PhysicsBody> children;
+  private InputHandler handler;
 
-  public PhysicsWorld() {
+  public PhysicsWorld(InputHandler handler) {
 	children = new HashSet<PhysicsBody>();
+	this.handler = handler;
   }
 
   /** Update movement for each body */
   public void update(float delta) {
 	for (PhysicsBody body : children) {
 	  if (body instanceof OrbitalBody)
-		((OrbitalBody) body).update();
+		((OrbitalBody) body).update(handler.isClicked());
 	}
   }
 

@@ -19,7 +19,7 @@
 package de.r2soft.robotphysics.primatives;
 
 /**
- * A bunch of constants to be used throughout the physics engine to set stuff
+ * A bunch of constants to be used throughout the physics engine to set global parameters for calculations and relations
  * 
  * @author ***REMOVED***
  * 
@@ -27,11 +27,13 @@ package de.r2soft.robotphysics.primatives;
 public final class R2P {
 
   /** Relationship flag to set bifunctionality */
-  public static final int R2_BODY_BIFUNCTION = 0x000001;
+  public static final int R2_BODY_BIFUNCTION = 0x00001;
   /** Relationship flag to set a child */
   public static final int R2_BODY_CHILD = 0x00002;
   /** Relationship flag to set a parent */
   public static final int R2_BODY_ADULT = 0x00003;
+  /** Set orbital direction to Clockwise. Default is counterclockwise. */
+  public static final int R2_BODY_DIRECTION_OVERRIDE = 0x00004;
 
   /** Set physics calculation interval refresh rate */
   public static final int R2_WORLD_REFRESH_FAST = 0x00010;
@@ -40,4 +42,14 @@ public final class R2P {
   /** Set physics calculation interval refresh rate */
   public static final int R2_WORLD_REFRESH_SLOW = 0x00012;
 
+  /** Gravitational constant */
+  public static final double R2_PHYSICS_GRAVITY = 6.674E-11;
+  /** Earth mass */
+  public static final double R2_PHYSICS_MASS_EARTH = 5.97219E24;
+  /** Moon mass */
+  public static final double R2_PHYSICS_MASS_MOON = 7.34767309E22;
+  /** FUn planet mass */
+  public static final double R2_PHYSICS_MASS_FUN_ROCK = 60000;
+  /** FUn planet mass */
+  public static final double R2_PHYSICS_MASS_FUN_MASSIVE = 1.3E8;
 }
