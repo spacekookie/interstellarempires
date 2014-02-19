@@ -92,11 +92,11 @@ public class OrbitalBody extends PhysicsBody {
 	  float tempX = ((ParentBody) orbitalParent).getPosition().x - position.x;
 	  float tempY = ((ParentBody) orbitalParent).getPosition().y - position.y;
 	  float distance = (float) trigeometry(tempX, tempY);
-	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / distance);
+	  float force = (float) ((R2P.R2_PHYSICS_GRAVITY * getOrbitaParent().getMass() * getMass()) / Math.pow(distance, 2));
 
 	  /** Adding forces proportionally to the acceleration vector */
-	  acceleration.x = 20 * tempX * (force / distance);
-	  acceleration.y = 20 * tempY * (force / distance);
+	  acceleration.x = 5000 * tempX * (force / distance);
+	  acceleration.y = 5000 * tempY * (force / distance);
 
 	  this.applyForce(camera);
 
@@ -117,8 +117,9 @@ public class OrbitalBody extends PhysicsBody {
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Line);
 	renderer.setColor(1, 1, 1, 1);
-	Vector2 tmp = parent.getPosition().cpy();
-	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), tmp.add(acceleration));
+
+	Vector2 tmp = new Vector2(parent.getPosition().cpy());
+	renderer.line(new Vector2(parent.getPosition().x, parent.getPosition().y), tmp.add(acceleration.scl(10f)));
 	renderer.end();
 
 	parent.updatePosition(position);
