@@ -28,7 +28,7 @@ import de.r2soft.space.client.screens.gameplay.HexMapScreen;
 import de.r2soft.space.client.settings.BaseSettings;
 import de.r2soft.space.framework.map.SolarSystem;
 
-public class OrthoCamController extends InputAdapter {
+public class HexMapCameraController extends InputAdapter {
   final OrthographicCamera camera;
   final Vector3 curr = new Vector3();
   final Vector3 last = new Vector3(-1, -1, -1);
@@ -37,7 +37,7 @@ public class OrthoCamController extends InputAdapter {
   private HexMapRenderer renderer;
   private HexMapScreen parent;
 
-  public OrthoCamController(HexMapScreen parent, OrthographicCamera camera, HexMapRenderer renderer) {
+  public HexMapCameraController(HexMapScreen parent, OrthographicCamera camera, HexMapRenderer renderer) {
 	this.camera = camera;
 	this.renderer = renderer;
 	this.parent = parent;

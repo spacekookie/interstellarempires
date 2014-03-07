@@ -45,7 +45,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.space.client.core.CoreGame;
-import de.r2soft.space.client.io.OrthoCamController;
+import de.r2soft.space.client.io.HexMapCameraController;
 import de.r2soft.space.client.maps.hex.HexCell;
 import de.r2soft.space.client.maps.hex.HexMapLayer;
 import de.r2soft.space.client.maps.hex.HexMapLayers;
@@ -82,7 +82,7 @@ public class HexMapScreen implements Screen {
   private HexTileMap map;
   private OrthographicCamera mapCam;
   private ShapeRenderer shapeRenderer;
-  private OrthoCamController mapCamController;
+  private HexMapCameraController mapCamController;
   private HexMapRenderer hexRenderer;
   private Texture hexture;
 
@@ -197,7 +197,7 @@ public class HexMapScreen implements Screen {
 	/** Setting up the button listeners */
 	this.setupListeners();
 
-	mapCamController = new OrthoCamController(this, mapCam, hexRenderer);
+	mapCamController = new HexMapCameraController(this, mapCam, hexRenderer);
 	multiplexer.addProcessor(stage);
 	multiplexer.addProcessor(mapCamController);
 
@@ -299,7 +299,7 @@ public class HexMapScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		CoreGame.getInstance().setScreen(new SolMapScreen(null, new SolarSystem()));
+		CoreGame.getInstance().setScreen(new SolMapScreen(new SolarSystem()));
 	  }
 	});
 
