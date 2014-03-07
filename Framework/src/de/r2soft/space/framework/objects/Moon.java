@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2013 Random Robot Softworks
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,22 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.util;
+package de.r2soft.space.framework.objects;
 
-import org.apache.log4j.Logger;
+import de.r2soft.space.framework.planetary.Orbit;
+import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
 
-public class UtilFactory {
+/**
+ * A basic moon that orbits a parent planet
+ * 
+ * @author ***REMOVED***
+ * 
+ */
+public class Moon extends OrbitalObject {
 
-  /**
-   * Create a simple logger for the given object.
-   * 
-   * @param obj
-   * @return
-   */
-  @Deprecated
-  public static Logger createLogger(Object obj) {
-	return Logger.getLogger(obj.getClass().getName());
+  public Moon(Planet parent) {
+	super.setParent(parent);
+	super.orbit = new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent());
   }
+
 }
