@@ -18,8 +18,6 @@
 
 package de.r2soft.space.framework.objects.modules;
 
-import com.badlogic.gdx.Gdx;
-
 import de.r2soft.space.framework.objects.modules.Weapon.WeaponType;
 
 public class ModuleSlot {
@@ -118,7 +116,7 @@ public class ModuleSlot {
   }
 
   private void logError(BaseModule module) {
-	Gdx.app.log("Framework: ", "Slot for" + module.toString() + "already occupied");
+	// TODO: Log
 	// TODO: Promt user to clear the slot first.
   }
 
