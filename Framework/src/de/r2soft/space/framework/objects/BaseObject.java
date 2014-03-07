@@ -17,9 +17,8 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.log4j.Logger;
-
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
@@ -31,7 +30,7 @@ public abstract class BaseObject {
 
   protected Logger logger = Logger.getLogger(getClass().getName());
 
-  private Vector2 position;
+  private Vector2D position;
   private float mass;
   private String name;
 
@@ -89,11 +88,11 @@ public abstract class BaseObject {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
   }
 
-  public Vector2 getPosition() {
+  public Vector2D getPosition() {
 	return position;
   }
 
-  public void setPosition(Vector2 vec) {
+  public void setPosition(Vector2D vec) {
 	this.position = vec;
   }
 
