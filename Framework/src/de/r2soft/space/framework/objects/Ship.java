@@ -20,7 +20,7 @@ package de.r2soft.space.framework.objects;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import de.r2soft.space.framework.objects.modules.BaseModule;
 import de.r2soft.space.framework.objects.modules.ModuleSlot;
@@ -55,7 +55,7 @@ public class Ship extends MovableObject {
 
   /** Constructor for ships without modules */
   @Deprecated
-  public Ship(Category category, ShipType type, String name, Player claim, Vector2 position) {
+  public Ship(Category category, ShipType type, String name, Player claim, Vector2D position) {
 	this.type = type;
 	this.claim = claim;
 	super.setName(name);
@@ -65,7 +65,7 @@ public class Ship extends MovableObject {
 
   /** Constructor for ships with modules */
   @Deprecated
-  public Ship(Category category, ShipType type, String name, Player claim, Vector2 position, Set<ModuleSlot> slots) {
+  public Ship(Category category, ShipType type, String name, Player claim, Vector2D position, Set<ModuleSlot> slots) {
 	this.type = type;
 	this.claim = claim;
 	super.setName(name);

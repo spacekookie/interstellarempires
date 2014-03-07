@@ -13,8 +13,8 @@
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-backend-lwjgl.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-natives.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Framework/lib/gdx.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/tweens/tween-engine-api.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Framework/lib/xml_parser/dom4j-2.0.0-ALPHA-2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx.jar" sourcepath="libs/libgdx/gdx-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
