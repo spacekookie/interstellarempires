@@ -18,8 +18,7 @@
 
 package de.r2soft.space.framework.planetary;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import de.r2soft.space.framework.objects.BaseObject;
 import de.r2soft.space.framework.objects.OrbitalObject;
@@ -71,12 +70,12 @@ public class Orbit {
 	this.parent = parent;
   }
 
-  /** Returns */
-  public Vector2 getNextStep() {
-return null;
+  /** Returns SOMETHING */
+  public Vector2D getNextStep() {
+	return null;
   }
 
-  public void drawDebug(SpriteBatch batch) {
+  public void drawDebug(float deltaTime) {
 
   }
 

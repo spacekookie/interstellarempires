@@ -17,7 +17,7 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
-import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import de.r2soft.space.framework.objects.factory.UnitFactory;
 import de.r2soft.space.framework.planetary.Orbit;
@@ -33,7 +33,7 @@ public class OrbitalStructure extends OrbitalObject {
 
   private UnitFactory factory;
 
-  public OrbitalStructure(Category category, StationType type, Player claim, Vector2 position) {
+  public OrbitalStructure(Category category, StationType type, Player claim, Vector2D position) {
 	super.setCategory(category);
 
 	/** Should the structure have a unit factory? */

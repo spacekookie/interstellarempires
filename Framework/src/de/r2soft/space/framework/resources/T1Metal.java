@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2013 Random Robot Softworks
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,36 +16,17 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.modules;
-
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+package de.r2soft.space.framework.resources;
 
 /**
- * Extends BaseModule because Propulsion shouldn't have special shielding
+ * A basic metal to construct ships from. Values modeled after steel.
  * 
  * @author ***REMOVED***
- * 
  */
-public class Propulsion extends BaseModule {
+public class T1Metal extends BaseResource {
 
-  private double strength;
-
-  public Propulsion(double strength) {
-	this.strength = strength;
+  public T1Metal() {
+	setName("Metal");
+	setDensity(7859);
   }
-
-  public void move(Vector2D target) {
-	// TODO: magic here to make ships fly
-  }
-
-  /** @return the absolute output of the drive. Not taking ship mass into account */
-  public double getStrength() {
-	return strength;
-  }
-
-  /** set new drive strength. Called on drive overload and after engineering upgrades */
-  public void setStrength(float strength) {
-	this.strength = strength;
-  }
-
 }
