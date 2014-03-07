@@ -20,6 +20,8 @@ package de.r2soft.space.framework.objects;
 import com.badlogic.gdx.math.Vector2;
 
 import de.r2soft.space.framework.objects.factory.UnitFactory;
+import de.r2soft.space.framework.planetary.Orbit;
+import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
 import de.r2soft.space.framework.players.Player;
 
 public class OrbitalStructure extends OrbitalObject {
@@ -41,6 +43,7 @@ public class OrbitalStructure extends OrbitalObject {
 
 	super.setClaim(claim);
 	super.setPosition(position);
+	super.orbit = new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent());
   }
 
   /** Check if the structure has a UnitFactory */

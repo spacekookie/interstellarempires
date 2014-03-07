@@ -17,16 +17,19 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.JsonValue.ValueType;
 
 /**
- * Basic Gameobject. Contrains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
+ * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
  * 
  * @author ***REMOVED***
  * 
  */
 public abstract class BaseObject {
+
+  protected Logger logger = Logger.getLogger(getClass().getName());
 
   private Vector2 position;
   private float mass;
@@ -77,7 +80,6 @@ public abstract class BaseObject {
 	/* Slot Types */
 	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
 	// High power=Weapons, Medium power = Defense, Low power = Utility.
-
   }
 
   /**

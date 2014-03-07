@@ -27,7 +27,7 @@ import de.r2soft.space.framework.types.Allegience.Allegiance;
 
 /**
  * 
- * Manages standings between sociable items (Players, Alliances, ?)
+ * Manages standings between sociable items (Players, Alliances, Cats, ?)
  * 
  * @author ***REMOVED***
  * */
@@ -57,7 +57,7 @@ public abstract class Sociable {
 	standings.put(subject, standing);
   }
 
-  /** Overrides all existang standings with new Map */
+  /** Overrides all existing standings with new Map */
   public void setAllStandings(Map<Sociable, Allegiance> standings) {
 	this.standings = standings;
   }
