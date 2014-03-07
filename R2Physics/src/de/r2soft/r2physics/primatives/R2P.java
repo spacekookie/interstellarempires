@@ -52,4 +52,15 @@ public final class R2P {
   public static final double R2_PHYSICS_MASS_FUN_ROCK = 60000;
   /** FUn planet mass */
   public static final double R2_PHYSICS_MASS_FUN_MASSIVE = 1.3E8;
+
+  /**
+   * YOU ARE ALLOWED TO CHANGE THIS VALUE. DO NOT CHANGE ANY VALUES OTHER THAN THIS ONE HERE! Pixel to RL-distance scale. This means that
+   * 1AU represents "X" pixels on the screen at Camera zoom scale = 1. With zoom this is representative of WORLD COORDINATES! For Physics
+   * purposes this distance will represent 149597870700 KM of distance.
+   */
+  public static long R2_DIST_SCALE = 650;
+
+  /** Astronomical Unit in meters */
+  public static final long R2_DIST_AU = 149597870700L;
+
 }
