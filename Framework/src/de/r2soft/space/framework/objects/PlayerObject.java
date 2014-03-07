@@ -26,11 +26,7 @@ import de.r2soft.space.framework.players.Player;
  * 
  * @author Katharina
  * 
- *         #
  * 
- *         Basic player object that can be manipulated by the player, however not always moved
- * 
- * @author Leander
  * 
  */
 public abstract class PlayerObject extends BaseObject {
