@@ -110,11 +110,15 @@ public class OrbitalBody extends PhysicsBody {
 	VelDT.scl(Gdx.graphics.getDeltaTime()); // todo get delta t
 	position.add(VelDT);
 
-	Vector2 tmp = parent.getPosition().cpy();
+	/** Draws debug vector. Remove this from build version */
+	R2Float tmp = parent.getPosition().cpy();
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Line);
 	renderer.setColor(1, 1, 1, 1);
-	renderer.line(new Vector2(tmp.x, tmp.y), tmp.add(acceleration.scl(10f)));
+	Vector2 tmp2 = new Vector2(acceleration.x, acceleration.y);
+	tmp2.scl(10f);
+	tmp2.add(tmp.x, tmp.y);
+	renderer.line(new Vector2(tmp.x, tmp.y), tmp2);
 	renderer.end();
 
 	parent.updatePosition(position);
