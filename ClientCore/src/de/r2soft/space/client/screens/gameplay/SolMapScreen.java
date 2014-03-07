@@ -22,7 +22,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 
 import de.r2soft.space.client.core.CoreGame;
-import de.r2soft.space.client.io.OrthoCamController;
+import de.r2soft.space.client.io.HexMapCameraController;
 import de.r2soft.space.framework.map.SolarSystem;
 
 /**
@@ -34,17 +34,14 @@ import de.r2soft.space.framework.map.SolarSystem;
 public class SolMapScreen implements Screen {
 
   /** Global scope */
-  private CoreGame handler;
   private SolarSystem system;
 
   /** Solar Map */
   private OrthographicCamera mapCam;
-  private OrthoCamController mapCamController;
-  private HexagonalTiledMapRenderer hexRenderer;
+  private HexMapCameraController mapCamController;
 
-  public SolMapScreen(CoreGame handler, SolarSystem system) {
+  public SolMapScreen(SolarSystem system) {
 	this.system = system;
-	this.handler = handler;
   }
 
   @Override

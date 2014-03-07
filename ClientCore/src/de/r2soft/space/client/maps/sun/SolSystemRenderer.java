@@ -19,43 +19,75 @@
 package de.r2soft.space.client.maps.sun;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
 
+import de.r2soft.space.client.settings.Resources;
+import de.r2soft.space.client.settings.Sizes;
+import de.r2soft.space.client.util.Find;
+import de.r2soft.space.framework.map.SolarSystem;
+
 /**
- * A custom renderer that renders a solar system with a star in the middle and
- * planets orbiting on circular planes around the star.
+ * A custom renderer that renders a solar system with a star in the middle and planets orbiting on circular planes around the star.
  * 
  * @author Katharina
  * 
  */
 public class SolSystemRenderer implements MapRenderer, Disposable {
+  private boolean yDown = false;
+  private float auSizeX, auSizeY;
+  private SpriteBatch batch;
+  private Rectangle viewBounds;
 
-	@Override
-	public void dispose() {
+  private SolarSystem system;
 
-	}
+  public SolSystemRenderer(SolarSystem system) {
+	this.system = system;
+	batch = new SpriteBatch();
+  }
 
-	@Override
-	public void setView(OrthographicCamera camera) {
+  public boolean isYdown() {
+	return yDown;
+  }
 
-	}
+  public void setYDown(boolean yDown) {
+	this.yDown = yDown;
+  }
 
-	@Override
-	public void setView(Matrix4 projectionMatrix, float viewboundsX,
-			float viewboundsY, float viewboundsWidth, float viewboundsHeight) {
+  @Override
+  public void dispose() {
 
-	}
+  }
 
-	@Override
-	public void render() {
+  @Override
+  public void setView(OrthographicCamera camera) {
+	batch.setProjectionMatrix(camera.combined);
+	float width = camera.viewportWidth * camera.zoom;
+	float height = camera.viewportHeight * camera.zoom;
+	viewBounds.set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
+  }
 
-	}
+  @Override
+  public void setView(Matrix4 projection, float x, float y, float width, float height) {
+	batch.setProjectionMatrix(projection);
+	viewBounds.set(x, y, width, height);
+  }
 
-	@Override
-	public void render(int[] layers) {
+  @Override
+  public void render() {
+	batch.begin();
+	// TODO: Rendering magic here
+	batch.draw(Resources.STARS_RED_DWARF, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2), Find.getCenter().y
+		- (Sizes.SIZE_CELESTIAL_RED_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_RED_DWARF, Sizes.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
+	batch.end();
+  }
 
-	}
+  @Override
+  public void render(int[] layers) {
+
+  }
 
 }
