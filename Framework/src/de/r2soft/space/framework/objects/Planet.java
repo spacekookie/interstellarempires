@@ -17,11 +17,15 @@
  ######################################################################### */
 package de.r2soft.space.framework.objects;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import de.r2soft.space.framework.planetary.Orbit;
+import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
 import de.r2soft.space.framework.players.Player;
 
 /**
- * Planet implementations. Can gain or loose homeworld status by players settling their first colony on them. Capital flag can be
- * transfered.
+ * Planet object that can be claimed and raided
  * 
  * @author Katharina
  * 
@@ -34,6 +38,8 @@ public class Planet extends OrbitalObject {
   private boolean homeworld;
   private boolean capital;
 
+  private Set<Moon> moons;
+
   /**
    * Planet classification:
    * 
@@ -43,14 +49,35 @@ public class Planet extends OrbitalObject {
    * 
    */
   public static enum PlanetType {
-	A, B, C, D, E, F;
+	ASTEROIDS, VOLCANIC, DESERT, EARTHY, ICY, GASSY;
   }
 
+  @Deprecated
   public Planet(Category c, float radius, BaseObject parent) {
+	// Why does this exist?
   }
 
   public Planet(Category category, float radius, float mass) {
 	super.setCategory(category);
+	super.orbit = new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent());
+	moons = new HashSet<Moon>();
+  }
+
+  public void addMoon(Moon moon) {
+	if (!moons.contains(moon))
+	  moons.add(moon);
+  }
+
+  public Set<Moon> getMoons() {
+	return moons;
+  }
+
+  public boolean hasMoon(Moon moon) {
+	return (moons.contains(moon)) ? true : false;
+  }
+
+  public boolean hasMoons() {
+	return (moons.isEmpty()) ? false : true;
   }
 
   public float getRadius() {
