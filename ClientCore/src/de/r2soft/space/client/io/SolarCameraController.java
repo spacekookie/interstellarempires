@@ -55,8 +55,8 @@ public class SolarCameraController extends InputAdapter {
 
 	// TODO: Check wether mouse is in
 
-	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.mapSize.x;
-	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.mapSize.y;
+	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.SOL_MAP_BASE_SIZE.x;
+	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.SOL_MAP_BASE_SIZE.y;
 
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);
@@ -74,6 +74,8 @@ public class SolarCameraController extends InputAdapter {
 	  camera.position.add(delta.x, -delta.y, 0);
 	}
 	last.set(x, y, 0);
+
+	System.out.println(camera.position);
 	return false;
   }
 

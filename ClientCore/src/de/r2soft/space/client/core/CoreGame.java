@@ -23,6 +23,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
 import de.r2soft.space.client.screens.gameplay.HexMapScreen;
+import de.r2soft.space.client.screens.gameplay.SolMapScreen;
 import de.r2soft.space.client.screens.utilities.IntroductionScreen;
 import de.r2soft.space.client.screens.utilities.LoginScreen;
 import de.r2soft.space.client.settings.BaseSettings;
@@ -83,10 +84,12 @@ public class CoreGame extends Game {
 
 	onUpdate();
 
-	if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
-	  setScreen(new IntroductionScreen());
-	else
-	  setScreen(new LoginScreen());
+	// setScreen(new SolMapScreen(null));
+	setScreen(new LoginScreen());
+
+	// if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
+	// setScreen(new IntroductionScreen());
+	// else
   }
 
   @Override

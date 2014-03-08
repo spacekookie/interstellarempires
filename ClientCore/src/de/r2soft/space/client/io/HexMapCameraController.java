@@ -55,8 +55,8 @@ public class HexMapCameraController extends InputAdapter {
 
 	// TODO: Check wether mouse is in
 
-	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.mapSize.x;
-	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.mapSize.y;
+	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.HEX_MAP_BASE_SIZE.x;
+	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.HEX_MAP_BASE_SIZE.y;
 
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);

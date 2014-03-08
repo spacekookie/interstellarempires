@@ -21,56 +21,44 @@ import de.r2soft.space.framework.players.Player;
 import de.r2soft.space.framework.types.IntVec2;
 
 /**
- * Initializes the settings for the game. Also responsible for setting new
- * Settings.
+ * Initializes the settings for the game. Also responsible for setting new Settings.
  * 
  * @author: Katharina
  */
 public class BaseSettings {
 
-	/** Just going with 720p game resolution here */
-	public static int OLD_WIDTH = 1280;
-	public static int OLD_HEIGHT = 720;
-	public static int NEW_WIDTH = OLD_WIDTH;
-	public static int NEW_HEIGHT = OLD_HEIGHT;
-	public static String SUPERTITLE = "Game Client";
-	public static String VERSION_NUMBER = "Prototype 1.2";
-	public static final String SCREENTITLE_SETTINGS = "SETTINGS";
-	public static final String SCREENTITLE_HOME = "HOME";
-	public static final String SCREENTITLE_LOGIN = "LOGIN";
-	public static final String SCREENTITLE_SOLAR = "SOL SYSTEM";
+  /** Just going with 720p game resolution here */
+  public static int OLD_WIDTH = 1280;
+  public static int OLD_HEIGHT = 720;
+  public static int NEW_WIDTH = OLD_WIDTH;
+  public static int NEW_HEIGHT = OLD_HEIGHT;
+  public static String SUPERTITLE = "Interstellar Empires";
+  public static String VERSION_NUMBER = "Alpha 1";
+  public static final String SCREENTITLE_SETTINGS = "Settings";
+  public static final String SCREENTITLE_HOME = "Home";
+  public static final String SCREENTITLE_LOGIN = "Login";
+  public static final String SCREENTITLE_SOLAR = "Solar System";
 
-	/** Log sings */
-	public final static String LOG_GLOBAL = "From Client";
-	public final static String LOG_HEXMAP = "From HexMap";
-	public final static String LOG_HEX_TILE = "From HexMap";
-	public final static String LOG_SOLAR_MAP = "From System";
-	public final static String LOG_MAP_OBJECT = "From Object";
+  public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
+  public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
+  public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
+  public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
+  public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
 
-	public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
-	public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
-	public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
-	public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
-	public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
+  @Deprecated
+  /** Needs to be made dynamic and fetched from server */
+  public static final Player thisPlayer = new Player("KateTheAwesome");
+  public static final Player _neutralplayer = new Player("_no_owning_player_");
 
-	/** Map Sub-sizes */
-	public static final IntVec2 mapSize = new IntVec2(900, 600);
+  /**
+   * ############### SOLAR SYSTEM MAP VALUES ###############
+   */
+  public static final IntVec2 SOL_MAP_BASE_OFFSET = new IntVec2(2, 32);
+  public static final IntVec2 SOL_MAP_BASE_SIZE = new IntVec2(950, 650);
 
-	@Deprecated
-	/** Needs to be made dynamic and fetched from server */
-	public static final Player thisPlayer = new Player("KateTheAwesome");
-	public static final Player _neutralplayer = new Player("_no_owning_player_");
-
-	/** Hexmap formulas */
-	@Deprecated
-	public static final float HEX_START_X = -275f;
-	@Deprecated
-	public static final float HEX_START_Y = -100f;
-	@Deprecated
-	public static final float HEX_RADIUS = 64f;
-	@Deprecated
-	public static final float HEX_COORD_X = (1 / 2) * 64f;
-	@Deprecated
-	public static final float HEX_COORD_Y = (float) ((Math.sqrt(3) * 64f) / 2);
-
+  /**
+   * ############### HEXAGON GALAXY MAP VALUES ###############
+   */
+  public static final IntVec2 HEX_MAP_BASE_OFFSET = new IntVec2(2, 32);
+  public static final IntVec2 HEX_MAP_BASE_SIZE = new IntVec2(950, 640);
 }
