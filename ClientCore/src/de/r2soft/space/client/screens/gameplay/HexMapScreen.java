@@ -369,7 +369,7 @@ public class HexMapScreen implements Screen {
 	quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
 	logout = new TextButton("Logout", Resources.UI_SKIN);
 	research = new TextButton("Research", Resources.UI_SKIN);
-	enterSystem = new TextButton("Visit Solar System", Resources.UI_SKIN);
+	enterSystem = new TextButton("Enter Solar System", Resources.UI_SKIN);
 
 	/** Initialize Lables */
 	title = new Label("Space Game: Prototype 1.2", Resources.UI_SKIN);
