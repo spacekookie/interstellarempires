@@ -31,14 +31,14 @@ import de.r2soft.space.client.util.Find;
 import de.r2soft.space.framework.map.SolarSystem;
 
 /**
- * A custom renderer that renders a solar system with a star in the middle and planets orbiting on circular planes around the star.
+ * A custom renderer that renders a solar system with a star in the middle and planets orbiting on circular paths around the star.
  * 
  * @author Katharina
  * 
  */
 public class SolSystemRenderer implements MapRenderer, Disposable {
   private boolean yDown = false;
-  private float auSizeX, auSizeY;
+  private float scale;
   private SpriteBatch batch;
   private Rectangle viewBounds;
 
@@ -57,9 +57,17 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 	this.yDown = yDown;
   }
 
+  public void setAUScale(float scale) {
+	this.scale = scale;
+  }
+
+  public float getAUScale() {
+	return scale;
+  }
+
   @Override
   public void dispose() {
-
+	batch.dispose();
   }
 
   @Override
