@@ -17,6 +17,8 @@ package de.r2soft.space.client.screens.gameplay;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -26,9 +28,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.space.client.io.SolarCameraController;
+import de.r2soft.space.client.maps.sun.SolSystemRenderer;
 import de.r2soft.space.client.settings.BaseSettings;
+import de.r2soft.space.client.settings.Resources;
 import de.r2soft.space.framework.map.SolarSystem;
 
 /**
@@ -46,10 +51,15 @@ public class SolMapScreen implements Screen {
   /** Solar Map */
   private OrthographicCamera mapCam, uiCam;
   private SolarCameraController mapCamController;
+  private SolSystemRenderer solRenderer;
 
   /** UI Elements */
   private Stage stage;
   private Table topNav, butNav, sideBar;
+
+  /** Top Navigation Elements */
+  private TextButton button_viewPlanets, button_viewUnits, button_requisition, button_research, button_diplomacy, button_galaxyMap,
+	  button_quit;
 
   /** Debug elements */
   private ShapeRenderer shapeRenderer;
@@ -83,6 +93,9 @@ public class SolMapScreen implements Screen {
 	multiplexer.addProcessor(mapCamController);
 	Gdx.input.setInputProcessor(multiplexer);
 
+	setupTopNavigation();
+
+	solRenderer = new SolSystemRenderer(system);
   }
 
   @Override
@@ -99,7 +112,8 @@ public class SolMapScreen implements Screen {
 	Gdx.gl.glViewport(BaseSettings.SOL_MAP_BASE_OFFSET.x, BaseSettings.SOL_MAP_BASE_OFFSET.y, BaseSettings.SOL_MAP_BASE_SIZE.x,
 		BaseSettings.SOL_MAP_BASE_SIZE.y);
 	mapCam.update();
-	// TODO: Render map
+	solRenderer.setView(mapCam);
+	solRenderer.render();
 
 	/** Sets up stage view */
 	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -111,8 +125,8 @@ public class SolMapScreen implements Screen {
 		BaseSettings.SOL_MAP_BASE_SIZE.y);
 	shapeRenderer.end();
 
-	// System.out.println(Gdx.input.getX() + "_" + Gdx.input.getY());
-
+	stage.act();
+	stage.draw();
   }
 
   @Override
@@ -133,6 +147,30 @@ public class SolMapScreen implements Screen {
   @Override
   public void hide() {
 
+  }
+
+  private void setupTopNavigation() {
+	topNav = new Table(Resources.UI_SKIN);
+	topNav.setFillParent(true);
+	topNav.top();
+
+	button_viewPlanets = new TextButton("View Planets", Resources.UI_SKIN);
+	button_viewUnits = new TextButton("View Units", Resources.UI_SKIN);
+	button_requisition = new TextButton("Requisition Units", Resources.UI_SKIN);
+	button_research = new TextButton("Research", Resources.UI_SKIN);
+	button_diplomacy = new TextButton("Diplomacy", Resources.UI_SKIN);
+	button_galaxyMap = new TextButton("Galaxy Map", Resources.UI_SKIN);
+	button_quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
+
+	topNav.add(button_viewPlanets);
+	topNav.add(button_viewUnits);
+	topNav.add(button_requisition);
+	topNav.add(button_research);
+	topNav.add(button_diplomacy);
+	topNav.add(button_galaxyMap);
+	topNav.add(button_quit);
+
+	stage.addActor(topNav);
   }
 
 }

@@ -18,6 +18,8 @@
 
 package de.r2soft.space.client.io;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -25,6 +27,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import de.r2soft.space.client.maps.sun.SolSystemRenderer;
 import de.r2soft.space.client.screens.gameplay.HexMapScreen;
+import de.r2soft.space.client.screens.gameplay.SolMapScreen;
 import de.r2soft.space.client.settings.BaseSettings;
 import de.r2soft.space.framework.map.SolarSystem;
 
@@ -35,9 +38,10 @@ public class SolarCameraController extends InputAdapter {
   final Vector3 delta = new Vector3();
 
   private SolSystemRenderer renderer;
-  private HexMapScreen parent;
+  private SolMapScreen parent;
+  private SolarSystem system;
 
-  public SolarCameraController(HexMapScreen parent, OrthographicCamera camera, SolSystemRenderer renderer) {
+  public SolarCameraController(SolMapScreen parent, OrthographicCamera camera, SolSystemRenderer renderer) {
 	this.camera = camera;
 	this.renderer = renderer;
 	this.parent = parent;
@@ -48,12 +52,8 @@ public class SolarCameraController extends InputAdapter {
 	return false;
   }
 
-  private SolarSystem system;
-
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-	// TODO: Check wether mouse is in
 
 	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.SOL_MAP_BASE_SIZE.x;
 	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.SOL_MAP_BASE_SIZE.y;
@@ -69,13 +69,12 @@ public class SolarCameraController extends InputAdapter {
 	curr.set(x, y, 0);
 	if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
 	  delta.set(last.x, last.y, 0);
-	  delta.scl(camera.zoom);
 	  delta.sub(curr);
+	  delta.scl(camera.zoom);
 	  camera.position.add(delta.x, -delta.y, 0);
 	}
 	last.set(x, y, 0);
 
-	System.out.println(camera.position);
 	return false;
   }
 

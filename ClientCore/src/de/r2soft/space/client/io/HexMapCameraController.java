@@ -18,6 +18,8 @@
 
 package de.r2soft.space.client.io;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,8 +36,12 @@ public class HexMapCameraController extends InputAdapter {
   final Vector3 last = new Vector3(-1, -1, -1);
   final Vector3 delta = new Vector3();
 
+  float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.HEX_MAP_BASE_SIZE.x;
+  float scly = (float) Gdx.graphics.getHeight() / BaseSettings.HEX_MAP_BASE_SIZE.y;
+
   private HexMapRenderer renderer;
   private HexMapScreen parent;
+  private SolarSystem system;
 
   public HexMapCameraController(HexMapScreen parent, OrthographicCamera camera, HexMapRenderer renderer) {
 	this.camera = camera;
@@ -48,16 +54,8 @@ public class HexMapCameraController extends InputAdapter {
 	return false;
   }
 
-  private SolarSystem system;
-
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-	// TODO: Check wether mouse is in
-
-	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.HEX_MAP_BASE_SIZE.x;
-	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.HEX_MAP_BASE_SIZE.y;
-
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);
 
@@ -65,7 +63,7 @@ public class HexMapCameraController extends InputAdapter {
 	  system = renderer.getTileWithPos(tmp.x, tmp.y).getSystem();
 	}
 	catch (Exception e) {
-	  Gdx.app.log("Cam Controler", "OUT OF MAP BOUNDS");
+	  Logger.getLogger(getClass().getSimpleName()).info("OUT OF MAP BOUNDS");
 	}
 	finally {
 	  if (system != null)
@@ -79,8 +77,8 @@ public class HexMapCameraController extends InputAdapter {
 	curr.set(x, y, 0);
 	if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
 	  delta.set(last.x, last.y, 0);
-	  delta.scl(camera.zoom);
 	  delta.sub(curr);
+	  delta.scl(camera.zoom);
 	  camera.position.add(delta.x, -delta.y, 0);
 	}
 	last.set(x, y, 0);
