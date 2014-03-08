@@ -95,7 +95,6 @@ public class HexMapScreen implements Screen {
   private Dialog profileDialog, areYouSure;
 
   {
-
 	multiplexer = new InputMultiplexer();
 	shapeRenderer = new ShapeRenderer();
   }
@@ -145,7 +144,7 @@ public class HexMapScreen implements Screen {
 	stage = new Stage(width, hight);
 
 	mapCam = new OrthographicCamera();
-	mapCam.setToOrtho(false, mapDim.getValue().x, mapDim.getValue().y);
+	mapCam.setToOrtho(false, BaseSettings.HEX_MAP_BASE_SIZE.x, BaseSettings.HEX_MAP_BASE_SIZE.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
@@ -174,7 +173,7 @@ public class HexMapScreen implements Screen {
 		  if (sys.getClaim().equals(BaseSettings.thisPlayer)) {
 			cell.setTile(tiles[1]);
 		  }
-		  else if (sys.getClaim().equals(new Player("Julie"))) {
+		  else if (sys.getClaim().equals(new Player("Jane"))) {
 			cell.setTile(tiles[3]);
 		  }
 		  else {
@@ -216,7 +215,8 @@ public class HexMapScreen implements Screen {
 	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 	/** Sets up map view */
-	Gdx.gl.glViewport(mapDim.getKey().x, mapDim.getKey().y, mapDim.getValue().x, mapDim.getValue().y);
+	Gdx.gl.glViewport(BaseSettings.HEX_MAP_BASE_OFFSET.x, BaseSettings.HEX_MAP_BASE_OFFSET.y, BaseSettings.HEX_MAP_BASE_SIZE.x,
+		BaseSettings.HEX_MAP_BASE_SIZE.y);
 	mapCam.update();
 	hexRenderer.setView(mapCam);
 	hexRenderer.render();
@@ -228,7 +228,8 @@ public class HexMapScreen implements Screen {
 	shapeRenderer.begin(ShapeType.Line);
 
 	/** Draws debug frame around map view */
-	shapeRenderer.rect(mapDim.getKey().x, mapDim.getKey().y, mapDim.getValue().x, mapDim.getValue().y);
+	shapeRenderer.rect(BaseSettings.HEX_MAP_BASE_OFFSET.x, BaseSettings.HEX_MAP_BASE_OFFSET.y, BaseSettings.HEX_MAP_BASE_SIZE.x,
+		BaseSettings.HEX_MAP_BASE_SIZE.y);
 	shapeRenderer.end();
 
 	stage.act();
@@ -469,25 +470,10 @@ public class HexMapScreen implements Screen {
   private void setupInfoLabelBottom() {
 	Table selectorTable = new Table();
 	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", Resources.UI_SKIN);
-	selectorTable.setPosition(mapDim.getKey().x + 255, mapDim.getKey().y - 10);
+	selectorTable.setPosition(BaseSettings.HEX_MAP_BASE_OFFSET.x + 255, BaseSettings.HEX_MAP_BASE_OFFSET.y - 10);
 	selectorTable.add(systemSelector);
 	stage.addActor(selectorTable);
 
   }
-
-  /** Map sizes (for Hexmap and Solar Map) */
-
-  /** Map Sub-sizes */
-  public static final IntVec2 mapSize = new IntVec2(900, 600);
-
-  /** Screw around on that to position the map! */
-  private static final IntVec2 mapOffset = new IntVec2(150, 25);
-  /**
-   * First vector holds starting position of map (lower right corner), the other holds the actual size
-   */
-  @Deprecated
-  public static final Pair<IntVec2, IntVec2> mapDim = new Pair<IntVec2, IntVec2>(new IntVec2(
-	  ((Gdx.graphics.getWidth() / 2) - mapSize.x / 2) - mapOffset.x, ((Gdx.graphics.getHeight() / 2) - mapSize.y / 2) - mapOffset.y),
-	  mapSize);
 
 }

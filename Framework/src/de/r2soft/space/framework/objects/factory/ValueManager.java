@@ -42,7 +42,6 @@ public class ValueManager {
 	// Initialize values
 	category.put(Type.FIGHTER_I, Category.SHIP);
 	damage.put(Type.FIGHTER_I, 10f);
-
   }
 
   /**
