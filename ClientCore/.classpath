@@ -9,7 +9,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-backend-gwt.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-backend-lwjgl.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/libgdx/gdx-natives.jar"/>
