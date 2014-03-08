@@ -47,6 +47,7 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
   public SolSystemRenderer(SolarSystem system) {
 	this.system = system;
 	batch = new SpriteBatch();
+	viewBounds = new Rectangle();
   }
 
   public boolean isYdown() {
