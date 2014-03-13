@@ -23,10 +23,10 @@ import de.r2soft.space.framework.util.UtilFactory;
 
 public class Server {
 
-  private final Logger log = UtilFactory.createLogger(this);
+	private final Logger log = Logger.getLogger(getClass().getName());
 
-  public Server() {
-	log.info("Creating main server class");
-  }
+	public Server() {
+		log.info("Creating main server class");
+	}
 
 }
