@@ -13,15 +13,10 @@
 	<name>CoreGame desktop</name>
 
 	<properties>
-		<mainClass>de.r2soft.empires.client.core.MainClientLauncher</mainClass>
+		<mainClass>de.r2soft.empires.client.core.MainClientLauncher.java</mainClass>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>de.r2soft.empires.client</groupId>
-			<artifactId>Client-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
@@ -44,6 +39,7 @@
 	</dependencies>
 
 	<build>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>../assets</directory>

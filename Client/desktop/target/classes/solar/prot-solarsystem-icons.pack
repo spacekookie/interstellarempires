@@ -1,0 +1,47 @@
+
+prot-solarsystem-icons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+prot-fleet-fighter-ally
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+prot-fleet-fighter-hostile
+  rotate: false
+  xy: 131, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+prot-fleet-fighter-player
+  rotate: false
+  xy: 261, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+prot-star-browndwarf
+  rotate: false
+  xy: 391, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+prot-star-neutron
+  rotate: false
+  xy: 521, 1
+  size: 128, 128
+  orig: 64, 64
+  offset: 64, 64
+  index: -1
+prot-star-reddwarf
+  rotate: false
+  xy: 651, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
