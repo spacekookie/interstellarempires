@@ -1,0 +1,19 @@
+
+alpha-generic-checkbox.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alpha_checkbox_ticked
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+alpha_checkbox_unticked
+  rotate: false
+  xy: 131, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
