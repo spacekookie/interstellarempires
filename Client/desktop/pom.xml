@@ -19,6 +19,13 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>de.r2soft.empires.framework</groupId>
+			<artifactId>gdx</artifactId>
+			<version>${gdx.version}</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
 			<version>${gdx.version}</version>
