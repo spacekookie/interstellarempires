@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.navigation;
+package de.r2soft.empires.framework.navigation;
 
 import java.util.ArrayList;
 import java.util.Collection;

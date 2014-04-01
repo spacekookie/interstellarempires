@@ -16,22 +16,22 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.util;
+package de.r2soft.empires.framework.util;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.dom4j.Element;
+import javax.swing.text.Element;
 
-import de.r2soft.space.framework.map.GalaxyMap;
-import de.r2soft.space.framework.map.GalaxyPosition;
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.BaseObject.Category;
-import de.r2soft.space.framework.objects.Planet;
-import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.StarType;
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.map.GalaxyMap;
+import de.r2soft.empires.framework.map.GalaxyPosition;
+import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.objects.BaseObject.Category;
+import de.r2soft.empires.framework.objects.Planet;
+import de.r2soft.empires.framework.objects.Star;
+import de.r2soft.empires.framework.objects.Star.StarType;
+import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.types.IntVec2;
 
 /** Reads a map .XML file and returns the data in form of pretty HashSets */
 public class MapParser {

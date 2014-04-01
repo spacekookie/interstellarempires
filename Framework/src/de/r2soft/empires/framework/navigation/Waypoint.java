@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.navigation;
+package de.r2soft.empires.framework.navigation;
 
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.types.IntVec2;
 
 public class Waypoint {
 

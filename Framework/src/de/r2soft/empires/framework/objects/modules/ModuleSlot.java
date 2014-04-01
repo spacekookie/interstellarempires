@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.modules;
+package de.r2soft.empires.framework.objects.modules;
 
-import de.r2soft.space.framework.objects.modules.Weapon.WeaponType;
+import de.r2soft.empires.framework.objects.modules.Weapon.WeaponType;
 
 public class ModuleSlot {
 

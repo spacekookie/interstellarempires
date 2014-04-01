@@ -16,91 +16,91 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.io;
-
-import org.apache.log4j.Logger;
+package de.r2soft.empires.client.io;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
-import de.r2soft.space.client.maps.sun.SolSystemRenderer;
-import de.r2soft.space.client.screens.gameplay.HexMapScreen;
-import de.r2soft.space.client.screens.gameplay.SolMapScreen;
-import de.r2soft.space.client.settings.BaseSettings;
-import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
+import de.r2soft.empires.client.screens.gameplay.SolMapScreen;
+import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.framework.map.SolarSystem;
 
 public class SolarCameraController extends InputAdapter {
-  final OrthographicCamera camera;
-  final Vector3 curr = new Vector3();
-  final Vector3 last = new Vector3(-1, -1, -1);
-  final Vector3 delta = new Vector3();
+	final OrthographicCamera camera;
+	final Vector3 curr = new Vector3();
+	final Vector3 last = new Vector3(-1, -1, -1);
+	final Vector3 delta = new Vector3();
 
-  private SolSystemRenderer renderer;
-  private SolMapScreen parent;
-  private SolarSystem system;
+	private SolSystemRenderer renderer;
+	private SolMapScreen parent;
+	private SolarSystem system;
 
-  public SolarCameraController(SolMapScreen parent, OrthographicCamera camera, SolSystemRenderer renderer) {
-	this.camera = camera;
-	this.renderer = renderer;
-	this.parent = parent;
-  }
-
-  @Override
-  public boolean mouseMoved(int screenX, int screenY) {
-	return false;
-  }
-
-  @Override
-  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-	float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.SOL_MAP_BASE_SIZE.x;
-	float scly = (float) Gdx.graphics.getHeight() / BaseSettings.SOL_MAP_BASE_SIZE.y;
-
-	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
-	camera.unproject(tmp);
-
-	return false;
-  }
-
-  @Override
-  public boolean touchDragged(int x, int y, int pointer) {
-	curr.set(x, y, 0);
-	if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
-	  delta.set(last.x, last.y, 0);
-	  delta.sub(curr);
-	  delta.scl(camera.zoom);
-	  camera.position.add(delta.x, -delta.y, 0);
+	public SolarCameraController(SolMapScreen parent,
+			OrthographicCamera camera, SolSystemRenderer renderer) {
+		this.camera = camera;
+		this.renderer = renderer;
+		this.parent = parent;
 	}
-	last.set(x, y, 0);
 
-	return false;
-  }
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
 
-  public void changeZoom(float zoom, float x, float y) {
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-	Vector3 before = new Vector3(x, y, 0);
-	camera.unproject(before);
+		float sclx = (float) Gdx.graphics.getWidth()
+				/ BaseSettings.SOL_MAP_BASE_SIZE.x;
+		float scly = (float) Gdx.graphics.getHeight()
+				/ BaseSettings.SOL_MAP_BASE_SIZE.y;
 
-	camera.zoom = zoom;
-	camera.update();
-	Vector3 after = new Vector3(x, y, 0);
-	camera.unproject(after);
+		Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
+		camera.unproject(tmp);
 
-	camera.translate(before.x - after.x, before.y - after.y, 0);
-  }
+		return false;
+	}
 
-  @Override
-  public boolean scrolled(int amount) {
-	float newZoom = camera.zoom * (1 + (amount < 0 ? 0.1f : -0.1f));
-	changeZoom(newZoom, last.x, last.y);
-	return true;
-  }
+	@Override
+	public boolean touchDragged(int x, int y, int pointer) {
+		curr.set(x, y, 0);
+		if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
+			delta.set(last.x, last.y, 0);
+			delta.sub(curr);
+			delta.scl(camera.zoom);
+			camera.position.add(delta.x, -delta.y, 0);
+		}
+		last.set(x, y, 0);
 
-  @Override
-  public boolean touchUp(int x, int y, int pointer, int button) {
-	last.set(-1, -1, -1);
-	return false;
-  }
+		return false;
+	}
+
+	public void changeZoom(float zoom, float x, float y) {
+
+		Vector3 before = new Vector3(x, y, 0);
+		camera.unproject(before);
+
+		camera.zoom = zoom;
+		camera.update();
+		Vector3 after = new Vector3(x, y, 0);
+		camera.unproject(after);
+
+		camera.translate(before.x - after.x, before.y - after.y, 0);
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		float newZoom = camera.zoom * (1 + (amount < 0 ? 0.1f : -0.1f));
+		changeZoom(newZoom, last.x, last.y);
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		last.set(-1, -1, -1);
+		return false;
+	}
 }

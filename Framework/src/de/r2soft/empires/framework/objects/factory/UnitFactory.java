@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects.factory;
+package de.r2soft.empires.framework.objects.factory;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.objects.Fleet;
-import de.r2soft.space.framework.objects.BaseObject.Category;
-import de.r2soft.space.framework.objects.Ship;
-import de.r2soft.space.framework.objects.Ship.ShipType;
-import de.r2soft.space.framework.objects.OrbitalStructure;
-import de.r2soft.space.framework.objects.modules.ModuleSlot;
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.players.Sociable;
+import de.r2soft.empires.framework.objects.BaseObject.Category;
+import de.r2soft.empires.framework.objects.Fleet;
+import de.r2soft.empires.framework.objects.OrbitalStructure;
+import de.r2soft.empires.framework.objects.Ship;
+import de.r2soft.empires.framework.objects.Ship.ShipType;
+import de.r2soft.empires.framework.objects.modules.ModuleSlot;
+import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.players.Sociable;
 
 /**
  * This class provides static methods to build default units.

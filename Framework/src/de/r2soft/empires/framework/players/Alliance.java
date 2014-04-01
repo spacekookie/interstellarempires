@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.players;
+package de.r2soft.empires.framework.players;
 
 import java.util.HashSet;
 import java.util.Map;

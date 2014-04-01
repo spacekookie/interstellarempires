@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.modules;
+package de.r2soft.empires.framework.objects.modules;
 
 /**
  * A basic module

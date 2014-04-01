@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.empires.framework.map;
 
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.types.IntVec2;
 
 public class GalaxyPosition {
 

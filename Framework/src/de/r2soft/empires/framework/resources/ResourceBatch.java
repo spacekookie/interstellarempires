@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.resources;
+package de.r2soft.empires.framework.resources;
 
-import de.r2soft.space.framework.types.Cargo;
+import de.r2soft.empires.framework.types.Cargo;
 
 /**
  * An amount of resources to be added to a cargo ship.

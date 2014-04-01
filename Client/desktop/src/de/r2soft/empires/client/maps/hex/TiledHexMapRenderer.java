@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.maps.hex;
+package de.r2soft.empires.client.maps.hex;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapRenderer;
@@ -24,7 +24,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public interface TiledHexMapRenderer extends MapRenderer {
 
-  public void renderObject(MapObject object);
+	public void renderObject(MapObject object);
 
-  public void renderTileLayer(HexMapLayer layer);
+	public void renderTileLayer(HexMapLayer layer);
 }

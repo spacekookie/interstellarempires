@@ -16,11 +16,11 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.maps.hex;
+package de.r2soft.empires.client.maps.hex;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.empires.framework.map.SolarSystem;
 
 public class HexCell extends Cell {
 

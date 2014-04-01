@@ -15,18 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.core;
+package de.r2soft.empires.client.core;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
-import de.r2soft.space.client.screens.gameplay.HexMapScreen;
-import de.r2soft.space.client.screens.gameplay.SolMapScreen;
-import de.r2soft.space.client.screens.utilities.IntroductionScreen;
-import de.r2soft.space.client.screens.utilities.LoginScreen;
-import de.r2soft.space.client.settings.BaseSettings;
+import de.r2soft.empires.client.screens.utilities.LoginScreen;
+import de.r2soft.empires.client.settings.BaseSettings;
 
 /**
  * 
@@ -34,7 +31,7 @@ import de.r2soft.space.client.settings.BaseSettings;
  * 
  * @author: ***REMOVED***
  */
-public class CoreGame extends Game {
+public class CoreGame extends R2Game {
 
   private static CoreGame handler;
   private Music music;

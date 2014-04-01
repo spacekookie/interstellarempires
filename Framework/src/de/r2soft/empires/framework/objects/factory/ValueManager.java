@@ -16,15 +16,15 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.factory;
+package de.r2soft.empires.framework.objects.factory;
 
 import java.util.HashMap;
 
 import org.apache.commons.math3.util.Pair;
 
-import de.r2soft.space.framework.objects.BaseObject;
-import de.r2soft.space.framework.objects.BaseObject.Category;
-import de.r2soft.space.framework.objects.BaseObject.Type;
+import de.r2soft.empires.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.BaseObject.Category;
+import de.r2soft.empires.framework.objects.BaseObject.Type;
 
 public class ValueManager {
 

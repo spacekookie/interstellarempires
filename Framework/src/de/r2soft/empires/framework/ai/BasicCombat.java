@@ -16,12 +16,14 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.ai;
+package de.r2soft.empires.framework.ai;
 
-import com.esotericsoftware.minlog.Log;
+import java.util.logging.Logger;
 
-import de.r2soft.space.framework.objects.Ship;
-import de.r2soft.space.framework.objects.modules.Weapon;
+import org.apache.commons.math3.analysis.function.Log;
+
+import de.r2soft.empires.framework.objects.Ship;
+import de.r2soft.empires.framework.objects.modules.Weapon;
 
 /**
  * Only for testing and very early alpha purposes. If you call anything from
@@ -52,7 +54,6 @@ public class BasicCombat {
 			newHP_A -= dmgB;
 			newHP_B -= dmgA;
 
-			Log.info("Ship A:" + newHP_A + " SHIP B:" + newHP_B);
 		}
 		return (newHP_A < 0 && newHP_B >= 0) ? shipA : shipB;
 	}

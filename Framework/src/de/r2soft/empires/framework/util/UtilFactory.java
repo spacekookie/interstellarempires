@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.util;
+package de.r2soft.empires.framework.util;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class UtilFactory {
 

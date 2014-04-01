@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 public class Star extends BaseObject {
 

@@ -1,4 +1,4 @@
-package de.r2soft.space.client.screens.gameplay;
+package de.r2soft.empires.client.screens.gameplay;
 
 /* #########################################################################
  * Copyright (c) 2013 Random Robot Softworks
@@ -17,8 +17,6 @@ package de.r2soft.space.client.screens.gameplay;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-import org.apache.log4j.Logger;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -30,11 +28,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.space.client.io.SolarCameraController;
-import de.r2soft.space.client.maps.sun.SolSystemRenderer;
-import de.r2soft.space.client.settings.BaseSettings;
-import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.empires.client.io.SolarCameraController;
+import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
+import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.client.settings.Resources;
+import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
  * Remake of the solar system screen with new camera viewport and UI. Published for Prototype version 1.2
