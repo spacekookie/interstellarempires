@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.screens.utilities;
+package de.r2soft.empires.client.screens.utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -29,11 +29,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.space.client.core.CoreGame;
-import de.r2soft.space.client.screens.gameplay.HexMapScreen;
-import de.r2soft.space.client.settings.BaseSettings;
-import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.settings.Sizes;
+import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
+import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.client.settings.Resources;
+import de.r2soft.empires.client.settings.Sizes;
 
 /**
  * This screen will enable the user to change stuff about their game client

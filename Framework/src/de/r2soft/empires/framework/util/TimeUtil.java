@@ -16,11 +16,17 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.util;
+package de.r2soft.empires.framework.util;
 
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * What is this for?
+ * 
+ * @author Katharina <kookie@spacekookie.de>
+ * 
+ */
 public class TimeUtil {
 
   /**

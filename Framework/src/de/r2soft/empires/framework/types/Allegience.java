@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.types;
+package de.r2soft.empires.framework.types;
 
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.empires.framework.players.Player;
 
 /**
  * Holds information on rendering and combat. ENUM values can hold @SELF,

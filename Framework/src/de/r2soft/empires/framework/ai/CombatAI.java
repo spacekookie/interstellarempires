@@ -16,13 +16,13 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.ai;
+package de.r2soft.empires.framework.ai;
 
 import java.util.Set;
 import java.util.Vector;
 
-import de.r2soft.space.framework.objects.Ship;
-import de.r2soft.space.framework.objects.modules.Weapon;
+import de.r2soft.empires.framework.objects.Ship;
+import de.r2soft.empires.framework.objects.modules.Weapon;
 
 /**
  * A very basic AI to handle combat on ships for each module

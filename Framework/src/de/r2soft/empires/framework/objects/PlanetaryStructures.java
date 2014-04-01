@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 /**
  * Object that gets built on a colony. Colonies can be on Planets, moons and large asteroids.

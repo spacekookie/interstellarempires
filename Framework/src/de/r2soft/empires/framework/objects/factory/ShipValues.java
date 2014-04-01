@@ -16,9 +16,9 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.factory;
+package de.r2soft.empires.framework.objects.factory;
 
-import de.r2soft.space.framework.objects.Ship.ShipType;
+import de.r2soft.empires.framework.objects.Ship.ShipType;
 
 @Deprecated
 public class ShipValues {

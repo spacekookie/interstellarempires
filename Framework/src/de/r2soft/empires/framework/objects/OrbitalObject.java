@@ -1,8 +1,6 @@
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
-import org.apache.log4j.Priority;
-
-import de.r2soft.space.framework.planetary.Orbit;
+import de.r2soft.empires.framework.planetary.Orbit;
 
 /**
  * Orbital Object. All orbital objects can be claimed and belong to a player. Can't be moved but orbits a parent {@link #BaseObject} with a

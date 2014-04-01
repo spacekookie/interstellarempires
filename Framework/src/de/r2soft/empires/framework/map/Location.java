@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.empires.framework.map;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 

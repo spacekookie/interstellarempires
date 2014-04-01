@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.map;
+package de.r2soft.empires.framework.map;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.objects.Planet;
-import de.r2soft.space.framework.objects.Ship;
-import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.StarType;
-import de.r2soft.space.framework.objects.OrbitalStructure;
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.empires.framework.objects.OrbitalStructure;
+import de.r2soft.empires.framework.objects.Planet;
+import de.r2soft.empires.framework.objects.Ship;
+import de.r2soft.empires.framework.objects.Star;
+import de.r2soft.empires.framework.objects.Star.StarType;
+import de.r2soft.empires.framework.players.Player;
 
 /**
  * Object holding solar-system information.

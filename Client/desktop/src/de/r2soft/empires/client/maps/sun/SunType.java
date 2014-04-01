@@ -16,17 +16,17 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.maps.sun;
+package de.r2soft.empires.client.maps.sun;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.r2soft.space.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.BaseObject;
 
 public abstract class SunType {
 
-  private BaseObject parentBody;
-  private Vector2 orbitalVelocity;
-  private float orbitalAngle;
-  private float radius;
+	private BaseObject parentBody;
+	private Vector2 orbitalVelocity;
+	private float orbitalAngle;
+	private float radius;
 
 }

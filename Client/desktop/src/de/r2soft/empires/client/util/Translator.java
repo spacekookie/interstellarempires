@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.util;
+package de.r2soft.empires.client.util;
 
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.Allegience.Allegiance;
+import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * Utility methods to translate stuff into other stuff.

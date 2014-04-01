@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.ai;
+package de.r2soft.empires.framework.ai;
 
 public class Admiral extends BasicAI {
 

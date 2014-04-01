@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.empires.framework.players.Player;
 
 /**
  * 

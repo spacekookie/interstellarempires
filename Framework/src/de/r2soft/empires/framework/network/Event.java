@@ -16,11 +16,11 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.network;
+package de.r2soft.empires.framework.network;
 
 import java.io.Serializable;
 
-import de.r2soft.space.framework.util.TimeUtil;
+import de.r2soft.empires.framework.util.TimeUtil;
 
 /**
  * This class stores event information for the event log.

@@ -16,12 +16,12 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 import java.util.Set;
 
-import de.r2soft.space.framework.ai.Admiral;
-import de.r2soft.space.framework.ai.Admiral.CommandType;
+import de.r2soft.empires.framework.ai.Admiral;
+import de.r2soft.empires.framework.ai.Admiral.CommandType;
 
 /**
  * Fleet object to hold Sets of units and admirals.

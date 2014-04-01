@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.core;
+package de.r2soft.empires.client.core;
 
 /**
  * Background thread to synchronize the client with the server, pushing new
