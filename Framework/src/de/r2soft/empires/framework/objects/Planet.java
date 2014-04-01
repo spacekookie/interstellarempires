@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.planetary.Orbit;
-import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.empires.framework.planetary.Orbit;
+import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
+import de.r2soft.empires.framework.players.Player;
 
 /**
  * Planet object that can be claimed and raided

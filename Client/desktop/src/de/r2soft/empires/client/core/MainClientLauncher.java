@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.core;
+package de.r2soft.empires.client.core;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -25,7 +27,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
-import de.r2soft.space.client.settings.BaseSettings;
+import de.r2soft.empires.client.settings.BaseSettings;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be added in the future
@@ -36,11 +38,29 @@ public class MainClientLauncher {
   public static void main(String[] args) {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	cfg.title = BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER;
+
+	/** Triggers awesome fullscreen mode */
+	if (args[0] == "--fullscreen") {
+	  cfg.fullscreen = true;
+	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	  int width = gd.getDisplayMode().getWidth();
+	  int height = gd.getDisplayMode().getHeight();
+
+	  cfg.width = width;
+	  cfg.height = height;
+
+	  BaseSettings.NEW_WIDTH = width;
+	  BaseSettings.NEW_HEIGHT = height;
+
+	}
+	else {
+	  cfg.fullscreen = false;
+	  cfg.width = BaseSettings.OLD_WIDTH;
+	  cfg.height = BaseSettings.OLD_HEIGHT;
+	}
+
 	cfg.useGL20 = false;
 	cfg.resizable = false;
-	cfg.fullscreen = false;
-	cfg.width = BaseSettings.OLD_WIDTH;
-	cfg.height = BaseSettings.OLD_HEIGHT;
 	cfg.initialBackgroundColor = Color.BLACK;
 
 	/** Sets the Application Icon for different operating systems */

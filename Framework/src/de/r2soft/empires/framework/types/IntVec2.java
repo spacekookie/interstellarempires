@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.types;
+package de.r2soft.empires.framework.types;
 
 /**
  * My own integer implementation of the Vector2 class from LibGDX. Only used for tile coordinates on hexagon map.

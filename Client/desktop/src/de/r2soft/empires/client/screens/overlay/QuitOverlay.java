@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.screens.overlay;
+package de.r2soft.empires.client.screens.overlay;
 
 import com.badlogic.gdx.Screen;
 
@@ -27,39 +27,39 @@ import com.badlogic.gdx.Screen;
  */
 public class QuitOverlay implements Screen {
 
-	@Override
-	public void render(float delta) {
+  @Override
+  public void render(float delta) {
 
-	}
+  }
 
-	@Override
-	public void resize(int width, int height) {
+  @Override
+  public void resize(int width, int height) {
 
-	}
+  }
 
-	@Override
-	public void show() {
+  @Override
+  public void show() {
 
-	}
+  }
 
-	@Override
-	public void hide() {
+  @Override
+  public void hide() {
 
-	}
+  }
 
-	@Override
-	public void pause() {
+  @Override
+  public void pause() {
 
-	}
+  }
 
-	@Override
-	public void resume() {
+  @Override
+  public void resume() {
 
-	}
+  }
 
-	@Override
-	public void dispose() {
+  @Override
+  public void dispose() {
 
-	}
+  }
 
 }

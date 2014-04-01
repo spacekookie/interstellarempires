@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.types.IntVec2;
 
 /**
  * An object that can be moved by a player.

@@ -16,10 +16,10 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.modules;
+package de.r2soft.empires.framework.objects.modules;
 
-import de.r2soft.space.framework.ai.CombatAI;
-import de.r2soft.space.framework.objects.Ship.ShipType;
+import de.r2soft.empires.framework.ai.CombatAI;
+import de.r2soft.empires.framework.objects.Ship.ShipType;
 
 /**
  * Basic implementation of a weapon. Two constructors, one for weapon module, one for hard-wired into ships frame for sub-frigate ships.

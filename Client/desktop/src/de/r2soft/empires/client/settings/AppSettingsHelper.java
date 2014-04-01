@@ -16,33 +16,32 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.settings;
+package de.r2soft.empires.client.settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 /**
- * You should know this from my Android applications. Will handle the SharedPreferences databases and the setter/ getter
- * in this instance.
+ * You should know this from my Android applications. Will handle the SharedPreferences databases and the setter/ getter in this instance.
  * 
  * @author Katharina
  * 
  */
 public class AppSettingsHelper {
 
+  Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+
+  public AppSettingsHelper() {
+
+  }
+
+  public void setExample(boolean value) {
 	Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
+	prefs.putBoolean("intro", value);
+  }
 
-	public AppSettingsHelper() {
-
-	}
-
-	public void setExample(boolean value) {
-		Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
-		prefs.putBoolean("intro", value);
-	}
-
-	public boolean getExample() {
-		return prefs.getBoolean("intro");
-	}
+  public boolean getExample() {
+	return prefs.getBoolean("intro");
+  }
 
 }

@@ -16,12 +16,12 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.empires.framework.map;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.types.IntVec2;
 
 /**
  * The public galaxymap that holds all "public" instances of data. Solarsystems with their planets, asteroid belts, etc.

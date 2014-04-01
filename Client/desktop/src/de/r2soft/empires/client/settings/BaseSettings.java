@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.settings;
+package de.r2soft.empires.client.settings;
 
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.types.IntVec2;
 
 /**
  * Initializes the settings for the game. Also responsible for setting new Settings.

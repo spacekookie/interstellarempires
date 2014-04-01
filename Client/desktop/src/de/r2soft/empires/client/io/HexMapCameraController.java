@@ -16,21 +16,23 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.io;
+package de.r2soft.empires.client.io;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
-import de.r2soft.space.client.maps.hex.HexMapRenderer;
-import de.r2soft.space.client.screens.gameplay.HexMapScreen;
-import de.r2soft.space.client.settings.BaseSettings;
-import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.empires.client.maps.hex.HexMapRenderer;
+import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
+import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.framework.map.SolarSystem;
 
 public class HexMapCameraController extends InputAdapter {
+  private Logger logger = Logger.getLogger(getClass().getSimpleName());
+
   final OrthographicCamera camera;
   final Vector3 curr = new Vector3();
   final Vector3 last = new Vector3(-1, -1, -1);
@@ -63,7 +65,7 @@ public class HexMapCameraController extends InputAdapter {
 	  system = renderer.getTileWithPos(tmp.x, tmp.y).getSystem();
 	}
 	catch (Exception e) {
-	  Logger.getLogger(getClass().getSimpleName()).info("OUT OF MAP BOUNDS");
+	  logger.info("OUT OF MAP BOUNDS");
 	}
 	finally {
 	  if (system != null)

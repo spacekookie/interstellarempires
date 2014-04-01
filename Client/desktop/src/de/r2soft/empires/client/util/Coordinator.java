@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.client.util;
+package de.r2soft.empires.client.util;
 
 import com.badlogic.gdx.InputProcessor;
 
@@ -27,56 +27,56 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class Coordinator implements InputProcessor {
 
-	@Override
-	public boolean keyDown(int keycode) {
+  @Override
+  public boolean keyDown(int keycode) {
 
-		return false;
+	return false;
+  }
+
+  @Override
+  public boolean keyUp(int keycode) {
+	return false;
+  }
+
+  @Override
+  public boolean keyTyped(char character) {
+	return false;
+  }
+
+  @Override
+  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+	System.out.println(screenX + " | " + screenY);
+	System.out.println("Pointer: " + pointer + " | " + "Button: " + button);
+
+	return false;
+  }
+
+  @Override
+  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+	return false;
+  }
+
+  @Override
+  public boolean touchDragged(int screenX, int screenY, int pointer) {
+	return false;
+  }
+
+  @Override
+  public boolean mouseMoved(int screenX, int screenY) {
+	return false;
+  }
+
+  @Override
+  public boolean scrolled(int amount) {
+
+	if (amount > 0) {
+	  System.out.println("Scrolling backwards");
+	}
+	else {
+	  System.out.println("Scrolling forwards");
 	}
 
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println(screenX + " | " + screenY);
-		System.out.println("Pointer: " + pointer + " | " + "Button: " + button);
-
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-
-		if (amount > 0) {
-			System.out.println("Scrolling backwards");
-		}
-		else {
-			System.out.println("Scrolling forwards");
-		}
-
-		return false;
-	}
+	return false;
+  }
 
 }

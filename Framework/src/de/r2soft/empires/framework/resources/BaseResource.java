@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.resources;
+package de.r2soft.empires.framework.resources;
 
 /**
  * Basic resource to pay things with

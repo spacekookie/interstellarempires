@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.r2soft.space.client.animators;
+package de.r2soft.empires.client.animators;
 
 import aurelienribon.tweenengine.TweenAccessor;
 

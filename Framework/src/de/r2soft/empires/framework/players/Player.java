@@ -16,13 +16,13 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.players;
+package de.r2soft.empires.framework.players;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Planet;
+import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.objects.Planet;
 
 /**
  * Player object. Will be created from server and called again on login. Name will be returned on login in the console.

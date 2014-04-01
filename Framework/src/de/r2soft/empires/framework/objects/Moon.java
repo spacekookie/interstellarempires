@@ -16,10 +16,10 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
-import de.r2soft.space.framework.planetary.Orbit;
-import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
+import de.r2soft.empires.framework.planetary.Orbit;
+import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
 
 /**
  * A basic moon that orbits a parent planet

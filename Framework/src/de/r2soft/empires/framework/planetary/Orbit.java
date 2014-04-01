@@ -16,12 +16,12 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.planetary;
+package de.r2soft.empires.framework.planetary;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-import de.r2soft.space.framework.objects.BaseObject;
-import de.r2soft.space.framework.objects.OrbitalObject;
+import de.r2soft.empires.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.OrbitalObject;
 
 /**
  * Creates a basic orbit for a planet or moon

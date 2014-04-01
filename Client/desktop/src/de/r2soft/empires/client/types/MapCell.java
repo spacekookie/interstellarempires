@@ -16,11 +16,11 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.types;
+package de.r2soft.empires.client.types;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-import de.r2soft.space.framework.map.SolarSystem;
+import de.r2soft.empires.framework.map.SolarSystem;
 
 @Deprecated
 public class MapCell extends Cell {

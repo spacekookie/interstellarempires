@@ -16,12 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.screens.gameplay;
-
-import org.apache.commons.math3.util.Pair;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
+package de.r2soft.empires.client.screens.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -44,26 +39,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.r2soft.space.client.core.CoreGame;
-import de.r2soft.space.client.io.HexMapCameraController;
-import de.r2soft.space.client.maps.hex.HexCell;
-import de.r2soft.space.client.maps.hex.HexMapLayer;
-import de.r2soft.space.client.maps.hex.HexMapLayers;
-import de.r2soft.space.client.maps.hex.HexMapRenderer;
-import de.r2soft.space.client.maps.hex.HexTileMap;
-import de.r2soft.space.client.screens.utilities.LoginScreen;
-import de.r2soft.space.client.screens.utilities.SettingsScreen;
-import de.r2soft.space.client.settings.BaseSettings;
-import de.r2soft.space.client.settings.Resources;
-import de.r2soft.space.client.settings.Sizes;
-import de.r2soft.space.framework.map.GalaxyMap;
-import de.r2soft.space.framework.map.GalaxyPosition;
-import de.r2soft.space.framework.map.SolarSystem;
-import de.r2soft.space.framework.objects.Star;
-import de.r2soft.space.framework.objects.Star.StarType;
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.types.IntVec2;
-import de.r2soft.space.framework.util.MapParser;
+import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.io.HexMapCameraController;
+import de.r2soft.empires.client.maps.hex.HexCell;
+import de.r2soft.empires.client.maps.hex.HexMapLayer;
+import de.r2soft.empires.client.maps.hex.HexMapLayers;
+import de.r2soft.empires.client.maps.hex.HexMapRenderer;
+import de.r2soft.empires.client.maps.hex.HexTileMap;
+import de.r2soft.empires.client.screens.utilities.LoginScreen;
+import de.r2soft.empires.client.screens.utilities.SettingsScreen;
+import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.client.settings.Resources;
+import de.r2soft.empires.client.settings.Sizes;
+import de.r2soft.empires.framework.map.GalaxyMap;
+import de.r2soft.empires.framework.map.GalaxyPosition;
+import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.objects.Star;
+import de.r2soft.empires.framework.objects.Star.StarType;
+import de.r2soft.empires.framework.players.Player;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
@@ -101,30 +94,30 @@ public class HexMapScreen implements Screen {
 
   public HexMapScreen() {
 	this.setTitle();
-	this.fetchGalaxyMap();
+	// this.fetchGalaxyMap();
   }
 
   public HexMapScreen(String playerName) {
 	this.setTitle();
 	this.playerName = playerName;
 
-	this.fetchGalaxyMap();
+	// this.fetchGalaxyMap();
   }
 
   /** TODO: This should be moved to be a server call! */
-  private void fetchGalaxyMap() {
-	SAXReader reader = new SAXReader();
-	MapParser parser = new MapParser();
-	Document doc;
-	try {
-	  doc = reader.read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
-	  parser.readXML(doc.getRootElement());
-	}
-	catch (DocumentException e) {
-	  return;
-	}
-	galaxyMap = parser.getGalaxyMap();
-  }
+  // private void fetchGalaxyMap() {
+  // SAXReader reader = new SAXReader();
+  // MapParser parser = new MapParser();
+  // Document doc;
+  // try {
+  // doc = reader
+  // .read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
+  // parser.readXML(doc.getRootElement());
+  // } catch (DocumentException e) {
+  // return;
+  // }
+  // galaxyMap = parser.getGalaxyMap();
+  // }
 
   /** Sets the Window title */
   private void setTitle() {

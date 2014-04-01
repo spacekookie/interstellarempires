@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.util;
+package de.r2soft.empires.client.util;
 
 import java.io.IOException;
 import java.io.InputStream;

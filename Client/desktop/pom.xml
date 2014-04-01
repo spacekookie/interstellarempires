@@ -24,7 +24,6 @@
 			<version>Alpha-1.0</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx</artifactId>
