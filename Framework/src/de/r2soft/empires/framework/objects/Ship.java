@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-import de.r2soft.space.framework.objects.modules.BaseModule;
-import de.r2soft.space.framework.objects.modules.ModuleSlot;
-import de.r2soft.space.framework.objects.modules.Propulsion;
-import de.r2soft.space.framework.objects.modules.Weapon;
-import de.r2soft.space.framework.players.Player;
-import de.r2soft.space.framework.players.Sociable;
+import de.r2soft.empires.framework.objects.modules.BaseModule;
+import de.r2soft.empires.framework.objects.modules.ModuleSlot;
+import de.r2soft.empires.framework.objects.modules.Propulsion;
+import de.r2soft.empires.framework.objects.modules.Weapon;
+import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.players.Sociable;
 
 /**
  * Common game unit. Can include single ships, ex-ships (debris), fleets and even rainbow ponies. Rainbow ponies have infinite shields,

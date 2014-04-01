@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.types;
+package de.r2soft.empires.client.types;
 
 import static com.badlogic.gdx.graphics.g2d.SpriteBatch.C1;
 import static com.badlogic.gdx.graphics.g2d.SpriteBatch.C2;

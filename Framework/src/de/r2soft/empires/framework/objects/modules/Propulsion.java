@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.modules;
+package de.r2soft.empires.framework.objects.modules;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 

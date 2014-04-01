@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.maps.hex;
+package de.r2soft.empires.client.maps.hex;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.Map;

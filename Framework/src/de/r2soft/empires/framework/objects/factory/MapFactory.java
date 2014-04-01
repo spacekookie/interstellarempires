@@ -16,12 +16,12 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.objects.factory;
+package de.r2soft.empires.framework.objects.factory;
 
 import java.util.Set;
 
-import de.r2soft.space.framework.map.GalaxyMap;
-import de.r2soft.space.framework.types.IntVec2;
+import de.r2soft.empires.framework.map.GalaxyMap;
+import de.r2soft.empires.framework.types.IntVec2;
 
 public class MapFactory {
 

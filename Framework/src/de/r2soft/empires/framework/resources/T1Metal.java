@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.resources;
+package de.r2soft.empires.framework.resources;
 
 /**
  * A basic metal to construct ships from. Values modeled after steel.

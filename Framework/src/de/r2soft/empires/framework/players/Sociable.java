@@ -16,14 +16,14 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.players;
+package de.r2soft.empires.framework.players;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.esotericsoftware.minlog.Log;
+import org.apache.commons.math3.analysis.function.Log;
 
-import de.r2soft.space.framework.types.Allegience.Allegiance;
+import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * 
@@ -49,7 +49,8 @@ public abstract class Sociable {
 	if (standings.containsKey(subject))
 	  standings.remove(subject);
 	else
-	  Log.info("STANDING DOESN'T EXIST");
+	  System.out.println("REPLACE ME! PLEASSSEEEEE!!!!");
+	// TODO: REPLACE
   }
 
   /** Add a specific standing to the Map */

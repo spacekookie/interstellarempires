@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.resources;
+package de.r2soft.empires.framework.resources;
 
 public class T1Fuel extends BaseResource {
 

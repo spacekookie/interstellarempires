@@ -15,15 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.r2soft.space.framework.map;
+package de.r2soft.empires.framework.map;
 
 import java.util.Set;
 
-import net.sf.javaml.core.kdtree.KDTree;
-
-import com.google.common.collect.Sets;
-
-import de.r2soft.space.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.BaseObject;
 
 public class Map {
 

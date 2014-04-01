@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.ai;
+package de.r2soft.empires.framework.ai;
 
 /**
  * I know literally nothing about AIs. So yea. Do stuff here :)

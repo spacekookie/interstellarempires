@@ -32,7 +32,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.client.maps.hex;
+package de.r2soft.empires.client.maps.hex;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;

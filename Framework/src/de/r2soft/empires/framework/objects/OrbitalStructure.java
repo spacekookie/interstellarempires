@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.space.framework.objects;
+package de.r2soft.empires.framework.objects;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-import de.r2soft.space.framework.objects.factory.UnitFactory;
-import de.r2soft.space.framework.planetary.Orbit;
-import de.r2soft.space.framework.planetary.Orbit.ORBIT_TYPE;
-import de.r2soft.space.framework.players.Player;
+import de.r2soft.empires.framework.objects.factory.UnitFactory;
+import de.r2soft.empires.framework.planetary.Orbit;
+import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
+import de.r2soft.empires.framework.players.Player;
 
 public class OrbitalStructure extends OrbitalObject {
 

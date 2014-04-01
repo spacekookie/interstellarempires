@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.space.framework.types;
+package de.r2soft.empires.framework.types;
 
 /**
  * Is implemented by anything that can be hauled in a cargo ship.
