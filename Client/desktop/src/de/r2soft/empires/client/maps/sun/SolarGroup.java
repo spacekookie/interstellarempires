@@ -24,8 +24,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
-import de.r2soft.empires.client.settings.Resources;
-import de.r2soft.empires.client.settings.Sizes;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.util.Find;
 import de.r2soft.empires.framework.map.SolarSystem;
 
@@ -75,28 +75,28 @@ public class SolarGroup extends Group {
 
 	switch (system.getStar().getClassification()) {
 	case BROWNDWARF:
-	  batch.draw(Resources.STARS_BROWN_DWARF, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2) + offsetX, Find.getCenter().y
-		  - (Sizes.SIZE_CELESTIAL_BROWN_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_BROWN_DWARF, Sizes.SIZE_CELESTIAL_BROWN_DWARF, 1, 1, 0);
+	  batch.draw(Assets.STARS_BROWN_DWARF, Find.getCenter().x - (Values.SIZE_CELESTIAL_BROWN_DWARF / 2) + offsetX, Find.getCenter().y
+		  - (Values.SIZE_CELESTIAL_BROWN_DWARF / 2), 0, 0, Values.SIZE_CELESTIAL_BROWN_DWARF, Values.SIZE_CELESTIAL_BROWN_DWARF, 1, 1, 0);
 	  break;
 
 	case BLUEGIANT:
-	  batch.draw(Resources.STARS_BLUE_GIANT, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2) + offsetX, Find.getCenter().y
-		  - (Sizes.SIZE_CELESTIAL_BLUE_GIANT / 2), 0, 0, Sizes.SIZE_CELESTIAL_BLUE_GIANT, Sizes.SIZE_CELESTIAL_BLUE_GIANT, 1, 1, 0);
+	  batch.draw(Assets.STARS_BLUE_GIANT, Find.getCenter().x - (Values.SIZE_CELESTIAL_BLUE_GIANT / 2) + offsetX, Find.getCenter().y
+		  - (Values.SIZE_CELESTIAL_BLUE_GIANT / 2), 0, 0, Values.SIZE_CELESTIAL_BLUE_GIANT, Values.SIZE_CELESTIAL_BLUE_GIANT, 1, 1, 0);
 	  break;
 
 	case NEUTRON:
-	  batch.draw(Resources.STARS_BLUE_DWARF, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2) + offsetX, Find.getCenter().y
-		  - (Sizes.SIZE_CELESTIAL_BLUE_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_BLUE_DWARF, Sizes.SIZE_CELESTIAL_BLUE_DWARF, 1, 1, 0);
+	  batch.draw(Assets.STARS_BLUE_DWARF, Find.getCenter().x - (Values.SIZE_CELESTIAL_BLUE_DWARF / 2) + offsetX, Find.getCenter().y
+		  - (Values.SIZE_CELESTIAL_BLUE_DWARF / 2), 0, 0, Values.SIZE_CELESTIAL_BLUE_DWARF, Values.SIZE_CELESTIAL_BLUE_DWARF, 1, 1, 0);
 	  break;
 
 	case REDDWARF:
-	  batch.draw(Resources.STARS_RED_DWARF, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2) + offsetX, Find.getCenter().y
-		  - (Sizes.SIZE_CELESTIAL_RED_DWARF / 2), 0, 0, Sizes.SIZE_CELESTIAL_RED_DWARF, Sizes.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
+	  batch.draw(Assets.STARS_RED_DWARF, Find.getCenter().x - (Values.SIZE_CELESTIAL_RED_DWARF / 2) + offsetX, Find.getCenter().y
+		  - (Values.SIZE_CELESTIAL_RED_DWARF / 2), 0, 0, Values.SIZE_CELESTIAL_RED_DWARF, Values.SIZE_CELESTIAL_RED_DWARF, 1, 1, 0);
 	  break;
 
 	case REDGIANT:
-	  batch.draw(Resources.STARS_RED_GIANT, Find.getCenter().x - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2) + offsetX, Find.getCenter().y
-		  - (Sizes.SIZE_CELESTIAL_RED_GIANT / 2), 0, 0, Sizes.SIZE_CELESTIAL_RED_GIANT, Sizes.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
+	  batch.draw(Assets.STARS_RED_GIANT, Find.getCenter().x - (Values.SIZE_CELESTIAL_RED_GIANT / 2) + offsetX, Find.getCenter().y
+		  - (Values.SIZE_CELESTIAL_RED_GIANT / 2), 0, 0, Values.SIZE_CELESTIAL_RED_GIANT, Values.SIZE_CELESTIAL_RED_GIANT, 1, 1, 0);
 	  break;
 
 	default:

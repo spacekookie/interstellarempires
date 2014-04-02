@@ -27,7 +27,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
-import de.r2soft.empires.client.settings.BaseSettings;
+import de.r2soft.empires.client.resources.Values;
 
 /**
  * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be added in the future
@@ -37,7 +37,7 @@ import de.r2soft.empires.client.settings.BaseSettings;
 public class MainClientLauncher {
   public static void main(String[] args) {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	cfg.title = BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER;
+	cfg.title = Values.SUPERTITLE + " - " + Values.VERSION_NUMBER;
 
 	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
 	if (args[0] == "--fullscreen") {
@@ -49,14 +49,14 @@ public class MainClientLauncher {
 	  cfg.width = width;
 	  cfg.height = height;
 
-	  BaseSettings.NEW_WIDTH = width;
-	  BaseSettings.NEW_HEIGHT = height;
+	  Values.NEW_WIDTH = width;
+	  Values.NEW_HEIGHT = height;
 
 	}
 	else {
 	  cfg.fullscreen = false;
-	  cfg.width = BaseSettings.OLD_WIDTH;
-	  cfg.height = BaseSettings.OLD_HEIGHT;
+	  cfg.width = Values.OLD_WIDTH;
+	  cfg.height = Values.OLD_HEIGHT;
 	}
 
 	cfg.useGL20 = true;

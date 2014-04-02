@@ -18,7 +18,6 @@
 
 package de.r2soft.empires.client.util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;

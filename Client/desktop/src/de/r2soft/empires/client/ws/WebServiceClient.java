@@ -15,17 +15,16 @@
 // * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // * 
 // ######################################################################### */
-//package de.r2soft.space.client.ws;
+//package de.r2soft.empires.client.ws;
 //
 //import java.net.MalformedURLException;
 //import java.net.URL;
+//
 //import javax.jws.WebMethod;
 //import javax.xml.namespace.QName;
 //import javax.xml.ws.Service;
 //
 //import org.apache.log4j.Logger;
-//
-//import de.r2soft.space.server.ws.interfaces.ConnectionService;
 //
 //public class WebServiceClient implements ConnectionService {
 //  private static WebServiceClient uniqInstance;
@@ -44,8 +43,7 @@
 //	try {
 //	  QName connectionServiceName = new QName("http://2rSoftworks.de/", "ConnectionService");
 //
-//	  URL connectionServiceWsdl = new URL(WSDL_BASE_URL + connectionServiceName.getLocalPart()
-//		  + "?wsdl");
+//	  URL connectionServiceWsdl = new URL(WSDL_BASE_URL + connectionServiceName.getLocalPart() + "?wsdl");
 //
 //	  Service connectionService = Service.create(connectionServiceWsdl, connectionServiceName);
 //
