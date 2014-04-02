@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2013 Random Robot Softworks
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,47 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.empires.client.animators;
 
-import aurelienribon.tweenengine.TweenAccessor;
+package de.r2soft.empires.client.screens.overlay;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
-/**
- * Intro animation.
- * 
- * @author: Katharina
- */
-public class IntroAnimator implements TweenAccessor<Sprite> {
+import de.r2soft.empires.client.graphics.Overlay;
 
-	public static final int ALPHA = 1;
+public class PlayerOverlay extends Overlay {
 
-	@Override
-	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-
-		switch (tweenType) {
-		case ALPHA:
-			returnValues[0] = target.getColor().a;
-			return 1;
-
-		default:
-			return 0;
-		}
-
-	}
-
-	@Override
-	public void setValues(Sprite target, int tweenType, float[] newValues) {
-
-		switch (tweenType) {
-		case ALPHA:
-			target.setColor(1, 1, 1, newValues[0]);
-			break;
-
-		default:
-			break;
-		}
-
-	}
+  public PlayerOverlay() {
+	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+  }
 
 }

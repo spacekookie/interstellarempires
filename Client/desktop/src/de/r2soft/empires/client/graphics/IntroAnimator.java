@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 Katharina Fey
+/* #########################################################################
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,35 +13,48 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-package de.r2soft.empires.client.animators;
+ * 
+ ######################################################################### */
+package de.r2soft.empires.client.graphics;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * Creates circular movement for celestial bodies and space stations.
+ * Intro animation.
  * 
- * @author Katharina
- * 
+ * @author: Katharina
  */
-public class PlanetaryRotator implements TweenAccessor<Sprite> {
+public class IntroAnimator implements TweenAccessor<Sprite> {
 
-	private float angle;
-
-	public void setRotationAngle(float angle) {
-		this.angle = angle;
-	}
+	public static final int ALPHA = 1;
 
 	@Override
 	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-		return 0;
+
+		switch (tweenType) {
+		case ALPHA:
+			returnValues[0] = target.getColor().a;
+			return 1;
+
+		default:
+			return 0;
+		}
+
 	}
 
 	@Override
 	public void setValues(Sprite target, int tweenType, float[] newValues) {
+
+		switch (tweenType) {
+		case ALPHA:
+			target.setColor(1, 1, 1, newValues[0]);
+			break;
+
+		default:
+			break;
+		}
 
 	}
 

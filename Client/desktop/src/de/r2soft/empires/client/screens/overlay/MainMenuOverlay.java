@@ -18,48 +18,29 @@
 
 package de.r2soft.empires.client.screens.overlay;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
+import de.r2soft.empires.client.graphics.Overlay;
 
 /**
  * 
  * @author Katharina <kookie@spacekookie.de>
  * 
  */
-public class QuitOverlay implements Screen {
+public class MainMenuOverlay extends Overlay {
+  private Button exit, logout, options, cancel;
+  private Table main;
 
-  @Override
-  public void render(float delta) {
-
-  }
-
-  @Override
-  public void resize(int width, int height) {
-
+  public MainMenuOverlay() {
+	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
   }
 
   @Override
   public void show() {
-
-  }
-
-  @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
-  public void dispose() {
-
+	super.show();
   }
 
 }
