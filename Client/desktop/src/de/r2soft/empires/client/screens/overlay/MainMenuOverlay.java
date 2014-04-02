@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2013 Random Robot Softworks
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,47 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.empires.client.animators;
 
-import aurelienribon.tweenengine.TweenAccessor;
+package de.r2soft.empires.client.screens.overlay;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
+import de.r2soft.empires.client.graphics.Overlay;
 
 /**
- * Intro animation.
  * 
- * @author: ***REMOVED***
+ * @author ***REMOVED*** <***REMOVED***>
+ * 
  */
-public class IntroAnimator implements TweenAccessor<Sprite> {
+public class MainMenuOverlay extends Overlay {
+  private Button exit, logout, options, cancel;
+  private Table main;
 
-	public static final int ALPHA = 1;
+  public MainMenuOverlay() {
+	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+  }
 
-	@Override
-	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-
-		switch (tweenType) {
-		case ALPHA:
-			returnValues[0] = target.getColor().a;
-			return 1;
-
-		default:
-			return 0;
-		}
-
-	}
-
-	@Override
-	public void setValues(Sprite target, int tweenType, float[] newValues) {
-
-		switch (tweenType) {
-		case ALPHA:
-			target.setColor(1, 1, 1, newValues[0]);
-			break;
-
-		default:
-			break;
-		}
-
-	}
+  @Override
+  public void show() {
+	super.show();
+  }
 
 }

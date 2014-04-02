@@ -36,8 +36,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.empires.client.animators.IntroAnimator;
 import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.graphics.IntroAnimator;
 import de.r2soft.empires.client.settings.Resources;
 
 /**

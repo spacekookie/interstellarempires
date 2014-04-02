@@ -59,7 +59,7 @@ public class MainClientLauncher {
 	  cfg.height = BaseSettings.OLD_HEIGHT;
 	}
 
-	cfg.useGL20 = false;
+	cfg.useGL20 = true;
 	cfg.resizable = false;
 	cfg.initialBackgroundColor = Color.BLACK;
 
