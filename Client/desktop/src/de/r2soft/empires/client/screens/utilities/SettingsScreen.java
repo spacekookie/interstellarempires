@@ -97,13 +97,17 @@ public class SettingsScreen extends R2Screen {
   }
 
   @Override
+  public void setInputPrimary() {
+	Gdx.input.setInputProcessor(stage);
+  }
+
+  @Override
   public void resize(int width, int height) {
 	if (stage == null)
 	  stage = new Stage(width, height, true);
 	stage.clear();
 
 	// Collect touchdown events
-	Gdx.input.setInputProcessor(stage);
 	stage.setViewport(width, height, true);
 
 	navigation = new Table();
