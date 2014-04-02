@@ -30,10 +30,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
-import de.r2soft.empires.client.settings.BaseSettings;
-import de.r2soft.empires.client.settings.Resources;
-import de.r2soft.empires.client.settings.Sizes;
 
 /**
  * This screen will enable the user to change stuff about their game client
@@ -53,17 +52,17 @@ public class SettingsScreen extends R2Screen {
   private CheckBox skipIntro, playMusic;
 
   public SettingsScreen() {
-	Gdx.graphics.setTitle(BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER + " - " + BaseSettings.SCREENTITLE_SETTINGS);
-	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
+	Gdx.graphics.setTitle(Values.SUPERTITLE + " - " + Values.VERSION_NUMBER + " - " + Values.SCREENTITLE_SETTINGS);
+	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 
-	skipIntro = new CheckBox("Skip the intro", Resources.UI_SKIN);
-	playMusic = new CheckBox("Play background music", Resources.UI_SKIN);
+	skipIntro = new CheckBox("Skip the intro", Assets.UI_SKIN);
+	playMusic = new CheckBox("Play background music", Assets.UI_SKIN);
 
-	if (prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
-	  skipIntro.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
+	if (prefs.contains(Values.PREFERENCE_SKIP_INTRO))
+	  skipIntro.setChecked(prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO));
 
-	if (prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
-	  playMusic.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
+	if (prefs.contains(Values.PREFERENCE_PLAY_MUSIC))
+	  playMusic.setChecked(prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC));
   }
 
   @Override
@@ -75,21 +74,21 @@ public class SettingsScreen extends R2Screen {
 	stage.draw();
 
 	if (skipIntro.isChecked()) {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
+	  prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
 	}
 	else {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, false);
+	  prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, false);
 	}
 
 	if (playMusic.isChecked()) {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
+	  prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, true);
 	}
 	else {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, false);
+	  prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, false);
 	}
 
-	skipIntro.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO));
-	playMusic.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC));
+	skipIntro.setChecked(prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO));
+	playMusic.setChecked(prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC));
 
 	/** What do we do after we're done in the bathroom? :) */
 	prefs.flush();
@@ -113,9 +112,9 @@ public class SettingsScreen extends R2Screen {
 	navigation = new Table();
 	navigation.setFillParent(true);
 	stage.addActor(navigation);
-	button = new TextButton("Back to main screen", Resources.UI_SKIN);
+	button = new TextButton("Back to main screen", Assets.UI_SKIN);
 
-	navigation.add(button).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	navigation.add(button).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	navigation.row();
 
 	navigation.top().right();
@@ -129,7 +128,7 @@ public class SettingsScreen extends R2Screen {
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		GameCore.getInstance().onUpdate();
-		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
+		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME)));
 	  }
 	});
 
@@ -145,22 +144,22 @@ public class SettingsScreen extends R2Screen {
 	table.center();
 	stage.addActor(table);
 
-	Table credits = new Table(Resources.UI_SKIN);
+	Table credits = new Table(Assets.UI_SKIN);
 	credits.setBackground("default-window");
 	credits.setSize(325, 125);
 	credits.bottom().left();
-	credits.add(new Label("Credits", Resources.UI_SKIN)).colspan(2).center();
+	credits.add(new Label("Credits", Assets.UI_SKIN)).colspan(2).center();
 	credits.row();
-	credits.add(new Label("Leander Sabel", Resources.UI_SKIN)).left().width(150);
-	credits.add(new Label("Coding", Resources.UI_SKIN)).left();
+	credits.add(new Label("Leander Sabel", Assets.UI_SKIN)).left().width(150);
+	credits.add(new Label("Coding", Assets.UI_SKIN)).left();
 	credits.row();
-	credits.add(new Label("Katharina Fey", Resources.UI_SKIN)).left().width(150);
-	credits.add(new Label("Coding & Graphics", Resources.UI_SKIN)).left();
+	credits.add(new Label("Katharina Fey", Assets.UI_SKIN)).left().width(150);
+	credits.add(new Label("Coding & Graphics", Assets.UI_SKIN)).left();
 	credits.row();
-	credits.add(new Label("Steve Teufel", Resources.UI_SKIN)).left().width(150);
-	credits.add(new Label("Sounds & Music", Resources.UI_SKIN)).left();
+	credits.add(new Label("Steve Teufel", Assets.UI_SKIN)).left().width(150);
+	credits.add(new Label("Sounds & Music", Assets.UI_SKIN)).left();
 	credits.row();
-	credits.add(new Label("(c)2013 Random Robot Softworks", Resources.UI_SKIN)).colspan(2).left();
+	credits.add(new Label("(c)2013 Random Robot Softworks", Assets.UI_SKIN)).colspan(2).left();
 	credits.row();
 	stage.addActor(credits);
 

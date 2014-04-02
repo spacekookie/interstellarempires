@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.empires.client.settings;
+package de.r2soft.empires.client.resources;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -27,11 +27,11 @@ import com.badlogic.gdx.Preferences;
  * @author Katharina
  * 
  */
-public class AppSettingsHelper {
+public class SettingsInterface {
 
   Preferences prefs = Gdx.app.getPreferences("main_app_preferences");
 
-  public AppSettingsHelper() {
+  public SettingsInterface() {
 
   }
 

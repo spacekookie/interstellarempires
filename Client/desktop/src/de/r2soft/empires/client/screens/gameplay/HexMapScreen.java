@@ -46,11 +46,10 @@ import de.r2soft.empires.client.maps.hex.HexMapLayer;
 import de.r2soft.empires.client.maps.hex.HexMapLayers;
 import de.r2soft.empires.client.maps.hex.HexMapRenderer;
 import de.r2soft.empires.client.maps.hex.HexTileMap;
-import de.r2soft.empires.client.screens.utilities.LoginScreen;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.Values;
+import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.screens.utilities.SettingsScreen;
-import de.r2soft.empires.client.settings.BaseSettings;
-import de.r2soft.empires.client.settings.Resources;
-import de.r2soft.empires.client.settings.Sizes;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.players.Player;
@@ -79,7 +78,7 @@ public class HexMapScreen extends R2Screen {
   /** Scene2D UI */
   private OrthographicCamera uiCam;
   private Stage stage;
-  private TextButton settings, quit, logout, profile, research, enterSystem;
+  private TextButton menu, profile, research, enterSystem;
   private Table naviRight, naviLeft, centerTop, systemInfo;
   private Label title, welcome, systemSelector;
   private Dialog profileDialog, areYouSure;
@@ -119,11 +118,11 @@ public class HexMapScreen extends R2Screen {
   /** Sets the Window title */
   private void setTitle() {
 	StringBuilder s = new StringBuilder();
-	s.append(BaseSettings.SUPERTITLE);
+	s.append(Values.SUPERTITLE);
 	s.append(" - ");
-	s.append(BaseSettings.VERSION_NUMBER);
+	s.append(Values.VERSION_NUMBER);
 	s.append(" - ");
-	s.append(BaseSettings.SCREENTITLE_HOME);
+	s.append(Values.SCREENTITLE_HOME);
 	Gdx.graphics.setTitle(s.toString());
   }
 
@@ -134,7 +133,7 @@ public class HexMapScreen extends R2Screen {
 	stage = new Stage(width, hight);
 
 	mapCam = new OrthographicCamera();
-	mapCam.setToOrtho(false, BaseSettings.HEX_MAP_BASE_SIZE.x, BaseSettings.HEX_MAP_BASE_SIZE.y);
+	mapCam.setToOrtho(false, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
@@ -147,10 +146,10 @@ public class HexMapScreen extends R2Screen {
 	TiledMapTile[] tiles = new TiledMapTile[4];
 
 	// TODO: Make this ugly go away.
-	tiles[0] = new StaticTiledMapTile(Resources.TILES_BLUE);
-	tiles[1] = new StaticTiledMapTile(Resources.TILES_GREEN);
-	tiles[2] = new StaticTiledMapTile(Resources.TILES_RED);
-	tiles[3] = new StaticTiledMapTile(Resources.TILES_WHITE);
+	tiles[0] = new StaticTiledMapTile(Assets.TILES_BLUE);
+	tiles[1] = new StaticTiledMapTile(Assets.TILES_GREEN);
+	tiles[2] = new StaticTiledMapTile(Assets.TILES_RED);
+	tiles[3] = new StaticTiledMapTile(Assets.TILES_WHITE);
 
 	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
 	for (int mx = 0; mx < 3; mx++) {
@@ -161,7 +160,7 @@ public class HexMapScreen extends R2Screen {
 		HexCell cell = new HexCell(sys);
 
 		if (sys != null) {
-		  if (sys.getClaim().equals(BaseSettings.thisPlayer)) {
+		  if (sys.getClaim().equals(Values.thisPlayer)) {
 			cell.setTile(tiles[1]);
 		  }
 		  else if (sys.getClaim().equals(new Player("Jane"))) {
@@ -210,8 +209,7 @@ public class HexMapScreen extends R2Screen {
 	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 	/** Sets up map view */
-	Gdx.gl.glViewport(BaseSettings.HEX_MAP_BASE_OFFSET.x, BaseSettings.HEX_MAP_BASE_OFFSET.y, BaseSettings.HEX_MAP_BASE_SIZE.x,
-		BaseSettings.HEX_MAP_BASE_SIZE.y);
+	Gdx.gl.glViewport(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
 	mapCam.update();
 	hexRenderer.setView(mapCam);
 	hexRenderer.render();
@@ -223,8 +221,7 @@ public class HexMapScreen extends R2Screen {
 	shapeRenderer.begin(ShapeType.Line);
 
 	/** Draws debug frame around map view */
-	shapeRenderer.rect(BaseSettings.HEX_MAP_BASE_OFFSET.x, BaseSettings.HEX_MAP_BASE_OFFSET.y, BaseSettings.HEX_MAP_BASE_SIZE.x,
-		BaseSettings.HEX_MAP_BASE_SIZE.y);
+	shapeRenderer.rect(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
 	shapeRenderer.end();
 
 	stage.act();
@@ -250,17 +247,17 @@ public class HexMapScreen extends R2Screen {
 	Table profile_leftTop = new Table();
 	// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
 	Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
-	Label lalalal = new Label("This is a label", Resources.UI_SKIN);
+	Label lalalal = new Label("This is a label", Assets.UI_SKIN);
 	profile_leftTop.add(lalalal);
 
 	profile_leftTop.add(profilePicture).top().center();
 	profileDialog.add(profile_leftTop);
 
 	Table profile_bottomButton = new Table();
-	profile_bottomButton.setSize(BaseSettings.OLD_WIDTH / 2, BaseSettings.OLD_HEIGHT / 2);
+	profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
 	profileDialog.add(profile_bottomButton).right().bottom();
-	TextButton closeProfile = new TextButton("Close", Resources.UI_SKIN);
-	profile_bottomButton.add(closeProfile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	TextButton closeProfile = new TextButton("Close", Assets.UI_SKIN);
+	profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
 
 	closeProfile.addListener(new ClickListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -301,44 +298,22 @@ public class HexMapScreen extends R2Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		profileDialog = new Dialog("User Profile", Resources.UI_SKIN);
+		profileDialog = new Dialog("User Profile", Assets.UI_SKIN);
 		profileDialog.setSize(450, 300);
-		profileDialog.setPosition((BaseSettings.OLD_WIDTH / 2) - (BaseSettings.OLD_WIDTH / 4), (BaseSettings.OLD_HEIGHT / 2)
-			- (BaseSettings.OLD_HEIGHT / 4));
+		profileDialog.setPosition((Values.OLD_WIDTH / 2) - (Values.OLD_WIDTH / 4), (Values.OLD_HEIGHT / 2) - (Values.OLD_HEIGHT / 4));
 		stage.addActor(profileDialog);
 		setupProfileDialoge();
 	  }
 	});
 
-	settings.addListener(new ClickListener() {
+	menu.addListener(new ClickListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		return true;
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().setScreen(new SettingsScreen());
-	  }
-	});
-
-	quit.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
-	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		Gdx.app.exit();
-	  }
-	});
-
-	logout.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
-	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
-		// TODO: Request logout from server
-		GameCore.getInstance().setScreen(new LoginScreen());
+		MainMenuOverlay overlay = new MainMenuOverlay();
+		GameCore.getInstance().addOverlay(overlay);
 	  }
 	});
 
@@ -346,21 +321,19 @@ public class HexMapScreen extends R2Screen {
 
   private void initializeFrames() {
 	/** Initialize Buttons */
-	profile = new TextButton("Profile", Resources.UI_SKIN);
-	settings = new TextButton("Settings", Resources.UI_SKIN);
-	quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
-	logout = new TextButton("Logout", Resources.UI_SKIN);
-	research = new TextButton("Research", Resources.UI_SKIN);
-	enterSystem = new TextButton("Enter Solar System", Resources.UI_SKIN);
+	profile = new TextButton("Profile", Assets.UI_SKIN);
+	menu = new TextButton("Main Menu", Assets.UI_SKIN);
+	research = new TextButton("Research", Assets.UI_SKIN);
+	enterSystem = new TextButton("Enter Solar System", Assets.UI_SKIN);
 
 	/** Initialize Lables */
-	title = new Label(BaseSettings.SUPERTITLE + ": " + BaseSettings.VERSION_NUMBER, Resources.UI_SKIN);
+	title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.UI_SKIN);
 	title.setAlignment(Align.center);
 	title.setFontScaleX(1.2f);
 	title.setFontScaleY(1.1f);
 	title.setColor(Color.MAGENTA);
 
-	welcome = new Label("Welcome: " + playerName, Resources.UI_SKIN);
+	welcome = new Label("Welcome: " + playerName, Assets.UI_SKIN);
 	welcome.setAlignment(Align.center);
 
 	/** Initialize right navigation */
@@ -377,7 +350,7 @@ public class HexMapScreen extends R2Screen {
 	centerTop = new Table();
 	centerTop.setFillParent(true);
 	centerTop.center().top();
-	centerTop.setX(Sizes.POSITION_HEX_MAP_OFFSET);
+	centerTop.setX(Values.POSITION_HEX_MAP_OFFSET);
 
 	/** Initialize the solar system info table */
 	systemInfo = new Table();
@@ -396,50 +369,48 @@ public class HexMapScreen extends R2Screen {
 
   private void setupLayout() {
 	/** Setting up the right navigation */
-	naviRight.add(research).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-	naviRight.add(profile).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-	naviRight.add(settings).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(research).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(profile).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	naviRight.row();
 
 	/** Setting up the left navigation */
-	naviLeft.add(quit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
-	naviLeft.add(logout).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	naviLeft.add(menu).width(Values.SIZE_UI_BUTTON_NAVIGON);
 
 	/** Setting up the center top label table */
-	centerTop.add(title).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
 	centerTop.row();
-	centerTop.add(welcome).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	centerTop.add(welcome).width(Values.SIZE_UI_FIELD_CONTENT);
 	centerTop.row();
 
 	/** Setting up the system info table **/
 
 	Label tempLabel1, tempLabel2;
 
-	tempLabel1 = new Label("Solar System", Resources.UI_SKIN);
+	tempLabel1 = new Label("Solar System", Assets.UI_SKIN);
 	tempLabel1.setColor(Color.MAGENTA);
 
-	tempLabel2 = new Label("Information", Resources.UI_SKIN);
+	tempLabel2 = new Label("Information", Assets.UI_SKIN);
 	tempLabel2.setColor(Color.MAGENTA);
 
 	systemInfo.add(tempLabel1);
 	systemInfo.add(tempLabel2);
 	systemInfo.row();
-	systemInfo.add(new Label("Owner: ", Resources.UI_SKIN));
-	systemInfo.add(new Label("KateTheAwesome", Resources.UI_SKIN));
+	systemInfo.add(new Label("Owner: ", Assets.UI_SKIN));
+	systemInfo.add(new Label("KateTheAwesome", Assets.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Size: ", Resources.UI_SKIN));
-	systemInfo.add(new Label("Something", Resources.UI_SKIN));
+	systemInfo.add(new Label("Size: ", Assets.UI_SKIN));
+	systemInfo.add(new Label("Something", Assets.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Coordinates: ", Resources.UI_SKIN));
-	systemInfo.add(new Label("545-101", Resources.UI_SKIN));
+	systemInfo.add(new Label("Coordinates: ", Assets.UI_SKIN));
+	systemInfo.add(new Label("545-101", Assets.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Units: ", Resources.UI_SKIN));
-	systemInfo.add(new Label("42", Resources.UI_SKIN));
+	systemInfo.add(new Label("Units: ", Assets.UI_SKIN));
+	systemInfo.add(new Label("42", Assets.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Exploration: ", Resources.UI_SKIN));
-	systemInfo.add(new Label("100%", Resources.UI_SKIN));
+	systemInfo.add(new Label("Exploration: ", Assets.UI_SKIN));
+	systemInfo.add(new Label("100%", Assets.UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(enterSystem).width(Sizes.SIZE_UI_FIELD_CONTENT).colspan(2);
+	systemInfo.add(enterSystem).width(Values.SIZE_UI_FIELD_CONTENT).colspan(2);
 	systemInfo.row();
 
 	// TODO: Make this pretty!
@@ -451,8 +422,8 @@ public class HexMapScreen extends R2Screen {
   /** Hovering display for mouse on map */
   private void setupInfoLabelBottom() {
 	Table selectorTable = new Table();
-	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", Resources.UI_SKIN);
-	selectorTable.setPosition(BaseSettings.HEX_MAP_BASE_OFFSET.x + 255, BaseSettings.HEX_MAP_BASE_OFFSET.y - 10);
+	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", Assets.UI_SKIN);
+	selectorTable.setPosition(Values.HEX_MAP_BASE_OFFSET.x + 255, Values.HEX_MAP_BASE_OFFSET.y - 10);
 	selectorTable.add(systemSelector);
 	stage.addActor(selectorTable);
 

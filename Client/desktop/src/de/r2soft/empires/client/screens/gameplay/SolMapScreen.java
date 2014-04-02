@@ -34,8 +34,8 @@ import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.input.SolarCameraController;
 import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
-import de.r2soft.empires.client.settings.BaseSettings;
-import de.r2soft.empires.client.settings.Resources;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
@@ -74,7 +74,7 @@ public class SolMapScreen extends R2Screen {
 
   public SolMapScreen(SolarSystem system) {
 	this.system = system;
-	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
+	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
   }
 
   @Override
@@ -84,7 +84,7 @@ public class SolMapScreen extends R2Screen {
 	stage = new Stage(width, hight);
 
 	mapCam = new OrthographicCamera();
-	mapCam.setToOrtho(false, BaseSettings.SOL_MAP_BASE_SIZE.x, BaseSettings.SOL_MAP_BASE_SIZE.y);
+	mapCam.setToOrtho(false, Values.SOL_MAP_BASE_SIZE.x, Values.SOL_MAP_BASE_SIZE.y);
 	mapCam.update();
 
 	uiCam = new OrthographicCamera();
@@ -118,8 +118,8 @@ public class SolMapScreen extends R2Screen {
 	Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-	Gdx.gl.glViewport(BaseSettings.SOL_MAP_BASE_OFFSET.x, BaseSettings.SOL_MAP_BASE_OFFSET.y, BaseSettings.SOL_MAP_BASE_SIZE.x,
-		BaseSettings.SOL_MAP_BASE_SIZE.y);
+	Gdx.gl.glViewport(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x,
+		Values.SOL_MAP_BASE_SIZE.y);
 	mapCam.update();
 	solRenderer.setView(mapCam);
 	solRenderer.render();
@@ -130,8 +130,8 @@ public class SolMapScreen extends R2Screen {
 
 	/** Draws debug frame around map view */
 	shapeRenderer.begin(ShapeType.Line);
-	shapeRenderer.rect(BaseSettings.SOL_MAP_BASE_OFFSET.x, BaseSettings.SOL_MAP_BASE_OFFSET.y, BaseSettings.SOL_MAP_BASE_SIZE.x,
-		BaseSettings.SOL_MAP_BASE_SIZE.y);
+	shapeRenderer.rect(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x,
+		Values.SOL_MAP_BASE_SIZE.y);
 	shapeRenderer.end();
 
 	stage.act();
@@ -159,17 +159,17 @@ public class SolMapScreen extends R2Screen {
   }
 
   private void setupTopNavigation() {
-	topNav = new Table(Resources.UI_SKIN);
+	topNav = new Table(Assets.UI_SKIN);
 	topNav.setFillParent(true);
 	topNav.top();
 
-	button_viewPlanets = new TextButton("View Planets", Resources.UI_SKIN);
-	button_viewUnits = new TextButton("View Units", Resources.UI_SKIN);
-	button_requisition = new TextButton("Requisition Units", Resources.UI_SKIN);
-	button_research = new TextButton("Research", Resources.UI_SKIN);
-	button_diplomacy = new TextButton("Diplomacy", Resources.UI_SKIN);
-	button_galaxyMap = new TextButton("Galaxy Map", Resources.UI_SKIN);
-	button_quit = new TextButton("Logout & Quit", Resources.UI_SKIN);
+	button_viewPlanets = new TextButton("View Planets", Assets.UI_SKIN);
+	button_viewUnits = new TextButton("View Units", Assets.UI_SKIN);
+	button_requisition = new TextButton("Requisition Units", Assets.UI_SKIN);
+	button_research = new TextButton("Research", Assets.UI_SKIN);
+	button_diplomacy = new TextButton("Diplomacy", Assets.UI_SKIN);
+	button_galaxyMap = new TextButton("Galaxy Map", Assets.UI_SKIN);
+	button_quit = new TextButton("Logout & Quit", Assets.UI_SKIN);
 
 	topNav.add(button_viewPlanets);
 	topNav.add(button_viewUnits);
@@ -190,7 +190,7 @@ public class SolMapScreen extends R2Screen {
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		GameCore.getInstance().onUpdate();
-		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
+		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME)));
 	  }
 	});
 

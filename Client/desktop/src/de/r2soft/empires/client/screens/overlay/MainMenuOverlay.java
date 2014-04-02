@@ -19,11 +19,19 @@
 package de.r2soft.empires.client.screens.overlay;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.Overlay;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.screens.utilities.LoginScreen;
+import de.r2soft.empires.client.screens.utilities.SettingsScreen;
 
 /**
  * 
@@ -32,6 +40,7 @@ import de.r2soft.empires.client.graphics.Overlay;
  */
 public class MainMenuOverlay extends Overlay {
   private Button exit, logout, options, cancel;
+  private Label title;
   private Table main;
 
   public MainMenuOverlay() {
@@ -41,6 +50,85 @@ public class MainMenuOverlay extends Overlay {
   @Override
   public void show() {
 	super.show();
+
+	exit = new TextButton("End Session & Quit", Assets.UI_SKIN);
+	logout = new TextButton("Logout & Change User", Assets.UI_SKIN);
+	options = new TextButton("Options", Assets.UI_SKIN);
+	cancel = new TextButton("Cancel", Assets.UI_SKIN);
+
+	title = new Label("GAME MAIN MENU", Assets.UI_SKIN);
+	title.setFontScale(2.5f);
+
+	main = new Table(Assets.UI_SKIN);
+	main.setFillParent(true);
+	main.center();
+
+	main.add(title).center().pad(25f);
+	main.row().height(75);
+	main.add(cancel).center().width(500).pad(5f);
+	main.row().height(75);
+	main.add(options).center().width(500).pad(5f);
+	main.row().height(75);
+	main.add(logout).center().width(500).pad(5f);
+	main.row().height(75);
+	main.add(exit).center().width(500).pad(5f);
+
+	stage.addActor(main);
+
+	//
+	//
+
+	exit.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		Gdx.app.exit();
+		logout();
+	  }
+	});
+
+	logout.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().removeLastOverlay();
+		GameCore.getInstance().setScreen(new LoginScreen());
+		logout();
+	  }
+	});
+
+	options.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().removeLastOverlay();
+		GameCore.getInstance().setScreen(new SettingsScreen());
+	  }
+	});
+
+	cancel.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().removeLastOverlay();
+	  }
+	});
   }
 
+  private void logout() {
+	// TODO: Request server logout.
+  }
+
+  @Override
+  public void setInputPrimary() {
+	Gdx.input.setInputProcessor(stage);
+  }
 }
