@@ -191,6 +191,10 @@ public class HexMapScreen extends R2Screen {
 	multiplexer.addProcessor(stage);
 	multiplexer.addProcessor(mapCamController);
 
+  }
+
+  @Override
+  public void setInputPrimary() {
 	Gdx.input.setInputProcessor(multiplexer);
   }
 
@@ -229,25 +233,11 @@ public class HexMapScreen extends R2Screen {
 
   @Override
   public void dispose() {
+	super.dispose();
 	shapeRenderer.dispose();
 	hexRenderer.dispose();
 	hexture.dispose();
 	map.dispose();
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void hide() {
-
   }
 
   /** Updates the selection focus solar system */
