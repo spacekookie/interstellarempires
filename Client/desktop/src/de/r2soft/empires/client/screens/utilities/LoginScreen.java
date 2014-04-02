@@ -32,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.empires.client.core.CoreGame;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
+import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.client.settings.Resources;
 import de.r2soft.empires.client.settings.Sizes;
@@ -122,7 +123,8 @@ public class LoginScreen implements Screen {
 
   @Override
   public void show() {
-
+	MainMenuOverlay overlay = new MainMenuOverlay();
+	CoreGame.getInstance().addOverlay(overlay);
   }
 
   public void render(float delta) {
