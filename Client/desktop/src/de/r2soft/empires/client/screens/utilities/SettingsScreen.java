@@ -19,7 +19,6 @@ package de.r2soft.empires.client.screens.utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -29,7 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.core.GameCore;
+import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
 import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.client.settings.Resources;
@@ -41,7 +41,7 @@ import de.r2soft.empires.client.settings.Sizes;
  * @author Katharina
  * 
  */
-public class SettingsScreen implements Screen {
+public class SettingsScreen extends R2Screen {
 
   /** Container and Backends */
   private Stage stage;
@@ -124,8 +124,8 @@ public class SettingsScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		CoreGame.getInstance().onUpdate();
-		CoreGame.getInstance().setScreen(new HexMapScreen(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
+		GameCore.getInstance().onUpdate();
+		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME)));
 	  }
 	});
 

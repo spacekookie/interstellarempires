@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.empires.client.io;
+package de.r2soft.empires.client.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
