@@ -34,7 +34,7 @@ public class R2Game implements ApplicationListener {
 
   private R2Screen screen;
   private Deque<Overlay> overlays;
-  private Logger logger = Logger.getLogger(getClass().getSimpleName());
+  private Logger log = Logger.getLogger(getClass().getSimpleName());
 
   public R2Game() {
 	overlays = new ArrayDeque<Overlay>();
@@ -58,7 +58,7 @@ public class R2Game implements ApplicationListener {
 	if (!overlays.isEmpty())
 	  overlays.peekLast().render(Gdx.graphics.getDeltaTime());
 
-	InputMatrix.getInstance().checkForSlaves();
+	InputMatrix.getInstance().updateSlave();
   }
 
   @Override
@@ -94,24 +94,27 @@ public class R2Game implements ApplicationListener {
   }
 
   public void addOverlay(Overlay overlay) {
-	if (!overlays.contains(overlay))
+	if (!overlays.contains(overlay)) {
 	  overlays.add(overlay);
+	  overlay.show();
+	  overlay.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
 	else
-	  logger.info("That exact overlay is already being displayed");
+	  log.info("That exact overlay is already being displayed");
   }
 
   public void removeSpecificOverlay(Overlay overlay) {
 	if (overlays.contains(overlay))
 	  overlays.remove(overlay);
 	else
-	  logger.info("Overlay wasn't found in Collection");
+	  log.info("Overlay wasn't found in Collection");
   }
 
   public void removeLastOverlay() {
 	if (!overlays.isEmpty())
 	  overlays.pop();
 	else
-	  logger.info("No overlays were found in Collection");
+	  log.info("No overlays were found in Collection");
   }
 
   /** Gets a list of screens that are currently being displayed as overlays */
