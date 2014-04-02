@@ -33,24 +33,23 @@ public class Resources {
   // Textures
 
   /** NEW HEX TILES */
-  private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("assets/map/v2/v2hexmap.atlas"));
+  private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("map/v2/v2hexmap.atlas"));
   public static final TextureRegion TILES_BLUE = atlas.findRegion("hextile_blue");
   public static final TextureRegion TILES_GREEN = atlas.findRegion("hextile_green");
   public static final TextureRegion TILES_RED = atlas.findRegion("hextile_red");
   public static final TextureRegion TILES_WHITE = atlas.findRegion("hextile_white");
 
   /** Atlas imports */
-  private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(Gdx.files.internal("assets/map/prot-map-tiles.pack"));
-  private static final TextureAtlas INITIAL_MAP_SOLAR = new TextureAtlas(Gdx.files.internal("assets/solar/prot-solarsystem-icons.pack"));
-  private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(Gdx.files.internal("assets/gui/prot-selected.atlas"));
-  private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(
-	  Gdx.files.internal("assets/map/adds/prot-tile-additions.atlas"));
-  private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(Gdx.files.internal("assets/ships/basic-ships.pack"));
+  private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(Gdx.files.internal("map/prot-map-tiles.pack"));
+  private static final TextureAtlas INITIAL_MAP_SOLAR = new TextureAtlas(Gdx.files.internal("solar/prot-solarsystem-icons.pack"));
+  private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(Gdx.files.internal("gui/prot-selected.atlas"));
+  private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(Gdx.files.internal("map/adds/prot-tile-additions.atlas"));
+  private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(Gdx.files.internal("ships/basic-ships.pack"));
 
   /** Skins */
 
   /** The default skin for ui elements */
-  public static final Skin UI_SKIN = new Skin(Gdx.files.internal("assets/gui/skins/evolved/uiskin.json"));
+  public static final Skin UI_SKIN = new Skin(Gdx.files.internal("gui/skins/evolved/uiskin.json"));
 
   /** UI regions */
 

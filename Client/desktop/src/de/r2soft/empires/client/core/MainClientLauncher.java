@@ -39,7 +39,7 @@ public class MainClientLauncher {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	cfg.title = BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER;
 
-	/** Triggers awesome fullscreen mode */
+	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF 2.4.2014) */
 	if (args[0] == "--fullscreen") {
 	  cfg.fullscreen = true;
 	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();

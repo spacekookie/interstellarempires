@@ -36,7 +36,6 @@ public class ResourceBatch implements Cargo {
 	this.amount = amount;
   }
 
-  @Override
   public void setVolume() {
 	volume = amount / type.getDensity();
   }

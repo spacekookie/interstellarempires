@@ -17,5 +17,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Client/assets"/>
+	<classpathentry kind="lib" path="libs/UTE/tween-engine-api.jar" sourcepath="libs/UTE/tween-engine-api-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
