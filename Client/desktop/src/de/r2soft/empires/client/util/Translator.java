@@ -25,6 +25,7 @@ import de.r2soft.empires.framework.types.Allegience.Allegiance;
  * 
  * @author ***REMOVED***
  */
+@Deprecated
 public class Translator {
 
   /**

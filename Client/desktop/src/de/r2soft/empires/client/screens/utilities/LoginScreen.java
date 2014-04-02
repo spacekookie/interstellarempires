@@ -31,11 +31,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
-import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
-import de.r2soft.empires.client.settings.BaseSettings;
-import de.r2soft.empires.client.settings.Resources;
-import de.r2soft.empires.client.settings.Sizes;
 
 public class LoginScreen extends R2Screen {
 
@@ -51,17 +49,16 @@ public class LoginScreen extends R2Screen {
   private String name_clear, password_clear;
 
   public LoginScreen() {
-	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
-	login = new TextButton("LOGIN", Resources.UI_SKIN);
-	passField = new TextField("", Resources.UI_SKIN);
-	userField = new TextField("", Resources.UI_SKIN);
-	saveUser = new CheckBox("Save username?", Resources.UI_SKIN);
+	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
+	login = new TextButton("LOGIN", Assets.UI_SKIN);
+	passField = new TextField("", Assets.UI_SKIN);
+	userField = new TextField("", Assets.UI_SKIN);
+	saveUser = new CheckBox("Save username?", Assets.UI_SKIN);
 
-	if (prefs.contains(BaseSettings.PREFERENCE_SAVE_USERNAME)) {
-	  userField.setText(prefs.getString(BaseSettings.PREFERENCE_SAVED_USER_NAME));
-	  saveUser.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME));
+	if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
+	  userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
+	  saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 	}
-
   }
 
   @Override
@@ -76,8 +73,8 @@ public class LoginScreen extends R2Screen {
 	outro.setFillParent(true);
 
 	// Exiting the game
-	exit = new TextButton("Exit Game", Resources.UI_SKIN);
-	outro.add(exit).width(Sizes.SIZE_UI_BUTTON_NAVIGON);
+	exit = new TextButton("Exit Game", Assets.UI_SKIN);
+	outro.add(exit).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.row();
 	outro.top().left();
 
@@ -86,11 +83,11 @@ public class LoginScreen extends R2Screen {
 	passField.setPasswordCharacter('*');
 	passField.setPasswordMode(true);
 
-	intro.add(userField).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	intro.add(userField).width(Values.SIZE_UI_FIELD_CONTENT);
 	intro.row();
-	intro.add(passField).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	intro.add(passField).width(Values.SIZE_UI_FIELD_CONTENT);
 	intro.row();
-	intro.add(login).width(Sizes.SIZE_UI_FIELD_CONTENT);
+	intro.add(login).width(Values.SIZE_UI_FIELD_CONTENT);
 	intro.row();
 	intro.add(saveUser);
 	intro.row();
@@ -128,13 +125,13 @@ public class LoginScreen extends R2Screen {
 	stage.draw();
 
 	if (saveUser.isChecked()) {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME, true);
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, true);
 	}
 	else {
-	  prefs.putBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME, false);
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, false);
 	}
 
-	saveUser.setChecked(prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME));
+	saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 
 	/** What do we do after we're done in the bathroom? :) */
 	prefs.flush();
@@ -145,10 +142,10 @@ public class LoginScreen extends R2Screen {
 	name_clear = userField.getText().toString();
 	password_clear = passField.getText().toString();
 
-	if (prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME))
-	  prefs.putString(BaseSettings.PREFERENCE_SAVED_USER_NAME, name_clear);
-	if (!prefs.getBoolean(BaseSettings.PREFERENCE_SAVE_USERNAME))
-	  prefs.putString(BaseSettings.PREFERENCE_SAVED_USER_NAME, "");
+	if (prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, name_clear);
+	if (!prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, "");
 
 	prefs.flush();
 

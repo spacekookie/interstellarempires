@@ -26,8 +26,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
 import de.r2soft.empires.client.maps.hex.HexMapRenderer;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
-import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 public class HexMapCameraController extends InputAdapter {
@@ -38,8 +38,8 @@ public class HexMapCameraController extends InputAdapter {
   final Vector3 last = new Vector3(-1, -1, -1);
   final Vector3 delta = new Vector3();
 
-  float sclx = (float) Gdx.graphics.getWidth() / BaseSettings.HEX_MAP_BASE_SIZE.x;
-  float scly = (float) Gdx.graphics.getHeight() / BaseSettings.HEX_MAP_BASE_SIZE.y;
+  float sclx = (float) Gdx.graphics.getWidth() / Values.HEX_MAP_BASE_SIZE.x;
+  float scly = (float) Gdx.graphics.getHeight() / Values.HEX_MAP_BASE_SIZE.y;
 
   private HexMapRenderer renderer;
   private HexMapScreen parent;
