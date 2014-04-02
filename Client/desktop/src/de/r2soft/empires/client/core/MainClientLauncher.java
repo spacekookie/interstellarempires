@@ -39,7 +39,7 @@ public class MainClientLauncher {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	cfg.title = BaseSettings.SUPERTITLE + " - " + BaseSettings.VERSION_NUMBER;
 
-	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF 2.4.2014) */
+	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
 	if (args[0] == "--fullscreen") {
 	  cfg.fullscreen = true;
 	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -64,12 +64,13 @@ public class MainClientLauncher {
 	cfg.initialBackgroundColor = Color.BLACK;
 
 	/** Sets the Application Icon for different operating systems */
-	if (System.getProperty("os.name").equals("Mac OS X")) {
-	  Application app = Application.getApplication();
-	  Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
-	  app.setDockIconImage(image);
-	}
+	// TODO: FIX THIS
+	// if (System.getProperty("os.name").equals("Mac OS X")) {
+	// Application app = Application.getApplication();
+	// Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+	// app.setDockIconImage(image);
+	// }
 
-	new LwjglApplication(new CoreGame(), cfg);
+	new LwjglApplication(GameCore.getInstance(), cfg);
   }
 }

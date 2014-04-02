@@ -19,7 +19,6 @@ package de.r2soft.empires.client.screens.gameplay;
  ######################################################################### */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,7 +27,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.empires.client.io.SolarCameraController;
+import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.input.SolarCameraController;
 import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
 import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.client.settings.Resources;
@@ -40,7 +40,7 @@ import de.r2soft.empires.framework.map.SolarSystem;
  * @author Katharina
  * 
  */
-public class SolMapScreen implements Screen {
+public class SolMapScreen extends R2Screen {
 
   /** Global scope */
   private SolarSystem system;
