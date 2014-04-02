@@ -24,8 +24,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
 import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.SolMapScreen;
-import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 public class SolarCameraController extends InputAdapter {
@@ -54,9 +54,9 @@ public class SolarCameraController extends InputAdapter {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 		float sclx = (float) Gdx.graphics.getWidth()
-				/ BaseSettings.SOL_MAP_BASE_SIZE.x;
+				/ Values.SOL_MAP_BASE_SIZE.x;
 		float scly = (float) Gdx.graphics.getHeight()
-				/ BaseSettings.SOL_MAP_BASE_SIZE.y;
+				/ Values.SOL_MAP_BASE_SIZE.y;
 
 		Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 		camera.unproject(tmp);

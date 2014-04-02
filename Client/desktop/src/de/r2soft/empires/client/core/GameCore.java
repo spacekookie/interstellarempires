@@ -22,8 +22,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
 import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
-import de.r2soft.empires.client.settings.BaseSettings;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class GameCore extends R2Game {
    * @author Katharina
    */
   public void onUpdate() {
-	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC)) {
+	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC)) {
 	  if (!music.isPlaying()) {
 		music.play();
 		music.setLooping(true);
@@ -75,13 +75,13 @@ public class GameCore extends R2Game {
 	super.create();
 
 	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music/intro_music.mp3"));
-	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
+	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 
-	if (!prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))
-	  prefs.putBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC, true);
+	if (!prefs.contains(Values.PREFERENCE_PLAY_MUSIC))
+	  prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, true);
 
-	if (!prefs.contains(BaseSettings.PREFERENCE_SKIP_INTRO))
-	  prefs.putBoolean(BaseSettings.PREFERENCE_SKIP_INTRO, true);
+	if (!prefs.contains(Values.PREFERENCE_SKIP_INTRO))
+	  prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
 
 	onUpdate();
 
@@ -96,7 +96,7 @@ public class GameCore extends R2Game {
   @Override
   public void dispose() {
 	super.dispose();
-	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.stop();
   }
 
@@ -114,14 +114,14 @@ public class GameCore extends R2Game {
   public void pause() {
 	super.pause();
 
-	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.pause();
   }
 
   @Override
   public void resume() {
 	super.resume();
-	if (prefs.getBoolean(BaseSettings.PREFERENCE_PLAY_MUSIC))
+	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.play();
   }
 

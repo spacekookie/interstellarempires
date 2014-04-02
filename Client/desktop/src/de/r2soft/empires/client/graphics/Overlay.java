@@ -50,7 +50,7 @@ public abstract class Overlay extends R2Screen {
 	Gdx.gl20.glEnable(GL20.GL_BLEND);
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Filled);
-	renderer.setColor(1, 1, 1, 0.75f);
+	renderer.setColor(0, 0, 0, 0.75f);
 	renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	renderer.end();
 

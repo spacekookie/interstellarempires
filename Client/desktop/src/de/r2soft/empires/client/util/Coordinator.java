@@ -25,6 +25,7 @@ import com.badlogic.gdx.InputProcessor;
  * @author Katharina
  * 
  */
+@Deprecated
 public class Coordinator implements InputProcessor {
 
   @Override

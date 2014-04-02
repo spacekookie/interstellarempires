@@ -38,7 +38,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.IntroAnimator;
 import de.r2soft.empires.client.graphics.R2Screen;
-import de.r2soft.empires.client.settings.Resources;
+import de.r2soft.empires.client.resources.Assets;
 
 /**
  * 
@@ -75,7 +75,7 @@ public class IntroductionScreen extends R2Screen {
 	stage.addActor(backToIntro);
 	backToIntro.setFillParent(true);
 
-	TextButton backham = new TextButton("SKIP THIS INTRO", Resources.UI_SKIN);
+	TextButton backham = new TextButton("SKIP THIS INTRO", Assets.UI_SKIN);
 	backham.addListener(new InputListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		return true;
