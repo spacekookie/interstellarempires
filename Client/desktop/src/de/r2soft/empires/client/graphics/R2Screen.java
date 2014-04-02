@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2013 Random Robot Softworks
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,15 +15,61 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
-package de.r2soft.empires.client.core;
+
+package de.r2soft.empires.client.graphics;
+
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 
 /**
- * Background thread to synchronize the client with the server, pushing new
- * information and fetching status updates.
+ * Screen class to implement the Input Priority method used by the InputMatrix master/slave system of input handling and multiplexing.
  * 
- * @author ***REMOVED***
+ * @author ***REMOVED*** <***REMOVED***>
  * 
  */
-public class BackgroundService extends Thread {
+public class R2Screen implements Screen {
+
+  @Override
+  public void render(float delta) {
+
+  }
+
+  @Override
+  public void resize(int width, int height) {
+
+  }
+
+  @Override
+  public void show() {
+
+  }
+
+  @Override
+  public void hide() {
+
+  }
+
+  @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
+  public void dispose() {
+
+  }
+
+  public void setInputPrimary() {
+
+  }
+
+  public InputAdapter getInputPrimary() {
+	return null;
+  }
 
 }

@@ -19,7 +19,6 @@
 package de.r2soft.empires.client.graphics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -33,7 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * @author ***REMOVED*** <***REMOVED***>
  * 
  */
-public abstract class Overlay implements Screen {
+public abstract class Overlay extends R2Screen {
   private ShapeRenderer renderer;
   private OrthographicCamera camera;
 
