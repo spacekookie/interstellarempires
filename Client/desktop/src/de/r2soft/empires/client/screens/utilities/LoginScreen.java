@@ -19,7 +19,6 @@ package de.r2soft.empires.client.screens.utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -30,14 +29,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.core.GameCore;
+import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.client.settings.Resources;
 import de.r2soft.empires.client.settings.Sizes;
 
-public class LoginScreen implements Screen {
+public class LoginScreen extends R2Screen {
 
   /** UI elements */
   private Stage stage;
@@ -69,8 +69,6 @@ public class LoginScreen implements Screen {
 	if (stage == null)
 	  stage = new Stage(w, h, true);
 	stage.clear();
-
-	Gdx.input.setInputProcessor(stage);
 
 	intro = new Table();
 	intro.setFillParent(true);
@@ -121,12 +119,6 @@ public class LoginScreen implements Screen {
 	stage.addActor(intro);
   }
 
-  @Override
-  public void show() {
-	MainMenuOverlay overlay = new MainMenuOverlay();
-	CoreGame.getInstance().addOverlay(overlay);
-  }
-
   public void render(float delta) {
 
 	Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
@@ -160,28 +152,13 @@ public class LoginScreen implements Screen {
 
 	prefs.flush();
 
-	CoreGame.getInstance().setScreen(new HexMapScreen(name_clear));
+	GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
 
   }
 
   @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void dispose() {
-	stage.dispose();
-  }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void resume() {
-
+  public void setInputPrimary() {
+	Gdx.input.setInputProcessor(stage);
   }
 
 }

@@ -19,9 +19,7 @@
 package de.r2soft.empires.client.core;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -29,10 +27,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import de.r2soft.empires.client.graphics.Overlay;
+import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.input.InputMatrix;
 
 public class R2Game implements ApplicationListener {
 
-  private Screen screen;
+  private R2Screen screen;
   private Deque<Overlay> overlays;
   private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
@@ -57,6 +57,8 @@ public class R2Game implements ApplicationListener {
 
 	if (!overlays.isEmpty())
 	  overlays.peekLast().render(Gdx.graphics.getDeltaTime());
+
+	InputMatrix.getInstance().checkForSlaves();
   }
 
   @Override
@@ -77,7 +79,7 @@ public class R2Game implements ApplicationListener {
 	  screen.hide();
   }
 
-  public void setScreen(Screen screen) {
+  public void setScreen(R2Screen screen) {
 	if (this.screen != null)
 	  this.screen.hide();
 	this.screen = screen;
@@ -87,7 +89,7 @@ public class R2Game implements ApplicationListener {
 	}
   }
 
-  public Screen getScreen() {
+  public R2Screen getScreen() {
 	return screen;
   }
 

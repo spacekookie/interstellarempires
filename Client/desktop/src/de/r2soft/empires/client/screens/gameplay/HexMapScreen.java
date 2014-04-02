@@ -20,7 +20,6 @@ package de.r2soft.empires.client.screens.gameplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -39,8 +38,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import de.r2soft.empires.client.core.CoreGame;
-import de.r2soft.empires.client.io.HexMapCameraController;
+import de.r2soft.empires.client.core.GameCore;
+import de.r2soft.empires.client.graphics.R2Screen;
+import de.r2soft.empires.client.input.HexMapCameraController;
 import de.r2soft.empires.client.maps.hex.HexCell;
 import de.r2soft.empires.client.maps.hex.HexMapLayer;
 import de.r2soft.empires.client.maps.hex.HexMapLayers;
@@ -61,7 +61,7 @@ import de.r2soft.empires.framework.players.Player;
  * @author ***REMOVED***
  * 
  */
-public class HexMapScreen implements Screen {
+public class HexMapScreen extends R2Screen {
 
   /** Global scope */
   private InputMultiplexer multiplexer;
@@ -292,7 +292,7 @@ public class HexMapScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		CoreGame.getInstance().setScreen(new SolMapScreen(new SolarSystem()));
+		GameCore.getInstance().setScreen(new SolMapScreen(new SolarSystem()));
 	  }
 	});
 
@@ -326,7 +326,7 @@ public class HexMapScreen implements Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		CoreGame.getInstance().setScreen(new SettingsScreen());
+		GameCore.getInstance().setScreen(new SettingsScreen());
 	  }
 	});
 
@@ -348,7 +348,7 @@ public class HexMapScreen implements Screen {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 
 		// TODO: Request logout from server
-		CoreGame.getInstance().setScreen(new LoginScreen());
+		GameCore.getInstance().setScreen(new LoginScreen());
 	  }
 	});
 

@@ -21,29 +21,34 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
+import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
 import de.r2soft.empires.client.settings.BaseSettings;
 
 /**
  * 
- * Called when the game is created. Handles all Screen activity for the game. Further functionality might be added in the future
+ * Called when the game is created. Handles all Screen activity for the game.
  * 
  * @author: ***REMOVED***
  */
-public class CoreGame extends R2Game {
+public class GameCore extends R2Game {
 
-  private static CoreGame handler;
   private Music music;
   private Preferences prefs;
+  private static GameCore game = null;
+
+  private GameCore() {
+	super();
+  }
 
   /**
    * 
-   * Returns The Games screenhandler to start new screens from actors, groups and sub-classes. Accessed in a static way.
-   * 
-   * @return The main Screenhandler.
+   * @return The game core.
    */
-  public static CoreGame getInstance() {
-	return handler;
+  public static GameCore getInstance() {
+	if (game == null)
+	  game = new GameCore();
+	return game;
   }
 
   /**
@@ -68,7 +73,6 @@ public class CoreGame extends R2Game {
   @Override
   public void create() {
 	super.create();
-	handler = this;
 
 	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music/intro_music.mp3"));
 	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);

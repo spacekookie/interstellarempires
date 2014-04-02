@@ -24,7 +24,6 @@ import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -36,8 +35,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import de.r2soft.empires.client.core.CoreGame;
+import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.IntroAnimator;
+import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.settings.Resources;
 
 /**
@@ -49,7 +49,7 @@ import de.r2soft.empires.client.settings.Resources;
  * @author: ***REMOVED***
  */
 
-public class IntroductionScreen implements Screen {
+public class IntroductionScreen extends R2Screen {
 
   private Texture splashTitle;
   private Sprite splashSprite;
@@ -125,7 +125,7 @@ public class IntroductionScreen implements Screen {
   }
 
   private void tweenCompleted() {
-	CoreGame.getInstance().setScreen(new LoginScreen());
+	GameCore.getInstance().setScreen(new LoginScreen());
   }
 
   public void render(float delta) {
