@@ -18,7 +18,9 @@
 
 package de.r2soft.empires.client.core;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,16 +28,16 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
-import de.r2soft.empires.framework.util.TimeUtil;
+import de.r2soft.empires.client.graphics.Overlay;
 
 public class R2Game implements ApplicationListener {
 
   private Screen screen;
-  private List<Screen> overlays;
+  private Deque<Overlay> overlays;
   private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
   public R2Game() {
-	overlays = new ArrayList<Screen>();
+	overlays = new ArrayDeque<Overlay>();
   }
 
   @Override
@@ -52,6 +54,9 @@ public class R2Game implements ApplicationListener {
   public void render() {
 	if (screen != null)
 	  screen.render(Gdx.graphics.getDeltaTime());
+
+	if (!overlays.isEmpty())
+	  overlays.peekLast().render(Gdx.graphics.getDeltaTime());
   }
 
   @Override
@@ -86,10 +91,29 @@ public class R2Game implements ApplicationListener {
 	return screen;
   }
 
-  public void addOverlay(Screen overlay) {
+  public void addOverlay(Overlay overlay) {
 	if (!overlays.contains(overlay))
 	  overlays.add(overlay);
 	else
-	  logger.info("That exact overlay was already being displayed at " + TimeUtil.getTimeNow());
+	  logger.info("That exact overlay is already being displayed");
+  }
+
+  public void removeSpecificOverlay(Overlay overlay) {
+	if (overlays.contains(overlay))
+	  overlays.remove(overlay);
+	else
+	  logger.info("Overlay wasn't found in Collection");
+  }
+
+  public void removeLastOverlay() {
+	if (!overlays.isEmpty())
+	  overlays.pop();
+	else
+	  logger.info("No overlays were found in Collection");
+  }
+
+  /** Gets a list of screens that are currently being displayed as overlays */
+  public Deque<Overlay> getOverlays() {
+	return overlays;
   }
 }

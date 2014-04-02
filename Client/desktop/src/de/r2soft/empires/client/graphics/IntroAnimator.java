@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) 2014 Random Robot Softworks
+ * Copyright (c) 2013 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,51 +15,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  ######################################################################### */
+package de.r2soft.empires.client.graphics;
 
-package de.r2soft.empires.client.screens.overlay;
+import aurelienribon.tweenengine.TweenAccessor;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
+ * Intro animation.
  * 
- * @author ***REMOVED*** <***REMOVED***>
- * 
+ * @author: ***REMOVED***
  */
-public class QuitOverlay implements Screen {
+public class IntroAnimator implements TweenAccessor<Sprite> {
 
-  @Override
-  public void render(float delta) {
+	public static final int ALPHA = 1;
 
-  }
+	@Override
+	public int getValues(Sprite target, int tweenType, float[] returnValues) {
 
-  @Override
-  public void resize(int width, int height) {
+		switch (tweenType) {
+		case ALPHA:
+			returnValues[0] = target.getColor().a;
+			return 1;
 
-  }
+		default:
+			return 0;
+		}
 
-  @Override
-  public void show() {
+	}
 
-  }
+	@Override
+	public void setValues(Sprite target, int tweenType, float[] newValues) {
 
-  @Override
-  public void hide() {
+		switch (tweenType) {
+		case ALPHA:
+			target.setColor(1, 1, 1, newValues[0]);
+			break;
 
-  }
+		default:
+			break;
+		}
 
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
-  public void dispose() {
-
-  }
+	}
 
 }

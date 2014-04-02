@@ -1,5 +1,5 @@
-/* 
- * Copyright (c) 2013 ***REMOVED***
+/* #########################################################################
+ * Copyright (c) 2014 Random Robot Softworks
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,36 +13,20 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-package de.r2soft.empires.client.animators;
-
-import aurelienribon.tweenengine.TweenAccessor;
-
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
-/**
- * Creates circular movement for celestial bodies and space stations.
  * 
- * @author ***REMOVED***
- * 
- */
-public class PlanetaryRotator implements TweenAccessor<Sprite> {
+ ######################################################################### */
 
-	private float angle;
+package de.r2soft.empires.client.screens.overlay;
 
-	public void setRotationAngle(float angle) {
-		this.angle = angle;
-	}
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
-	@Override
-	public int getValues(Sprite target, int tweenType, float[] returnValues) {
-		return 0;
-	}
+import de.r2soft.empires.client.graphics.Overlay;
 
-	@Override
-	public void setValues(Sprite target, int tweenType, float[] newValues) {
+public class PlayerOverlay extends Overlay {
 
-	}
+  public PlayerOverlay() {
+	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+  }
 
 }

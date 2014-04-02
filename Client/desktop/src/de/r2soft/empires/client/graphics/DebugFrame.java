@@ -16,64 +16,61 @@
  * 
  ######################################################################### */
 
-package de.r2soft.empires.client.actors;
+package de.r2soft.empires.client.graphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * A debug frame actor for the stage that draws a rectangle around the given
- * coordinates.
+ * A debug frame actor for the stage that draws a rectangle around the given coordinates.
  * 
  * @author ***REMOVED***
  * 
  */
 public class DebugFrame extends Actor implements Disposable {
 
-	private Vector2 size, pos;
-	private Color colour;
-	private ShapeRenderer renderer;
+  private Vector2 size, pos;
+  private Color color;
+  private ShapeRenderer renderer;
 
-	{
-		size = new Vector2();
-		pos = new Vector2();
-		renderer = new ShapeRenderer();
-	}
+  {
+	size = new Vector2();
+	pos = new Vector2();
+	renderer = new ShapeRenderer();
+  }
 
-	/** Creating new debug frame on screen with standard colour (white) */
-	public DebugFrame(float width, float hight, float x, float y) {
-		this.size.x = width;
-		this.size.y = hight;
-		this.pos.x = x;
-		this.pos.y = y;
-	}
+  /** Creating new debug frame on screen with standard colour (white) */
+  public DebugFrame(float width, float hight, float x, float y) {
+	this.size.x = width;
+	this.size.y = hight;
+	this.pos.x = x;
+	this.pos.y = y;
+  }
 
-	/** Creating new debug frame on screen with custom colour */
-	public DebugFrame(float width, float hight, float x, float y, Color colour) {
-		this.size.x = width;
-		this.size.y = hight;
-		this.pos.x = x;
-		this.pos.y = y;
-		this.colour = colour;
-	}
+  /** Creating new debug frame on screen with custom colour */
+  public DebugFrame(float width, float hight, float x, float y, Color color) {
+	this.size.x = width;
+	this.size.y = hight;
+	this.pos.x = x;
+	this.pos.y = y;
+	this.color = color;
+  }
 
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+  @Override
+  public void draw(SpriteBatch batch, float parentAlpha) {
 
-		batch.end();
-		batch.begin();
+	batch.end();
+	batch.begin();
 
-	}
+  }
 
-	@Override
-	public void dispose() {
+  @Override
+  public void dispose() {
 
-	}
+  }
 
 }
