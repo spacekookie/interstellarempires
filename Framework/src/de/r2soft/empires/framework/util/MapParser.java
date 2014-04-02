@@ -21,7 +21,7 @@ package de.r2soft.empires.framework.util;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import javax.swing.text.Element;
+import org.dom4j.Element;
 
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;

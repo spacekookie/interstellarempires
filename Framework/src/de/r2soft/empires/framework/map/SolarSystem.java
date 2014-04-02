@@ -35,16 +35,15 @@ import de.r2soft.empires.framework.players.Player;
  * @author ***REMOVED***
  * 
  */
-@SuppressWarnings("unused")
 public class SolarSystem {
 
   private GalaxyPosition pos;
-  private Player claimed;
+  private Player claim;
   private Set<Planet> planets;
   private Set<Ship> units;
   private Set<OrbitalStructure> structures;
   private Star star;
-  private float radius;
+  private double radius;
   private boolean explored;
 
   /** @return: Systems (x,y) id on haxmap */
@@ -76,7 +75,7 @@ public class SolarSystem {
    * 
    * @param id
    *          the 2d id of the solar system on the map. Center is at (0,0)
-   * @param claimed
+   * @param claim
    *          the player having claim to the solar system if exists. Else @null
    * @param planets
    *          The set of planets in that solar system
@@ -89,9 +88,9 @@ public class SolarSystem {
    * @param radius
    *          the radius of the solar system
    */
-  public SolarSystem(GalaxyPosition pos, Player claimed, Set<Planet> planets, Set<Ship> units, Set<OrbitalStructure> structures, Star star) {
+  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Ship> units, Set<OrbitalStructure> structures, Star star) {
 	this.pos = pos;
-	this.claimed = claimed;
+	this.claim = claim;
 	this.planets = planets;
 	this.units = units;
 	this.structures = structures;
@@ -136,7 +135,7 @@ public class SolarSystem {
   }
 
   /** @return: the systems radius for rendering and calculations. */
-  public float getRadius() {
+  public double getRadius() {
 	return radius;
   }
 
@@ -165,7 +164,7 @@ public class SolarSystem {
 
   /** @return: the systems owner if exists. */
   public Player getClaim() {
-	return claimed != null ? claimed : new Player("_neutral");
+	return claim != null ? claim : new Player("_neutral");
   }
 
   /**
@@ -175,7 +174,7 @@ public class SolarSystem {
    *          the owning player. @Null if system is neutral.
    */
   public void setClaim(Player p) {
-	this.claimed = p;
+	this.claim = p;
   }
 
   /**
