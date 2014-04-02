@@ -17,7 +17,6 @@
  ######################################################################### */
 package de.r2soft.empires.client.core;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
@@ -68,9 +67,10 @@ public class CoreGame extends R2Game {
 
   @Override
   public void create() {
+	super.create();
 	handler = this;
 
-	music = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/music/intro_music.mp3"));
+	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music/intro_music.mp3"));
 	prefs = Gdx.app.getPreferences(BaseSettings.PREFERENCE_FILE_NAME);
 
 	if (!prefs.contains(BaseSettings.PREFERENCE_PLAY_MUSIC))

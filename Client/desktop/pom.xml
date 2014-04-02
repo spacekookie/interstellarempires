@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.r2soft.empires.client</groupId>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>de.r2soft.empires.framework</groupId>
 			<artifactId>Framework</artifactId>
-			<version>Alpha-1.0</version>
+			<version>Alpha-1.1</version>
 		</dependency>
 
 		<dependency>
@@ -62,7 +62,9 @@
 					<execution>
 						<id>unpacknatives</id>
 						<phase>pre-integration-test</phase>
-						<goals><goal>copy</goal></goals>
+						<goals>
+							<goal>copy</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -75,7 +77,7 @@
 						<configuration>
 							<target>
 								<java fork="true" classname="${mainClass}" classpathref="maven.test.classpath">
-									<sysproperty key="java.library.path" value="target/natives"/>
+									<sysproperty key="java.library.path" value="target/natives" />
 								</java>
 							</target>
 						</configuration>
@@ -86,7 +88,8 @@
 				</executions>
 			</plugin>
 
-			<!-- this builds a totally standalone jar file when you invoke: mvn package -Pdesktop -->
+			<!-- this builds a totally standalone jar file when you invoke: mvn package 
+				-Pdesktop -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4</version>

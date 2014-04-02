@@ -52,10 +52,7 @@ import de.r2soft.empires.client.settings.BaseSettings;
 import de.r2soft.empires.client.settings.Resources;
 import de.r2soft.empires.client.settings.Sizes;
 import de.r2soft.empires.framework.map.GalaxyMap;
-import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
-import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.objects.Star.StarType;
 import de.r2soft.empires.framework.players.Player;
 
 /**
@@ -158,8 +155,9 @@ public class HexMapScreen implements Screen {
 	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
 	for (int mx = 0; mx < 3; mx++) {
 	  for (int my = 0; my < 3; my++) {
-		SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
-			StarType.GIANTSPACEPUDDING));
+		SolarSystem sys = new SolarSystem();
+		// SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
+		// StarType.GIANTSPACEPUDDING));
 		HexCell cell = new HexCell(sys);
 
 		if (sys != null) {
@@ -260,7 +258,8 @@ public class HexMapScreen implements Screen {
   private void setupProfileDialoge() {
 
 	Table profile_leftTop = new Table();
-	Image profilePicture = new Image(new Texture(Gdx.files.internal("assets/gui/users.png")));
+	// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
+	Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
 	Label lalalal = new Label("This is a label", Resources.UI_SKIN);
 	profile_leftTop.add(lalalal);
 
@@ -365,7 +364,7 @@ public class HexMapScreen implements Screen {
 	enterSystem = new TextButton("Enter Solar System", Resources.UI_SKIN);
 
 	/** Initialize Lables */
-	title = new Label("Space Game: Prototype 1.2", Resources.UI_SKIN);
+	title = new Label(BaseSettings.SUPERTITLE + ": " + BaseSettings.VERSION_NUMBER, Resources.UI_SKIN);
 	title.setAlignment(Align.center);
 	title.setFontScaleX(1.2f);
 	title.setFontScaleY(1.1f);
