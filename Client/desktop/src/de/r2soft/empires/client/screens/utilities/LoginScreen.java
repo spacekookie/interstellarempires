@@ -41,7 +41,7 @@ public class LoginScreen extends R2Screen {
   private Stage stage;
   private Table intro, outro;
   private TextField userField, passField;
-  private TextButton login, exit;
+  private TextButton login, exit, back;
   private CheckBox saveUser;
   private Preferences prefs;
 
@@ -54,6 +54,7 @@ public class LoginScreen extends R2Screen {
 	passField = new TextField("", Assets.UI_SKIN);
 	userField = new TextField("", Assets.UI_SKIN);
 	saveUser = new CheckBox("Save username?", Assets.UI_SKIN);
+	back = new TextButton("Back to Intro", Assets.UI_SKIN);
 
 	if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
 	  userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
@@ -76,6 +77,7 @@ public class LoginScreen extends R2Screen {
 	exit = new TextButton("Exit Game", Assets.UI_SKIN);
 	outro.add(exit).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.row();
+	outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.top().left();
 
 	userField.setMessageText("Your username");
@@ -109,6 +111,16 @@ public class LoginScreen extends R2Screen {
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		Gdx.app.exit();
+	  }
+	});
+
+	back.addListener(new InputListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
+
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().setScreen(new IntroductionScreen());
 	  }
 	});
 

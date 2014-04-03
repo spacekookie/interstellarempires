@@ -68,8 +68,6 @@ public class IntroductionScreen extends R2Screen {
 	  stage = new Stage(w, h, true);
 	stage.clear();
 
-	Gdx.input.setInputProcessor(stage);
-
 	Table backToIntro = new Table();
 
 	stage.addActor(backToIntro);
@@ -93,8 +91,13 @@ public class IntroductionScreen extends R2Screen {
   }
 
   @Override
+  public void setInputPrimary() {
+	Gdx.input.setInputProcessor(stage);
+  }
+
+  @Override
   public void show() {
-	splashTitle = new Texture("assets/gui/title_graphics/prot-splash-title.png");
+	splashTitle = new Texture("gui/title_graphics/prot-splash-title.png");
 	splashTitle.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 	splashSprite = new Sprite(splashTitle);
@@ -112,8 +115,8 @@ public class IntroductionScreen extends R2Screen {
 
 	  @Override
 	  public void onEvent(int type, BaseTween<?> source) {
-		// Will be called when Tween is completed
 
+		// Will be called when Tween is completed
 		tweenCompleted();
 
 	  }
