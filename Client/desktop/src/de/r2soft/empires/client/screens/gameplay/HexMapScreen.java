@@ -22,6 +22,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -204,11 +205,17 @@ public class HexMapScreen extends R2Screen {
 
   @Override
   public void render(float delta) {
-	Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	// TODO: Move this into the game core?
+	Gdx.gl20.glEnable(GL20.GL_BLEND);
+	shapeRenderer.setProjectionMatrix(uiCam.combined);
+	shapeRenderer.begin(ShapeType.Filled);
+	shapeRenderer.setColor(0, 0, 0, 0.75f);
+	shapeRenderer.rect(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
+	shapeRenderer.end();
 
 	/** Sets up map view */
 	Gdx.gl.glViewport(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
+
 	mapCam.update();
 	hexRenderer.setView(mapCam);
 	hexRenderer.render();

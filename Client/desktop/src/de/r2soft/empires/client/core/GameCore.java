@@ -101,11 +101,6 @@ public class GameCore extends R2Core {
   }
 
   @Override
-  public void render() {
-	super.render();
-  }
-
-  @Override
   public void resize(int width, int height) {
 	super.resize(width, height);
   }
