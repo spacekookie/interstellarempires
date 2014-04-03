@@ -96,7 +96,7 @@ public class SettingsScreen extends R2Screen {
   }
 
   @Override
-  public void setInputPrimary() {
+  public void setInputFocus() {
 	Gdx.input.setInputProcessor(stage);
   }
 

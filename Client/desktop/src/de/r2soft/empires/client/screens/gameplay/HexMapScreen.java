@@ -68,12 +68,11 @@ public class HexMapScreen extends R2Screen {
 
   /** Hex Map */
   private GalaxyMap galaxyMap;
-  private HexTileMap map;
+  // private HexTileMap map;
   private OrthographicCamera mapCam;
   private ShapeRenderer shapeRenderer;
   private HexMapCameraController mapCamController;
   private HexMapRenderer hexRenderer;
-  private Texture hexture;
 
   /** Scene2D UI */
   private OrthographicCamera uiCam;
@@ -193,7 +192,7 @@ public class HexMapScreen extends R2Screen {
   }
 
   @Override
-  public void setInputPrimary() {
+  public void setInputFocus() {
 	Gdx.input.setInputProcessor(multiplexer);
   }
 
@@ -233,8 +232,6 @@ public class HexMapScreen extends R2Screen {
 	super.dispose();
 	shapeRenderer.dispose();
 	hexRenderer.dispose();
-	hexture.dispose();
-	map.dispose();
   }
 
   /** Updates the selection focus solar system */

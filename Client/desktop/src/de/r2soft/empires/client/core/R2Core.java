@@ -18,26 +18,25 @@
 
 package de.r2soft.empires.client.core;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 
-import de.r2soft.empires.client.graphics.Overlay;
+import de.r2soft.empires.client.graphics.R2Overlay;
 import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.input.InputMatrix;
 
-public class R2Game implements ApplicationListener {
+public class R2Core implements ApplicationListener {
 
   private R2Screen screen;
-  private Deque<Overlay> overlays;
+  private Stack<R2Overlay> overlays;
   private Logger log = Logger.getLogger(getClass().getSimpleName());
 
-  public R2Game() {
-	overlays = new ArrayDeque<Overlay>();
+  public R2Core() {
+	overlays = new Stack<R2Overlay>();
   }
 
   @Override
@@ -48,6 +47,11 @@ public class R2Game implements ApplicationListener {
   public void resize(int width, int height) {
 	if (screen != null)
 	  screen.resize(width, height);
+
+	if (!overlays.isEmpty())
+	  for (R2Overlay o : overlays)
+		o.resize(width, height);
+
   }
 
   @Override
@@ -56,7 +60,8 @@ public class R2Game implements ApplicationListener {
 	  screen.render(Gdx.graphics.getDeltaTime());
 
 	if (!overlays.isEmpty())
-	  overlays.peekLast().render(Gdx.graphics.getDeltaTime());
+	  for (R2Overlay o : overlays)
+		o.render(Gdx.graphics.getDeltaTime());
 
 	InputMatrix.getInstance().updateSlave();
   }
@@ -76,7 +81,10 @@ public class R2Game implements ApplicationListener {
   @Override
   public void dispose() {
 	if (screen != null)
-	  screen.hide();
+	  screen.dispose();
+	if (!overlays.isEmpty())
+	  for (R2Overlay o : overlays)
+		o.dispose();
   }
 
   public void setScreen(R2Screen screen) {
@@ -93,32 +101,43 @@ public class R2Game implements ApplicationListener {
 	return screen;
   }
 
-  public void addOverlay(Overlay overlay) {
-	if (!overlays.contains(overlay)) {
-	  overlays.add(overlay);
-	  overlay.show();
-	  overlay.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	}
-	else
-	  log.info("That exact overlay is already being displayed");
+  public void addOverlay(R2Overlay overlay) {
+	overlays.add(overlay);
+	overlay.show();
+	overlay.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
   }
 
-  public void removeSpecificOverlay(Overlay overlay) {
-	if (overlays.contains(overlay))
+  /** Try to avoid use of this method as it can remove an overlay from the middle of a stack. Use {@link #removeOverlay(boolean)} instead! */
+  @Deprecated
+  public void removeOverlay(R2Overlay overlay) {
+	if (overlays.contains(overlay)) {
 	  overlays.remove(overlay);
+	  overlay.dispose();
+	}
 	else
 	  log.info("Overlay wasn't found in Collection");
   }
 
-  public void removeLastOverlay() {
+  /** Pops the last overlay from the Stack */
+  public void removeOverlay() {
 	if (!overlays.isEmpty())
-	  overlays.pop();
+	  overlays.pop().dispose();
 	else
 	  log.info("No overlays were found in Collection");
   }
 
-  /** Gets a list of screens that are currently being displayed as overlays */
-  public Deque<Overlay> getOverlays() {
+  /** Avoid using this unless you need to iterate over all the overlays. Use {@link #peekOverlays()} instead! */
+  public Stack<R2Overlay> getOverlays() {
 	return overlays;
+  }
+
+  /** Returns last item of stack */
+  public R2Overlay peekOverlays() {
+	return overlays.peek();
+  }
+
+  /** Returns if the Overlays Stack is empty to avoid fetching the entire object to another class */
+  public boolean isOverlaysEmpty() {
+	return overlays.isEmpty();
   }
 }
