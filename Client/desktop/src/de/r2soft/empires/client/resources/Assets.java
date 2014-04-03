@@ -45,6 +45,7 @@ public class Assets {
   private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(Gdx.files.internal("gui/prot-selected.atlas"));
   private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(Gdx.files.internal("map/adds/prot-tile-additions.atlas"));
   private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(Gdx.files.internal("ships/basic-ships.pack"));
+  private static final TextureAtlas V2_BACKGROUNDS = new TextureAtlas(Gdx.files.internal("gui/graphics/back.atlas"));
 
   /** Skins */
 
@@ -93,6 +94,9 @@ public class Assets {
   public static final TextureRegion UNITS_FIGHTER_BASIC = INITIAL_BASIC_UNITS.findRegion("small_fighter");
   /** Single small cargo freighter unit. No colour coding for alliances */
   public static final TextureRegion UNITS_CARGO_SMALL = INITIAL_BASIC_UNITS.findRegion("cargo_freighter_small");
+
+  /** STOLEN BACKGROUNDS REGION */
+  public static final TextureRegion V2_STOLEN_BACKGROUND = V2_BACKGROUNDS.findRegion("spacebackgroundtemp");
 
   /** Star regions */
 

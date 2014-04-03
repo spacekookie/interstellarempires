@@ -44,6 +44,7 @@ public class Values {
   public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
   public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
   public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
+  public static final String PREFERENCE_LAUNCH_FULLSCREEN = "launch_as_fullscreen_app";
 
   @Deprecated
   /** Needs to be made dynamic and fetched from server */

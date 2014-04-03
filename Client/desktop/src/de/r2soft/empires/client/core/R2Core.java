@@ -18,18 +18,23 @@
 
 package de.r2soft.empires.client.core;
 
-import java.util.Deque;
 import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.r2soft.empires.client.graphics.R2Overlay;
 import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.input.InputMatrix;
+import de.r2soft.empires.client.resources.Assets;
 
 public class R2Core implements ApplicationListener {
+
+  private SpriteBatch batch;
 
   private R2Screen screen;
   private Stack<R2Overlay> overlays;
@@ -41,6 +46,7 @@ public class R2Core implements ApplicationListener {
 
   @Override
   public void create() {
+	batch = new SpriteBatch();
   }
 
   @Override
@@ -56,6 +62,13 @@ public class R2Core implements ApplicationListener {
 
   @Override
   public void render() {
+	Gdx.gl.glClearColor(0, 0, 0, 1);
+	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+	batch.begin();
+	batch.draw(Assets.V2_STOLEN_BACKGROUND, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 1, 1, 0);
+	batch.end();
+
 	if (screen != null)
 	  screen.render(Gdx.graphics.getDeltaTime());
 
