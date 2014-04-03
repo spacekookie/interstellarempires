@@ -21,6 +21,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -115,11 +116,14 @@ public class SolMapScreen extends R2Screen {
 
   @Override
   public void render(float arg0) {
-	Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	Gdx.gl20.glEnable(GL20.GL_BLEND);
+	shapeRenderer.setProjectionMatrix(uiCam.combined);
+	shapeRenderer.begin(ShapeType.Filled);
+	shapeRenderer.setColor(0, 0, 0, 0.75f);
+	shapeRenderer.rect(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x, Values.HEX_MAP_BASE_SIZE.y);
+	shapeRenderer.end();
 
-	Gdx.gl.glViewport(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x,
-		Values.SOL_MAP_BASE_SIZE.y);
+	Gdx.gl.glViewport(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x, Values.SOL_MAP_BASE_SIZE.y);
 	mapCam.update();
 	solRenderer.setView(mapCam);
 	solRenderer.render();
@@ -130,8 +134,7 @@ public class SolMapScreen extends R2Screen {
 
 	/** Draws debug frame around map view */
 	shapeRenderer.begin(ShapeType.Line);
-	shapeRenderer.rect(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x,
-		Values.SOL_MAP_BASE_SIZE.y);
+	shapeRenderer.rect(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x, Values.SOL_MAP_BASE_SIZE.y);
 	shapeRenderer.end();
 
 	stage.act();

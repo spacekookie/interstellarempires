@@ -42,7 +42,7 @@ public class LoginScreen extends R2Screen {
   private Table intro, outro;
   private TextField userField, passField;
   private TextButton login, exit, back;
-  private CheckBox saveUser;
+  private CheckBox saveUser, savePw;
   private Preferences prefs;
 
   /** Background stuff */
@@ -54,6 +54,7 @@ public class LoginScreen extends R2Screen {
 	passField = new TextField("", Assets.UI_SKIN);
 	userField = new TextField("", Assets.UI_SKIN);
 	saveUser = new CheckBox("Save username?", Assets.UI_SKIN);
+	savePw = new CheckBox("Save Password?", Assets.UI_SKIN);
 	back = new TextButton("Back to Intro", Assets.UI_SKIN);
 
 	if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
@@ -128,13 +129,19 @@ public class LoginScreen extends R2Screen {
 	stage.addActor(intro);
   }
 
+  private void update(boolean partial) {
+	if (partial)
+	  if (!saveUser.isChecked())
+		savePw.setDisabled(true);
+	  else
+		savePw.setDisabled(false);
+  }
+
   public void render(float delta) {
-
-	Gdx.gl.glClearColor(0, 0, 0, 1); // Paint it black
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
 	stage.act(delta);
 	stage.draw();
+
+	this.update(true);
 
 	if (saveUser.isChecked()) {
 	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, true);
