@@ -49,7 +49,6 @@ public class MainMenuOverlay extends R2Overlay {
 
   @Override
   public void build() {
-	System.out.println("Building Overlay screen!!!");
 	exit = new TextButton("End Session & Quit", Assets.UI_SKIN);
 	logout = new TextButton("Logout & Change User", Assets.UI_SKIN);
 	options = new TextButton("Options", Assets.UI_SKIN);
@@ -116,7 +115,7 @@ public class MainMenuOverlay extends R2Overlay {
 	 */
 	options.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().addOverlay(new PreferencesOverlay());
+		GameCore.getInstance().addOverlay(new SettingsOverlay());
 	  }
 	});
 

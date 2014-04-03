@@ -21,10 +21,12 @@ package de.r2soft.empires.client.graphics;
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -39,6 +41,12 @@ public abstract class R2Overlay extends R2Screen {
   private OrthographicCamera camera;
   private final Logger log = Logger.getLogger(getClass().getSimpleName());
 
+  /** Additional overlay settings */
+  private boolean overlay;
+  private Vector2 start, size;
+  private float alpha;
+  private Color color;
+
   /** Stage to handle all UI items for an overlay in the stack */
   protected Stage stage;
 
@@ -46,6 +54,26 @@ public abstract class R2Overlay extends R2Screen {
 	this.stage = stage;
 	renderer = new ShapeRenderer();
 	this.camera = (OrthographicCamera) stage.getCamera();
+  }
+
+  public void addAdditionalAlpha(Vector2 start, Vector2 size, float alpha) {
+	overlay = true;
+	this.start = start;
+	this.size = size;
+	this.alpha = alpha;
+	this.color = Color.BLACK;
+  }
+
+  public void addAdditionalAlpha(Vector2 start, Vector2 size, float alpha, Color color) {
+	overlay = true;
+	this.start = start;
+	this.size = size;
+	this.alpha = alpha;
+	this.color = color;
+  }
+
+  public void disableAdditionalAlpha() {
+	overlay = false;
   }
 
   @Override
@@ -56,6 +84,13 @@ public abstract class R2Overlay extends R2Screen {
 	renderer.setColor(0, 0, 0, 0.5f);
 	renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	renderer.end();
+
+	if (overlay) {
+	  renderer.begin(ShapeType.Filled);
+	  renderer.setColor(color.r, color.g, color.b, alpha);
+	  renderer.rect(start.x, start.y, size.x, size.y);
+	  renderer.end();
+	}
 
 	stage.draw();
   }
@@ -102,7 +137,7 @@ public abstract class R2Overlay extends R2Screen {
 
   /**
    * This method can be called instead of show to build an interface. It's the first call in the show() method. It's considered good
-   * practise to ONLY override this method for building!
+   * Practice to ONLY override this method for building!
    */
   public void build() {
 
