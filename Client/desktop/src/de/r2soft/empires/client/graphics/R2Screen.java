@@ -18,7 +18,8 @@
 
 package de.r2soft.empires.client.graphics;
 
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
 /**
@@ -27,7 +28,28 @@ import com.badlogic.gdx.Screen;
  * @author ***REMOVED*** <***REMOVED***>
  * 
  */
-public class R2Screen implements Screen {
+public abstract class R2Screen implements Screen {
+  private Long ID;
+
+  public R2Screen() {
+	// TODO: Actually generate Screen ID here
+  }
+
+  /**
+   * Sets the Screen ID once during creation and will throw a RuntimeException if it is tried to set again
+   */
+  public void setID(long ID) {
+	this.ID = this.ID == null ? ID : throw_();
+  }
+
+  public int throw_() {
+	throw new RuntimeException("id is already set");
+  }
+
+  /** Get screen ID */
+  public long getID() {
+	return ID;
+  }
 
   @Override
   public void render(float delta) {
@@ -64,12 +86,12 @@ public class R2Screen implements Screen {
 
   }
 
-  public void setInputPrimary() {
+  public void setInputFocus() {
 
   }
 
-  public InputAdapter getInputPrimary() {
-	return null;
+  public InputProcessor getInputFocus() {
+	return Gdx.input.getInputProcessor();
   }
 
 }

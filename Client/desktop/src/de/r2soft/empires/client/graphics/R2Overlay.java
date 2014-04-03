@@ -18,6 +18,8 @@
 
 package de.r2soft.empires.client.graphics;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,14 +34,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * @author ***REMOVED*** <***REMOVED***>
  * 
  */
-public abstract class Overlay extends R2Screen {
+public abstract class R2Overlay extends R2Screen {
   private ShapeRenderer renderer;
   private OrthographicCamera camera;
+  private final Logger log = Logger.getLogger(getClass().getSimpleName());
 
   /** Stage to handle all UI items for an overlay in the stack */
   protected Stage stage;
 
-  public Overlay(Stage stage) {
+  public R2Overlay(Stage stage) {
 	this.stage = stage;
 	renderer = new ShapeRenderer();
 	this.camera = (OrthographicCamera) stage.getCamera();
@@ -50,7 +53,7 @@ public abstract class Overlay extends R2Screen {
 	Gdx.gl20.glEnable(GL20.GL_BLEND);
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Filled);
-	renderer.setColor(0, 0, 0, 0.75f);
+	renderer.setColor(0, 0, 0, 0.5f);
 	renderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	renderer.end();
 
@@ -65,7 +68,7 @@ public abstract class Overlay extends R2Screen {
 
   @Override
   public void show() {
-
+	this.build();
   }
 
   @Override
@@ -94,7 +97,15 @@ public abstract class Overlay extends R2Screen {
 
   protected void setStage(Stage stage) {
 	this.stage = stage;
-	// TODO: log stage change!
+	log.info("Stage was changed. Did you really want to do that?");
+  }
+
+  /**
+   * This method can be called instead of show to build an interface. It's the first call in the show() method. It's considered good
+   * practise to ONLY override this method for building!
+   */
+  public void build() {
+
   }
 
 }

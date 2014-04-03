@@ -28,7 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.empires.client.core.GameCore;
-import de.r2soft.empires.client.graphics.Overlay;
+import de.r2soft.empires.client.graphics.R2Overlay;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
 import de.r2soft.empires.client.screens.utilities.SettingsScreen;
@@ -38,7 +38,7 @@ import de.r2soft.empires.client.screens.utilities.SettingsScreen;
  * @author ***REMOVED*** <***REMOVED***>
  * 
  */
-public class MainMenuOverlay extends Overlay {
+public class MainMenuOverlay extends R2Overlay {
   private Button exit, logout, options, cancel;
   private Label title;
   private Table main;
@@ -48,9 +48,8 @@ public class MainMenuOverlay extends Overlay {
   }
 
   @Override
-  public void show() {
-	super.show();
-
+  public void build() {
+	System.out.println("Building Overlay screen!!!");
 	exit = new TextButton("End Session & Quit", Assets.UI_SKIN);
 	logout = new TextButton("Logout & Change User", Assets.UI_SKIN);
 	options = new TextButton("Options", Assets.UI_SKIN);
@@ -74,14 +73,11 @@ public class MainMenuOverlay extends Overlay {
 	main.add(exit).center().width(500).pad(5f);
 
 	stage.addActor(main);
+	this.makeListeners();
+  }
 
-	//
-	//
-
+  private void makeListeners() {
 	exit.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		Gdx.app.exit();
@@ -90,37 +86,19 @@ public class MainMenuOverlay extends Overlay {
 	});
 
 	logout.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().removeLastOverlay();
+		GameCore.getInstance().removeOverlay();
 		GameCore.getInstance().setScreen(new LoginScreen());
 		logout();
 	  }
 	});
 
-	options.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
-	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().removeLastOverlay();
-		GameCore.getInstance().setScreen(new SettingsScreen());
-	  }
-	});
-
 	cancel.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().removeLastOverlay();
+		GameCore.getInstance().removeOverlay();
 	  }
 	});
+
   }
 
   private void logout() {
@@ -128,7 +106,19 @@ public class MainMenuOverlay extends Overlay {
   }
 
   @Override
-  public void setInputPrimary() {
+  public void setInputFocus() {
 	Gdx.input.setInputProcessor(stage);
+
+	/**
+	 * TODO: I don't understand this. I will now call this the "Mystery Button" and move on. It works like this, though it shouldn't be
+	 * necessary! All the other buttons work. I LITERALLY have no idea anymore what it could be. Maybe somebody else *wink wink* has more
+	 * luck with this thing than me.
+	 */
+	options.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().addOverlay(new PreferencesOverlay());
+	  }
+	});
+
   }
 }
