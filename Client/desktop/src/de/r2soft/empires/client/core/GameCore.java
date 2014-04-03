@@ -21,8 +21,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
-import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.resources.Values;
+import de.r2soft.empires.client.screens.utilities.IntroductionScreen;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
 
 /**
@@ -31,7 +31,7 @@ import de.r2soft.empires.client.screens.utilities.LoginScreen;
  * 
  * @author: ***REMOVED***
  */
-public class GameCore extends R2Game {
+public class GameCore extends R2Core {
 
   private Music music;
   private Preferences prefs;
@@ -86,11 +86,11 @@ public class GameCore extends R2Game {
 	onUpdate();
 
 	// setScreen(new SolMapScreen(null));
-	setScreen(new LoginScreen());
 
-	// if (!prefs.getBoolean(BaseSettings.PREFERENCE_SKIP_INTRO))
+	// if (!prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO))
 	// setScreen(new IntroductionScreen());
 	// else
+	setScreen(new LoginScreen());
   }
 
   @Override

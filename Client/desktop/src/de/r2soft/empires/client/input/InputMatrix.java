@@ -18,10 +18,6 @@
 
 package de.r2soft.empires.client.input;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
 
@@ -48,14 +44,14 @@ public class InputMatrix {
   }
 
   public void updateSlave() {
-	if (!master.getOverlays().isEmpty()) {
-	  if (last == null || !last.equals(master.getOverlays().peek()))
-		master.getOverlays().peek().setInputPrimary();
-	  last = master.getOverlays().peek();
+	if (!master.isOverlaysEmpty()) {
+	  if (last == null || !last.equals(master.peekOverlays()))
+		master.peekOverlays().setInputFocus();
+	  last = master.peekOverlays();
 	}
 	else {
 	  if (last == null || !last.equals(master.getScreen())) {
-		master.getScreen().setInputPrimary();
+		master.getScreen().setInputFocus();
 		last = master.getScreen();
 	  }
 

@@ -21,9 +21,9 @@ package de.r2soft.empires.client.screens.overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import de.r2soft.empires.client.graphics.Overlay;
+import de.r2soft.empires.client.graphics.R2Overlay;
 
-public class PlayerOverlay extends Overlay {
+public class PlayerOverlay extends R2Overlay {
 
   public PlayerOverlay() {
 	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
