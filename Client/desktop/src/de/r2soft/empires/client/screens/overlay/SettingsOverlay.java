@@ -133,8 +133,10 @@ public class SettingsOverlay extends R2Overlay {
 	primary.add(julie);
 	primary.row();
 
-	primary.add(apply).height(45f).padTop(45f).width(2.5f * Values.SIZE_UI_BUTTON_CONTENT);
-	primary.add(back).height(45f).padTop(45f).width(2.5f * Values.SIZE_UI_BUTTON_CONTENT);
+	primary.add(apply).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_PRIME).padTop(Values.R2_UI_PIXEL_PAD_MEDIUM)
+		.width(Values.R2_UI_SIZES_BUTTON_WIDTH_PRIME);
+	primary.add(back).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_PRIME).padTop(Values.R2_UI_PIXEL_PAD_MEDIUM)
+		.width(Values.R2_UI_SIZES_BUTTON_WIDTH_PRIME);
 
 	stage.addActor(primary);
 	this.makeListeners();
