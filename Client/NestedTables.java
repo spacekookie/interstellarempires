@@ -3,7 +3,6 @@ primary.debug();
 primary.setFillParent(true);
 primary.center();
 
-
 TextButton back = new TextButton("Back", game.skin);
 TextButton apply = new TextButton("Apply Settings", game.skin);
 
