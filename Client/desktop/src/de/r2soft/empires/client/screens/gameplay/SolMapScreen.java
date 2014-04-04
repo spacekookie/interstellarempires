@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
@@ -37,6 +38,7 @@ import de.r2soft.empires.client.input.SolarCameraController;
 import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
+import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
@@ -59,11 +61,10 @@ public class SolMapScreen extends R2Screen {
 
   /** UI Elements */
   private Stage stage;
-  private Table topNav, butNav, sideBar;
+  private Table meta;
 
   /** Top Navigation Elements */
-  private TextButton button_viewPlanets, button_viewUnits, button_requisition, button_research, button_diplomacy, button_galaxyMap,
-	  button_quit;
+  private TextButton menu;
 
   /** Debug elements */
   private ShapeRenderer shapeRenderer;
@@ -104,14 +105,10 @@ public class SolMapScreen extends R2Screen {
   }
 
   @Override
-  public void setInputFocus() {
-	Gdx.input.setInputProcessor(multiplexer);
-  }
-
-  @Override
   public void resize(int width, int height) {
 	if (stage != null)
 	  stage.setViewport(width, height);
+
   }
 
   @Override
@@ -162,41 +159,44 @@ public class SolMapScreen extends R2Screen {
   }
 
   private void setupTopNavigation() {
-	topNav = new Table(Assets.UI_SKIN);
-	topNav.setFillParent(true);
-	topNav.top();
+	meta = new Table(Assets.UI_SKIN);
+	meta.setFillParent(true);
+	meta.top().left();
+	meta.defaults().width(Values.R2_UI_SIZES_BUTTON_WIDTH_CONTENT).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
-	button_viewPlanets = new TextButton("View Planets", Assets.UI_SKIN);
-	button_viewUnits = new TextButton("View Units", Assets.UI_SKIN);
-	button_requisition = new TextButton("Requisition Units", Assets.UI_SKIN);
-	button_research = new TextButton("Research", Assets.UI_SKIN);
-	button_diplomacy = new TextButton("Diplomacy", Assets.UI_SKIN);
-	button_galaxyMap = new TextButton("Galaxy Map", Assets.UI_SKIN);
-	button_quit = new TextButton("Logout & Quit", Assets.UI_SKIN);
+	menu = new TextButton("Main Menu", Assets.UI_SKIN);
+	meta.add(menu);
 
-	topNav.add(button_viewPlanets);
-	topNav.add(button_viewUnits);
-	topNav.add(button_requisition);
-	topNav.add(button_research);
-	topNav.add(button_diplomacy);
-	topNav.add(button_galaxyMap);
-	topNav.add(button_quit);
+	// button_viewUnits = new TextButton("View Units", Assets.UI_SKIN);
+	// button_requisition = new TextButton("Requisition Units", Assets.UI_SKIN);
+	// button_research = new TextButton("Research", Assets.UI_SKIN);
+	// button_diplomacy = new TextButton("Diplomacy", Assets.UI_SKIN);
+	// button_galaxyMap = new TextButton("Galaxy Map", Assets.UI_SKIN);
+	// button_quit = new TextButton("Logout & Quit", Assets.UI_SKIN);
+	//
+	// topNav.add(button_viewPlanets);
+	// topNav.add(button_viewUnits);
+	// topNav.add(button_requisition);
+	// topNav.add(button_research);
+	// topNav.add(button_diplomacy);
+	// topNav.add(button_galaxyMap);
+	// topNav.add(button_quit);
 
-	stage.addActor(topNav);
+	stage.addActor(meta);
   }
 
   private void setupButtonListeners() {
-	button_galaxyMap.addListener(new InputListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
+	meta.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().onUpdate();
-		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME)));
+		GameCore.getInstance().addOverlay(new MainMenuOverlay());
 	  }
 	});
+  }
 
+  @Override
+  public void setInputFocus() {
+	Gdx.input.setInputProcessor(multiplexer);
+	setupButtonListeners();
   }
 
 }

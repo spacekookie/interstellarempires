@@ -35,7 +35,7 @@ public class Values {
   public static String SUPERTITLE = "Interstellar Empires";
   public static String VERSION_NUMBER = "Alpha 1.3";
   public static final String SCREENTITLE_SETTINGS = "Settings";
-  public static final String SCREENTITLE_HOME = "Home";
+  public static final String SCREENTITLE_HOME = "Galaxy Map";
   public static final String SCREENTITLE_LOGIN = "Login";
   public static final String SCREENTITLE_SOLAR = "Solar System";
 
@@ -49,7 +49,8 @@ public class Values {
   @Deprecated
   /** Needs to be made dynamic and fetched from server */
   public static final Player thisPlayer = new Player("KateTheAwesome");
-  public static final Player _neutralplayer = new Player("_no_owning_player_");
+  /** TODO: Should I change this somehow? */
+  public static final Player _neutralplayer = new Player(null);
 
   /**
    * ############### SOLAR SYSTEM MAP VALUES ###############
@@ -62,6 +63,32 @@ public class Values {
    */
   public static final IntVec2 HEX_MAP_BASE_OFFSET = new IntVec2(2, 32);
   public static final IntVec2 HEX_MAP_BASE_SIZE = new IntVec2(950, 640);
+
+  /**
+   * ############### UI ELEMENT PADDING SIZES ###############
+   */
+
+  /** Padding size around UI elements */
+  public static final float R2_UI_PIXEL_PAD_TINY = 5f;
+  /** Padding size around UI elements */
+  public static final float R2_UI_PIXEL_PAD_SMALL = 20f;
+  /** Padding size around UI elements */
+  public static final float R2_UI_PIXEL_PAD_MEDIUM = 45f;
+  /** Padding size around UI elements */
+  public static final float R2_UI_PIXEL_PAD_LARGE = 65f;
+  /** Padding size around UI elements */
+  public static final float R2_UI_PIXEL_PAD_MASSIVE = 100f;
+
+  /**
+   * ############### UI ELEMENT SIZES ###############
+   */
+  public static final float R2_UI_SIZES_BUTTON_HEIGHT_PRIME = 45f;
+  public static final float R2_UI_SIZES_BUTTON_WIDTH_PRIME = 250f;
+
+  public static final float R2_UI_SIZES_BUTTON_HEIGHT_CONTENT = 30f;
+  public static final float R2_UI_SIZES_BUTTON_WIDTH_CONTENT = 150f;
+
+  /* FROM HERE ON IS OLD AND LAME SHIT! */
 
   /** Star sizes */
 
@@ -85,32 +112,46 @@ public class Values {
   /** Fleet sizes */
 
   /** < 10 ships */
+  @Deprecated
   public static final float SIZE_FLEET_TINY = 30;
   /** < 25 ships */
+  @Deprecated
   public static final float SIZE_FLEET_SMALL = 40;
   /** < 50 ships */
+  @Deprecated
   public static final float SIZE_FLEET_MEDIUM = 50;
   /** < 100 ships */
+  @Deprecated
   public static final float SIZE_FLEET_LARGE = 60;
   /** < 250 ships */
+  @Deprecated
   public static final float SIZE_FLEET_GIANT = 70;
 
   /** GUI sizes */
 
   /** Selection box sizes */
+
+  @Deprecated
   public static final float SIZE_GUI_SELECTION_BOX_TINY = SIZE_FLEET_TINY + 4;
+  @Deprecated
   public static final float SIZE_GUI_SELECTION_BOX_SMALL = SIZE_FLEET_SMALL + 4;
+  @Deprecated
   public static final float SIZE_GUI_SELECTION_BOX_MEDIUM = SIZE_FLEET_MEDIUM + 4;
+  @Deprecated
   public static final float SIZE_GUI_SELECTION_BOX_LARGE = SIZE_FLEET_LARGE + 4;
+  @Deprecated
   public static final float SIZE_GUI_SELECTION_BOX_GIANT = SIZE_FLEET_GIANT + 4;
 
   /** Map tile sizes */
+  @Deprecated
   public static final float SIZE_GUI_HEXAGON_TILE = 100;
 
   /** GUI ELEMENTS */
 
   /** How group elements (unwrapped) will be offset from one another */
+  @Deprecated
   public static final float SIZE_UI_GROUP_OFFSET = -20;
+  @Deprecated
   public static final float SIZE_SOLAR_GROUP_OFFSET_INITIAL = -30;
 
   /** Navigation button: exit, logout, settings, etc. */
@@ -122,13 +163,6 @@ public class Values {
   public static final float SIZE_UI_FIELD_CONTENT_SMALL = 100;
   /** Frame offset */
   public static final float SIZE_UI_GLOBAL_FRAME_OFFSET = -35;
-
-  /** X size of the 2.0 hexagon map on the screen */
-  public static final float SIZE_HEX_MAP_X = 700f;
-  /** Y size of the 2.0 hexagon map on the screen */
-  public static final float SIZE_HEX_MAP_Y = 400f;
-  /** X offset of the 2.0 hexagon map on the screen */
-  public static final float POSITION_HEX_MAP_OFFSET = -100f;
 
   /** Planet sizes */
 

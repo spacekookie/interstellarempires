@@ -61,6 +61,8 @@ public class MainMenuOverlay extends R2Overlay {
 	main.setFillParent(true);
 	main.center();
 
+	// TODO: Change to table default values.
+
 	main.add(title).center().pad(25f);
 	main.row().height(75);
 	main.add(cancel).center().width(500).pad(5f);
@@ -95,6 +97,7 @@ public class MainMenuOverlay extends R2Overlay {
 	cancel.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		GameCore.getInstance().removeOverlay();
+		// GameCore.getInstance().addOverlay(new PlaygroundOverlay());
 	  }
 	});
 
