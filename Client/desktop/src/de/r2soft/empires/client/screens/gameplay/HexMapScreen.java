@@ -304,7 +304,7 @@ public class HexMapScreen extends R2Screen {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		profileDialog = new Dialog("User Profile", Assets.UI_SKIN);
 		profileDialog.setSize(450, 300);
-		profileDialog.setPosition((Values.OLD_WIDTH / 2) - (Values.OLD_WIDTH / 4), (Values.OLD_HEIGHT / 2) - (Values.OLD_HEIGHT / 4));
+		profileDialog.setPosition((Values.NEW_WIDTH / 2) - (Values.NEW_WIDTH / 4), (Values.NEW_HEIGHT / 2) - (Values.NEW_HEIGHT / 4));
 		stage.addActor(profileDialog);
 		setupProfileDialoge();
 	  }
@@ -327,6 +327,7 @@ public class HexMapScreen extends R2Screen {
 	/** Initialize Buttons */
 	profile = new TextButton("Profile", Assets.UI_SKIN);
 	menu = new TextButton("Main Menu", Assets.UI_SKIN);
+
 	research = new TextButton("Research", Assets.UI_SKIN);
 	enterSystem = new TextButton("Enter Solar System", Assets.UI_SKIN);
 
@@ -354,7 +355,6 @@ public class HexMapScreen extends R2Screen {
 	centerTop = new Table();
 	centerTop.setFillParent(true);
 	centerTop.center().top();
-	centerTop.setX(Values.POSITION_HEX_MAP_OFFSET);
 
 	/** Initialize the solar system info table */
 	systemInfo = new Table();
@@ -378,7 +378,7 @@ public class HexMapScreen extends R2Screen {
 	naviRight.row();
 
 	/** Setting up the left navigation */
-	naviLeft.add(menu).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	naviLeft.add(menu).width(Values.R2_UI_SIZES_BUTTON_WIDTH_CONTENT).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
 	/** Setting up the center top label table */
 	centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
