@@ -26,7 +26,7 @@ import de.r2soft.empires.framework.objects.OrbitalObject;
 /**
  * Creates a basic orbit for a planet or moon
  * 
- * @author Katharina
+ * @author Katharina <kookie@spacekookie.de>
  * 
  */
 public class Orbit {
@@ -36,7 +36,7 @@ public class Orbit {
   }
 
   private ORBIT_TYPE type;
-  private float radius;
+  private double radius;
   private OrbitalObject self;
   private BaseObject parent;
 
@@ -56,21 +56,21 @@ public class Orbit {
    * 
    * @param type
    *          The type of orbit that needs to be attached
-   * @param radius
+   * @param d
    *          The radius of the orbit around a parent meassured from it's semi-major axis center
    * @param self
    *          The object that owns this orbit
    * @param parent
    *          The object that is being orbited.
    */
-  public Orbit(ORBIT_TYPE type, float radius, OrbitalObject self, BaseObject parent) {
+  public Orbit(ORBIT_TYPE type, double radius, OrbitalObject self, BaseObject parent) {
 	this.type = type;
 	this.radius = radius;
 	this.self = self;
 	this.parent = parent;
   }
 
-  /** Returns SOMETHING */
+  /** Returns SOMETHING. Please? */
   public Vector2D getNextStep() {
 	return null;
   }
@@ -87,11 +87,11 @@ public class Orbit {
 	this.type = type;
   }
 
-  public float getRadius() {
+  public double getRadius() {
 	return radius;
   }
 
-  public void setRadius(float radius) {
+  public void setRadius(double radius) {
 	this.radius = radius;
   }
 
