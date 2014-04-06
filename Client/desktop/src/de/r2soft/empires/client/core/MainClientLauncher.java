@@ -39,6 +39,7 @@ public class MainClientLauncher {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	cfg.title = Values.SUPERTITLE + " - " + Values.VERSION_NUMBER;
 
+	// TODO: This throws an NPE if no argument is passed
 	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
 	 if (args[0] == "--fullscreen") {
 	cfg.fullscreen = true;
