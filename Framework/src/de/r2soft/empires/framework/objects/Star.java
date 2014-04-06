@@ -49,6 +49,7 @@ public class Star extends BaseObject {
    */
   public Star(StarType classification) {
 	this.classification = classification;
+	this.computeStarRadius(1);
   }
 
   /**
@@ -62,6 +63,11 @@ public class Star extends BaseObject {
   /** @return: the stars classification */
   public StarType getClassification() {
 	return classification;
+  }
+
+  /** This will compute the base size of the star based on it's type and a random multiplier. Will return basic values with multiplier = 1 */
+  private void computeStarRadius(double multi) {
+	// TODO: Actually compute size :(
   }
 
 }

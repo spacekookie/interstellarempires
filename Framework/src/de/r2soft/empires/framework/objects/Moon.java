@@ -31,7 +31,7 @@ public class Moon extends OrbitalObject {
 
   public Moon(Planet parent) {
 	super.setParent(parent);
-	super.orbit = new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent());
+	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent()));
   }
 
 }
