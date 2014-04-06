@@ -40,17 +40,17 @@ public class MainClientLauncher {
 	cfg.title = Values.SUPERTITLE + " - " + Values.VERSION_NUMBER;
 
 	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
-	if (args[0] == "--fullscreen") {
-	  cfg.fullscreen = true;
-	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	  int width = gd.getDisplayMode().getWidth();
-	  int height = gd.getDisplayMode().getHeight();
+	 if (args[0] == "--fullscreen") {
+	cfg.fullscreen = true;
+	GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	int width = gd.getDisplayMode().getWidth();
+	int height = gd.getDisplayMode().getHeight();
 
-	  cfg.width = width;
-	  cfg.height = height;
+	cfg.width = width;
+	cfg.height = height;
 
-	  Values.NEW_WIDTH = width;
-	  Values.NEW_HEIGHT = height;
+	Values.NEW_WIDTH = width;
+	Values.NEW_HEIGHT = height;
 
 	}
 	else {

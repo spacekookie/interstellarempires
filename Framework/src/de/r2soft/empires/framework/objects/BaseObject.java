@@ -32,7 +32,7 @@ public abstract class BaseObject {
   protected Logger logger = Logger.getLogger(getClass().getName());
 
   private Vector2D position;
-  private float mass;
+  private double mass;
   private String name;
 
   @Deprecated
@@ -85,6 +85,7 @@ public abstract class BaseObject {
   /**
    * For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET!
    */
+  @Deprecated
   public static enum Category {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
   }
@@ -97,11 +98,11 @@ public abstract class BaseObject {
 	this.position = vec;
   }
 
-  public float getMass() {
+  public double getMass() {
 	return mass;
   }
 
-  public void setMass(float mass) {
+  public void setMass(double mass) {
 	this.mass = mass;
   }
 

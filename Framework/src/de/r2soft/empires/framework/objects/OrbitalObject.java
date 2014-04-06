@@ -6,32 +6,45 @@ import de.r2soft.empires.framework.planetary.Orbit;
  * Orbital Object. All orbital objects can be claimed and belong to a player. Can't be moved but orbits a parent {@link #BaseObject} with a
  * velocity, radius. Orbital direction is the same for the entire solar system.
  * 
- * @author AreusAstarte
+ * @author ***REMOVED***
  * 
  */
 public abstract class OrbitalObject extends PlayerObject {
 
-  private float orbitalVelocity;
-  private float orbitalRadius;
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  private double orbitalVelocity;
+
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  private double orbitalRadius;
   private BaseObject orbitalParent;
-  protected Orbit orbit;
+  private Orbit orbit;
 
   /* Determines whether the object can change orbit (or orbital period). Applies for Stations, planets and moons */
   private boolean semiStaticObject;
 
-  public float getOrbitalV() {
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  public double getOrbitalV() {
 	return orbitalVelocity;
   }
 
-  public void setOrbitalV(float orbitalV) {
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  public void setOrbitalV(double orbitalV) {
 	this.orbitalVelocity = orbitalV;
   }
 
-  public float getOrbitalR() {
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  public double getOrbitalR() {
 	return orbitalRadius;
   }
 
-  public void setOrbitalR(float orbitalRadius) {
+  @Deprecated
+  /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
+  public void setOrbitalR(double orbitalRadius) {
 	this.orbitalRadius = orbitalRadius;
   }
 
@@ -48,4 +61,15 @@ public abstract class OrbitalObject extends PlayerObject {
 	else
 	  logger.info("Failed! SemiStaticObjects can't change orbital parent!");
   }
+
+  public Orbit getOrbit() {
+    return orbit;
+  }
+
+  public void setOrbit(Orbit orbit) {
+    this.orbit = orbit;
+  }
+  
+  
+  
 }
