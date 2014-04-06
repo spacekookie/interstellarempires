@@ -43,7 +43,7 @@ public class OrbitalStructure extends OrbitalObject {
 
 	super.setClaim(claim);
 	super.setPosition(position);
-	super.orbit = new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent());
+	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent()));
   }
 
   /** Check if the structure has a UnitFactory */
