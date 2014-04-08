@@ -108,8 +108,9 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 
   private void renderStar() {
 	// TODO: Check for star type here
-	batch.draw(Assets.STARS_RED_DWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0,
-		0, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1, 0);
+	batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
+		-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF,
+		Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1, 0);
   }
 
   private void renderPlanets() {
@@ -117,13 +118,15 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 	for (Planet p : system.getPlanets()) {
 	  // TODO: Check planet type.
 
-	  batch.draw(Assets.R2_CELESTIALS_PLANET_EARTHY, (float) p.getPosition().getX(), (float) p.getPosition().getY(),
+	  System.out.println("I'm already rendering.");
+
+	  batch.draw(Assets.R2_SOLAR_PLANET_EARTHY, (float) p.getPosition().getX(), (float) p.getPosition().getY(),
 		  -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
 		  Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
 	  if (p.hasMoons()) {
 		for (Moon m : p.getMoons()) {
 		  // TODO: Check for moon type.
-		  batch.draw(Assets.R2_CELESTIALS_MOON_BORING, (float) m.getPosition().getX(), (float) m.getPosition().getY(),
+		  batch.draw(Assets.R2_SOLAR_MOON_ROCKY, (float) m.getPosition().getX(), (float) m.getPosition().getY(),
 			  -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
 			  Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
 		}
@@ -133,21 +136,21 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
   }
 
   private void renderShips() {
-	for (Fleet f : system.getUnits()) {
-	  if (f.getCount() == 1) {
-		// TODO: Check for ship types.
-		batch.draw(Assets.UNITS_FIGHTER_BASIC, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
-			-(Values.R2_SOLAR_SHIP_NORMAL / 2), -(Values.R2_SOLAR_SHIP_NORMAL / 2), Values.R2_SOLAR_SHIP_NORMAL,
-			Values.R2_SOLAR_SHIP_NORMAL, 1, 1, 0);
-	  }
-	  else {
-		// TODO: Change icon size according to fleet size
-		batch.draw(Assets.FLEET_FIGHTER_FRIEND, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
-			-(Values.R2_SOLAR_FLEET_MEDIUM / 2), -(Values.R2_SOLAR_FLEET_MEDIUM / 2), Values.R2_SOLAR_FLEET_MEDIUM,
-			Values.R2_SOLAR_FLEET_MEDIUM, 1, 1, 0);
-	  }
-
-	}
+	// for (Fleet f : system.getUnits()) {
+	// if (f.getCount() == 1) {
+	// // TODO: Check for ship types.
+	// batch.draw(Assets.UNITS_FIGHTER_BASIC, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
+	// -(Values.R2_SOLAR_SHIP_NORMAL / 2), -(Values.R2_SOLAR_SHIP_NORMAL / 2), Values.R2_SOLAR_SHIP_NORMAL,
+	// Values.R2_SOLAR_SHIP_NORMAL, 1, 1, 0);
+	// }
+	// else {
+	// // TODO: Change icon size according to fleet size
+	// batch.draw(Assets.FLEET_FIGHTER_FRIEND, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
+	// -(Values.R2_SOLAR_FLEET_MEDIUM / 2), -(Values.R2_SOLAR_FLEET_MEDIUM / 2), Values.R2_SOLAR_FLEET_MEDIUM,
+	// Values.R2_SOLAR_FLEET_MEDIUM, 1, 1, 0);
+	// }
+	//
+	// }
 
   }
 
@@ -169,28 +172,28 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 
 	BaseObject temp = null;
 
-	for (Fleet f : system.getUnits())
-	  if (f.getPosition().equals(new Vector2D(x, y))) {
-		temp = f;
-		return temp;
-	  }
-	for (Planet p : system.getPlanets()) {
-	  if (p.getPosition().equals(new Vector2D(x, y))) {
-		temp = p;
-		return temp;
-	  }
-	  else
-		for (Moon m : p.getMoons())
-		  if (m.getPosition().equals(new Vector2D(x, y))) {
-			temp = m;
-			return temp;
-		  }
-	}
-	for (Fleet f : system.getUnits())
-	  if (f.getPosition().equals(new Vector2D(x, y))) {
-		temp = f;
-		return temp;
-	  }
+	// for (Fleet f : system.getUnits())
+	// if (f.getPosition().equals(new Vector2D(x, y))) {
+	// temp = f;
+	// return temp;
+	// }
+	// for (Planet p : system.getPlanets()) {
+	// if (p.getPosition().equals(new Vector2D(x, y))) {
+	// temp = p;
+	// return temp;
+	// }
+	// else
+	// for (Moon m : p.getMoons())
+	// if (m.getPosition().equals(new Vector2D(x, y))) {
+	// temp = m;
+	// return temp;
+	// }
+	// }
+	// for (Fleet f : system.getUnits())
+	// if (f.getPosition().equals(new Vector2D(x, y))) {
+	// temp = f;
+	// return temp;
+	// }
 
 	return temp;
   }

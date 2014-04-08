@@ -146,15 +146,16 @@ public class HexMapScreen extends R2Screen {
 	TiledMapTile[] tiles = new TiledMapTile[4];
 
 	// TODO: Make this ugly go away.
-	tiles[0] = new StaticTiledMapTile(Assets.TILES_BLUE);
-	tiles[1] = new StaticTiledMapTile(Assets.TILES_GREEN);
-	tiles[2] = new StaticTiledMapTile(Assets.TILES_RED);
-	tiles[3] = new StaticTiledMapTile(Assets.TILES_WHITE);
+	tiles[0] = new StaticTiledMapTile(Assets.R2_TILES_BLUE);
+	tiles[1] = new StaticTiledMapTile(Assets.R2_TILES_GREEN);
+	tiles[2] = new StaticTiledMapTile(Assets.R2_TILES_RED);
+	tiles[3] = new StaticTiledMapTile(Assets.R2_TILES_WHITE);
 
 	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
 	for (int mx = 0; mx < 3; mx++) {
 	  for (int my = 0; my < 3; my++) {
 		SolarSystem sys = new SolarSystem();
+		sys.setClaim(new Player("Jane"));
 		// SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
 		// StarType.GIANTSPACEPUDDING));
 		HexCell cell = new HexCell(sys);

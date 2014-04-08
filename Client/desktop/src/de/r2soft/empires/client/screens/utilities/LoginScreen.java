@@ -50,12 +50,12 @@ public class LoginScreen extends R2Screen {
 
   public LoginScreen() {
 	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
-	login = new TextButton("LOGIN", Assets.UI_SKIN);
-	passField = new TextField("", Assets.UI_SKIN);
-	userField = new TextField("", Assets.UI_SKIN);
-	saveUser = new CheckBox("Save username?", Assets.UI_SKIN);
-	savePw = new CheckBox("Save Password?", Assets.UI_SKIN);
-	back = new TextButton("Back to Intro", Assets.UI_SKIN);
+	login = new TextButton("LOGIN", Assets.R2_UI_SKIN);
+	passField = new TextField("", Assets.R2_UI_SKIN);
+	userField = new TextField("", Assets.R2_UI_SKIN);
+	saveUser = new CheckBox("Save username?", Assets.R2_UI_SKIN);
+	savePw = new CheckBox("Save Password?", Assets.R2_UI_SKIN);
+	back = new TextButton("Back to Intro", Assets.R2_UI_SKIN);
 
 	if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
 	  userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
@@ -75,7 +75,7 @@ public class LoginScreen extends R2Screen {
 	outro.setFillParent(true);
 
 	// Exiting the game
-	exit = new TextButton("Exit Game", Assets.UI_SKIN);
+	exit = new TextButton("Exit Game", Assets.R2_UI_SKIN);
 	outro.add(exit).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.row();
 	outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
