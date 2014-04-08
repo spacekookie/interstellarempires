@@ -18,6 +18,7 @@ public abstract class OrbitalObject extends PlayerObject {
   @Deprecated
   /** Use the @Orbit object instead to store orbital data about an object. Makes it easier for rendering. */
   private double orbitalRadius;
+  /** Deprecate this as well??? */
   private BaseObject orbitalParent;
   private Orbit orbit;
 
@@ -48,14 +49,14 @@ public abstract class OrbitalObject extends PlayerObject {
 	this.orbitalRadius = orbitalRadius;
   }
 
-  public BaseObject getParent() {
+  public BaseObject getOrbitalParent() {
 	return orbitalParent;
   }
 
   /**
    * Sets a new parent for a movable object. Shouldn't be called on a semiStaticObject.
    */
-  public void setParent(BaseObject orbitalParent) {
+  public void setOrbitalParent(BaseObject orbitalParent) {
 	if (!semiStaticObject)
 	  this.orbitalParent = orbitalParent;
 	else
@@ -63,13 +64,11 @@ public abstract class OrbitalObject extends PlayerObject {
   }
 
   public Orbit getOrbit() {
-    return orbit;
+	return orbit;
   }
 
   public void setOrbit(Orbit orbit) {
-    this.orbit = orbit;
+	this.orbit = orbit;
   }
-  
-  
-  
+
 }

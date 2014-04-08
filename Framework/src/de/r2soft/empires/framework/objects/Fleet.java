@@ -18,6 +18,7 @@
 
 package de.r2soft.empires.framework.objects;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import de.r2soft.empires.framework.ai.Admiral;
@@ -31,6 +32,7 @@ import de.r2soft.empires.framework.ai.Admiral.CommandType;
  */
 public class Fleet extends MovableObject {
 
+  @Deprecated
   public static enum FleetSize {
 	TINY, SMALL, MEDIUM, LARGE, MASSIVE;
   }
@@ -44,11 +46,30 @@ public class Fleet extends MovableObject {
 	this.units = units;
   }
 
+  /** Create a fleet from a single ship */
+  public Fleet(Ship unit) {
+	this.count = 1;
+	this.units = new HashSet<Ship>();
+	units.add(unit);
+  }
+
+  public Fleet(Ship[] ships) {
+	this.units = new HashSet<Ship>();
+	this.count = ships.length;
+
+	for (Ship s : ships) {
+	  units.add(s);
+	}
+  }
+
   /**
+   * Don't use this anymore!
+   * 
    * Determines what icon size will be used for rendering.
    * 
    * @return enum for fleet SIZE.
    */
+  @Deprecated
   public FleetSize getFleetSize() {
 	if (count < 10)
 	  return FleetSize.TINY;
@@ -105,7 +126,7 @@ public class Fleet extends MovableObject {
   }
 
   public boolean hasAdmiral() {
-	return admiral == null ? false : true;
+	return admiral != null ? true : false;
   }
 
   public Admiral getAdmiral() {
@@ -115,5 +136,7 @@ public class Fleet extends MovableObject {
   public void setAdmiral(String name, CommandType type) {
 	if (admiral == null)
 	  admiral = new Admiral(name, type);
+	else
+	  logger.info("There was already an admiral attached to this fleet");
   }
 }

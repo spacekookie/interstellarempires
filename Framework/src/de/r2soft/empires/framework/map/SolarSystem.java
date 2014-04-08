@@ -20,6 +20,9 @@ package de.r2soft.empires.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
+import de.r2soft.empires.framework.objects.Fleet;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
 import de.r2soft.empires.framework.objects.Ship;
@@ -36,11 +39,12 @@ import de.r2soft.empires.framework.players.Player;
  * 
  */
 public class SolarSystem {
+  private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
   private GalaxyPosition pos;
   private Player claim;
   private Set<Planet> planets;
-  private Set<Ship> units;
+  private Set<Fleet> units;
   private Set<OrbitalStructure> structures;
   private Star star;
   private double radius;
@@ -52,7 +56,7 @@ public class SolarSystem {
   }
 
   /**
-   * NEVER USE THIS ON CLIENT SIDE. NEVER NEVER NEVER! (triple-negative = negative)
+   * Do you really want to do this?
    * 
    * @param id
    *          system id on map.
@@ -61,13 +65,23 @@ public class SolarSystem {
 	this.pos = pos;
   }
 
-  /** Empty constructor */
-  public SolarSystem() {
+  /** Minimalistic constructor that only takes a Star and a claim. Claim can be null. */
+  public SolarSystem(Star star, Player claim) {
+	this(star);
+	if (claim == null)
+	  logger.info("Why not use the base constructor next time?");
+	this.claim = claim;
+  }
 
-	units = new HashSet<Ship>();
+  /** Constructor ONLY taking in a star. Raw system */
+  public SolarSystem(Star star) {
+	if (star == null)
+	  logger.error("Star was NULL!");
+
+	units = new HashSet<Fleet>();
 	planets = new HashSet<Planet>();
 	structures = new HashSet<OrbitalStructure>();
-
+	logger.warn("Don't forget to set the rest of the values!");
   }
 
   /**
@@ -80,7 +94,7 @@ public class SolarSystem {
    * @param planets
    *          The set of planets in that solar system
    * @param units
-   *          the set of units in that solar system
+   *          the set of fleets in that solar system
    * @param structures
    *          the set of structures in that solar system
    * @param star
@@ -88,7 +102,7 @@ public class SolarSystem {
    * @param radius
    *          the radius of the solar system
    */
-  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Ship> units, Set<OrbitalStructure> structures, Star star) {
+  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units, Set<OrbitalStructure> structures, Star star) {
 	this.pos = pos;
 	this.claim = claim;
 	this.planets = planets;
@@ -183,18 +197,22 @@ public class SolarSystem {
    * @param units
    *          set of units
    */
-  public void addUnits(Set<Ship> units) {
+  public void addUnits(Set<Fleet> units) {
 	this.units = units;
   }
 
-  /** @return: get all units in this solar system */
-  public Set<Ship> getUnits() {
+  /** @return: get all fleets in the solar system. A single ship is fleet with size 1 */
+  public Set<Fleet> getUnits() {
 	return units;
   }
 
-  /** DEBUG ONLY */
-  public void addSingleUnit(Ship unit) {
-	units.add(unit);
+  public void addSingleFleet(Fleet fleet) {
+	if (units == null) {
+	  units = new HashSet<Fleet>();
+	  units.add(fleet);
+	  return;
+	}
+	units.add(fleet);
   }
 
   public boolean hasUnits() {
