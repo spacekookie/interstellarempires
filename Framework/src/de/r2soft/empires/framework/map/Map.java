@@ -17,28 +17,10 @@
 
 package de.r2soft.empires.framework.map;
 
-import java.util.Set;
-
-import net.sf.javaml.core.kdtree.KDTree;
-import net.sf.javaml.core.kdtree.KeySizeException;
-
-import com.google.common.collect.Sets;
-
-import de.r2soft.empires.framework.objects.BaseObject;
-
 public class Map {
 
-  private KDTree objects;
-
   public Map() {
-	objects = new KDTree(2);
+
   }
 
-  public Set<BaseObject> getObjectsAt(Location location, double range) throws KeySizeException {
-	double[] lowk = { location.getX() - range, location.getY() - range };
-	double[] uppk = { location.getX() + range, location.getY() + range };
-
-	BaseObject[] obj = (BaseObject[]) objects.range(lowk, uppk);
-	return Sets.newHashSet(obj);
-  }
 }
