@@ -52,19 +52,19 @@ public class Values {
   /** TODO: Should I change this somehow? */
   public static final Player _neutralplayer = new Player(null);
 
-  /**
+  /*
    * ############### SOLAR SYSTEM MAP VALUES ###############
    */
   public static final IntVec2 SOL_MAP_BASE_OFFSET = new IntVec2(2, 32);
   public static final IntVec2 SOL_MAP_BASE_SIZE = new IntVec2(950, 650);
 
-  /**
+  /*
    * ############### HEXAGON GALAXY MAP VALUES ###############
    */
   public static final IntVec2 HEX_MAP_BASE_OFFSET = new IntVec2(2, 32);
   public static final IntVec2 HEX_MAP_BASE_SIZE = new IntVec2(950, 640);
 
-  /**
+  /*
    * ############### UI ELEMENT PADDING SIZES ###############
    */
 
@@ -79,7 +79,7 @@ public class Values {
   /** Padding size around UI elements */
   public static final float R2_UI_PIXEL_PAD_MASSIVE = 100f;
 
-  /**
+  /*
    * ############### UI ELEMENT SIZES ###############
    */
   public static final float R2_UI_SIZES_BUTTON_HEIGHT_PRIME = 45f;
@@ -87,6 +87,46 @@ public class Values {
 
   public static final float R2_UI_SIZES_BUTTON_HEIGHT_CONTENT = 30f;
   public static final float R2_UI_SIZES_BUTTON_WIDTH_CONTENT = 150f;
+
+  /*
+   * ############### SOLAR MAP ICON SIZES ###############
+   */
+
+  /* Stars and System Center Bodies */
+
+  /** Size for a red-dwarf star in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_REDDWARF = 150;
+  /** Size for a red-giant star in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_REDGIANT = 300;
+  /** Size for a blue-dwarf (Neutron) star in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_BLUEDWARF = 20;
+  /** Size for a blue-giant (Class O Supergiant) star in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_BLUEGIANT = 275;
+  /** Size for a brown-dwarf star in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_BROWNDWARF = 100;
+  /** Size for a black hole/ wormhole "star" in the map */
+  public static final float R2_SOLAR_CELESTIAL_STAR_BLACKHOLE = 75;
+
+  /* Planets and Moons */
+
+  /** Size for an Earth-Like planet (0.8-1.5 earth masses) */
+  public static final float R2_SOLAR_CELESTIAL_PLANET_EARTHY = 25;
+  /** Size for an icy dwarf planet (0.3-0.7 earth masses) */
+  public static final float R2_SOLAR_CELESTIAL_PLANET_ICY = 20;
+  /** Size for a vulcanic planet (0.05-0.3 earth masses) */
+  public static final float R2_SOLAR_CELESTIAL_PLANET_FLAMY = 20;
+  /** Size for a gas giant (10-100 earth masses) */
+  public static final float R2_SOLAR_CELESTIAL_PLANET_GASSY = 75;
+  /** Size for a standard earth-type rock moon (0.5-1 earth moon masses) */
+  public static final float R2_SOLAR_CELESTIAL_MOON_ROCKY = 10;
+
+  /* Ships, Fleet and Stations */
+  /** Size for a standarf Fleet/Ship/Station Icon */
+  public static final float R2_SOLAR_PLAYER_FLEET = 25;
+  /** Size for a standarf Fleet/Ship/Station Icon */
+  public static final float R2_SOLAR_PLAYER_SHIP = 25;
+  /** Size for a standarf Fleet/Ship/Station Icon */
+  public static final float R2_SOLAR_PLAYER_STATION = 25;
 
   /* FROM HERE ON IS OLD AND LAME SHIT! */
 
