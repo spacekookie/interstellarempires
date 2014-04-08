@@ -17,9 +17,10 @@
  ######################################################################### */
 package de.r2soft.empires.framework.objects;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import org.apache.log4j.Logger;
+
+import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
  * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
@@ -32,6 +33,7 @@ public abstract class BaseObject {
   protected Logger logger = Logger.getLogger(getClass().getName());
 
   private Vector2D position;
+  private SolarSystem container;
   private double mass;
   private String name;
 
@@ -56,11 +58,10 @@ public abstract class BaseObject {
 	FIGHTER_I, FIGHTER_II, BOMBER_I,
 
 	/* Stars */
-	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_YELLOW_DWARF, STAR_WHITE_DWARF, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
+	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
 
 	/* Planets */
-	EARTH, VULCANIC, ICE, GAS_GIANT, GAS_DWARF, ROCK, ASTEROID_SINGLE, ASTEROID_BELT, METEOR,
-	// TODO: Something to store orbit radii with? Or should we at all?
+	EARTH, VULCANIC, ICE, GAS_GIANT, GAS_DWARF, ROCK, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
 
 	/* Structures */
 	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL, MILITARY_LARGE, RESEARCH_BASE_SMALL,
@@ -74,17 +75,12 @@ public abstract class BaseObject {
 	/* Deserts */
 	SPACE_PUDDING,
 
-	/* Fleet Sizes */
-	FLEET_TINY, FLEET_SMALL, FLEET_MEDIUM, FLEET_LARGE, FLEET_CAPITAL,
-
 	/* Slot Types */
 	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
 	// High power=Weapons, Medium power = Defense, Low power = Utility.
   }
 
-  /**
-   * For the client UI to check what to display. THIS ABSOLUTELY NEEDS TO BE SET!
-   */
+  /** Slowly phase it out! */
   @Deprecated
   public static enum Category {
 	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
@@ -120,6 +116,16 @@ public abstract class BaseObject {
 
   public Category getCategory() {
 	return category;
+  }
+
+  /** Returns the SolarSystem instance that contains this Object */
+  public SolarSystem getContainer() {
+	return container;
+  }
+
+  /** Call this on SolarSystem change for ships and during object creation. */
+  public void setContainer(SolarSystem container) {
+	this.container = container;
   }
 
 }
