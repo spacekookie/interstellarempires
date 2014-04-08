@@ -20,7 +20,10 @@ package de.r2soft.empires.framework.objects.factory;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import de.r2soft.empires.framework.objects.BaseObject.Category;
+import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Fleet;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Ship;
@@ -37,12 +40,13 @@ import de.r2soft.empires.framework.players.Sociable;
  */
 public class UnitFactory {
 
-  private Sociable owner;
+  private Sociable claim;
   private OrbitalStructure parent;
+  private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
   /** Constructor to be called from unit producing structures and planets. */
   public UnitFactory(Sociable owner, OrbitalStructure parent) {
-	this.owner = owner;
+	this.claim = claim;
 	this.parent = parent;
   }
 
@@ -67,13 +71,19 @@ public class UnitFactory {
 	return ship;
   }
 
+  public Ship requisitionUnit(Type type) {
+	logger.info("Yea...this doesn't do a whole lot yet. Come back later. Or consult with your System Administrator. Wink Wink!");
+	return null;
+  }
+
+  @Deprecated
   public Ship requisitionUnit(ShipType type) {
 	if (type == ShipType.FIGHTER) {
 	  float damage = ShipValues.Fighter_Damage;
 	  float speed = ShipValues.Fighter_Speed;
 	  float hp = ShipValues.Fighter_Hitpoints;
 	  float armour = ShipValues.Fighter_Armour;
-	  return new Ship(owner, type, damage, speed, hp, armour, null);
+	  return new Ship();
 	}
 	else if (type == ShipType.CARGO_SMALL) {
 	  float damage = ShipValues.Cargo_Small_Damage;
@@ -86,7 +96,7 @@ public class UnitFactory {
 	  for (int a = 0; a < ShipValues.Cargo_Small_SlotAmount; a++) {
 		slots.add(new ModuleSlot());
 	  }
-	  return new Ship(owner, type, damage, speed, hp, armour, slots);
+	  return new Ship();
 	}
 	else if (type == ShipType.MOTHERSHIP) {
 	  float damage = ShipValues.MotherShip_Damage;
@@ -99,7 +109,7 @@ public class UnitFactory {
 	  for (int a = 0; a < ShipValues.MotherShip_SlotAmount; a++) {
 		slots.add(new ModuleSlot());
 	  }
-	  return new Ship(owner, type, damage, speed, hp, armour, slots);
+	  return new Ship();
 	}
 	else
 	  return null;

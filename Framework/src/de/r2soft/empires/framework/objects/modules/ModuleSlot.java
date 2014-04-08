@@ -18,10 +18,14 @@
 
 package de.r2soft.empires.framework.objects.modules;
 
+import org.apache.log4j.Logger;
+
 import de.r2soft.empires.framework.objects.modules.Weapon.WeaponType;
 
 public class ModuleSlot {
+  private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
+  @Deprecated
   public static enum SlotType {
 
 	/* Modules that can attack the enemy with damage or abilities */
@@ -39,6 +43,7 @@ public class ModuleSlot {
 	DEFENCE;
   }
 
+  @Deprecated
   public static enum SlotSize {
 
 	/* Used on frigates */
@@ -116,8 +121,6 @@ public class ModuleSlot {
   }
 
   private void logError(BaseModule module) {
-	// TODO: Log
-	// TODO: Promt user to clear the slot first.
   }
 
   public SlotType getType() {
