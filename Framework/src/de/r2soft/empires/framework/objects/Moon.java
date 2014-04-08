@@ -30,8 +30,23 @@ import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
 public class Moon extends OrbitalObject {
 
   public Moon(Planet parent) {
-	super.setParent(parent);
-	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getParent()));
+	super.setOrbitalParent(parent);
+	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getOrbitalParent()));
+  }
+
+  private Planet parent;
+
+  public Moon(Orbit orbit) {
+	super.setOrbit(orbit);
+	this.parent = (Planet) orbit.getParent();
+  }
+
+  public Planet getParent() {
+	return parent;
+  }
+
+  public void setParent(Planet parent) {
+	this.parent = parent;
   }
 
 }

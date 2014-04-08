@@ -154,7 +154,7 @@ public class HexMapScreen extends R2Screen {
 	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
 	for (int mx = 0; mx < 3; mx++) {
 	  for (int my = 0; my < 3; my++) {
-		SolarSystem sys = new SolarSystem();
+		SolarSystem sys = new SolarSystem(null);
 		sys.setClaim(new Player("Jane"));
 		// SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
 		// StarType.GIANTSPACEPUDDING));
@@ -284,7 +284,7 @@ public class HexMapScreen extends R2Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().setScreen(new SolMapScreen(new SolarSystem()));
+		GameCore.getInstance().setScreen(new SolMapScreen(new SolarSystem(null)));
 	  }
 	});
 

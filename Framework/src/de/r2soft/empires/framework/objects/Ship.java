@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
+import de.r2soft.empires.framework.objects.factory.ValueManager;
 import de.r2soft.empires.framework.objects.modules.BaseModule;
 import de.r2soft.empires.framework.objects.modules.ModuleSlot;
 import de.r2soft.empires.framework.objects.modules.Propulsion;
@@ -38,26 +39,25 @@ import de.r2soft.empires.framework.players.Sociable;
  */
 public class Ship extends MovableObject {
 
+  @Deprecated
   public static enum ShipType {
 	FIGHTER, CARGO_SMALL, MOTHERSHIP;
   }
 
-  private Player claim;
   private ShipType type;
   private Set<ModuleSlot> slots;
-  private Propulsion engine;
-  /* Remove? */
-  private float damage;
 
-  public Ship(Sociable claim, ShipType type, float damage, float speed, float hp, float armour, Set<ModuleSlot> slots) {
-
+  public Ship(Type type, Sociable claim) {
+	super.setType(type);
+	super.setClaim((Player) claim);
+	// this.slots = ValueManager.getInstance().getSomethingShiny(type);
   }
 
   /** Constructor for ships without modules */
   @Deprecated
   public Ship(Category category, ShipType type, String name, Player claim, Vector2D position) {
 	this.type = type;
-	this.claim = claim;
+	super.setClaim(claim);
 	super.setName(name);
 	super.setPosition(position);
 	super.setCategory(category);
@@ -67,7 +67,7 @@ public class Ship extends MovableObject {
   @Deprecated
   public Ship(Category category, ShipType type, String name, Player claim, Vector2D position, Set<ModuleSlot> slots) {
 	this.type = type;
-	this.claim = claim;
+	super.setClaim(claim);
 	super.setName(name);
 	super.setPosition(position);
 	super.setCategory(category);
@@ -80,14 +80,6 @@ public class Ship extends MovableObject {
 	super.setCategory(Category.SHIP);
   }
 
-  public Player getClaim() {
-	return claim;
-  }
-
-  public void setClaim(Player claim) {
-	this.claim = claim;
-  }
-
   @Deprecated
   public ShipType getShipType() {
 	return type;
@@ -96,14 +88,6 @@ public class Ship extends MovableObject {
   public void setType(ShipType type) {
 	this.type = type;
   }
-
-  // public ALLEGIANCE getAllegiance(Player p) {
-  //
-  // if (p.getAlliance().equals(claim.getAlliance())) {
-  // return ALLEGIANCE.FRIENDLY;
-  // }
-  // return p.equals(this.claim) ? ALLEGIANCE.PLAYER : ALLEGIANCE.HOSTILE;
-  // }
 
   /** Strips all modules from their slots */
   public void stripShip() {

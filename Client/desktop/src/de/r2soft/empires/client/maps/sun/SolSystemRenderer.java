@@ -18,7 +18,7 @@
 
 package de.r2soft.empires.client.maps.sun;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +31,6 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject;
-import de.r2soft.empires.framework.objects.Fleet;
 import de.r2soft.empires.framework.objects.Moon;
 import de.r2soft.empires.framework.objects.Planet;
 

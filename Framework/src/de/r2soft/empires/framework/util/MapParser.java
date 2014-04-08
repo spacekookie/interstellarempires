@@ -50,7 +50,7 @@ public class MapParser {
 	for (Iterator<Element> s = solarSystems.elementIterator(); s.hasNext();) {
 	  Element solarSystem = s.next();
 
-	  SolarSystem temp = new SolarSystem();
+	  SolarSystem temp = new SolarSystem(null);
 
 	  Element position = solarSystem.element("Position");
 
