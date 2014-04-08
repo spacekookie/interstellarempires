@@ -18,7 +18,7 @@
 
 package de.r2soft.empires.client.maps.sun;
 
-import org.apache.log4j.Logger;
+import java.util.Set;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -161,40 +161,15 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
    * This method returns whatever object the player has clicked on. See TODO file inside.
    * 
    * @param x
-   *          coordinate on the screen
+   *          coordinate in the world
    * @param y
-   *          coordinate on the screen
-   * @return Returns any instance of a BaseObject child, depending on what was actually clicked.
+   *          coordinate in the world
+   * @return Returns a set of Objects that MIGHT have been clicked.
    */
-  public BaseObject getUnitAtCoordinates(float x, float y) {
-	/* TODO: I'm not yet done writing this algorithm but I can already see it's gonna be a big mess. Fix it later. */
+  public Set<BaseObject> getUnitAtCoordinates(double x, double y) {
 
-	BaseObject temp = null;
-
-	// for (Fleet f : system.getUnits())
-	// if (f.getPosition().equals(new Vector2D(x, y))) {
-	// temp = f;
-	// return temp;
-	// }
-	// for (Planet p : system.getPlanets()) {
-	// if (p.getPosition().equals(new Vector2D(x, y))) {
-	// temp = p;
-	// return temp;
-	// }
-	// else
-	// for (Moon m : p.getMoons())
-	// if (m.getPosition().equals(new Vector2D(x, y))) {
-	// temp = m;
-	// return temp;
-	// }
-	// }
-	// for (Fleet f : system.getUnits())
-	// if (f.getPosition().equals(new Vector2D(x, y))) {
-	// temp = f;
-	// return temp;
-	// }
-
-	return temp;
+	// TODO: Ask the MAGIC TREE OF KNOWLEGE!
+	return null;
   }
 
   @Override
