@@ -40,6 +40,7 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.objects.BaseObject;
 
 /**
  * Remake of the solar system screen with new camera viewport and UI. Published for Prototype version 1.2
@@ -197,6 +198,11 @@ public class SolMapScreen extends R2Screen {
   public void setInputFocus() {
 	Gdx.input.setInputProcessor(multiplexer);
 	setupButtonListeners();
+  }
+
+  /** Updates the UI with the new focus information */
+  public void updateFocus(BaseObject target) {
+
   }
 
 }
