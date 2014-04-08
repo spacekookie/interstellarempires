@@ -30,14 +30,112 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  */
 public class Assets {
 
-  // Textures
+  /*
+   * ############### HEX TILES TEXTURES ###############
+   */
 
-  /** NEW HEX TILES */
-  private static final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("map/v2/v2hexmap.atlas"));
-  public static final TextureRegion TILES_BLUE = atlas.findRegion("hextile_blue");
-  public static final TextureRegion TILES_GREEN = atlas.findRegion("hextile_green");
-  public static final TextureRegion TILES_RED = atlas.findRegion("hextile_red");
-  public static final TextureRegion TILES_WHITE = atlas.findRegion("hextile_white");
+  private static final TextureAtlas R2_ATLAS_TILES = new TextureAtlas(
+	  Gdx.files.internal("r2_graphics/maps/galaxy/_atli/galaxy_tiles.atlas"));
+  /** Blue (Friendly/ Ally) map tile for the Galaxy Map */
+  public static final TextureRegion R2_TILES_BLUE = R2_ATLAS_TILES.findRegion("hextile_blue");
+  /** Green (Player) map tile for the Galaxy Map */
+  public static final TextureRegion R2_TILES_GREEN = R2_ATLAS_TILES.findRegion("hextile_green");
+  /** Red (Hostile) map tile for the Galaxy Map */
+  public static final TextureRegion R2_TILES_RED = R2_ATLAS_TILES.findRegion("hextile_red");
+  /** White (Neutral) map tile for the Galaxy Map */
+  public static final TextureRegion R2_TILES_WHITE = R2_ATLAS_TILES.findRegion("hextile_white");
+  /** Purple (Swarm-Infected) map tile for the Galaxy Map */
+  public static final TextureRegion R2_TILES_PURPLE = R2_ATLAS_TILES.findRegion("hextile_purple");
+
+  /*
+   * ############### USER INTERFACE IMPORTS ###############
+   */
+
+  /** Use {@link #R2_UI_SKIN} instead */
+  @Deprecated
+  public static final Skin UI_SKIN = new Skin(Gdx.files.internal("gui/skins/evolved/uiskin.json"));
+
+  /** New default UI Skin for the entire application. */
+  public static final Skin R2_UI_SKIN = new Skin(Gdx.files.internal("r2_graphics/ui/skin/uiskin.json"));
+  private static final TextureAtlas V2_BACKGROUNDS = new TextureAtlas(Gdx.files.internal("gui/graphics/back.atlas"));
+
+  /** A stolen background for the game. WILL NEED TO BE REPLACED! */
+  public static final TextureRegion V2_BACKGROUND = V2_BACKGROUNDS.findRegion("spacebackgroundtemp");
+
+  /*
+   * ############### SOLAR SYSTEM ICONS ###############
+   */
+  private static final TextureAtlas R2_ATLAS_SOLAR = new TextureAtlas(Gdx.files.internal("r2_graphics/maps/solar/_atli/solar_icons.atlas"));
+  /** Red Dwarf Star */
+  public static final TextureRegion R2_SOLAR_STAR_REDDWARF = R2_ATLAS_SOLAR.findRegion("star_red_dwarf");
+  /** Red Giant Star */
+  public static final TextureRegion R2_SOLAR_STAR_REDGIANT = R2_ATLAS_SOLAR.findRegion("star_red_giant");
+  /** Neutron-Star = Blue/ White Dwarf */
+  public static final TextureRegion R2_SOLAR_STAR_BLUEDWARF = R2_ATLAS_SOLAR.findRegion("star_blue_dwarf");
+  /** Blue super-giant Star (Class O) */
+  public static final TextureRegion R2_SOLAR_STAR_BLUEGIANT = R2_ATLAS_SOLAR.findRegion("star_blue_giant");
+  /** Brown Dwarf Mini-Star */
+  public static final TextureRegion R2_SOLAR_STAR_BROWNDWARF = R2_ATLAS_SOLAR.findRegion("star_brown_dwarf");
+  /** Black Hole Accretion Disk */
+  public static final TextureRegion R2_SOLAR_STAR_BLACKHOLE = R2_ATLAS_SOLAR.findRegion("star_black_hole");
+
+  /* PLANETS */
+  /** Earth Like Planet (Classes undecided) */
+  public static final TextureRegion R2_SOLAR_PLANET_EARTHY = R2_ATLAS_SOLAR.findRegion("planet_earthy");
+  /** Gas Giant (Jupiter Sized) */
+  public static final TextureRegion R2_SOLAR_PLANET_GASSY = R2_ATLAS_SOLAR.findRegion("planet_gassy");
+  /** Solid Ice plane */
+  public static final TextureRegion R2_SOLAR_PLANET_ICY = R2_ATLAS_SOLAR.findRegion("planet_icy");
+  /** Volcanic planet (solid, toxic atmosphere) */
+  public static final TextureRegion R2_SOLAR_PLANET_FLAMY = R2_ATLAS_SOLAR.findRegion("planet_flamy");
+  /** Standard rocky boring old mun */
+  public static final TextureRegion R2_SOLAR_MOON_ROCKY = R2_ATLAS_SOLAR.findRegion("moon_rocky");
+
+  /* SHIPS */
+  /** Single Ship Self (Green) */
+  public static final TextureRegion R2_SOLAR_SHIP_SELF = R2_ATLAS_SOLAR.findRegion("ship_self");
+  /** Single Ship Ally (Blue) */
+  public static final TextureRegion R2_SOLAR_SHIP_ALLY = R2_ATLAS_SOLAR.findRegion("ship_ally");
+  /** Single Ship Hostile (Red) */
+  public static final TextureRegion R2_SOLAR_SHIP_HOSTILE = R2_ATLAS_SOLAR.findRegion("ship_hostile");
+  /** Single Ship Neutral (White/ Grey) */
+  public static final TextureRegion R2_SOLAR_SHIP_NEUTRAL = R2_ATLAS_SOLAR.findRegion("ship_neutral");
+  /** Single Ship Infected (Purple) */
+  public static final TextureRegion R2_SOLAR_SHIP_INFECTED = R2_ATLAS_SOLAR.findRegion("ship_infected");
+
+  /* FLEETS */
+  /** Fleet Icon Self (Green) */
+  public static final TextureRegion R2_SOLAR_FLEET_SELF = R2_ATLAS_SOLAR.findRegion("fleet_self");
+  /** Fleet Icon Ally (Blue) */
+  public static final TextureRegion R2_SOLAR_FLEET_ALLY = R2_ATLAS_SOLAR.findRegion("fleet_ally");
+  /** Fleet Icon Hostile (Red) */
+  public static final TextureRegion R2_SOLAR_FLEET_HOSTILE = R2_ATLAS_SOLAR.findRegion("fleet_hostile");
+  /** Fleet Icon Neutral (White/ Grey) */
+  public static final TextureRegion R2_SOLAR_FLEET_NEUTRAL = R2_ATLAS_SOLAR.findRegion("fleet_neutral");
+  /** Fleet Icon Infected (Purple) */
+  public static final TextureRegion R2_SOLAR_FLEET_INFECTED = R2_ATLAS_SOLAR.findRegion("fleet_infected");
+
+  /* STATIONS */
+  /** Station Icon Self (Green) */
+  public static final TextureRegion R2_SOLAR_STATION_SELF = R2_ATLAS_SOLAR.findRegion("station_self");
+  /** Station Icon Ally (Blue) */
+  public static final TextureRegion R2_SOLAR_STATION_ALLY = R2_ATLAS_SOLAR.findRegion("station_ally");
+  /** Station Icon Hostile (Red) */
+  public static final TextureRegion R2_SOLAR_STATION_HOSTILE = R2_ATLAS_SOLAR.findRegion("station_hostile");
+  /** Station Icon Neutral (White/ Grey) */
+  public static final TextureRegion R2_SOLAR_STATION_NEUTRAL = R2_ATLAS_SOLAR.findRegion("station_neutral");
+  /** Station Icon Infected (Purple) */
+  public static final TextureRegion R2_SOLAR_STATION_INFECTED = R2_ATLAS_SOLAR.findRegion("station_infected");
+
+  /*
+   * ############################################################################################
+   * ############################################################################################
+   * 
+   * ################################### OLD AN DIRTY IMPORTS ###################################
+   * 
+   * ############################################################################################
+   * ############################################################################################
+   */
 
   /** Atlas imports */
   private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(Gdx.files.internal("map/prot-map-tiles.pack"));
@@ -45,14 +143,6 @@ public class Assets {
   private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(Gdx.files.internal("gui/prot-selected.atlas"));
   private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(Gdx.files.internal("map/adds/prot-tile-additions.atlas"));
   private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(Gdx.files.internal("ships/basic-ships.pack"));
-  private static final TextureAtlas V2_BACKGROUNDS = new TextureAtlas(Gdx.files.internal("gui/graphics/back.atlas"));
-
-  /** Skins */
-
-  /** The default skin for ui elements */
-  public static final Skin UI_SKIN = new Skin(Gdx.files.internal("gui/skins/evolved/uiskin.json"));
-
-  /** UI regions */
 
   /** Selection box for units and planets */
   public static final TextureRegion GUI_FRAME_SELECTION = INITIAL_UI_SELECTION.findRegion("selected");
@@ -94,9 +184,6 @@ public class Assets {
   public static final TextureRegion UNITS_FIGHTER_BASIC = INITIAL_BASIC_UNITS.findRegion("small_fighter");
   /** Single small cargo freighter unit. No colour coding for alliances */
   public static final TextureRegion UNITS_CARGO_SMALL = INITIAL_BASIC_UNITS.findRegion("cargo_freighter_small");
-
-  /** STOLEN BACKGROUNDS REGION */
-  public static final TextureRegion V2_STOLEN_BACKGROUND = V2_BACKGROUNDS.findRegion("spacebackgroundtemp");
 
   /** Star regions */
 
