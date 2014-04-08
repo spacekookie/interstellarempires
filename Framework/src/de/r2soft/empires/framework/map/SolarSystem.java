@@ -20,8 +20,11 @@ package de.r2soft.empires.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.log4j.Logger;
 
+import de.r2soft.empires.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Fleet;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
@@ -49,6 +52,7 @@ public class SolarSystem {
   private Star star;
   private double radius;
   private boolean explored;
+  private ObjectTree<BaseObject> objectPositions;
 
   /** @return: Systems (x,y) id on haxmap */
   public GalaxyPosition getPosition() {
@@ -71,6 +75,12 @@ public class SolarSystem {
 	if (claim == null)
 	  logger.info("Why not use the base constructor next time?");
 	this.claim = claim;
+
+	// Tree Demo
+	objectPositions.insert(new Vector2D(10, 10), new Fleet(new HashSet<Ship>()));
+	BaseObject object = objectPositions.nearest(new Vector2D(10, 10));
+	objectPositions.move(new Vector2D(10, 10), new Vector2D(20, 20));
+
   }
 
   /** Constructor ONLY taking in a star. Raw system */
@@ -102,7 +112,8 @@ public class SolarSystem {
    * @param radius
    *          the radius of the solar system
    */
-  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units, Set<OrbitalStructure> structures, Star star) {
+  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units,
+	  Set<OrbitalStructure> structures, Star star) {
 	this.pos = pos;
 	this.claim = claim;
 	this.planets = planets;
