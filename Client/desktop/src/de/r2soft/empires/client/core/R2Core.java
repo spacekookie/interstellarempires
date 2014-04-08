@@ -66,7 +66,7 @@ public class R2Core implements ApplicationListener {
 	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 	batch.begin();
-	batch.draw(Assets.V2_STOLEN_BACKGROUND, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 1, 1, 0);
+	batch.draw(Assets.V2_BACKGROUND, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 1, 1, 0);
 	batch.end();
 
 	if (screen != null)
