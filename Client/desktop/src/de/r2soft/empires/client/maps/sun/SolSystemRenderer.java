@@ -35,146 +35,153 @@ import de.r2soft.empires.framework.objects.Moon;
 import de.r2soft.empires.framework.objects.Planet;
 
 /**
- * A custom renderer that renders a solar system with a star in the middle and planets orbiting on circular paths around the star.
+ * A custom renderer that renders a solar system with a star in the middle and planets orbiting on
+ * circular paths around the star.
  * 
  * @author ***REMOVED***
  * 
  */
 public class SolSystemRenderer implements MapRenderer, Disposable {
-  private boolean yDown = false;
-  private float scale;
-  private SpriteBatch batch;
-  private Rectangle viewBounds;
+	private boolean yDown = false;
+	private float scale;
+	private SpriteBatch batch;
+	private Rectangle viewBounds;
 
-  private SolarSystem system;
+	private SolarSystem system;
 
-  public SolSystemRenderer(SolarSystem system) {
-	this.system = system;
-	batch = new SpriteBatch();
-	viewBounds = new Rectangle();
-  }
-
-  public boolean isYdown() {
-	return yDown;
-  }
-
-  public void setYDown(boolean yDown) {
-	this.yDown = yDown;
-  }
-
-  public void setAUScale(float scale) {
-	this.scale = scale;
-  }
-
-  public float getAUScale() {
-	return scale;
-  }
-
-  @Override
-  public void dispose() {
-	batch.dispose();
-  }
-
-  @Override
-  public void setView(OrthographicCamera camera) {
-	batch.setProjectionMatrix(camera.combined);
-	float width = camera.viewportWidth * camera.zoom;
-	float height = camera.viewportHeight * camera.zoom;
-	viewBounds.set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
-  }
-
-  @Override
-  public void setView(Matrix4 projection, float x, float y, float width, float height) {
-	batch.setProjectionMatrix(projection);
-	viewBounds.set(x, y, width, height);
-  }
-
-  @Override
-  public void render() {
-
-	batch.begin();
-	this.renderPlanets();
-	this.renderShips();
-	this.renderStar();
-	this.renderStructures();
-	this.renderOrbits();
-	batch.end();
-  }
-
-  private void renderStructures() {
-
-  }
-
-  private void renderStar() {
-	// TODO: Check for star type here
-	batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
-		-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF,
-		Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1, 0);
-  }
-
-  private void renderPlanets() {
-
-	for (Planet p : system.getPlanets()) {
-	  // TODO: Check planet type.
-
-	  System.out.println("I'm already rendering.");
-
-	  batch.draw(Assets.R2_SOLAR_PLANET_EARTHY, (float) p.getPosition().getX(), (float) p.getPosition().getY(),
-		  -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
-		  Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
-	  if (p.hasMoons()) {
-		for (Moon m : p.getMoons()) {
-		  // TODO: Check for moon type.
-		  batch.draw(Assets.R2_SOLAR_MOON_ROCKY, (float) m.getPosition().getX(), (float) m.getPosition().getY(),
-			  -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
-			  Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
-		}
-	  }
+	public SolSystemRenderer(SolarSystem system) {
+		this.system = system;
+		batch = new SpriteBatch();
+		viewBounds = new Rectangle();
 	}
 
-  }
+	public boolean isYdown() {
+		return yDown;
+	}
 
-  private void renderShips() {
-	// for (Fleet f : system.getUnits()) {
-	// if (f.getCount() == 1) {
-	// // TODO: Check for ship types.
-	// batch.draw(Assets.UNITS_FIGHTER_BASIC, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
-	// -(Values.R2_SOLAR_SHIP_NORMAL / 2), -(Values.R2_SOLAR_SHIP_NORMAL / 2), Values.R2_SOLAR_SHIP_NORMAL,
-	// Values.R2_SOLAR_SHIP_NORMAL, 1, 1, 0);
-	// }
-	// else {
-	// // TODO: Change icon size according to fleet size
-	// batch.draw(Assets.FLEET_FIGHTER_FRIEND, (float) f.getPosition().getX(), (float) f.getPosition().getY(),
-	// -(Values.R2_SOLAR_FLEET_MEDIUM / 2), -(Values.R2_SOLAR_FLEET_MEDIUM / 2), Values.R2_SOLAR_FLEET_MEDIUM,
-	// Values.R2_SOLAR_FLEET_MEDIUM, 1, 1, 0);
-	// }
-	//
-	// }
+	public void setYDown(boolean yDown) {
+		this.yDown = yDown;
+	}
 
-  }
+	public void setAUScale(float scale) {
+		this.scale = scale;
+	}
 
-  private void renderOrbits() {
+	public float getAUScale() {
+		return scale;
+	}
 
-  }
+	@Override
+	public void dispose() {
+		batch.dispose();
+	}
 
-  /**
-   * This method returns whatever object the player has clicked on. See TODO file inside.
-   * 
-   * @param x
-   *          coordinate in the world
-   * @param y
-   *          coordinate in the world
-   * @return Returns a set of Objects that MIGHT have been clicked.
-   */
-  public Set<BaseObject> getUnitAtCoordinates(double x, double y) {
+	@Override
+	public void setView(OrthographicCamera camera) {
+		batch.setProjectionMatrix(camera.combined);
+		float width = camera.viewportWidth * camera.zoom;
+		float height = camera.viewportHeight * camera.zoom;
+		viewBounds.set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
+	}
 
-	// TODO: Ask the MAGIC TREE OF KNOWLEGE!
-	return null;
-  }
+	@Override
+	public void setView(Matrix4 projection, float x, float y, float width, float height) {
+		batch.setProjectionMatrix(projection);
+		viewBounds.set(x, y, width, height);
+	}
 
-  @Override
-  public void render(int[] layers) {
+	@Override
+	public void render() {
 
-  }
+		batch.begin();
+		this.renderPlanets();
+		this.renderShips();
+		this.renderStar();
+		this.renderStructures();
+		this.renderOrbits();
+		batch.end();
+	}
+
+	private void renderStructures() {
+
+	}
+
+	private void renderStar() {
+		// TODO: Check for star type here
+		batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
+				-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0,
+				Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1, 0);
+	}
+
+	private void renderPlanets() {
+
+		for (Planet p : system.getPlanets()) {
+			// TODO: Check planet type.
+
+			System.out.println("I'm already rendering.");
+
+			batch.draw(Assets.R2_SOLAR_PLANET_EARTHY, (float) p.getPosition().getX(), (float) p
+					.getPosition().getY(), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
+					-(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
+					Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
+			if (p.hasMoons()) {
+				for (Moon m : p.getMoons()) {
+					// TODO: Check for moon type.
+					batch.draw(Assets.R2_SOLAR_MOON_ROCKY, (float) m.getPosition().getX(), (float) m
+							.getPosition().getY(), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
+							-(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
+							Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
+				}
+			}
+		}
+
+	}
+
+	private void renderShips() {
+		// for (Fleet f : system.getUnits()) {
+		// if (f.getCount() == 1) {
+		// // TODO: Check for ship types.
+		// batch.draw(Assets.UNITS_FIGHTER_BASIC, (float) f.getPosition().getX(), (float)
+		// f.getPosition().getY(),
+		// -(Values.R2_SOLAR_SHIP_NORMAL / 2), -(Values.R2_SOLAR_SHIP_NORMAL / 2),
+		// Values.R2_SOLAR_SHIP_NORMAL,
+		// Values.R2_SOLAR_SHIP_NORMAL, 1, 1, 0);
+		// }
+		// else {
+		// // TODO: Change icon size according to fleet size
+		// batch.draw(Assets.FLEET_FIGHTER_FRIEND, (float) f.getPosition().getX(), (float)
+		// f.getPosition().getY(),
+		// -(Values.R2_SOLAR_FLEET_MEDIUM / 2), -(Values.R2_SOLAR_FLEET_MEDIUM / 2),
+		// Values.R2_SOLAR_FLEET_MEDIUM,
+		// Values.R2_SOLAR_FLEET_MEDIUM, 1, 1, 0);
+		// }
+		//
+		// }
+
+	}
+
+	private void renderOrbits() {
+
+	}
+
+	/**
+	 * This method returns whatever object the player has clicked on. See TODO file inside.
+	 * 
+	 * @param x
+	 *          coordinate in the world
+	 * @param y
+	 *          coordinate in the world
+	 * @return Returns a set of Objects that MIGHT have been clicked.
+	 */
+	public Set<BaseObject> getObjectsAtCoordinates(double x, double y) {
+
+		// TODO: Ask the MAGIC TREE OF KNOWLEGE!
+		return null;
+	}
+
+	@Override
+	public void render(int[] layers) {
+
+	}
 
 }

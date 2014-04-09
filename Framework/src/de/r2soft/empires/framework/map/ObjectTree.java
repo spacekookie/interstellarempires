@@ -31,88 +31,88 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 @SuppressWarnings("unchecked")
 public class ObjectTree<T> {
 
-  private KDTree tree = new KDTree(2);
+	private KDTree tree = new KDTree(2);
 
-  /**
-   * Insert a node in a KD-tree.
-   * 
-   * @param position
-   * @param value
-   */
-  public void insert(Vector2D position, T value) {
-	tree.insert(position.toArray(), value);
+	/**
+	 * Insert a node in a KD-tree.
+	 * 
+	 * @param position
+	 * @param value
+	 */
+	public void insert(Vector2D position, T value) {
+		tree.insert(position.toArray(), value);
 
-  }
+	}
 
-  /**
-   * Delete a node from a tree. Instead of actually deleting node and rebuilding tree, marks node as
-   * deleted. Hence, it is up to the caller to rebuild the tree as needed for efficiency.
-   * 
-   * @param position
-   */
-  public void delete(Vector2D position) {
-	tree.delete(position.toArray());
-  }
+	/**
+	 * Delete a node from a tree. Instead of actually deleting node and rebuilding tree, marks node as
+	 * deleted. Hence, it is up to the caller to rebuild the tree as needed for efficiency.
+	 * 
+	 * @param position
+	 */
+	public void delete(Vector2D position) {
+		tree.delete(position.toArray());
+	}
 
-  /**
-   * Find KD-tree node whose key is nearest neighbor to key.
-   * 
-   * @param position
-   */
-  public T nearest(Vector2D position) {
-	return (T) tree.nearest(position.toArray());
-  }
+	/**
+	 * Find KD-tree node whose key is nearest neighbor to key.
+	 * 
+	 * @param position
+	 */
+	public T nearest(Vector2D position) {
+		return (T) tree.nearest(position.toArray());
+	}
 
-  /**
-   * Find KD-tree nodes whose keys are n nearest neighbors to key. Neighbors
-   * are returned in ascending order of distance to key.
-   * 
-   * @param position
-   * @param n
-   *          Number of neighbors
-   * @return
-   */
-  public T[] nearest(Vector2D position, int n) {
-	return (T[]) tree.nearest(position.toArray(), n);
-  }
+	/**
+	 * Find KD-tree nodes whose keys are n nearest neighbors to key. Neighbors are returned in
+	 * ascending order of distance to key.
+	 * 
+	 * @param position
+	 * @param n
+	 *          Number of neighbors
+	 * @return
+	 */
+	public T[] nearest(Vector2D position, int n) {
+		return (T[]) tree.nearest(position.toArray(), n);
+	}
 
-  /**
-   * Range search in a KD-tree.
-   * 
-   * @param lowX
-   *          Lower x-Axis bound
-   * @param highX
-   *          Higher x-Axis bound
-   * @param lowY
-   *          Lower y-Axis bound
-   * @param highY
-   *          Higher y-Axis bound
-   * @return
-   */
-  public T[] range(Vector2D lowerK, Vector2D upperK) {
-	return (T[]) tree.range(lowerK.toArray(), upperK.toArray());
-  }
+	/**
+	 * Range search in a KD-tree.
+	 * 
+	 * @param lowX
+	 *          Lower x-Axis bound
+	 * @param highX
+	 *          Higher x-Axis bound
+	 * @param lowY
+	 *          Lower y-Axis bound
+	 * @param highY
+	 *          Higher y-Axis bound
+	 * @return
+	 */
+	public T[] range(Vector2D lowerK, Vector2D upperK) {
+		return (T[]) tree.range(lowerK.toArray(), upperK.toArray());
+	}
 
-  /**
-   * Find KD-tree node whose key is identical to key
-   * 
-   * @param position
-   * @return
-   */
-  public T search(Vector2D position) {
-	return (T) tree.search(position.toArray());
-  }
+	/**
+	 * Find KD-tree node whose key is identical to key
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public T search(Vector2D position) {
+		return (T) tree.search(position.toArray());
+	}
 
-  /**
-   * Move an object from an old position to a new position.
-   * 
-   * @param oldPosition
-   * @param newPosition
-   */
-  public void move(Vector2D oldPosition, Vector2D newPosition) {
-	Object obj = tree.search(oldPosition.toArray());
-	tree.delete(oldPosition.toArray());
-	tree.insert(newPosition.toArray(), obj);
-  }
+	/**
+	 * Move an object from an old position to a new position.
+	 * 
+	 * @param oldPosition
+	 * @param newPosition
+	 */
+	public void move(Vector2D oldPosition, Vector2D newPosition) {
+		Object obj = tree.search(oldPosition.toArray());
+		tree.delete(oldPosition.toArray());
+		tree.insert(newPosition.toArray(), obj);
+	}
 
 }
