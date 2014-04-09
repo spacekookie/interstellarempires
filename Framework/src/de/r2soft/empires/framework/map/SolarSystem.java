@@ -42,226 +42,224 @@ import de.r2soft.empires.framework.players.Player;
  * 
  */
 public class SolarSystem {
-  private Logger logger = Logger.getLogger(getClass().getSimpleName());
+	private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
-  private GalaxyPosition pos;
-  private Player claim;
-  private Set<Planet> planets;
-  private Set<Fleet> units;
-  private Set<OrbitalStructure> structures;
-  private Star star;
-  private double radius;
-  private boolean explored;
-  private ObjectTree<BaseObject> objectPositions;
+	private GalaxyPosition pos;
+	private Player claim;
+	private Set<Planet> planets;
+	private Set<Fleet> units;
+	private Set<OrbitalStructure> structures;
+	private Star star;
+	private double radius;
+	private boolean explored;
+	private ObjectTree<BaseObject> objectPositions;
 
-  /** @return: Systems (x,y) id on haxmap */
-  public GalaxyPosition getPosition() {
-	return pos;
-  }
-
-  /**
-   * Do you really want to do this?
-   * 
-   * @param id
-   *          system id on map.
-   */
-  public void setPosition(GalaxyPosition pos) {
-	this.pos = pos;
-  }
-
-  /** Minimalistic constructor that only takes a Star and a claim. Claim can be null. */
-  public SolarSystem(Star star, Player claim) {
-	this(star);
-	if (claim == null)
-	  logger.info("Why not use the base constructor next time?");
-	this.claim = claim;
-
-	// Tree Demo
-	objectPositions.insert(new Vector2D(10, 10), new Fleet(new HashSet<Ship>()));
-	BaseObject object = objectPositions.nearest(new Vector2D(10, 10));
-	objectPositions.move(new Vector2D(10, 10), new Vector2D(20, 20));
-
-  }
-
-  /** Constructor ONLY taking in a star. Raw system */
-  public SolarSystem(Star star) {
-	if (star == null)
-	  logger.error("Star was NULL!");
-
-	units = new HashSet<Fleet>();
-	planets = new HashSet<Planet>();
-	structures = new HashSet<OrbitalStructure>();
-	logger.warn("Don't forget to set the rest of the values!");
-  }
-
-  /**
-   * Master constructor for a solar system. Used by server.
-   * 
-   * @param id
-   *          the 2d id of the solar system on the map. Center is at (0,0)
-   * @param claim
-   *          the player having claim to the solar system if exists. Else @null
-   * @param planets
-   *          The set of planets in that solar system
-   * @param units
-   *          the set of fleets in that solar system
-   * @param structures
-   *          the set of structures in that solar system
-   * @param star
-   *          the solar systems star
-   * @param radius
-   *          the radius of the solar system
-   */
-  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units,
-	  Set<OrbitalStructure> structures, Star star) {
-	this.pos = pos;
-	this.claim = claim;
-	this.planets = planets;
-	this.units = units;
-	this.structures = structures;
-	this.star = star;
-	if (star != null)
-	  this.radius = createRadius(star.getClassification());
-	else
-	  System.out.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
-  }
-
-  private float createRadius(StarType type) {
-
-	switch (type) {
-	case BROWNDWARF:
-	  return 140f;
-
-	case REDDWARF:
-	  return 230f;
-
-	case WHITEDWARF:
-	  return 100f;
-
-	case REDGIANT:
-	  return 280f;
-
-	case BLUEGIANT:
-	  return 280f;
-
-	case NEUTRON:
-	  return 100f;
-
-	case BLACKHOLE:
-	  return 250f;
-
-	case GIANTSPACEPUDDING:
-	  return 300f;
-
-	  /** If there was a horrible error */
-	default:
-	  return 0;
+	/** @return: Systems (x,y) id on haxmap */
+	public GalaxyPosition getPosition() {
+		return pos;
 	}
-  }
 
-  /** @return: the systems radius for rendering and calculations. */
-  public double getRadius() {
-	return radius;
-  }
-
-  /**
-   * Sets the radius.
-   * 
-   * @param systemSizeBlueGiant
-   *          the systems radius for rendering and calculations.
-   */
-  public void setRadius(float systemSizeBlueGiant) {
-	this.radius = systemSizeBlueGiant;
-  }
-
-  /** @return: the systems star details. */
-  public Star getStar() {
-	return star;
-  }
-
-  /**
-   * @param s
-   *          the systems star.
-   */
-  public void setStar(Star s) {
-	this.star = s;
-  }
-
-  /** @return: the systems owner if exists. */
-  public Player getClaim() {
-	return claim != null ? claim : new Player("_neutral");
-  }
-
-  /**
-   * Sets the owning player of a system.
-   * 
-   * @param p
-   *          the owning player. @Null if system is neutral.
-   */
-  public void setClaim(Player p) {
-	this.claim = p;
-  }
-
-  /**
-   * To add an entire set of units into the solar system
-   * 
-   * @param units
-   *          set of units
-   */
-  public void addUnits(Set<Fleet> units) {
-	this.units = units;
-  }
-
-  /** @return: get all fleets in the solar system. A single ship is fleet with size 1 */
-  public Set<Fleet> getUnits() {
-	return units;
-  }
-
-  public void addSingleFleet(Fleet fleet) {
-	if (units == null) {
-	  units = new HashSet<Fleet>();
-	  units.add(fleet);
-	  return;
+	/**
+	 * Do you really want to do this?
+	 * 
+	 * @param id
+	 *          system id on map.
+	 */
+	public void setPosition(GalaxyPosition pos) {
+		this.pos = pos;
 	}
-	units.add(fleet);
-  }
 
-  public boolean hasUnits() {
-	if (units != null)
-	  return !units.isEmpty();
-	else
-	  return false;
-  }
+	/** Minimalistic constructor that only takes a Star and a claim. Claim can be null. */
+	public SolarSystem(Star star, Player claim) {
+		this(star);
+		if (claim == null)
+			logger.info("Why not use the base constructor next time?");
+		this.claim = claim;
 
-  public boolean hasStructures() {
-	if (structures != null)
-	  return !structures.isEmpty();
-	else
-	  return false;
-  }
+		// Tree Demo
+		objectPositions.insert(new Vector2D(10, 10), new Fleet(new HashSet<Ship>()));
+		BaseObject object = objectPositions.nearest(new Vector2D(10, 10));
+		objectPositions.move(new Vector2D(10, 10), new Vector2D(20, 20));
 
-  public boolean hasPlanets() {
-	if (units != null)
-	  return !planets.isEmpty();
-	else
-	  return false;
-  }
+	}
 
-  public boolean isExplored() {
-	return explored;
-  }
+	/** Constructor ONLY taking in a star. Raw system */
+	public SolarSystem(Star star) {
+		if (star == null)
+			logger.error("Star was NULL!");
 
-  /** Set true if player has had ships in it */
-  public void setExplored(boolean explored, Player player) {
-	this.explored = explored;
-  }
+		units = new HashSet<Fleet>();
+		planets = new HashSet<Planet>();
+		structures = new HashSet<OrbitalStructure>();
+		logger.warn("Don't forget to set the rest of the values!");
+	}
 
-  public Set<Planet> getPlanets() {
-	return planets;
-  }
+	/**
+	 * Master constructor for a solar system. Used by server.
+	 * 
+	 * @param id
+	 *          the 2d id of the solar system on the map. Center is at (0,0)
+	 * @param claim
+	 *          the player having claim to the solar system if exists. Else @null
+	 * @param planets
+	 *          The set of planets in that solar system
+	 * @param units
+	 *          the set of fleets in that solar system
+	 * @param structures
+	 *          the set of structures in that solar system
+	 * @param star
+	 *          the solar systems star
+	 * @param radius
+	 *          the radius of the solar system
+	 */
+	public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units,
+			Set<OrbitalStructure> structures, Star star) {
+		this.pos = pos;
+		this.claim = claim;
+		this.planets = planets;
+		this.units = units;
+		this.structures = structures;
+		this.star = star;
+		if (star != null)
+			this.radius = createRadius(star.getClassification());
+	}
 
-  public void setPlanets(Set<Planet> planets) {
-	this.planets = planets;
-  }
+	private float createRadius(StarType type) {
+
+		switch (type) {
+		case BROWNDWARF:
+			return 140f;
+
+		case REDDWARF:
+			return 230f;
+
+		case WHITEDWARF:
+			return 100f;
+
+		case REDGIANT:
+			return 280f;
+
+		case BLUEGIANT:
+			return 280f;
+
+		case NEUTRON:
+			return 100f;
+
+		case BLACKHOLE:
+			return 250f;
+
+		case GIANTSPACEPUDDING:
+			return 300f;
+
+			/** If there was a horrible error */
+		default:
+			return 0;
+		}
+	}
+
+	/** @return: the systems radius for rendering and calculations. */
+	public double getRadius() {
+		return radius;
+	}
+
+	/**
+	 * Sets the radius.
+	 * 
+	 * @param systemSizeBlueGiant
+	 *          the systems radius for rendering and calculations.
+	 */
+	public void setRadius(float systemSizeBlueGiant) {
+		this.radius = systemSizeBlueGiant;
+	}
+
+	/** @return: the systems star details. */
+	public Star getStar() {
+		return star;
+	}
+
+	/**
+	 * @param s
+	 *          the systems star.
+	 */
+	public void setStar(Star s) {
+		this.star = s;
+	}
+
+	/** @return: the systems owner if exists. */
+	public Player getClaim() {
+		return claim != null ? claim : new Player("_neutral");
+	}
+
+	/**
+	 * Sets the owning player of a system.
+	 * 
+	 * @param p
+	 *          the owning player. @Null if system is neutral.
+	 */
+	public void setClaim(Player p) {
+		this.claim = p;
+	}
+
+	/**
+	 * To add an entire set of units into the solar system
+	 * 
+	 * @param units
+	 *          set of units
+	 */
+	public void addUnits(Set<Fleet> units) {
+		this.units = units;
+	}
+
+	/** @return: get all fleets in the solar system. A single ship is fleet with size 1 */
+	public Set<Fleet> getUnits() {
+		return units;
+	}
+
+	public void addSingleFleet(Fleet fleet) {
+		if (units == null) {
+			units = new HashSet<Fleet>();
+			units.add(fleet);
+			return;
+		}
+		units.add(fleet);
+	}
+
+	public boolean hasUnits() {
+		if (units != null)
+			return !units.isEmpty();
+		else
+			return false;
+	}
+
+	public boolean hasStructures() {
+		if (structures != null)
+			return !structures.isEmpty();
+		else
+			return false;
+	}
+
+	public boolean hasPlanets() {
+		if (units != null)
+			return !planets.isEmpty();
+		else
+			return false;
+	}
+
+	public boolean isExplored() {
+		return explored;
+	}
+
+	/** Set true if player has had ships in it */
+	public void setExplored(boolean explored, Player player) {
+		this.explored = explored;
+	}
+
+	public Set<Planet> getPlanets() {
+		return planets;
+	}
+
+	public void setPlanets(Set<Planet> planets) {
+		this.planets = planets;
+	}
 
 }
