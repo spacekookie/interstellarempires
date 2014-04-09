@@ -18,6 +18,12 @@ import de.r2soft.empires.client.graphics.R2Overlay;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 
+/**
+ * Replaces the Settings Screen displaying all of the games settings, preferences and also credits.
+ * 
+ * @author Katharina <kookie@spacekookie.de>
+ * 
+ */
 public class SettingsOverlay extends R2Overlay {
 
   /** Layouts */

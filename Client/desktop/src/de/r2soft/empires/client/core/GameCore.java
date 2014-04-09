@@ -51,12 +51,8 @@ public class GameCore extends R2Core {
 	return game;
   }
 
-  /**
-   * Called every time something major is being updated such as screen resolution, settings or big server syncs.
-   * 
-   * @author Katharina
-   */
-  public void onUpdate() {
+  /** Called every frame to check if something needs to be changed (Screen resolution/ music/ etc.) */
+  public void update() {
 	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC)) {
 	  if (!music.isPlaying()) {
 		music.play();
@@ -83,14 +79,18 @@ public class GameCore extends R2Core {
 	if (!prefs.contains(Values.PREFERENCE_SKIP_INTRO))
 	  prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
 
-	onUpdate();
-
 	// setScreen(new SolMapScreen(null));
 
 	// if (!prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO))
 	// setScreen(new IntroductionScreen());
 	// else
 	setScreen(new LoginScreen());
+  }
+
+  @Override
+  public void render() {
+	super.render();
+	update();
   }
 
   @Override

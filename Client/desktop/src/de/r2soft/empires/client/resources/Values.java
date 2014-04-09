@@ -27,7 +27,7 @@ import de.r2soft.empires.framework.types.IntVec2;
  */
 public class Values {
 
-  /** Just going with 720p game resolution here */
+  /* Global Client Settings */
   public static int OLD_WIDTH = 1280;
   public static int OLD_HEIGHT = 720;
   public static int NEW_WIDTH = OLD_WIDTH;
@@ -39,11 +39,14 @@ public class Values {
   public static final String SCREENTITLE_LOGIN = "Login";
   public static final String SCREENTITLE_SOLAR = "Solar System";
 
+  /* Preference Key Strings */
   public static final String PREFERENCE_FILE_NAME = "de.r2.space.client.main-prefereces";
   public static final String PREFERENCE_SKIP_INTRO = "skip_intro";
   public static final String PREFERENCE_PLAY_MUSIC = "play_background_music";
   public static final String PREFERENCE_SAVE_USERNAME = "save_login_user_name";
+  public static final String PREFERENCE_SAVE_LOGINPW = "save_login_user_password";
   public static final String PREFERENCE_SAVED_USER_NAME = "saved_user_name";
+  public static final String PREFERENCE_SAVED_USER_PW = "saved_user_pw_hash";
   public static final String PREFERENCE_LAUNCH_FULLSCREEN = "launch_as_fullscreen_app";
 
   @Deprecated

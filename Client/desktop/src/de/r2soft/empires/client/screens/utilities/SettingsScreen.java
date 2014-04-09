@@ -35,11 +35,14 @@ import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
 
 /**
+ * No longer use this Screen. Use the new R2Overlay implementation instead SettingsOverlay
+ * 
  * This screen will enable the user to change stuff about their game client
  * 
  * @author Katharina
  * 
  */
+@Deprecated
 public class SettingsScreen extends R2Screen {
 
   /** Container and Backends */
@@ -127,7 +130,7 @@ public class SettingsScreen extends R2Screen {
 	  }
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		GameCore.getInstance().onUpdate();
+		GameCore.getInstance().update();
 		GameCore.getInstance().setScreen(new HexMapScreen(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME)));
 	  }
 	});
