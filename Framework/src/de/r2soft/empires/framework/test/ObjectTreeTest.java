@@ -16,7 +16,7 @@
  * 
  ######################################################################### */
 
-package de.r2soft.empires.framework.map.test;
+package de.r2soft.empires.framework.test;
 
 import static org.junit.Assert.*;
 
