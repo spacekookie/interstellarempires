@@ -52,6 +52,7 @@ import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.screens.utilities.SettingsScreen;
 import de.r2soft.empires.framework.map.GalaxyMap;
+import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.players.Player;
 
@@ -89,8 +90,7 @@ public class HexMapScreen extends R2Screen {
   }
 
   public HexMapScreen() {
-	this.setTitle();
-	// this.fetchGalaxyMap();
+	this("Jane");
   }
 
   public HexMapScreen(String playerName) {
@@ -143,26 +143,28 @@ public class HexMapScreen extends R2Screen {
 	HexTileMap map = new HexTileMap();
 	HexMapLayers layers = map.getHexLayers();
 
-	TiledMapTile[] tiles = new TiledMapTile[4];
+	TiledMapTile[] tiles = new TiledMapTile[5];
 
 	// TODO: Make this ugly go away.
 	tiles[0] = new StaticTiledMapTile(Assets.R2_TILES_BLUE);
 	tiles[1] = new StaticTiledMapTile(Assets.R2_TILES_GREEN);
 	tiles[2] = new StaticTiledMapTile(Assets.R2_TILES_RED);
 	tiles[3] = new StaticTiledMapTile(Assets.R2_TILES_WHITE);
+	tiles[4] = new StaticTiledMapTile(Assets.R2_TILES_PURPLE);
 
-	HexMapLayer layer = new HexMapLayer(3, 3, 112, 97);
-	for (int mx = 0; mx < 3; mx++) {
-	  for (int my = 0; my < 3; my++) {
+	HexMapLayer layer = new HexMapLayer(16, 16, 112, 97);
+	for (int mx = 0; mx < layer.getWidth(); mx++) {
+	  for (int my = 0; my < layer.getHeight(); my++) {
 		SolarSystem sys = new SolarSystem(null);
-		sys.setClaim(new Player("Jane"));
+		sys.setClaim(Values.thisPlayer);
+		sys.setPosition(new GalaxyPosition(mx, my));
 		// SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null, null, null, new Star(
 		// StarType.GIANTSPACEPUDDING));
 		HexCell cell = new HexCell(sys);
 
 		if (sys != null) {
 		  if (sys.getClaim().equals(Values.thisPlayer)) {
-			cell.setTile(tiles[1]);
+			cell.setTile(tiles[4]);
 		  }
 		  else if (sys.getClaim().equals(new Player("Jane"))) {
 			cell.setTile(tiles[3]);
@@ -244,7 +246,32 @@ public class HexMapScreen extends R2Screen {
 
   /** Updates the selection focus solar system */
   public void updateFocus(SolarSystem system) {
-	System.out.println(system.getPosition());
+	StringBuilder sb = new StringBuilder();
+
+	sb.append("Currently selected System: ");
+	if (system.getPosition() != null)
+	  sb.append(system.getPosition());
+	else
+	  sb.append("Unknown");
+
+	sb.append(" — Owner: ");
+
+	if (system.getClaim() != null)
+	  sb.append(system.getClaim().getName());
+	else
+	  sb.append("Unknown");
+
+	sb.append(" — Star Type: ");
+
+	if (system.getStar() != null)
+	  if (system.getStar().getType() != null)
+		sb.append(system.getStar().getType());
+	  else
+		sb.append("Unknown");
+	else
+	  sb.append("Unknown");
+
+	systemSelector.setText(sb.toString());
   }
 
   private void setupProfileDialoge() {
@@ -326,20 +353,20 @@ public class HexMapScreen extends R2Screen {
 
   private void initializeFrames() {
 	/** Initialize Buttons */
-	profile = new TextButton("Profile", Assets.UI_SKIN);
-	menu = new TextButton("Main Menu", Assets.UI_SKIN);
+	profile = new TextButton("Profile", Assets.R2_UI_SKIN);
+	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
 
-	research = new TextButton("Research", Assets.UI_SKIN);
-	enterSystem = new TextButton("Enter Solar System", Assets.UI_SKIN);
+	research = new TextButton("Research", Assets.R2_UI_SKIN);
+	enterSystem = new TextButton("Enter Solar System", Assets.R2_UI_SKIN);
 
 	/** Initialize Lables */
-	title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.UI_SKIN);
+	title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.R2_UI_SKIN);
 	title.setAlignment(Align.center);
 	title.setFontScaleX(1.2f);
 	title.setFontScaleY(1.1f);
 	title.setColor(Color.MAGENTA);
 
-	welcome = new Label("Welcome: " + playerName, Assets.UI_SKIN);
+	welcome = new Label("Welcome: " + playerName, Assets.R2_UI_SKIN);
 	welcome.setAlignment(Align.center);
 
 	/** Initialize right navigation */
@@ -391,44 +418,37 @@ public class HexMapScreen extends R2Screen {
 
 	Label tempLabel1, tempLabel2;
 
-	tempLabel1 = new Label("Solar System", Assets.UI_SKIN);
+	tempLabel1 = new Label("Solar System", Assets.R2_UI_SKIN);
 	tempLabel1.setColor(Color.MAGENTA);
 
-	tempLabel2 = new Label("Information", Assets.UI_SKIN);
+	tempLabel2 = new Label("Information", Assets.R2_UI_SKIN);
 	tempLabel2.setColor(Color.MAGENTA);
 
 	systemInfo.add(tempLabel1);
 	systemInfo.add(tempLabel2);
 	systemInfo.row();
-	systemInfo.add(new Label("Owner: ", Assets.UI_SKIN));
-	systemInfo.add(new Label("KateTheAwesome", Assets.UI_SKIN));
+	systemInfo.add(new Label("Owner: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("KateTheAwesome", Assets.R2_UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Size: ", Assets.UI_SKIN));
-	systemInfo.add(new Label("Something", Assets.UI_SKIN));
+	systemInfo.add(new Label("Size: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("Something", Assets.R2_UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Coordinates: ", Assets.UI_SKIN));
-	systemInfo.add(new Label("545-101", Assets.UI_SKIN));
+	systemInfo.add(new Label("Coordinates: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("545-101", Assets.R2_UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Units: ", Assets.UI_SKIN));
-	systemInfo.add(new Label("42", Assets.UI_SKIN));
+	systemInfo.add(new Label("Units: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("42", Assets.R2_UI_SKIN));
 	systemInfo.row();
-	systemInfo.add(new Label("Exploration: ", Assets.UI_SKIN));
-	systemInfo.add(new Label("100%", Assets.UI_SKIN));
+	systemInfo.add(new Label("Exploration: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("100%", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(enterSystem).width(Values.SIZE_UI_FIELD_CONTENT).colspan(2);
 	systemInfo.row();
 
 	// TODO: Make this pretty!
-	setupInfoLabelBottom();
-
-  }
-
-  @Deprecated
-  /** Hovering display for mouse on map */
-  private void setupInfoLabelBottom() {
 	Table selectorTable = new Table();
-	systemSelector = new Label("Currently selected Solar System: " + "545-101: KateTheAwesome: Red Giant", Assets.UI_SKIN);
-	selectorTable.setPosition(Values.HEX_MAP_BASE_OFFSET.x + 255, Values.HEX_MAP_BASE_OFFSET.y - 10);
+	systemSelector = new Label("", Assets.R2_UI_SKIN);
+	selectorTable.setPosition(Values.HEX_MAP_BASE_OFFSET.x + 300, Values.HEX_MAP_BASE_OFFSET.y - 10);
 	selectorTable.add(systemSelector);
 	stage.addActor(selectorTable);
 

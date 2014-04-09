@@ -41,7 +41,7 @@ public class LoginScreen extends R2Screen {
   private Stage stage;
   private Table intro, outro;
   private TextField userField, passField;
-  private TextButton login, exit, back;
+  private TextButton login, menu, back;
   private CheckBox saveUser, savePw;
   private Preferences prefs;
 
@@ -61,6 +61,10 @@ public class LoginScreen extends R2Screen {
 	  userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
 	  saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 	}
+	else if (prefs.contains(Values.PREFERENCE_SAVE_LOGINPW)) {
+	  passField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_PW));
+	  savePw.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
+	}
   }
 
   @Override
@@ -75,8 +79,8 @@ public class LoginScreen extends R2Screen {
 	outro.setFillParent(true);
 
 	// Exiting the game
-	exit = new TextButton("Exit Game", Assets.R2_UI_SKIN);
-	outro.add(exit).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	menu = new TextButton("Game Menu", Assets.R2_UI_SKIN);
+	outro.add(menu).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.row();
 	outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.top().left();
@@ -94,6 +98,8 @@ public class LoginScreen extends R2Screen {
 	intro.row();
 	intro.add(saveUser);
 	intro.row();
+	intro.add(savePw);
+	intro.row();
 
 	login.addListener(new ClickListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -105,7 +111,7 @@ public class LoginScreen extends R2Screen {
 	  }
 	});
 
-	exit.addListener(new InputListener() {
+	menu.addListener(new InputListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		return true;
 	  }
@@ -129,28 +135,26 @@ public class LoginScreen extends R2Screen {
 	stage.addActor(intro);
   }
 
-  private void update(boolean partial) {
-	if (partial)
-	  if (!saveUser.isChecked())
-		savePw.setDisabled(true);
-	  else
-		savePw.setDisabled(false);
-  }
-
   public void render(float delta) {
 	stage.act(delta);
 	stage.draw();
 
-	this.update(true);
+	/* Disables savePW if saveUser is off */
+	if (!saveUser.isChecked())
+	  savePw.setDisabled(true);
+	else
+	  savePw.setDisabled(false);
 
-	if (saveUser.isChecked()) {
+	/* This updates the Preferences DB accordingly */
+	if (saveUser.isChecked())
 	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, true);
-	}
-	else {
+	else
 	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, false);
-	}
 
-	saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
+	if (savePw.isChecked() && saveUser.isChecked())
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, true);
+	else
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, false);
 
 	/** What do we do after we're done in the bathroom? :) */
 	prefs.flush();
@@ -161,10 +165,20 @@ public class LoginScreen extends R2Screen {
 	name_clear = userField.getText().toString();
 	password_clear = passField.getText().toString();
 
+	// TODO: Properly hash the password, store it in the client hashed and also use the hashed version to send to the server!
+	String hash = password_clear;
+
 	if (prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
 	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, name_clear);
-	if (!prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
+
+	else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
 	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, "");
+
+	if (prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_PW, hash);
+
+	else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_PW, "");
 
 	prefs.flush();
 
