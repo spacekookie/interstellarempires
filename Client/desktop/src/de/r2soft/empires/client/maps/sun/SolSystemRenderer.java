@@ -20,6 +20,8 @@ package de.r2soft.empires.client.maps.sun;
 
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
@@ -32,6 +34,7 @@ import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject;
 import de.r2soft.empires.framework.objects.Moon;
+import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
 
 /**
@@ -42,6 +45,7 @@ import de.r2soft.empires.framework.objects.Planet;
  * 
  */
 public class SolSystemRenderer implements MapRenderer, Disposable {
+	private Logger logger = Logger.getLogger(getClass().getSimpleName());
 	private boolean yDown = false;
 	private float scale;
 	private SpriteBatch batch;
@@ -94,23 +98,90 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 	public void render() {
 
 		batch.begin();
-		this.renderPlanets();
-		this.renderShips();
 		this.renderStar();
+		this.renderPlanets();
+		this.renderMoons();
+		this.renderShips();
 		this.renderStructures();
 		this.renderOrbits();
 		batch.end();
 	}
 
+	private void renderMoons() {
+
+	}
+
 	private void renderStructures() {
+
+		for (OrbitalStructure s : system.getStructures()) {
+			switch (s.getType()) {
+			case FACTORY_SMALL:
+				batch.draw(Assets.R2_SOLAR_STATION_NEUTRAL, -(Values.R2_SOLAR_PLAYER_STATION / 2),
+						-(Values.R2_SOLAR_PLAYER_STATION / 2), 0, 0, Values.R2_SOLAR_PLAYER_STATION,
+						Values.R2_SOLAR_PLAYER_STATION, 1, 1, 0);
+				break;
+
+			default:
+				logger.fatal("FATAL ERROR DURING RENDERING PROCESS! THE ORBITAL STATION TYPE FOR " + s
+						+ " ISN'T RECOGNIZABLE!");
+				break;
+			}
+		}
 
 	}
 
 	private void renderStar() {
-		// TODO: Check for star type here
-		batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
-				-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0,
-				Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1, 0);
+
+		if (system.getStar() != null && system.getStar().getType() != null)
+			switch (system.getStar().getType()) {
+			case STAR_RED_DWARF:
+				batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1,
+						0);
+				break;
+
+			case STAR_RED_GIANT:
+				batch.draw(Assets.R2_SOLAR_STAR_REDGIANT, -(Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT, Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT, 1, 1,
+						0);
+				break;
+
+			case STAR_BLUE_DWARF:
+				batch.draw(Assets.R2_SOLAR_STAR_BLUEDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF, Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF, 1,
+						1, 0);
+				break;
+			case STAR_BLUE_GIANT:
+				batch.draw(Assets.R2_SOLAR_STAR_BLUEGIANT, -(Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT, Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT, 1,
+						1, 0);
+				break;
+
+			case STAR_BROWN_DWARF:
+				batch.draw(Assets.R2_SOLAR_STAR_BROWNDWARF,
+						-(Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF, Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF,
+						1, 1, 0);
+				break;
+
+			case STAR_BLACK_HOLE:
+				batch.draw(Assets.R2_SOLAR_STAR_BLACKHOLE, -(Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE / 2),
+						-(Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE / 2), 0, 0,
+						Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE, Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE, 1,
+						1, 0);
+				break;
+
+			default:
+				break;
+			}
+		else
+			logger.fatal("FATAL ERROR DURING RENDERING PROCESS. STAR OR STAR-TYPE IS NULL!");
+
 	}
 
 	private void renderPlanets() {

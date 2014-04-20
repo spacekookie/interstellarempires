@@ -90,6 +90,7 @@
 
 			<!-- this builds a totally standalone jar file when you invoke: mvn package 
 				-Pdesktop -->
+
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4</version>
