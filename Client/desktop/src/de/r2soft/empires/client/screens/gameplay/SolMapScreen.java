@@ -115,6 +115,8 @@ public class SolMapScreen extends R2Screen {
 	@Override
 	public void render(float arg0) {
 		Gdx.gl20.glEnable(GL20.GL_BLEND);
+
+		/* Background colour drop for map */
 		shapeRenderer.setProjectionMatrix(uiCam.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(0, 0, 0, 0.75f);
@@ -132,7 +134,7 @@ public class SolMapScreen extends R2Screen {
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		uiCam.update();
 
-		/** Draws debug frame around map view */
+		/* Draws debug frame around map view */
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.rect(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y,
 				Values.SOL_MAP_BASE_SIZE.x, Values.SOL_MAP_BASE_SIZE.y);

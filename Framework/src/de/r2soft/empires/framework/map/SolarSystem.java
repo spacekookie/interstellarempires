@@ -124,6 +124,7 @@ public class SolarSystem {
 			this.radius = createRadius(star.getClassification());
 	}
 
+	@Deprecated
 	private float createRadius(StarType type) {
 
 		switch (type) {
@@ -260,6 +261,14 @@ public class SolarSystem {
 
 	public void setPlanets(Set<Planet> planets) {
 		this.planets = planets;
+	}
+
+	public Set<OrbitalStructure> getStructures() {
+		return structures;
+	}
+
+	public void setStructures(Set<OrbitalStructure> structures) {
+		this.structures = structures;
 	}
 
 }
