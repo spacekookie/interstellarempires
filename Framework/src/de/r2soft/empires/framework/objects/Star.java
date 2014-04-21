@@ -19,55 +19,33 @@ package de.r2soft.empires.framework.objects;
 
 public class Star extends BaseObject {
 
-  /**
-   * Holds all possible star types for the ENTIRE game to use. No pressure. Don't add more candy, it'll just become fat.
-   */
-  public enum StarType {
-	BROWNDWARF("Brown"), REDDWARF("SmallRed"), YELLOWDWARF("SmallYellow"), WHITEDWARF("White"), REDGIANT("BigRed"), BLUEGIANT("BigBlue"), NEUTRON(
-		"Neutron"), BLACKHOLE("Black"), GIANTSPACEPUDDING("Nom");
+	private String alias;
 
-	private final String alias;
+	/** Creates a new star with a Star Type */
+	public Star(Type type) {
+		super.setType(type);
+	}
 
-	private StarType(final String alias) {
-	  this.alias = alias;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	@Override
 	public String toString() {
-	  return alias;
+		return super.getType().toString() + " — " + alias;
 	}
 
-  }
+	/**
+	 * @param type
+	 *          The type of star we're dealing with here
+	 */
 
-  private StarType classification;
-
-  /**
-   * master constructor to create a star with its type
-   * 
-   * @param type
-   *          The Type of the star
-   */
-  public Star(StarType classification) {
-	this.classification = classification;
-	this.computeStarRadius(1);
-  }
-
-  /**
-   * @param type
-   *          The type of star we're dealing with here
-   */
-  public void setClassification(StarType classification) {
-	this.classification = classification;
-  }
-
-  /** @return: the stars classification */
-  public StarType getClassification() {
-	return classification;
-  }
-
-  /** This will compute the base size of the star based on it's type and a random multiplier. Will return basic values with multiplier = 1 */
-  private void computeStarRadius(double multi) {
-	// TODO: Actually compute size :(
-  }
+	/**
+	 * This will compute the base size of the star based on it's type and a random multiplier. Will
+	 * return basic values with multiplier = 1
+	 */
+	private void computeStarRadius(double multi) {
+		// TODO: Actually compute size :(
+	}
 
 }

@@ -188,6 +188,8 @@ public class LoginScreen extends R2Screen {
 
 		prefs.flush();
 
+		Values.initPlayer(name_clear);
+
 		GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
 
 	}

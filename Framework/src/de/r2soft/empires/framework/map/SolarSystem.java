@@ -24,13 +24,13 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.log4j.Logger;
 
 import de.r2soft.empires.framework.objects.BaseObject;
-import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Fleet;
+import de.r2soft.empires.framework.objects.Moon;
+import de.r2soft.empires.framework.objects.OrbitalObject;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
 import de.r2soft.empires.framework.objects.Ship;
 import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.objects.Star.StarType;
 import de.r2soft.empires.framework.players.Player;
 
 /**
@@ -48,6 +48,8 @@ public class SolarSystem {
 	private Player claim;
 	private Set<Planet> planets;
 	private Set<Fleet> units;
+	private Set<Moon> moons;
+
 	private Set<OrbitalStructure> structures;
 	private Star star;
 	private double radius;
@@ -120,42 +122,6 @@ public class SolarSystem {
 		this.units = units;
 		this.structures = structures;
 		this.star = star;
-		if (star != null)
-			this.radius = createRadius(star.getClassification());
-	}
-
-	@Deprecated
-	private float createRadius(StarType type) {
-
-		switch (type) {
-		case BROWNDWARF:
-			return 140f;
-
-		case REDDWARF:
-			return 230f;
-
-		case WHITEDWARF:
-			return 100f;
-
-		case REDGIANT:
-			return 280f;
-
-		case BLUEGIANT:
-			return 280f;
-
-		case NEUTRON:
-			return 100f;
-
-		case BLACKHOLE:
-			return 250f;
-
-		case GIANTSPACEPUDDING:
-			return 300f;
-
-			/** If there was a horrible error */
-		default:
-			return 0;
-		}
 	}
 
 	/** @return: the systems radius for rendering and calculations. */
@@ -271,4 +237,29 @@ public class SolarSystem {
 		this.structures = structures;
 	}
 
+	public Set<Moon> getMoons() {
+		return moons;
+	}
+
+	/** Redo this */
+	public void setMoons(Set<OrbitalObject> data) {
+		if (data instanceof Planet) {
+			// TODO: Pretty algorithm
+		}
+		else if (moons instanceof Moon) {
+			// TODO: Other pretty algorithm
+		}
+		else {
+			logger.fatal("Moon injection failed. Cancel build.");
+		}
+
+	}
+
+	/** Not like this will be called very often. Will you be able to create and destroy moons? */
+	public void updateMoons() {
+		for (Planet planet : planets)
+			for (Moon moon : planet.getMoons())
+				if (!moons.contains(moon))
+					moons.add(moon);
+	}
 }

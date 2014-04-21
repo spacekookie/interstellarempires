@@ -23,7 +23,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ObjectTreeTest.class })
+@SuiteClasses({ ObjectTreeTest.class, FleetTest.class })
 public class AllTests {
 
 }

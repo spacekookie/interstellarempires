@@ -26,58 +26,54 @@ import org.dom4j.Element;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
-import de.r2soft.empires.framework.objects.BaseObject.Category;
 import de.r2soft.empires.framework.objects.Planet;
-import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.objects.Star.StarType;
 import de.r2soft.empires.framework.players.Player;
 import de.r2soft.empires.framework.types.IntVec2;
 
 /** Reads a map .XML file and returns the data in form of pretty HashSets */
 public class MapParser {
 
-  private GalaxyMap map;
+	private GalaxyMap map;
 
-  public MapParser() {
+	public MapParser() {
 
-  }
-
-  public void readXML(Element root) {
-	HashSet<Planet> planetary = new HashSet<Planet>();
-	map = new GalaxyMap();
-	Element solarSystems = root.element("SolarSystems");
-
-	for (Iterator<Element> s = solarSystems.elementIterator(); s.hasNext();) {
-	  Element solarSystem = s.next();
-
-	  SolarSystem temp = new SolarSystem(null);
-
-	  Element position = solarSystem.element("Position");
-
-	  temp.setPosition(new GalaxyPosition(Integer.parseInt(position.attribute("PosX").getText()), Integer.parseInt(position.attribute(
-		  "PosY").getText())));
-
-	  temp.setClaim(new Player(solarSystem.attribute("Owner").getText()));
-	  temp.setStar(new Star(StarType.valueOf(solarSystem.attribute("Type").getText())));
-
-	  Element planets = solarSystem.element("Planets");
-
-	  for (Iterator<Element> p = planets.elementIterator(); p.hasNext();) {
-		Element planet = p.next();
-		planetary.add(new Planet(Category.PLANET, Float.parseFloat(planet.attribute("Distance").getValue()), Float.parseFloat(planet
-			.attribute("Size").getValue())));
-
-	  }
-	  temp.setPlanets(planetary);
-
-	  map.addSystem(temp);
 	}
 
-	map.setVersion(0);
-	map.setSize(new IntVec2(1, 2));
-  }
+	public void readXML(Element root) {
+		HashSet<Planet> planetary = new HashSet<Planet>();
+		map = new GalaxyMap();
+		Element solarSystems = root.element("SolarSystems");
 
-  public GalaxyMap getGalaxyMap() {
-	return map;
-  }
+		for (Iterator<Element> s = solarSystems.elementIterator(); s.hasNext();) {
+			Element solarSystem = s.next();
+
+			SolarSystem temp = new SolarSystem(null);
+
+			Element position = solarSystem.element("Position");
+
+			temp.setPosition(new GalaxyPosition(Integer.parseInt(position.attribute("PosX").getText()),
+					Integer.parseInt(position.attribute("PosY").getText())));
+
+			temp.setClaim(new Player(solarSystem.attribute("Owner").getText()));
+
+			Element planets = solarSystem.element("Planets");
+
+			for (Iterator<Element> p = planets.elementIterator(); p.hasNext();) {
+				Element planet = p.next();
+				planetary.add(new Planet(Float.parseFloat(planet.attribute("Distance").getValue()), Float
+						.parseFloat(planet.attribute("Size").getValue())));
+
+			}
+			temp.setPlanets(planetary);
+
+			map.addSystem(temp);
+		}
+
+		map.setVersion(0);
+		map.setSize(new IntVec2(1, 2));
+	}
+
+	public GalaxyMap getGalaxyMap() {
+		return map;
+	}
 }
