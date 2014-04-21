@@ -18,12 +18,17 @@
 
 package de.r2soft.empires.client.maps.sun;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
@@ -33,9 +38,15 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject;
+import de.r2soft.empires.framework.objects.Fleet;
 import de.r2soft.empires.framework.objects.Moon;
+import de.r2soft.empires.framework.objects.OrbitalObject;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
+import de.r2soft.empires.framework.objects.Ship;
+import de.r2soft.empires.framework.objects.Star;
+import de.r2soft.empires.framework.types.Allegience;
+import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * A custom renderer that renders a solar system with a star in the middle and planets orbiting on
@@ -49,14 +60,30 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 	private boolean yDown = false;
 	private float scale;
 	private SpriteBatch batch;
+	private Camera camera;
 	private Rectangle viewBounds;
+	private ShapeRenderer renderer;
 
+	/** Display settings from the Container Window */
+	private boolean displayLines = true;
+	private boolean displayFleets = true;
+	private boolean displayPlanets = true;
+	private boolean displayMoons = true;
+	private boolean displayStructures = true;
+	private boolean displayAsteroidBelts = true;
+
+	/* System variables */
 	private SolarSystem system;
+	private Set<OrbitalObject> orbits;
 
-	public SolSystemRenderer(SolarSystem system) {
+	public SolSystemRenderer(SolarSystem system, OrthographicCamera camera) {
 		this.system = system;
+		System.out.println(system.getStar());
+		this.camera = camera;
 		batch = new SpriteBatch();
 		viewBounds = new Rectangle();
+		renderer = new ShapeRenderer(10000); // Possibly adjust that value?
+		orbits = new HashSet<OrbitalObject>();
 	}
 
 	public boolean isYdown() {
@@ -96,142 +123,98 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 
 	@Override
 	public void render() {
+		renderer.setProjectionMatrix(camera.combined);
+		if (displayLines)
+			this.renderOrbits();
 
 		batch.begin();
 		this.renderStar();
 		this.renderPlanets();
 		this.renderMoons();
-		this.renderShips();
-		this.renderStructures();
-		this.renderOrbits();
+		// this.renderShips();
+		// this.renderStructures();
 		batch.end();
+
 	}
 
-	private void renderMoons() {
-
+	/** Rendering debug orbits for planets and moons. */
+	private void renderOrbits() {
+		if (!orbits.isEmpty()) {
+			renderer.begin(ShapeType.Line);
+			for (OrbitalObject o : orbits)
+				if (o instanceof Moon) {
+					float x = (float) ((Moon) o).getParent().getPosition().getX();
+					float y = (float) ((Moon) o).getParent().getPosition().getY();
+					renderer.circle(x, y, (float) o.getOrbit().getRadius());
+				}
+				else
+					renderer.circle(0, 0, (float) o.getOrbit().getRadius());
+			renderer.end();
+		}
 	}
 
 	private void renderStructures() {
-
-		for (OrbitalStructure s : system.getStructures()) {
-			switch (s.getType()) {
-			case FACTORY_SMALL:
-				batch.draw(Assets.R2_SOLAR_STATION_NEUTRAL, -(Values.R2_SOLAR_PLAYER_STATION / 2),
-						-(Values.R2_SOLAR_PLAYER_STATION / 2), 0, 0, Values.R2_SOLAR_PLAYER_STATION,
-						Values.R2_SOLAR_PLAYER_STATION, 1, 1, 0);
-				break;
-
-			default:
-				logger.fatal("FATAL ERROR DURING RENDERING PROCESS! THE ORBITAL STATION TYPE FOR " + s
-						+ " ISN'T RECOGNIZABLE!");
-				break;
-			}
+		for (OrbitalStructure structure : system.getStructures()) {
+			batch.draw(getStructureResource(structure), (float) structure.getPosition().getX(),
+					(float) structure.getPosition().getY(), 0, 0, Values.R2_SOLAR_PLAYER_STATION,
+					Values.R2_SOLAR_PLAYER_STATION, 1, 1, 0);
+			if (!orbits.contains(structure))
+				orbits.add(structure);
 		}
-
 	}
 
+	/** Renders the star with appropriate textures and size */
 	private void renderStar() {
-
-		if (system.getStar() != null && system.getStar().getType() != null)
-			switch (system.getStar().getType()) {
-			case STAR_RED_DWARF:
-				batch.draw(Assets.R2_SOLAR_STAR_REDDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF, 1, 1,
-						0);
-				break;
-
-			case STAR_RED_GIANT:
-				batch.draw(Assets.R2_SOLAR_STAR_REDGIANT, -(Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT, Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT, 1, 1,
-						0);
-				break;
-
-			case STAR_BLUE_DWARF:
-				batch.draw(Assets.R2_SOLAR_STAR_BLUEDWARF, -(Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF, Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF, 1,
-						1, 0);
-				break;
-			case STAR_BLUE_GIANT:
-				batch.draw(Assets.R2_SOLAR_STAR_BLUEGIANT, -(Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT, Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT, 1,
-						1, 0);
-				break;
-
-			case STAR_BROWN_DWARF:
-				batch.draw(Assets.R2_SOLAR_STAR_BROWNDWARF,
-						-(Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF, Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF,
-						1, 1, 0);
-				break;
-
-			case STAR_BLACK_HOLE:
-				batch.draw(Assets.R2_SOLAR_STAR_BLACKHOLE, -(Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE / 2),
-						-(Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE / 2), 0, 0,
-						Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE, Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE, 1,
-						1, 0);
-				break;
-
-			default:
-				break;
-			}
-		else
-			logger.fatal("FATAL ERROR DURING RENDERING PROCESS. STAR OR STAR-TYPE IS NULL!");
-
+		batch.draw(getStarResource(system.getStar()), -(getStarSize(system.getStar()) / 2),
+				-(getStarSize(system.getStar()) / 2), 0, 0, getStarSize(system.getStar()),
+				getStarSize(system.getStar()), 1, 1, 0);
 	}
 
+	/** Render the planets of the solar system */
 	private void renderPlanets() {
+		for (Planet planet : system.getPlanets()) {
+			float x = (float) planet.getPosition().getX() - (getPlanetSize(planet) / 2);
+			float y = (float) planet.getPosition().getY() - (getPlanetSize(planet) / 2);
 
-		for (Planet p : system.getPlanets()) {
-			// TODO: Check planet type.
+			batch.draw(getPlanetResource(planet), x, y, 0, 0, getPlanetSize(planet),
+					getPlanetSize(planet), 1, 1, 0);
 
-			System.out.println("I'm already rendering.");
-
-			batch.draw(Assets.R2_SOLAR_PLANET_EARTHY, (float) p.getPosition().getX(), (float) p
-					.getPosition().getY(), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
-					-(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
-					Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
-			if (p.hasMoons()) {
-				for (Moon m : p.getMoons()) {
-					// TODO: Check for moon type.
-					batch.draw(Assets.R2_SOLAR_MOON_ROCKY, (float) m.getPosition().getX(), (float) m
-							.getPosition().getY(), -(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY),
-							-(Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY), Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY,
-							Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY, 1, 1, 0);
-				}
-			}
+			if (!orbits.contains(planet))
+				orbits.add(planet);
 		}
-
 	}
 
+	/** Renders the moons of a solar system, independent of their planets. */
+	public void renderMoons() {
+		for (Moon moon : system.getMoons()) {
+			float x = (float) moon.getPosition().getX() - (Values.R2_SOLAR_CELESTIAL_MOON_ROCKY / 2);
+			float y = (float) moon.getPosition().getY() - (Values.R2_SOLAR_CELESTIAL_MOON_ROCKY / 2);
+
+			batch.draw(getMoonResource(moon), x, y, 0, 0, Values.R2_SOLAR_CELESTIAL_MOON_ROCKY,
+					Values.R2_SOLAR_CELESTIAL_MOON_ROCKY, 1, 1, 0);
+
+			if (!orbits.contains(moon))
+				orbits.add(moon);
+		}
+	}
+
+	/**
+	 * Checks if a fleet has a single unit, then renders either the ship or the fleet icon with the
+	 * appropriate icon
+	 */
 	private void renderShips() {
-		// for (Fleet f : system.getUnits()) {
-		// if (f.getCount() == 1) {
-		// // TODO: Check for ship types.
-		// batch.draw(Assets.UNITS_FIGHTER_BASIC, (float) f.getPosition().getX(), (float)
-		// f.getPosition().getY(),
-		// -(Values.R2_SOLAR_SHIP_NORMAL / 2), -(Values.R2_SOLAR_SHIP_NORMAL / 2),
-		// Values.R2_SOLAR_SHIP_NORMAL,
-		// Values.R2_SOLAR_SHIP_NORMAL, 1, 1, 0);
-		// }
-		// else {
-		// // TODO: Change icon size according to fleet size
-		// batch.draw(Assets.FLEET_FIGHTER_FRIEND, (float) f.getPosition().getX(), (float)
-		// f.getPosition().getY(),
-		// -(Values.R2_SOLAR_FLEET_MEDIUM / 2), -(Values.R2_SOLAR_FLEET_MEDIUM / 2),
-		// Values.R2_SOLAR_FLEET_MEDIUM,
-		// Values.R2_SOLAR_FLEET_MEDIUM, 1, 1, 0);
-		// }
-		//
-		// }
+		for (Fleet fleet : system.getUnits())
+			if (fleet.getUnits() instanceof Ship)
+				batch.draw(getShipResource((Ship) fleet.getUnits()), (float) fleet.getPosition().getX(),
+						(float) fleet.getPosition().getY(), Values.R2_SOLAR_PLAYER_SHIP / 2,
+						Values.R2_SOLAR_PLAYER_SHIP / 2, Values.R2_SOLAR_PLAYER_SHIP,
+						Values.R2_SOLAR_PLAYER_SHIP, 1, 1, 0);
 
-	}
-
-	private void renderOrbits() {
+			else if (fleet.getUnits() instanceof Set<?>)
+				batch.draw(getFleetResource(fleet), (float) fleet.getPosition().getX(), (float) fleet
+						.getPosition().getY(), Values.R2_SOLAR_PLAYER_FLEET / 2,
+						Values.R2_SOLAR_PLAYER_FLEET / 2, Values.R2_SOLAR_PLAYER_FLEET,
+						Values.R2_SOLAR_PLAYER_FLEET, 1, 1, 0);
 
 	}
 
@@ -246,13 +229,143 @@ public class SolSystemRenderer implements MapRenderer, Disposable {
 	 */
 	public Set<BaseObject> getObjectsAtCoordinates(double x, double y) {
 
-		// TODO: Ask the MAGIC TREE OF KNOWLEGE!
+		// TODO: Get items from value manager with range of the click.
 		return null;
 	}
 
 	@Override
 	public void render(int[] layers) {
 
+	}
+
+	/**
+	 * ###############################################################
+	 * 
+	 * Logic to pick Resources to render
+	 * 
+	 * ###############################################################
+	 */
+
+	/** Gets Star TextureRegion depending on Star Type */
+	private TextureRegion getStarResource(Star star) {
+
+		switch (star.getType()) {
+		case STAR_RED_GIANT:
+			return Assets.R2_SOLAR_STAR_REDGIANT;
+		case STAR_RED_DWARF:
+			return Assets.R2_SOLAR_STAR_REDDWARF;
+		case STAR_BLUE_DWARF:
+			return Assets.R2_SOLAR_STAR_BLUEDWARF;
+		case STAR_BLUE_GIANT:
+			return Assets.R2_SOLAR_STAR_BLUEGIANT;
+		case STAR_BROWN_DWARF:
+			return Assets.R2_SOLAR_STAR_BROWNDWARF;
+		case STAR_BLACK_HOLE:
+			return Assets.R2_SOLAR_STAR_BLACKHOLE;
+		default:
+			return null;
+		}
+	}
+
+	/** Gets the size for the star texture. If star-type is null it returns default value of 150f */
+	private float getStarSize(Star star) {
+		switch (star.getType()) {
+		case STAR_RED_GIANT:
+			return Values.R2_SOLAR_CELESTIAL_STAR_REDGIANT;
+		case STAR_RED_DWARF:
+			return Values.R2_SOLAR_CELESTIAL_STAR_REDDWARF;
+		case STAR_BLUE_DWARF:
+			return Values.R2_SOLAR_CELESTIAL_STAR_BLUEDWARF;
+		case STAR_BLUE_GIANT:
+			return Values.R2_SOLAR_CELESTIAL_STAR_BLUEGIANT;
+		case STAR_BROWN_DWARF:
+			return Values.R2_SOLAR_CELESTIAL_STAR_BROWNDWARF;
+		case STAR_BLACK_HOLE:
+			return Values.R2_SOLAR_CELESTIAL_STAR_BLACKHOLE;
+		default:
+			return 150f;
+		}
+	}
+
+	private TextureRegion getFleetResource(Fleet fleet) {
+		Allegiance temp = Allegience.validate(fleet.getClaim(), Values.PLAYER);
+
+		if (temp.equals(Allegiance.SELF))
+			return Assets.R2_SOLAR_FLEET_SELF;
+		else if (temp.equals(Allegiance.HOSTILE))
+			return Assets.R2_SOLAR_FLEET_HOSTILE;
+		else if (temp.equals(Allegiance.NEUTRAL))
+			return Assets.R2_SOLAR_FLEET_NEUTRAL;
+		else
+			logger.error("ALLEGIANCE COULDN'T BE VALIDATED!");
+		return null;
+	}
+
+	private TextureRegion getShipResource(Ship ship) {
+		Allegiance temp = Allegience.validate(ship.getClaim(), Values.PLAYER);
+
+		if (temp.equals(Allegiance.SELF))
+			return Assets.R2_SOLAR_SHIP_SELF;
+		else if (temp.equals(Allegiance.HOSTILE))
+			return Assets.R2_SOLAR_SHIP_HOSTILE;
+		else if (temp.equals(Allegiance.NEUTRAL))
+			return Assets.R2_SOLAR_SHIP_NEUTRAL;
+		else
+			logger.error("ALLEGIANCE COULDN'T BE VALIDATED!");
+		return null;
+	}
+
+	private TextureRegion getStructureResource(OrbitalStructure structure) {
+		Allegiance temp = Allegience.validate(structure.getClaim(), Values.PLAYER);
+
+		if (temp.equals(Allegiance.SELF))
+			return Assets.R2_SOLAR_STATION_SELF;
+		else if (temp.equals(Allegiance.HOSTILE))
+			return Assets.R2_SOLAR_STATION_HOSTILE;
+		else if (temp.equals(Allegiance.NEUTRAL))
+			return Assets.R2_SOLAR_STATION_NEUTRAL;
+		else
+			logger.error("ALLEGIANCE COULDN'T BE VALIDATED!");
+		return null;
+	}
+
+	private TextureRegion getPlanetResource(Planet planet) {
+		switch (planet.getType()) {
+		case PLANET_EARTHY:
+			return Assets.R2_SOLAR_PLANET_EARTHY;
+		case PLANET_FLAMY:
+			return Assets.R2_SOLAR_PLANET_FLAMY;
+		case PLANET_ICY:
+			return Assets.R2_SOLAR_PLANET_ICY;
+		case PLANET_GASSY:
+			return Assets.R2_SOLAR_PLANET_GASSY;
+		default:
+			return null;
+		}
+	}
+
+	private float getPlanetSize(Planet planet) {
+		switch (planet.getType()) {
+		case PLANET_EARTHY:
+			return Values.R2_SOLAR_CELESTIAL_PLANET_EARTHY;
+		case PLANET_FLAMY:
+			return Values.R2_SOLAR_CELESTIAL_PLANET_FLAMY;
+		case PLANET_ICY:
+			return Values.R2_SOLAR_CELESTIAL_PLANET_ICY;
+		case PLANET_GASSY:
+			return Values.R2_SOLAR_CELESTIAL_PLANET_GASSY;
+		default:
+			return 150f;
+		}
+	}
+
+	private TextureRegion getMoonResource(Moon moon) {
+		switch (moon.getType()) {
+		case MOON_ROCKY:
+			return Assets.R2_SOLAR_MOON_ROCKY;
+		default:
+			return null;
+		}
 	}
 
 }

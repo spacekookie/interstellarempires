@@ -23,47 +23,39 @@ import java.util.HashMap;
 import org.apache.commons.math3.util.Pair;
 
 import de.r2soft.empires.framework.objects.BaseObject;
-import de.r2soft.empires.framework.objects.BaseObject.Category;
 import de.r2soft.empires.framework.objects.BaseObject.Type;
 
 public class ValueManager {
 
-  private static final ValueManager instance = new ValueManager();
-  private HashMap<BaseObject.Type, Float> hitpoints;
-  private HashMap<BaseObject.Type, Float> armour;
-  private HashMap<BaseObject.Type, Float> damage;
-  private HashMap<BaseObject.Type, Float> speed;
-  private HashMap<BaseObject.Type, Float> mass;
-  private HashMap<BaseObject.Type, Float> size;
-  private HashMap<BaseObject.Type, Pair<Integer, Type>> slots;
-  private HashMap<BaseObject.Type, BaseObject.Category> category;
+	private static final ValueManager instance = new ValueManager();
+	private HashMap<BaseObject.Type, Float> hitpoints;
+	private HashMap<BaseObject.Type, Float> armour;
+	private HashMap<BaseObject.Type, Float> damage;
+	private HashMap<BaseObject.Type, Float> speed;
+	private HashMap<BaseObject.Type, Float> mass;
+	private HashMap<BaseObject.Type, Float> size;
+	private HashMap<BaseObject.Type, Pair<Integer, Type>> slots;
 
-  private ValueManager() {
-	// Initialize values
-	category.put(Type.FIGHTER_I, Category.SHIP);
-	damage.put(Type.FIGHTER_I, 10f);
-  }
+	private ValueManager() {
+		// Initialize values
+		damage.put(Type.SHIPS_FIGHTER_I, 10f);
+	}
 
-  /**
-   * Get an instance of the ValueManager
-   * 
-   * @return
-   */
-  public static ValueManager getInstance() {
-	return instance;
-  }
+	/**
+	 * Get an instance of the ValueManager
+	 * 
+	 * @return
+	 */
+	public static ValueManager getInstance() {
+		return instance;
+	}
 
-  public Float getDamage(BaseObject.Type type) {
-	Float dmg = damage.get(type);
+	public Float getDamage(BaseObject.Type type) {
+		Float dmg = damage.get(type);
 
-	if (dmg != null)
-	  return dmg;
-	else
-	  return 0f;
-  }
-
-  public Category getCategory(Type type) {
-	return category.get(type);
-  }
-
+		if (dmg != null)
+			return dmg;
+		else
+			return 0f;
+	}
 }

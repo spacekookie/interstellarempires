@@ -25,6 +25,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -39,6 +40,7 @@ import de.r2soft.empires.client.maps.sun.SolSystemRenderer;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
+import de.r2soft.empires.client.tests.Statics;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject;
 
@@ -101,8 +103,7 @@ public class SolMapScreen extends R2Screen {
 		multiplexer.addProcessor(mapCamController);
 
 		setupTopNavigation();
-
-		solRenderer = new SolSystemRenderer(system);
+		solRenderer = new SolSystemRenderer(system, mapCam);
 	}
 
 	@Override

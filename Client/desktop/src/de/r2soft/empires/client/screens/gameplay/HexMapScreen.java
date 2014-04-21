@@ -51,6 +51,7 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.screens.utilities.SettingsScreen;
+import de.r2soft.empires.client.tests.Statics;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
@@ -316,7 +317,8 @@ public class HexMapScreen extends R2Screen {
 			}
 
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				GameCore.getInstance().setScreen(new SolMapScreen(new SolarSystem(null)));
+				Statics stats = new Statics();
+				GameCore.getInstance().setScreen(new SolMapScreen(stats.getSystem()));
 			}
 		});
 

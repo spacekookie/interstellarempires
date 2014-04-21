@@ -23,109 +23,116 @@ import org.apache.log4j.Logger;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
- * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
+ * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or
+ * claimed. Use for critters and stars.
  * 
  * @author Katharina
  * 
  */
 public abstract class BaseObject {
+	protected Logger logger = Logger.getLogger(getClass().getName());
+	protected long id;
 
-  protected Logger logger = Logger.getLogger(getClass().getName());
+	public long getId() {
+		return id;
+	}
 
-  private Vector2D position;
-  private SolarSystem container;
-  private double mass;
-  private String name;
+	public void setId(long id) {
+		this.id = id;
+	}
 
-  @Deprecated
-  private Category category;
-  private Type type;
+	private Vector2D position;
+	private SolarSystem container;
+	private double mass;
+	private String name;
+	private boolean infested;
 
-  public String getName() {
-	return name;
-  }
+	private Type type;
 
-  public void setName(String name) {
-	this.name = name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  /**
-   * One enum to rule them all, One enum to find them, One enum to bring them all and in the darkness bind them
-   */
-  public static enum Type {
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	/* Basic Planes */
-	FIGHTER_I, FIGHTER_II, BOMBER_I,
+	/**
+	 * One enum to rule them all, One enum to find them, One enum to bring them all and in the
+	 * darkness bind them
+	 */
+	public static enum Type {
 
-	/* Stars */
-	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
+		/* Basic Planes */
+		SHIPS_FIGHTER_I, SHIPS_FIGHTER_II, SHIPS_BOMBER_I,
 
-	/* Planets */
-	EARTH, VULCANIC, ICE, GAS_GIANT, GAS_DWARF, ROCK, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
+		/* Stars */
+		STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
 
-	/* Structures */
-	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL, MILITARY_LARGE, RESEARCH_BASE_SMALL,
+		/* Planets */
+		PLANET_EARTHY, PLANET_FLAMY, PLANET_ICY, PLANET_GASSY, PLANET_ROCKY, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
 
-	/* Weapons */
-	LASER_I, GATLING_I, MISSILES_I,
+		/* Moons */
+		MOON_ROCKY, MOON_ICY, MOON_FLAMY, MOON_WATERY,
 
-	/* Propulsions */
-	ROCKET_ENGINE_I, ION_ENGINE_I, TRAVERSE_DRIVE_I,
+		/* Structures */
+		STRUC_IHUB, STRUC_FACTORY_SMALL, STRUC_FACTORY_CAPITAL, STRUC_MILITARY_SMALL, STRUC_MILITARY_LARGE, STRUC_RESEARCH_BASE_SMALL,
 
-	/* Deserts */
-	SPACE_PUDDING,
+		/* Weapons */
+		WEAPONS_LASER_I, WEAPONS_GATLING_I, WEAPONS_MISSILES_I,
 
-	/* Slot Types */
-	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
-	// High power=Weapons, Medium power = Defense, Low power = Utility.
-  }
+		/* Propulsions */
+		PROPULSION_ROCKET_ENGINE_I, PROPULSION_ION_ENGINE_I, PROPULSION_TRAVERSE_DRIVE_I, PROPULSION_STANDARD_FTL_I,
 
-  /** Slowly phase it out! */
-  @Deprecated
-  public static enum Category {
-	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
-  }
+		/* Deserts */
+		SPACE_KOOKIE,
 
-  public Vector2D getPosition() {
-	return position;
-  }
+		/* Slot Types */
+		SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
+		// High power=Weapons, Medium power = Defense, Low power = Utility.
 
-  public void setPosition(Vector2D vec) {
-	this.position = vec;
-  }
+	}
 
-  public double getMass() {
-	return mass;
-  }
+	public Vector2D getPosition() {
+		return position;
+	}
 
-  public void setMass(double mass) {
-	this.mass = mass;
-  }
+	public void setPosition(Vector2D vec) {
+		this.position = vec;
+	}
 
-  public Type getType() {
-	return type;
-  }
+	public double getMass() {
+		return mass;
+	}
 
-  public void setType(Type type) {
-	this.type = type;
-  }
+	public void setMass(double mass) {
+		this.mass = mass;
+	}
 
-  public void setCategory(Category category) {
-	this.category = category;
-  }
+	public Type getType() {
+		return type;
+	}
 
-  public Category getCategory() {
-	return category;
-  }
+	public void setType(Type type) {
+		this.type = type;
+	}
 
-  /** Returns the SolarSystem instance that contains this Object */
-  public SolarSystem getContainer() {
-	return container;
-  }
+	/** Returns the SolarSystem instance that contains this Object */
+	public SolarSystem getContainer() {
+		return container;
+	}
 
-  /** Call this on SolarSystem change for ships and during object creation. */
-  public void setContainer(SolarSystem container) {
-	this.container = container;
-  }
+	/** Call this on SolarSystem change for ships and during object creation. */
+	public void setContainer(SolarSystem container) {
+		this.container = container;
+	}
+
+	public void setInfested(boolean infested) {
+		this.infested = infested;
+	}
+
+	public boolean isInfested() {
+		return infested;
+	}
 
 }

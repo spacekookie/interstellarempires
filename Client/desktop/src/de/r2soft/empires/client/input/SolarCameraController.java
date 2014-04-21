@@ -65,18 +65,18 @@ public class SolarCameraController extends InputAdapter {
 		Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 		camera.unproject(tmp);
 
-		BaseObject target = null;
-		try {
-			Set<BaseObject> objects = renderer.getObjectsAtCoordinates(tmp.x, tmp.y);
-			for (BaseObject o : objects) {
-				// TODO: Some magic here
-			}
-		}
-		catch (Exception e) {
-			logger.info("Nothing to select at: " + tmp);
-			return false;
-		}
-		return false;
+		// BaseObject target = null;
+		// try {
+		// Set<BaseObject> objects = renderer.getObjectsAtCoordinates(tmp.x, tmp.y);
+		// for (BaseObject o : objects) {
+		// // TODO: Some magic here
+		// }
+		// }
+		// catch (Exception e) {
+		// logger.info("Nothing to select at: " + tmp);
+		// return false;
+		// }
+		return true;
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class SolarCameraController extends InputAdapter {
 
 	@Override
 	public boolean scrolled(int amount) {
-		float newZoom = camera.zoom * (1 + (amount < 0 ? 0.1f : -0.1f));
+		float newZoom = camera.zoom * (1 + (amount < 0 ? 0.05f : -0.05f));
 		changeZoom(newZoom, last.x, last.y);
 		return true;
 	}

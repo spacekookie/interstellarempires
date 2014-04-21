@@ -28,33 +28,34 @@ import de.r2soft.empires.framework.types.Allegience.Allegiance;
 @Deprecated
 public class Translator {
 
-  /**
-   * This will be called each time a GUI element needs to be colour coded. TODO: Implement alliances.
-   * 
-   * @param p
-   *          the player owning the object, system, etc
-   * @param q
-   *          the player logged into the server
-   * @return The relative Allegiance between object and current player
-   * 
-   */
-  public static Allegiance friendOrFoe(Player p, Player q) {
+	/**
+	 * This will be called each time a GUI element needs to be colour coded. TODO: Implement
+	 * alliances.
+	 * 
+	 * @param p
+	 *          the player owning the object, system, etc
+	 * @param q
+	 *          the player logged into the server
+	 * @return The relative Allegiance between object and current player
+	 * 
+	 */
+	public static Allegiance friendOrFoe(Player p, Player q) {
 
-	if (p != null) {
-	  if (p.getAlliance() != null) {
-		if (p.getAlliance().equals(q.getAlliance())) {
-		  return Allegiance.FRIEND;
+		if (p != null) {
+			if (p.getAlliance() != null) {
+				if (p.getAlliance().equals(q.getAlliance())) {
+					return Allegiance.FRIEND;
+				}
+			}
+			if (p.equals(q)) {
+				return Allegiance.SELF;
+			}
+			else {
+				return Allegiance.HOSTILE;
+			}
+
 		}
-	  }
-	  if (p.equals(q)) {
-		return Allegiance.SELF;
-	  }
-	  else {
-		return Allegiance.FOE;
-	  }
+		return Allegiance.NEUTRAL;
 
 	}
-	return Allegiance.NEUTRAL;
-
-  }
 }

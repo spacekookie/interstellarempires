@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.math3.analysis.function.Log;
+import org.apache.log4j.Logger;
 
 import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
@@ -32,34 +33,34 @@ import de.r2soft.empires.framework.types.Allegience.Allegiance;
  * @author Katharina
  * */
 public abstract class Sociable {
+	private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
-  private Map<Sociable, Allegiance> standings;
+	private Map<Sociable, Allegiance> standings;
 
-  public Sociable() {
-	standings = new HashMap<Sociable, Allegiance>();
-  }
+	public Sociable() {
+		standings = new HashMap<Sociable, Allegiance>();
+	}
 
-  /** Returns a map of all standings of this alliance */
-  public Map<Sociable, Allegiance> getStandings() {
-	return standings;
-  }
+	/** Returns a map of all standings of this alliance */
+	public Map<Sociable, Allegiance> getStandings() {
+		return standings;
+	}
 
-  /** Removes a specific standing from the Map */
-  public void removeStanding(Sociable subject) {
-	if (standings.containsKey(subject))
-	  standings.remove(subject);
-	else
-	  System.out.println("REPLACE ME! PLEASSSEEEEE!!!!");
-	// TODO: REPLACE
-  }
+	/** Removes a specific standing from the Map */
+	public void removeStanding(Sociable subject) {
+		if (standings.containsKey(subject))
+			standings.remove(subject);
+		else
+			logger.info("Standing didn't exist.");
+	}
 
-  /** Add a specific standing to the Map */
-  public void addStanding(Sociable subject, Allegiance standing) {
-	standings.put(subject, standing);
-  }
+	/** Add a specific standing to the Map */
+	public void addStanding(Sociable subject, Allegiance standing) {
+		standings.put(subject, standing);
+	}
 
-  /** Overrides all existing standings with new Map */
-  public void setAllStandings(Map<Sociable, Allegiance> standings) {
-	this.standings = standings;
-  }
+	/** Overrides all existing standings with new Map */
+	public void setAllStandings(Map<Sociable, Allegiance> standings) {
+		this.standings = standings;
+	}
 }

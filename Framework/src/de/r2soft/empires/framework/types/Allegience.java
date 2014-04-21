@@ -18,7 +18,9 @@
 
 package de.r2soft.empires.framework.types;
 
+import de.r2soft.empires.framework.objects.BaseObject;
 import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.players.Sociable;
 
 /**
  * Holds information on rendering and combat. ENUM values can hold @SELF,
@@ -26,18 +28,79 @@ import de.r2soft.empires.framework.players.Player;
  * @FRIEND, @FOE and @NEUTRAL
  */
 public class Allegience {
-  public static enum Allegiance {
-	SELF, FRIEND, FOE, NEUTRAL, UNKNOWN;
-  }
+	public static enum Allegiance {
+		SELF, FRIEND, HOSTILE, NEUTRAL, INFESTED;
+	}
 
-  /** TODO: Add the checking for war declarations and FOES on the map */
-  public static Allegiance validate(Player a, Player b) {
-	if (a.equals(b))
-	  return Allegiance.SELF;
-	else if (a.getAlliance().equals(b.getAlliance()))
-	  return Allegiance.FRIEND;
-	else
-	  return Allegiance.NEUTRAL;
-  }
+	/**
+	 * Validates the Allegiance between two players.
+	 * 
+	 * @param a
+	 *          Player A
+	 * @param b
+	 *          Player B
+	 * @return
+	 */
+	@Deprecated
+	public static Allegiance validated(Player a, Player b) {
+		if (a.equals(b))
+			return Allegiance.SELF;
+		else if (a.getAlliance().equals(b.getAlliance()))
+			return Allegiance.FRIEND;
+		else
+			return Allegiance.NEUTRAL;
+	}
 
+	/**
+	 * Validates the standing between two players
+	 * 
+	 * @param a
+	 *          Player A
+	 * @param b
+	 *          Player B
+	 * @return The Allegiance between two players.
+	 */
+	public static Allegiance validate(Player a, Player b) {
+		if (a.getStandings().containsKey(b))
+			if (a.getStandings().get(b).equals(Allegiance.FRIEND))
+				return Allegiance.FRIEND;
+			else if (a.getStandings().get(b).equals(Allegiance.HOSTILE))
+				return Allegiance.HOSTILE;
+		return Allegiance.NEUTRAL;
+	}
+
+	/**
+	 * Validates the Allegiance of two {@link Sociable}. The Allegiance is of Sociable A towards B
+	 * (The relations of A towards B, not vice versa). To validate the reverse relationship
+	 * 
+	 * @param a
+	 *          Sociable A
+	 * @param b
+	 *          Sociable B
+	 * @return
+	 */
+	public static Allegiance validate(Sociable a, Sociable b) {
+		if (a.equals(b))
+			return Allegiance.SELF;
+		else if (a.getStandings().containsKey(b)) {
+			if (a.getStandings().get(b).equals(Allegiance.FRIEND))
+				return Allegiance.FRIEND;
+			else if (a.getStandings().get(b).equals(Allegiance.HOSTILE))
+				return Allegiance.HOSTILE;
+		}
+		else
+			return Allegiance.NEUTRAL;
+		return null;
+	}
+
+	/**
+	 * Validates an object for Alien infestation.
+	 * 
+	 * @param object
+	 *          An object to be validated for infection
+	 * @return
+	 */
+	public static Allegiance validate(BaseObject object) {
+		return object.isInfested() ? Allegiance.INFESTED : null;
+	}
 }
