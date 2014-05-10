@@ -17,10 +17,17 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>net.sf.javaml</groupId>
+			<artifactId>JavaML</artifactId>
+			<version>0.1.7</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/javaml-0.1.7/javaml-0.1.7.jar</systemPath>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
+			<version>4.4</version>
 		</dependency>
 
 		<dependency>
@@ -70,14 +77,16 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>3.1</version>
 			<configuration>
-				<source>1.7</source>
-				<target>1.7</target>
+				<source>1.6</source>
+				<target>1.6</target>
 			</configuration>
 		</plugin>
+		</plugins>
 	</build>
 </project>
