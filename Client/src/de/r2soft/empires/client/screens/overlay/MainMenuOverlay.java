@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Overlay;
@@ -44,20 +45,20 @@ public class MainMenuOverlay extends R2Overlay {
   private Table main;
 
   public MainMenuOverlay() {
-	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+	super(new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())));
   }
 
   @Override
   public void build() {
-	exit = new TextButton("End Session & Quit", Assets.UI_SKIN);
-	logout = new TextButton("Logout & Change User", Assets.UI_SKIN);
-	options = new TextButton("Options", Assets.UI_SKIN);
-	cancel = new TextButton("Cancel", Assets.UI_SKIN);
+	exit = new TextButton("End Session & Quit", Assets.R2_UI_SKIN);
+	logout = new TextButton("Logout & Change User", Assets.R2_UI_SKIN);
+	options = new TextButton("Options", Assets.R2_UI_SKIN);
+	cancel = new TextButton("Cancel", Assets.R2_UI_SKIN);
 
-	title = new Label("GAME MAIN MENU", Assets.UI_SKIN);
+	title = new Label("GAME MAIN MENU", Assets.R2_UI_SKIN);
 	title.setFontScale(2.5f);
 
-	main = new Table(Assets.UI_SKIN);
+	main = new Table(Assets.R2_UI_SKIN);
 	main.setFillParent(true);
 	main.center();
 
@@ -112,9 +113,9 @@ public class MainMenuOverlay extends R2Overlay {
 	Gdx.input.setInputProcessor(stage);
 
 	/**
-	 * TODO: I don't understand this. I will now call this the "Mystery Button" and move on. It works like this, though it shouldn't be
-	 * necessary! All the other buttons work. I LITERALLY have no idea anymore what it could be. Maybe somebody else *wink wink* has more
-	 * luck with this thing than me.
+	 * TODO: I don't understand this. I will now call this the "Mystery Button" and move on. It works like this, though
+	 * it shouldn't be necessary! All the other buttons work. I LITERALLY have no idea anymore what it could be. Maybe
+	 * somebody else *wink wink* has more luck with this thing than me.
 	 */
 	options.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

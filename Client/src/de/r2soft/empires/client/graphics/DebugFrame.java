@@ -60,13 +60,13 @@ public class DebugFrame extends Actor implements Disposable {
 	this.color = color;
   }
 
-  @Override
-  public void draw(SpriteBatch batch, float parentAlpha) {
-
-	batch.end();
-	batch.begin();
-
-  }
+  // @Override
+  // public void draw(SpriteBatch batch, float parentAlpha) {
+  //
+  // batch.end();
+  // batch.begin();
+  //
+  // }
 
   @Override
   public void dispose() {

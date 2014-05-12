@@ -24,7 +24,6 @@ import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -34,6 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.IntroAnimator;
@@ -63,9 +63,9 @@ public class IntroductionScreen extends R2Screen {
   }
 
   @Override
-  public void resize(int w, int h) {
+  public void resize(int width, int height) {
 	if (stage == null)
-	  stage = new Stage(w, h, true);
+	  stage = new Stage(new StretchViewport(width, height));
 	stage.clear();
 
 	Table backToIntro = new Table();
@@ -73,7 +73,7 @@ public class IntroductionScreen extends R2Screen {
 	stage.addActor(backToIntro);
 	backToIntro.setFillParent(true);
 
-	TextButton backham = new TextButton("SKIP THIS INTRO", Assets.UI_SKIN);
+	TextButton backham = new TextButton("SKIP THIS INTRO", Assets.R2_UI_SKIN);
 	backham.addListener(new InputListener() {
 	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		return true;
@@ -122,8 +122,8 @@ public class IntroductionScreen extends R2Screen {
 	  }
 	};
 
-	Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic).repeatYoyo(1, 0.5f).setCallback(tc)
-		.setCallbackTriggers(TweenCallback.COMPLETE).start(man);
+	Tween.to(splashSprite, IntroAnimator.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInElastic)
+		.repeatYoyo(1, 0.5f).setCallback(tc).setCallbackTriggers(TweenCallback.COMPLETE).start(man);
 
   }
 

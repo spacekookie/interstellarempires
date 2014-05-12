@@ -19,7 +19,7 @@ package de.r2soft.empires.client.screens.utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
@@ -58,8 +59,8 @@ public class SettingsScreen extends R2Screen {
 	Gdx.graphics.setTitle(Values.SUPERTITLE + " - " + Values.VERSION_NUMBER + " - " + Values.SCREENTITLE_SETTINGS);
 	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 
-	skipIntro = new CheckBox("Skip the intro", Assets.UI_SKIN);
-	playMusic = new CheckBox("Play background music", Assets.UI_SKIN);
+	skipIntro = new CheckBox("Skip the intro", Assets.R2_UI_SKIN);
+	playMusic = new CheckBox("Play background music", Assets.R2_UI_SKIN);
 
 	if (prefs.contains(Values.PREFERENCE_SKIP_INTRO))
 	  skipIntro.setChecked(prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO));
@@ -71,7 +72,7 @@ public class SettingsScreen extends R2Screen {
   @Override
   public void render(float delta) {
 	Gdx.gl.glClearColor(0, 0, 0, 1);
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 	stage.act(delta);
 	stage.draw();
@@ -106,11 +107,11 @@ public class SettingsScreen extends R2Screen {
   @Override
   public void resize(int width, int height) {
 	if (stage == null)
-	  stage = new Stage(width, height, true);
+	  stage = new Stage(new StretchViewport(width, height));
 	stage.clear();
 
 	// Collect touchdown events
-	stage.setViewport(width, height, true);
+	stage.getViewport().update(width, height, true);
 
 	navigation = new Table();
 	navigation.setFillParent(true);

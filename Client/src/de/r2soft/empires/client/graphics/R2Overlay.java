@@ -30,8 +30,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
- * An overlay to be placed over the screen stack of a game. Will handle camera and stage logic in this class. Sub-actors will need to be
- * added via protected getter for {@link #stage}
+ * An overlay to be placed over the screen stack of a game. Will handle camera and stage logic in this class. Sub-actors
+ * will need to be added via protected getter for {@link #stage}
  * 
  * @author Katharina <kookie@spacekookie.de>
  * 
@@ -98,7 +98,7 @@ public abstract class R2Overlay extends R2Screen {
   @Override
   public void resize(int width, int height) {
 	if (stage != null)
-	  stage.setViewport(width, height);
+	  stage.getViewport().update(width, height);
   }
 
   @Override
@@ -136,8 +136,8 @@ public abstract class R2Overlay extends R2Screen {
   }
 
   /**
-   * This method can be called instead of show to build an interface. It's the first call in the show() method. It's considered good
-   * Practice to ONLY override this method for building!
+   * This method can be called instead of show to build an interface. It's the first call in the show() method. It's
+   * considered good Practice to ONLY override this method for building!
    */
   public void build() {
 

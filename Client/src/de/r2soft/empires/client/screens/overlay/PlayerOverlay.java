@@ -20,13 +20,14 @@ package de.r2soft.empires.client.screens.overlay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.graphics.R2Overlay;
 
 public class PlayerOverlay extends R2Overlay {
 
   public PlayerOverlay() {
-	super(new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+	super(new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())));
   }
 
 }
