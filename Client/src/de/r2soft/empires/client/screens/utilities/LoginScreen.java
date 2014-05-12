@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
@@ -39,165 +40,165 @@ import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 
 public class LoginScreen extends R2Screen {
 
-	/** UI elements */
-	private Stage stage;
-	private Table intro, outro;
-	private TextField userField, passField;
-	private TextButton login, menu, back;
-	private CheckBox saveUser, savePw;
-	private Preferences prefs;
+  /** UI elements */
+  private Stage stage;
+  private Table intro, outro;
+  private TextField userField, passField;
+  private TextButton login, menu, back;
+  private CheckBox saveUser, savePw;
+  private Preferences prefs;
 
-	/** Background stuff */
-	private String name_clear, password_clear;
+  /** Background stuff */
+  private String name_clear, password_clear;
 
-	public LoginScreen() {
-		prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
-		login = new TextButton("LOGIN", Assets.R2_UI_SKIN);
-		passField = new TextField("", Assets.R2_UI_SKIN);
-		userField = new TextField("", Assets.R2_UI_SKIN);
-		saveUser = new CheckBox("Save username?", Assets.R2_UI_SKIN);
-		savePw = new CheckBox("Save Password?", Assets.R2_UI_SKIN);
-		back = new TextButton("Back to Intro", Assets.R2_UI_SKIN);
+  public LoginScreen() {
+	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
+	login = new TextButton("LOGIN", Assets.R2_UI_SKIN);
+	passField = new TextField("", Assets.R2_UI_SKIN);
+	userField = new TextField("", Assets.R2_UI_SKIN);
+	saveUser = new CheckBox("Save username?", Assets.R2_UI_SKIN);
+	savePw = new CheckBox("Save Password?", Assets.R2_UI_SKIN);
+	back = new TextButton("Back to Intro", Assets.R2_UI_SKIN);
 
-		if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
-			userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
-			saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
-		}
-		else if (prefs.contains(Values.PREFERENCE_SAVE_LOGINPW)) {
-			passField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_PW));
-			savePw.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
-		}
+	if (prefs.contains(Values.PREFERENCE_SAVE_USERNAME)) {
+	  userField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_NAME));
+	  saveUser.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 	}
-
-	@Override
-	public void show() {
-
+	else if (prefs.contains(Values.PREFERENCE_SAVE_LOGINPW)) {
+	  passField.setText(prefs.getString(Values.PREFERENCE_SAVED_USER_PW));
+	  savePw.setChecked(prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 	}
+  }
 
-	@Override
-	public void resize(int w, int h) {
-		if (stage == null)
-			stage = new Stage(w, h, true);
-		stage.clear();
+  @Override
+  public void show() {
 
-		intro = new Table();
-		intro.setFillParent(true);
-		outro = new Table();
-		outro.setFillParent(true);
+  }
 
-		// Exiting the game
-		menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
-		outro.add(menu).width(Values.SIZE_UI_BUTTON_NAVIGON);
-		outro.row();
-		outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
-		outro.top().left();
+  @Override
+  public void resize(int width, int height) {
+	if (stage == null)
+	  stage = new Stage(new StretchViewport(width, height));
+	stage.clear();
 
-		userField.setMessageText("Your username");
-		passField.setMessageText("Your password");
-		passField.setPasswordCharacter('*');
-		passField.setPasswordMode(true);
+	intro = new Table();
+	intro.setFillParent(true);
+	outro = new Table();
+	outro.setFillParent(true);
 
-		intro.add(userField).width(Values.SIZE_UI_FIELD_CONTENT);
-		intro.row();
-		intro.add(passField).width(Values.SIZE_UI_FIELD_CONTENT);
-		intro.row();
-		intro.add(login).width(Values.SIZE_UI_FIELD_CONTENT);
-		intro.row();
-		intro.add(saveUser);
-		intro.row();
-		intro.add(savePw);
-		intro.row();
+	// Exiting the game
+	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
+	outro.add(menu).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	outro.row();
+	outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	outro.top().left();
 
-		stage.addActor(outro);
-		stage.addActor(intro);
+	userField.setMessageText("Your username");
+	passField.setMessageText("Your password");
+	passField.setPasswordCharacter('*');
+	passField.setPasswordMode(true);
 
-	}
+	intro.add(userField).width(Values.SIZE_UI_FIELD_CONTENT);
+	intro.row();
+	intro.add(passField).width(Values.SIZE_UI_FIELD_CONTENT);
+	intro.row();
+	intro.add(login).width(Values.SIZE_UI_FIELD_CONTENT);
+	intro.row();
+	intro.add(saveUser);
+	intro.row();
+	intro.add(savePw);
+	intro.row();
 
-	private void setupListeners() {
-		login.addListener(new ClickListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-			}
+	stage.addActor(outro);
+	stage.addActor(intro);
 
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				scheduleLogin();
-			}
-		});
+  }
 
-		menu.addListener(new ClickListener() {
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				MainMenuOverlay overlay = new MainMenuOverlay();
-				GameCore.getInstance().addOverlay(overlay);
+  private void setupListeners() {
+	login.addListener(new ClickListener() {
+	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+		return true;
+	  }
 
-			}
-		});
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		scheduleLogin();
+	  }
+	});
 
-		back.addListener(new ClickListener() {
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				GameCore.getInstance().setScreen(new IntroductionScreen());
-			}
-		});
+	menu.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		MainMenuOverlay overlay = new MainMenuOverlay();
+		GameCore.getInstance().addOverlay(overlay);
 
-	}
+	  }
+	});
 
-	public void render(float delta) {
-		stage.act(delta);
-		stage.draw();
+	back.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().setScreen(new IntroductionScreen());
+	  }
+	});
 
-		/* Disables savePW if saveUser is off */
-		if (!saveUser.isChecked())
-			savePw.setDisabled(true);
-		else
-			savePw.setDisabled(false);
+  }
 
-		/* This updates the Preferences DB accordingly */
-		if (saveUser.isChecked())
-			prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, true);
-		else
-			prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, false);
+  public void render(float delta) {
+	stage.act(delta);
+	stage.draw();
 
-		if (savePw.isChecked() && saveUser.isChecked())
-			prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, true);
-		else
-			prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, false);
+	/* Disables savePW if saveUser is off */
+	if (!saveUser.isChecked())
+	  savePw.setDisabled(true);
+	else
+	  savePw.setDisabled(false);
 
-		/** What do we do after we're done in the bathroom? :) */
-		prefs.flush();
+	/* This updates the Preferences DB accordingly */
+	if (saveUser.isChecked())
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, true);
+	else
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_USERNAME, false);
 
-	}
+	if (savePw.isChecked() && saveUser.isChecked())
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, true);
+	else
+	  prefs.putBoolean(Values.PREFERENCE_SAVE_LOGINPW, false);
 
-	private void scheduleLogin() {
-		name_clear = userField.getText().toString();
-		password_clear = passField.getText().toString();
+	/** What do we do after we're done in the bathroom? :) */
+	prefs.flush();
 
-		// TODO: Properly hash the password, store it in the client hashed and also use the hashed
-		// version to send to the server!
-		String hash = password_clear;
+  }
 
-		if (prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
-			prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, name_clear);
+  private void scheduleLogin() {
+	name_clear = userField.getText().toString();
+	password_clear = passField.getText().toString();
 
-		else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
-			prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, "");
+	// TODO: Properly hash the password, store it in the client hashed and also use the hashed
+	// version to send to the server!
+	String hash = password_clear;
 
-		if (prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
-			prefs.putString(Values.PREFERENCE_SAVED_USER_PW, hash);
+	if (prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, name_clear);
 
-		else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
-			prefs.putString(Values.PREFERENCE_SAVED_USER_PW, "");
+	else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_USERNAME))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_NAME, "");
 
-		prefs.flush();
+	if (prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_PW, hash);
 
-		Values.initPlayer(name_clear);
+	else if (!prefs.getBoolean(Values.PREFERENCE_SAVE_LOGINPW))
+	  prefs.putString(Values.PREFERENCE_SAVED_USER_PW, "");
 
-		GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
+	prefs.flush();
 
-	}
+	Values.initPlayer(name_clear);
 
-	@Override
-	public void setInputFocus() {
-		Gdx.input.setInputProcessor(stage);
-		setupListeners();
-	}
+	GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
+
+  }
+
+  @Override
+  public void setInputFocus() {
+	Gdx.input.setInputProcessor(stage);
+	setupListeners();
+  }
 
 }

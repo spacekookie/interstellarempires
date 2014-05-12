@@ -1,135 +1,140 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>de.r2soft.empires.client</groupId>
-  <artifactId>Client</artifactId>
-  <packaging>jar</packaging>
-  <version>Alpha-1.3</version>
-  <name>Client</name>
+	<groupId>de.r2soft.empires.client</groupId>
+	<artifactId>Client</artifactId>
+	<packaging>jar</packaging>
+	<version>Alpha-1.3</version>
+	<name>Client</name>
 
-  <url>http://maven.apache.org</url>
+	<url>http://maven.apache.org</url>
 
-  <!-- Project properties -->
-  <properties>
-    <mainClass>de.r2soft.empires.client.core.MainClientLauncher.java</mainClass>
-    <gdx.version>0.9.9</gdx.version>
-    <gwt.version>2.5.0</gwt.version>
-    <gwt.maven.version>2.5.0</gwt.maven.version>
-  </properties>
+	<!-- Project properties -->
+	<properties>
+		<mainClass>de.r2soft.empires.client.core.MainClientLauncher</mainClass>
+		<gdx.version>1.0.1</gdx.version>
+		<gwt.version>2.5.0</gwt.version>
+		<gwt.maven.version>2.5.0</gwt.maven.version>
+	</properties>
 
-  <repositories>
-    <repository>
-      <id>gdx-nightlies</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
-  </repositories>
+	<repositories>
+		<repository>
+			<id>gdx-nightlies</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 
-  <dependencies>
+	<dependencies>
 
-    <!-- Change version number when updating the framework! -->
-    <dependency>
-      <groupId>de.r2soft.empires.framework</groupId>
-      <artifactId>Framework</artifactId>
-      <version>Alpha-1.2</version>
-    </dependency>
+		<!-- Change version number when updating the framework! -->
+		<dependency>
+			<groupId>de.r2soft.empires.framework</groupId>
+			<artifactId>Framework</artifactId>
+			<version>Alpha-1.2</version>
+		</dependency>
 
-    <!-- LIBGDX CORE -->
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx</artifactId>
-      <version>${gdx.version}</version>
-    </dependency>
+		<!-- LIBGDX CORE -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx</artifactId>
+			<version>${gdx.version}</version>
+		</dependency>
 
-    <!-- LWGJL BACKENDS -->
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-backend-lwjgl</artifactId>
-      <version>${gdx.version}</version>
-    </dependency>
+		<!-- LWGJL BACKENDS -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-backend-lwjgl</artifactId>
+			<version>${gdx.version}</version>
+		</dependency>
 
-    <!-- NATIVE LIBRARY -->
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-platform</artifactId>
-      <version>${gdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
+		<!-- NATIVE LIBRARY -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-platform</artifactId>
+			<version>${gdx.version}</version>
+			<classifier>natives-desktop</classifier>
+		</dependency>
 
-    <!-- Library no longer properly supported. Search for alternatives -->
-    <dependency>
-      <groupId>com.aurelienribon</groupId>
-      <artifactId>tween-engine-api</artifactId>
-      <version>6.3.3</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/UTE/tween-engine-api.jar</systemPath>
-    </dependency>
-    
-    <!-- Does this really need to be here? -->
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
+		<!-- Library no longer properly supported. Search for alternatives -->
+		<dependency>
+			<groupId>com.aurelienribon</groupId>
+			<artifactId>tween-engine-api</artifactId>
+			<version>6.3.3</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/UTE/tween-engine-api.jar</systemPath>
+		</dependency>
 
-    <!-- TESTS ONLY!!! -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-math3</artifactId>
-      <version>3.0</version>
-      <scope>compile</scope>
-    </dependency>
+		<!-- Does this really need to be here? -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-math</artifactId>
-      <version>2.2</version>
-      <scope>compile</scope>
-    </dependency>
+		<!--TESTS ONLY!!! -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.0</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- Totally useless JUnit 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency> -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math</artifactId>
+			<version>2.2</version>
+			<scope>compile</scope>
+		</dependency>
 
-  </dependencies>
+		<!--Totally useless JUnit <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+			<version>3.8.1</version> <scope>test</scope> </dependency> -->
 
-  <!-- BUILD OPTIONS BELOW!-->
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-      <resources>
-        <resource>
-          <directory>assets</directory>
-        </resource>
-      </resources>
+	</dependencies>
 
-    <plugins>
-      <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.4</version>
-          <configuration>
-            <descriptorRefs>
-              <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
-            <archive>
-              <manifest>
-                <mainClass>${mainClass}</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-          <executions>
-            <execution>
-              <id>make-assembly</id>
-              <phase>package</phase>
-              <goals>
-                <goal>single</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
+	<!-- BUILD OPTIONS BELOW! -->
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>assets</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
