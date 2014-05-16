@@ -23,116 +23,118 @@ import org.apache.log4j.Logger;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
- * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or
- * claimed. Use for critters and stars.
+ * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for
+ * critters and stars.
  * 
  * @author Katharina
  * 
  */
 public abstract class BaseObject {
-	protected Logger logger = Logger.getLogger(getClass().getName());
-	protected long id;
+  protected Logger logger = Logger.getLogger(getClass().getName());
+  protected long id;
 
-	public long getId() {
-		return id;
-	}
+  public long getId() {
+	return id;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public void setId(long id) {
+	this.id = id;
+  }
 
-	private Vector2D position;
-	private SolarSystem container;
-	private double mass;
-	private String name;
-	private boolean infested;
+  private Vector2D position;
+  private SolarSystem container;
+  private double mass;
+  private String name;
+  private boolean infested;
 
-	private Type type;
+  private Type type;
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+	return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+	this.name = name;
+  }
 
-	/**
-	 * One enum to rule them all, One enum to find them, One enum to bring them all and in the
-	 * darkness bind them
-	 */
-	public static enum Type {
+  /**
+   * One enum to rule them all, One enum to find them, One enum to bring them all and in the darkness bind them
+   */
+  public static enum Type {
 
-		/* Basic Planes */
-		SHIPS_FIGHTER_I, SHIPS_FIGHTER_II, SHIPS_BOMBER_I,
+	/* Basic Planes */
+	SHIPS_FIGHTER_I, SHIPS_FIGHTER_II, SHIPS_BOMBER_I,
 
-		/* Stars */
-		STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
+	/* Stars */
+	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
 
-		/* Planets */
-		PLANET_EARTHY, PLANET_FLAMY, PLANET_ICY, PLANET_GASSY, PLANET_ROCKY, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
+	/* Planets */
+	PLANET_EARTHY, PLANET_FLAMY, PLANET_ICY, PLANET_GASSY, PLANET_ROCKY, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
 
-		/* Moons */
-		MOON_ROCKY, MOON_ICY, MOON_FLAMY, MOON_WATERY,
+	/* Moons */
+	MOON_ROCKY, MOON_ICY, MOON_FLAMY,
 
-		/* Structures */
-		STRUC_IHUB, STRUC_FACTORY_SMALL, STRUC_FACTORY_CAPITAL, STRUC_MILITARY_SMALL, STRUC_MILITARY_LARGE, STRUC_RESEARCH_BASE_SMALL,
+	/** Means a habitable moon that can be colonized without great costs */
+	MOON_WATERY,
 
-		/* Weapons */
-		WEAPONS_LASER_I, WEAPONS_GATLING_I, WEAPONS_MISSILES_I,
+	/* Structures */
+	STRUC_IHUB, STRUC_FACTORY_SMALL, STRUC_FACTORY_CAPITAL, STRUC_MILITARY_SMALL, STRUC_MILITARY_LARGE, STRUC_RESEARCH_BASE_SMALL,
 
-		/* Propulsions */
-		PROPULSION_ROCKET_ENGINE_I, PROPULSION_ION_ENGINE_I, PROPULSION_TRAVERSE_DRIVE_I, PROPULSION_STANDARD_FTL_I,
+	/* Weapons */
+	WEAPONS_LASER_I, WEAPONS_GATLING_I, WEAPONS_MISSILES_I,
 
-		/* Deserts */
-		SPACE_KOOKIE,
+	/* Propulsions */
+	PROPULSION_ROCKET_ENGINE_I, PROPULSION_ION_ENGINE_I, PROPULSION_TRAVERSE_DRIVE_I, PROPULSION_STANDARD_FTL_I,
 
-		/* Slot Types */
-		SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
-		// High power=Weapons, Medium power = Defense, Low power = Utility.
+	/* Deserts */
+	SPACE_KOOKIE,
 
-	}
+	/* Slot Types */
+	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
+	// High power=Weapons, Medium power = Defense, Low power = Utility.
 
-	public Vector2D getPosition() {
-		return position;
-	}
+  }
 
-	public void setPosition(Vector2D vec) {
-		this.position = vec;
-	}
+  public Vector2D getPosition() {
+	return position;
+  }
 
-	public double getMass() {
-		return mass;
-	}
+  public void setPosition(Vector2D vec) {
+	this.position = vec;
+  }
 
-	public void setMass(double mass) {
-		this.mass = mass;
-	}
+  public double getMass() {
+	return mass;
+  }
 
-	public Type getType() {
-		return type;
-	}
+  public void setMass(double mass) {
+	this.mass = mass;
+  }
 
-	public void setType(Type type) {
-		this.type = type;
-	}
+  public Type getType() {
+	return type;
+  }
 
-	/** Returns the SolarSystem instance that contains this Object */
-	public SolarSystem getContainer() {
-		return container;
-	}
+  public void setType(Type type) {
+	this.type = type;
+  }
 
-	/** Call this on SolarSystem change for ships and during object creation. */
-	public void setContainer(SolarSystem container) {
-		this.container = container;
-	}
+  /** Returns the SolarSystem instance that contains this Object */
+  public SolarSystem getContainer() {
+	return container;
+  }
 
-	public void setInfested(boolean infested) {
-		this.infested = infested;
-	}
+  /** Call this on SolarSystem change for ships and during object creation. */
+  public void setContainer(SolarSystem container) {
+	this.container = container;
+  }
 
-	public boolean isInfested() {
-		return infested;
-	}
+  public void setInfested(boolean infested) {
+	this.infested = infested;
+  }
+
+  public boolean isInfested() {
+	return infested;
+  }
 
 }

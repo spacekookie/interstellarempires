@@ -133,6 +133,7 @@ public class SolMapScreen extends R2Screen {
 
 	/* Draws debug frame around map view */
 	shapeRenderer.begin(ShapeType.Line);
+	shapeRenderer.setColor(1, 1, 1, 0.5f);
 	shapeRenderer.rect(Values.SOL_MAP_BASE_OFFSET.x, Values.SOL_MAP_BASE_OFFSET.y, Values.SOL_MAP_BASE_SIZE.x,
 		Values.SOL_MAP_BASE_SIZE.y);
 	shapeRenderer.end();

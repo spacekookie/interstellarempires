@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -78,7 +78,7 @@ public abstract class R2Overlay extends R2Screen {
 
   @Override
   public void render(float delta) {
-	Gdx.gl20.glEnable(GL20.GL_BLEND);
+	Gdx.gl20.glEnable(GL30.GL_BLEND);
 	renderer.setProjectionMatrix(camera.combined);
 	renderer.begin(ShapeType.Filled);
 	renderer.setColor(0, 0, 0, 0.5f);
