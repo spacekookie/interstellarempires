@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.r2soft.empires.client.graphics.R2Overlay;
@@ -62,7 +62,7 @@ public class R2Core implements ApplicationListener {
   @Override
   public void render() {
 	Gdx.gl.glClearColor(0, 0, 0, 1);
-	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
 	batch.begin();
 	batch.draw(Assets.V2_BACKGROUND, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 1, 1, 0);

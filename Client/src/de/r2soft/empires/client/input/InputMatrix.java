@@ -22,7 +22,8 @@ import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
 
 /**
- * A singleton class part of the core game to manage input depending on the current game state. Will be called through main game loop.
+ * A singleton class part of the core game to manage input depending on the current game state. Will be called through
+ * main game loop.
  * 
  * @author ***REMOVED*** <***REMOVED***>
  * 
@@ -30,8 +31,8 @@ import de.r2soft.empires.client.graphics.R2Screen;
 public class InputMatrix {
   private static InputMatrix matrix = null;
   private static GameCore master = GameCore.getInstance();
-  private R2Screen last;
   private R2Screen slave;
+  private R2Screen last;
 
   private InputMatrix() {
 
@@ -54,7 +55,6 @@ public class InputMatrix {
 		master.getScreen().setInputFocus();
 		last = master.getScreen();
 	  }
-
 	}
   }
 

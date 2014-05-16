@@ -19,15 +19,18 @@
 package de.r2soft.empires.client.maps.hex;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Polygon;
 
 import de.r2soft.empires.framework.map.SolarSystem;
 
 public class HexCell extends Cell {
 
   private SolarSystem system;
+  private Polygon bounds;
 
   public HexCell(SolarSystem system) {
 	this.system = system;
+	bounds = new Polygon();
   }
 
   public SolarSystem getSystem() {

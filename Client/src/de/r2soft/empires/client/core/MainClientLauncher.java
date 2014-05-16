@@ -27,7 +27,7 @@ import com.badlogic.gdx.graphics.Color;
 import de.r2soft.empires.client.resources.Values;
 
 /**
- * Main Launcher for the game. Calls the ScreenHandler to initialise the SplashScreen! Further functionality might be
+ * Main Launcher for the game. Calls the ScreenHandler to initialize the SplashScreen! Further functionality might be
  * added in the future
  * 
  * @author: ***REMOVED***

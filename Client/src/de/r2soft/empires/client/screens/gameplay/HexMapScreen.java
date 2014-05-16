@@ -18,16 +18,20 @@
 
 package de.r2soft.empires.client.screens.gameplay;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -45,6 +49,9 @@ import de.r2soft.empires.client.maps.hex.HexCell;
 import de.r2soft.empires.client.maps.hex.HexMapLayer;
 import de.r2soft.empires.client.maps.hex.HexMapLayers;
 import de.r2soft.empires.client.maps.hex.HexMapRenderer;
+import de.r2soft.empires.client.maps.hex.R2HexCell;
+import de.r2soft.empires.client.maps.hex.R2HexMap;
+import de.r2soft.empires.client.maps.hex.R2HexMapRenderer;
 import de.r2soft.empires.client.maps.hex.HexTileMap;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
@@ -53,6 +60,8 @@ import de.r2soft.empires.client.tests.Statics;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
+import de.r2soft.empires.framework.objects.BaseObject.Type;
+import de.r2soft.empires.framework.objects.Star;
 import de.r2soft.empires.framework.players.Player;
 
 /**
@@ -71,9 +80,10 @@ public class HexMapScreen extends R2Screen {
   private GalaxyMap galaxyMap;
   // private HexTileMap map;
   private OrthographicCamera mapCam;
-  private ShapeRenderer shapeRenderer;
+  private ShapeRenderer shapeRenderer, penis;
   private HexMapCameraController mapCamController;
-  private HexMapRenderer hexRenderer;
+  // private HexMapRenderer hexRenderer;
+  private R2HexMapRenderer r2HexRenderer;
 
   /** Scene2D UI */
   private OrthographicCamera uiCam;
@@ -86,6 +96,7 @@ public class HexMapScreen extends R2Screen {
   {
 	multiplexer = new InputMultiplexer();
 	shapeRenderer = new ShapeRenderer();
+	penis = new ShapeRenderer();
   }
 
   public HexMapScreen() {
@@ -139,46 +150,71 @@ public class HexMapScreen extends R2Screen {
 	uiCam.setToOrtho(false, width, hight);
 	uiCam.update();
 
-	HexTileMap map = new HexTileMap();
-	HexMapLayers layers = map.getHexLayers();
+	Statics sweet = new Statics();
+	Random r = new Random(System.currentTimeMillis());
+	TextureRegion[] regions = new TextureRegion[5];
+	regions[0] = Assets.R2_TILES_WHITE;
+	regions[1] = Assets.R2_TILES_RED;
+	regions[2] = Assets.R2_TILES_GREEN;
+	regions[3] = Assets.R2_TILES_BLUE;
+	regions[4] = Assets.R2_TILES_PURPLE;
 
-	TiledMapTile[] tiles = new TiledMapTile[5];
+	R2HexMap r2map = new R2HexMap(16, 16, 112, 97);
 
-	// TODO: Make this ugly go away.
-	tiles[0] = new StaticTiledMapTile(Assets.R2_TILES_BLUE);
-	tiles[1] = new StaticTiledMapTile(Assets.R2_TILES_GREEN);
-	tiles[2] = new StaticTiledMapTile(Assets.R2_TILES_RED);
-	tiles[3] = new StaticTiledMapTile(Assets.R2_TILES_WHITE);
-	tiles[4] = new StaticTiledMapTile(Assets.R2_TILES_PURPLE);
+	for (int mx = 0; mx < r2map.getWidth(); mx++) {
+	  for (int my = 0; my < r2map.getHeight(); my++) {
+		System.out.println("Making tile: " + mx + " " + my);
 
-	HexMapLayer layer = new HexMapLayer(16, 16, 112, 97);
-	for (int mx = 0; mx < layer.getWidth(); mx++) {
-	  for (int my = 0; my < layer.getHeight(); my++) {
-		SolarSystem sys = new SolarSystem(null);
+		SolarSystem sys = new SolarSystem(new Star(Type.STAR_RED_DWARF));
 		sys.setClaim(Values.thisPlayer);
 		sys.setPosition(new GalaxyPosition(mx, my));
-		// SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null,
-		// null, null, new Star(
-		// StarType.GIANTSPACEPUDDING));
-		HexCell cell = new HexCell(sys);
 
-		if (sys != null) {
-		  if (sys.getClaim().equals(Values.thisPlayer)) {
-			cell.setTile(tiles[4]);
-		  }
-		  else if (sys.getClaim().equals(new Player("Jane"))) {
-			cell.setTile(tiles[3]);
-		  }
-		  else {
-			cell.setTile(tiles[2]);
-		  }
-		}
-		layer.setCell(mx, my, cell);
+		R2HexCell cell = new R2HexCell(sys, regions[r.nextInt(5)]);
+		r2map.setCell(mx, my, cell);
 	  }
 	}
-	layers.add(layer);
+	r2HexRenderer = new R2HexMapRenderer(r2map);
 
-	hexRenderer = new HexMapRenderer(map);
+	// HexTileMap map = new HexTileMap();
+	// HexMapLayers layers = map.getHexLayers();
+
+	// TiledMapTile[] tiles = new TiledMapTile[5];
+
+	// TODO: Make this ugly go away.
+	// tiles[0] = new StaticTiledMapTile(Assets.R2_TILES_BLUE);
+	// tiles[1] = new StaticTiledMapTile(Assets.R2_TILES_GREEN);
+	// tiles[2] = new StaticTiledMapTile(Assets.R2_TILES_RED);
+	// tiles[3] = new StaticTiledMapTile(Assets.R2_TILES_WHITE);
+	// tiles[4] = new StaticTiledMapTile(Assets.R2_TILES_PURPLE);
+
+	// HexMapLayer layer = new HexMapLayer(1, 1, 112, 97);
+	// for (int mx = 0; mx < layer.getWidth(); mx++) {
+	// for (int my = 0; my < layer.getHeight(); my++) {
+	// SolarSystem sys = new SolarSystem(null);
+	// sys.setClaim(Values.thisPlayer);
+	// sys.setPosition(new GalaxyPosition(mx, my));
+	// // SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null,
+	// // null, null, new Star(
+	// // StarType.GIANTSPACEPUDDING));
+	// HexCell cell = new HexCell(sweet.getSystem());
+	//
+	// if (sys != null) {
+	// if (sys.getClaim().equals(Values.thisPlayer)) {
+	// cell.setTile(tiles[4]);
+	// }
+	// else if (sys.getClaim().equals(new Player("Jane"))) {
+	// cell.setTile(tiles[3]);
+	// }
+	// else {
+	// cell.setTile(tiles[2]);
+	// }
+	// }
+	// layer.setCell(mx, my, cell);
+	// }
+	// }
+	// layers.add(layer);
+
+	// hexRenderer = new HexMapRenderer(map);
 
 	/** initializing Tables, Items and Groups */
 	this.initializeFrames();
@@ -189,10 +225,9 @@ public class HexMapScreen extends R2Screen {
 	/** Setting up the button listeners */
 	this.setupListeners();
 
-	mapCamController = new HexMapCameraController(this, mapCam, hexRenderer);
+	mapCamController = new HexMapCameraController(this, mapCam, r2HexRenderer);
 	multiplexer.addProcessor(stage);
 	multiplexer.addProcessor(mapCamController);
-
   }
 
   @Override
@@ -222,15 +257,15 @@ public class HexMapScreen extends R2Screen {
 		Values.HEX_MAP_BASE_SIZE.y);
 
 	mapCam.update();
-	hexRenderer.setView(mapCam);
-	hexRenderer.render();
+	r2HexRenderer.setView(mapCam);
+	r2HexRenderer.render();
 
 	/** Sets up stage view */
 	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	uiCam.update();
 
 	shapeRenderer.begin(ShapeType.Line);
-
+	shapeRenderer.setColor(1, 1, 1, 0.5f);
 	/** Draws debug frame around map view */
 	shapeRenderer.rect(Values.HEX_MAP_BASE_OFFSET.x, Values.HEX_MAP_BASE_OFFSET.y, Values.HEX_MAP_BASE_SIZE.x,
 		Values.HEX_MAP_BASE_SIZE.y);
@@ -244,7 +279,7 @@ public class HexMapScreen extends R2Screen {
   public void dispose() {
 	super.dispose();
 	shapeRenderer.dispose();
-	hexRenderer.dispose();
+	r2HexRenderer.dispose();
   }
 
   /** Updates the selection focus solar system */
