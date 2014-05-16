@@ -34,7 +34,7 @@ public class SettingsOverlay extends R2Overlay {
   private Preferences prefs;
 
   /** Preferences */
-  private CheckBox intro, music, fullscreen;
+  private CheckBox intro, music, fullscreen, hexagonDebug;
 
   /** Credits */
   private Label katharinaHead, leanderHead, steveHead, julieHead;
@@ -60,19 +60,20 @@ public class SettingsOverlay extends R2Overlay {
   @Override
   public void build() {
 
-	primary = new Table(Assets.UI_SKIN);
+	primary = new Table(Assets.R2_UI_SKIN);
 	primary.setFillParent(true);
 	primary.center();
 	primary.defaults().height(30f);
 
 	/* Buttons */
-	back = new TextButton("Cancel", Assets.UI_SKIN);
-	apply = new TextButton("Apply Settings", Assets.UI_SKIN);
+	back = new TextButton("Cancel", Assets.R2_UI_SKIN);
+	apply = new TextButton("Apply Settings", Assets.R2_UI_SKIN);
 
 	/* Checkboxes */
-	intro = new CheckBox("Skip the Game Intro", Assets.UI_SKIN);
-	music = new CheckBox("Play Background Music", Assets.UI_SKIN);
-	fullscreen = new CheckBox("Use Fullscreen (Experimental)", Assets.UI_SKIN);
+	intro = new CheckBox("Skip the Game Intro", Assets.R2_UI_SKIN);
+	music = new CheckBox("Play Background Music", Assets.R2_UI_SKIN);
+	fullscreen = new CheckBox("Use Fullscreen (Experimental)", Assets.R2_UI_SKIN);
+	hexagonDebug = new CheckBox("Render debug frames around hexagon-tiles", Assets.R2_UI_SKIN);
 
 	this.checkCurrentSettings();
 
@@ -120,7 +121,7 @@ public class SettingsOverlay extends R2Overlay {
 	primary.add(leanderHead);
 	primary.row();
 
-	primary.add();
+	primary.add(hexagonDebug).left();
 	primary.add(leander);
 	primary.row();
 
@@ -158,6 +159,10 @@ public class SettingsOverlay extends R2Overlay {
 
 	if (prefs.contains(Values.PREFERENCE_LAUNCH_FULLSCREEN))
 	  fullscreen.setChecked(prefs.getBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN));
+
+	if (prefs.contains(Values.PREFERENCE_USE_HEXAGON_DEBUGGING))
+	  hexagonDebug.setChecked(prefs.getBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING));
+
   }
 
   private void makeListeners() {
@@ -180,6 +185,8 @@ public class SettingsOverlay extends R2Overlay {
 	prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, intro.isChecked());
 	prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, music.isChecked());
 	prefs.putBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN, fullscreen.isChecked());
+	prefs.putBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING, hexagonDebug.isChecked());
+	prefs.flush();
   }
 
   @Override

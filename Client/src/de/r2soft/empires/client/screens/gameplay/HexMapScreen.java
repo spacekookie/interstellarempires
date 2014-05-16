@@ -175,47 +175,6 @@ public class HexMapScreen extends R2Screen {
 	}
 	r2HexRenderer = new R2HexMapRenderer(r2map);
 
-	// HexTileMap map = new HexTileMap();
-	// HexMapLayers layers = map.getHexLayers();
-
-	// TiledMapTile[] tiles = new TiledMapTile[5];
-
-	// TODO: Make this ugly go away.
-	// tiles[0] = new StaticTiledMapTile(Assets.R2_TILES_BLUE);
-	// tiles[1] = new StaticTiledMapTile(Assets.R2_TILES_GREEN);
-	// tiles[2] = new StaticTiledMapTile(Assets.R2_TILES_RED);
-	// tiles[3] = new StaticTiledMapTile(Assets.R2_TILES_WHITE);
-	// tiles[4] = new StaticTiledMapTile(Assets.R2_TILES_PURPLE);
-
-	// HexMapLayer layer = new HexMapLayer(1, 1, 112, 97);
-	// for (int mx = 0; mx < layer.getWidth(); mx++) {
-	// for (int my = 0; my < layer.getHeight(); my++) {
-	// SolarSystem sys = new SolarSystem(null);
-	// sys.setClaim(Values.thisPlayer);
-	// sys.setPosition(new GalaxyPosition(mx, my));
-	// // SolarSystem sys = new SolarSystem(new GalaxyPosition(mx, my), new Player("Julie"), null,
-	// // null, null, new Star(
-	// // StarType.GIANTSPACEPUDDING));
-	// HexCell cell = new HexCell(sweet.getSystem());
-	//
-	// if (sys != null) {
-	// if (sys.getClaim().equals(Values.thisPlayer)) {
-	// cell.setTile(tiles[4]);
-	// }
-	// else if (sys.getClaim().equals(new Player("Jane"))) {
-	// cell.setTile(tiles[3]);
-	// }
-	// else {
-	// cell.setTile(tiles[2]);
-	// }
-	// }
-	// layer.setCell(mx, my, cell);
-	// }
-	// }
-	// layers.add(layer);
-
-	// hexRenderer = new HexMapRenderer(map);
-
 	/** initializing Tables, Items and Groups */
 	this.initializeFrames();
 
@@ -258,6 +217,7 @@ public class HexMapScreen extends R2Screen {
 
 	mapCam.update();
 	r2HexRenderer.setView(mapCam);
+	r2HexRenderer.checkDebugRendering();
 	r2HexRenderer.render();
 
 	/** Sets up stage view */
@@ -317,7 +277,7 @@ public class HexMapScreen extends R2Screen {
 	Table profile_leftTop = new Table();
 	// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
 	Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
-	Label lalalal = new Label("This is a label", Assets.UI_SKIN);
+	Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
 	profile_leftTop.add(lalalal);
 
 	profile_leftTop.add(profilePicture).top().center();
@@ -326,7 +286,7 @@ public class HexMapScreen extends R2Screen {
 	Table profile_bottomButton = new Table();
 	profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
 	profileDialog.add(profile_bottomButton).right().bottom();
-	TextButton closeProfile = new TextButton("Close", Assets.UI_SKIN);
+	TextButton closeProfile = new TextButton("Close", Assets.R2_UI_SKIN);
 	profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
 
 	closeProfile.addListener(new ClickListener() {
@@ -399,14 +359,15 @@ public class HexMapScreen extends R2Screen {
 	research = new TextButton("Research", Assets.R2_UI_SKIN);
 	enterSystem = new TextButton("Enter Solar System", Assets.R2_UI_SKIN);
 
-	/** Initialize Lables */
-	title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.R2_UI_SKIN);
-	title.setAlignment(Align.center);
-	title.setFontScaleX(1.2f);
-	title.setFontScaleY(1.1f);
-	title.setColor(Color.MAGENTA);
+	// /** Initialize Lables */
+	// title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.R2_UI_SKIN);
+	// title.setAlignment(Align.center);
+	// title.setFontScaleX(1.2f);
+	// title.setFontScaleY(1.1f);
+	// title.setColor(Color.MAGENTA);
 
 	welcome = new Label("Welcome: " + playerName, Assets.R2_UI_SKIN);
+	welcome.setFontScale(1.5f);
 	welcome.setAlignment(Align.center);
 
 	/** Initialize right navigation */
@@ -450,8 +411,8 @@ public class HexMapScreen extends R2Screen {
 		.height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
 	/** Setting up the center top label table */
-	centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
-	centerTop.row();
+	// centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
+	// centerTop.row();
 	centerTop.add(welcome).width(Values.SIZE_UI_FIELD_CONTENT);
 	centerTop.row();
 

@@ -17,15 +17,14 @@
  ######################################################################### */
 package de.r2soft.empires.client.maps.hex;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +40,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.StringBuilder;
 
+import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
@@ -53,7 +53,10 @@ public class R2HexMapRenderer implements Disposable {
   private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
   /** Debug renderer for collision shapes */
-  ShapeRenderer debugRenderer;
+  private ShapeRenderer debugRenderer;
+
+  /** Flag to determine if debug rendering should be enabled */
+  private boolean useDebugRendering;
 
   /** Used to express if the Y-coordinate should point downwards on the screen */
   private boolean ydown = false;
@@ -104,6 +107,19 @@ public class R2HexMapRenderer implements Disposable {
 	this.unitScale = scale;
 	this.batch = batch;
 	this.map = map;
+  }
+
+  public void overrideDebugRenderingFlag(boolean flag) {
+	this.useDebugRendering = flag;
+  }
+
+  public boolean isDebugRendering() {
+	return this.useDebugRendering;
+  }
+
+  public void checkDebugRendering() {
+	Preferences prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
+	useDebugRendering = prefs.getBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING);
   }
 
   /**
@@ -234,15 +250,14 @@ public class R2HexMapRenderer implements Disposable {
 		batch.draw(region, x, y);
 		batch.end();
 
-		// final Polygon poly = new Polygon(polyVertex);
 		vectorBounds.put(new Array<Vector2>(new Vector2[] { a, b, c, d }), cell);
-		debugRenderer.begin(ShapeType.Line);
-		debugRenderer.setColor(255, 255, 255, 255);
-		debugRenderer.polygon(new float[] { a.x, a.y + (regionHeight / 2), b.x, b.y + (regionHeight / 2), c.x,
-			c.y + (regionHeight / 2), d.x, d.y + (regionHeight / 2) });
-		debugRenderer.end();
-
-		// bounds.put(poly, cell);
+		if (useDebugRendering) {
+		  debugRenderer.begin(ShapeType.Line);
+		  debugRenderer.setColor(255, 255, 255, 255);
+		  debugRenderer.polygon(new float[] { a.x, a.y + (regionHeight / 2), b.x, b.y + (regionHeight / 2), c.x,
+			  c.y + (regionHeight / 2), d.x, d.y + (regionHeight / 2) });
+		  debugRenderer.end();
+		}
 		// TODO: use texture with vertices instead of TextureRegion?
 		// batch.draw(new Texture, spriteVertices, offset, count);
 	  }
@@ -311,19 +326,8 @@ public class R2HexMapRenderer implements Disposable {
 		return temp.get(array).getSystem();
 	  }
 	}
-
 	return null;
   }
-
-  // for (Polygon p : temp.keySet()) {
-  // // Intersector.isPointInPolygon(new Vector2(x, y), p);
-  // if (p.contains(x, y)) {
-  // System.out.println("Found it");
-  // return temp.get(p).getSystem();
-  // }
-  // }
-  // return null;
-  // }
 
   public void setView(OrthographicCamera camera) {
 	batch.setProjectionMatrix(camera.combined);
