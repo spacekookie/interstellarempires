@@ -18,14 +18,15 @@
 
 package de.r2soft.empires.client.input;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-import de.r2soft.empires.client.maps.hex.HexMapRenderer;
 import de.r2soft.empires.client.maps.hex.R2HexMapRenderer;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
@@ -34,10 +35,11 @@ import de.r2soft.empires.framework.map.SolarSystem;
 public class HexMapCameraController extends InputAdapter {
   private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
-  final OrthographicCamera camera;
-  final Vector3 curr = new Vector3();
-  final Vector3 last = new Vector3(-1, -1, -1);
-  final Vector3 delta = new Vector3();
+  private final OrthographicCamera camera;
+  private Vector2 zoomLimits = new Vector2(0.65f, 1.45f);
+  private final Vector3 curr = new Vector3();
+  private final Vector3 last = new Vector3(-1, -1, -1);
+  private final Vector3 delta = new Vector3();
 
   float sclx = (float) Gdx.graphics.getWidth() / Values.HEX_MAP_BASE_SIZE.x;
   float scly = (float) Gdx.graphics.getHeight() / Values.HEX_MAP_BASE_SIZE.y;
@@ -47,12 +49,14 @@ public class HexMapCameraController extends InputAdapter {
 
   public HexMapCameraController(HexMapScreen parent, OrthographicCamera camera, R2HexMapRenderer renderer) {
 	this.camera = camera;
+	this.camera.zoom = 1f;
 	this.renderer = renderer;
 	this.parent = parent;
   }
 
   @Override
   public boolean mouseMoved(int screenX, int screenY) {
+	
 	return false;
   }
 
@@ -65,7 +69,7 @@ public class HexMapCameraController extends InputAdapter {
 	  system = renderer.getTileWithPos(tmp.x, tmp.y);
 	}
 	catch (Exception e) {
-	  System.out.println("OUT OF BOUNDS");
+	  logger.debug("Click range out of bounds of map range!");
 	}
 	finally {
 	  if (system != null)
@@ -92,6 +96,10 @@ public class HexMapCameraController extends InputAdapter {
 	Vector3 before = new Vector3(x, y, 0);
 	camera.unproject(before);
 
+	if (zoom <= zoomLimits.x || zoom >= zoomLimits.y) {
+	  return;
+	}
+
 	camera.zoom = zoom;
 	camera.update();
 	Vector3 after = new Vector3(x, y, 0);
@@ -111,5 +119,20 @@ public class HexMapCameraController extends InputAdapter {
   public boolean touchUp(int x, int y, int pointer, int button) {
 	last.set(-1, -1, -1);
 	return false;
+  }
+
+  public void update() {
+	float halfWidth = Values.HEX_MAP_BASE_SIZE.x / 2 * camera.zoom;
+	float halfHeight = Values.HEX_MAP_BASE_SIZE.y / 2 * camera.zoom;
+
+	float x = ((renderer.getMap().getTileWidth() / 2) * renderer.getMap().getWidth())
+		+ ((renderer.getMap().getTileWidth() / 2) * renderer.getMap().getWidth() * 0.75f);
+	float y = renderer.getMap().getTileHeight() * renderer.getMap().getHeight()
+		+ (renderer.getMap().getTileHeight() / 2);
+
+	camera.position.x = MathUtils.clamp(camera.position.x, halfWidth, x - halfWidth);
+	camera.position.y = MathUtils.clamp(camera.position.y, halfHeight, y - halfHeight);
+
+	camera.update();
   }
 }

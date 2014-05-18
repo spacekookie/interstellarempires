@@ -20,12 +20,15 @@ package de.r2soft.empires.client.screens.gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -61,7 +64,8 @@ public class SolMapScreen extends R2Screen {
 
   /** UI Elements */
   private Stage stage;
-  private Table meta;
+  private Table meta, systemInfo, mapNav;
+  private Button galaxy;
 
   /** Top Navigation Elements */
   private TextButton menu;
@@ -100,13 +104,16 @@ public class SolMapScreen extends R2Screen {
 
 	setupTopNavigation();
 	solRenderer = new SolSystemRenderer(system, mapCam);
+
+	initLeftPanel();
+
+	initMapNav();
   }
 
   @Override
   public void resize(int width, int height) {
 	if (stage != null)
 	  stage.getViewport().update(width, height);
-
   }
 
   @Override
@@ -144,32 +151,17 @@ public class SolMapScreen extends R2Screen {
 
   @Override
   public void dispose() {
-
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void hide() {
-
+	shapeRenderer.dispose();
   }
 
   private void setupTopNavigation() {
-	meta = new Table(Assets.UI_SKIN);
+	meta = new Table(Assets.R2_UI_SKIN);
 	meta.setFillParent(true);
 	meta.top().left();
 	meta.defaults().width(Values.R2_UI_SIZES_BUTTON_WIDTH_CONTENT)
 		.height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
-	menu = new TextButton("Main Menu", Assets.UI_SKIN);
+	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
 	meta.add(menu);
 
 	// button_viewUnits = new TextButton("View Units", Assets.UI_SKIN);
@@ -190,10 +182,27 @@ public class SolMapScreen extends R2Screen {
 	stage.addActor(meta);
   }
 
+  private void initMapNav() {
+	mapNav = new Table(Assets.R2_UI_SKIN);
+	mapNav.setFillParent(true);
+	mapNav.bottom().left();
+	galaxy = new TextButton("Back to Galaxy", Assets.R2_UI_SKIN);
+
+	mapNav.setY(1.5f);
+	mapNav.setX(.5f);
+	mapNav.add(galaxy);
+	stage.addActor(mapNav);
+  }
+
   private void setupButtonListeners() {
-	meta.addListener(new ClickListener() {
+	menu.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		GameCore.getInstance().addOverlay(new MainMenuOverlay());
+	  }
+	});
+	galaxy.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		GameCore.getInstance().setScreen(new HexMapScreen()); // TODO: Query player name from DB
 	  }
 	});
   }
@@ -207,6 +216,44 @@ public class SolMapScreen extends R2Screen {
   /** Updates the UI with the new focus information */
   public void updateFocus(BaseObject target) {
 
+  }
+
+  private void initLeftPanel() {
+	/** Initialize the solar system info table */
+	systemInfo = new Table();
+	systemInfo.setFillParent(true);
+	systemInfo.center().right();
+	systemInfo.setX(-50);
+	systemInfo.setY(175);
+
+	Label tempLabel1, tempLabel2;
+
+	tempLabel1 = new Label("Object Type", Assets.R2_UI_SKIN);
+	tempLabel1.setColor(Color.MAGENTA);
+
+	tempLabel2 = new Label("Information", Assets.R2_UI_SKIN);
+	tempLabel2.setColor(Color.MAGENTA);
+
+	systemInfo.add(tempLabel1);
+	systemInfo.add(tempLabel2);
+	systemInfo.row();
+	systemInfo.add(new Label("Owner: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("KateTheAwesome", Assets.R2_UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Size: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("Something", Assets.R2_UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Coordinates: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("545-101", Assets.R2_UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Units: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("42", Assets.R2_UI_SKIN));
+	systemInfo.row();
+	systemInfo.add(new Label("Exploration: ", Assets.R2_UI_SKIN));
+	systemInfo.add(new Label("100%", Assets.R2_UI_SKIN));
+	systemInfo.row();
+
+	stage.addActor(systemInfo);
   }
 
 }
