@@ -192,11 +192,6 @@ public class R2HexMapRenderer implements Disposable {
 		if (cell == null)
 		  continue;
 		final TextureRegion region = cell.getRegion();
-
-		// final boolean flipX = cell.getFlipHorizontally();
-		// final boolean flipY = cell.getFlipVertically();
-		// final int rotation = cell.getRotation();
-
 		float regionWidth = region.getRegionWidth() * unitScale;
 		float regionHeight = region.getRegionHeight() * unitScale;
 
@@ -205,6 +200,7 @@ public class R2HexMapRenderer implements Disposable {
 		float x2 = x1 + regionWidth;
 		float y2 = y1 + (regionHeight);
 
+		// TODO: Issue #103
 		final Vector2 a = new Vector2(x1, y1);
 		final Vector2 b = new Vector2(x1, y2);
 		final Vector2 c = new Vector2(x2, y2);
@@ -322,7 +318,6 @@ public class R2HexMapRenderer implements Disposable {
 
 	for (Array<Vector2> array : temp.keySet()) {
 	  if (Intersector.isPointInPolygon(array, new Vector2(x, y))) {
-		System.out.println(temp.get(array).getSystem().getPosition().toString());
 		return temp.get(array).getSystem();
 	  }
 	}
@@ -336,4 +331,9 @@ public class R2HexMapRenderer implements Disposable {
 	float height = camera.viewportHeight * camera.zoom;
 	viewBounds.set(camera.position.x - width / 2, camera.position.y - height / 2, width, height);
   }
+
+  public R2HexMap getMap() {
+	return map;
+  }
+
 }

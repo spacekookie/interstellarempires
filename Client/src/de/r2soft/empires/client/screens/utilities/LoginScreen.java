@@ -17,12 +17,9 @@
  ######################################################################### */
 package de.r2soft.empires.client.screens.utilities;
 
-import org.apache.log4j.Logger;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -93,8 +90,8 @@ public class LoginScreen extends R2Screen {
 	outro.add(back).width(Values.SIZE_UI_BUTTON_NAVIGON);
 	outro.top().left();
 
-	userField.setMessageText("Your username");
-	passField.setMessageText("Your password");
+	userField.setMessageText(" Your username");
+	passField.setMessageText(" Your password");
 	passField.setPasswordCharacter('*');
 	passField.setPasswordMode(true);
 
@@ -104,9 +101,9 @@ public class LoginScreen extends R2Screen {
 	intro.row();
 	intro.add(login).width(Values.SIZE_UI_FIELD_CONTENT);
 	intro.row();
-	intro.add(saveUser);
+	intro.add(saveUser).left();
 	intro.row();
-	intro.add(savePw);
+	intro.add(savePw).left();
 	intro.row();
 
 	stage.addActor(outro);

@@ -29,9 +29,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -45,14 +42,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.input.HexMapCameraController;
-import de.r2soft.empires.client.maps.hex.HexCell;
-import de.r2soft.empires.client.maps.hex.HexMapLayer;
-import de.r2soft.empires.client.maps.hex.HexMapLayers;
-import de.r2soft.empires.client.maps.hex.HexMapRenderer;
 import de.r2soft.empires.client.maps.hex.R2HexCell;
 import de.r2soft.empires.client.maps.hex.R2HexMap;
 import de.r2soft.empires.client.maps.hex.R2HexMapRenderer;
-import de.r2soft.empires.client.maps.hex.HexTileMap;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
@@ -62,7 +54,9 @@ import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Star;
+import de.r2soft.empires.framework.players.Alliance;
 import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
@@ -76,11 +70,13 @@ public class HexMapScreen extends R2Screen {
   private InputMultiplexer multiplexer;
   private String playerName;
 
+  /** Currently selected solar system to pass into the solar system renderer */
+  private SolarSystem system;
+
   /** Hex Map */
   private GalaxyMap galaxyMap;
-  // private HexTileMap map;
   private OrthographicCamera mapCam;
-  private ShapeRenderer shapeRenderer, penis;
+  private ShapeRenderer shapeRenderer;
   private HexMapCameraController mapCamController;
   // private HexMapRenderer hexRenderer;
   private R2HexMapRenderer r2HexRenderer;
@@ -88,15 +84,15 @@ public class HexMapScreen extends R2Screen {
   /** Scene2D UI */
   private OrthographicCamera uiCam;
   private Stage stage;
-  private TextButton menu, profile, research, enterSystem;
+  private TextButton menu, profile, research, enterSystem, alliance, news, contacts, welcome;
   private Table naviRight, naviLeft, centerTop, systemInfo;
-  private Label title, welcome, systemSelector;
+  private Label systemSelector;
+  private Label systemOwner, systemSize, systemPos, systemPopulation, systemExploration;
   private Dialog profileDialog, areYouSure;
 
   {
 	multiplexer = new InputMultiplexer();
 	shapeRenderer = new ShapeRenderer();
-	penis = new ShapeRenderer();
   }
 
   public HexMapScreen() {
@@ -152,37 +148,57 @@ public class HexMapScreen extends R2Screen {
 
 	Statics sweet = new Statics();
 	Random r = new Random(System.currentTimeMillis());
-	TextureRegion[] regions = new TextureRegion[5];
+	TextureRegion[] regions = new TextureRegion[2];
 	regions[0] = Assets.R2_TILES_WHITE;
 	regions[1] = Assets.R2_TILES_RED;
-	regions[2] = Assets.R2_TILES_GREEN;
-	regions[3] = Assets.R2_TILES_BLUE;
-	regions[4] = Assets.R2_TILES_PURPLE;
+
+	Star[] stars = new Star[6];
+	stars[0] = new Star(Type.STAR_RED_GIANT);
+	stars[1] = new Star(Type.STAR_RED_DWARF);
+	stars[2] = new Star(Type.STAR_BROWN_DWARF);
+	stars[3] = new Star(Type.STAR_BLUE_DWARF);
+	stars[4] = new Star(Type.STAR_BLUE_GIANT);
+	stars[5] = new Star(Type.STAR_BLACK_HOLE);
+
+	Player[] players = new Player[5];
+	players[0] = new Player("Jane");
+	players[1] = new Player("Peter");
+	players[2] = new Player("Ashley");
+	players[3] = new Player("SpaceKookie");
+	players[4] = new Player("Nika");
 
 	R2HexMap r2map = new R2HexMap(16, 16, 112, 97);
 
+	// TODO: Remove this!
 	for (int mx = 0; mx < r2map.getWidth(); mx++) {
 	  for (int my = 0; my < r2map.getHeight(); my++) {
-		System.out.println("Making tile: " + mx + " " + my);
-
-		SolarSystem sys = new SolarSystem(new Star(Type.STAR_RED_DWARF));
-		sys.setClaim(Values.thisPlayer);
+		SolarSystem sys = new SolarSystem(stars[r.nextInt(5)]);
+		sys.setClaim(players[r.nextInt(5)]);
 		sys.setPosition(new GalaxyPosition(mx, my));
+		R2HexCell cell = null;
+		if (sys.getClaim().equals(Values.thisPlayer)) {
+		  cell = new R2HexCell(sys, Assets.R2_TILES_GREEN);
+		}
+		else if (sys.getClaim().equals(players[0]) || sys.getClaim().equals(players[1])) {
+		  cell = new R2HexCell(sys, Assets.R2_TILES_BLUE);
+		}
+		else {
+		  cell = new R2HexCell(sys, regions[r.nextInt(2)]);
+		}
 
-		R2HexCell cell = new R2HexCell(sys, regions[r.nextInt(5)]);
 		r2map.setCell(mx, my, cell);
 	  }
 	}
 	r2HexRenderer = new R2HexMapRenderer(r2map);
 
-	/** initializing Tables, Items and Groups */
+	/** Initialising Tables, Items and Groups */
 	this.initializeFrames();
 
-	/** initializing Tables, Items and Groups */
+	/** Initialising Tables, Items and Groups */
 	this.setupLayout();
 
 	/** Setting up the button listeners */
-	this.setupListeners();
+	// this.setupListeners();
 
 	mapCamController = new HexMapCameraController(this, mapCam, r2HexRenderer);
 	multiplexer.addProcessor(stage);
@@ -191,6 +207,7 @@ public class HexMapScreen extends R2Screen {
 
   @Override
   public void setInputFocus() {
+	setupListeners();
 	Gdx.input.setInputProcessor(multiplexer);
   }
 
@@ -216,6 +233,7 @@ public class HexMapScreen extends R2Screen {
 		Values.HEX_MAP_BASE_SIZE.y);
 
 	mapCam.update();
+	mapCamController.update();
 	r2HexRenderer.setView(mapCam);
 	r2HexRenderer.checkDebugRendering();
 	r2HexRenderer.render();
@@ -244,6 +262,7 @@ public class HexMapScreen extends R2Screen {
 
   /** Updates the selection focus solar system */
   public void updateFocus(SolarSystem system) {
+	this.system = system;
 	StringBuilder sb = new StringBuilder();
 
 	sb.append("Currently selected System: ");
@@ -270,11 +289,40 @@ public class HexMapScreen extends R2Screen {
 	  sb.append("Unknown");
 
 	systemSelector.setText(sb.toString());
+
+	if (system.getClaim() != null)
+	  systemOwner.setText(system.getClaim().getName() + " | "
+		  + (system.getClaim().getAlliance() != null ? system.getClaim().getAlliance().getName() : "Unknown"));
+	else
+	  systemOwner.setText("Unknown" + " | " + "Unknown");
+
+	if (system.getStar() != null)
+	  systemSize.setText(system.getStar().getType().toString());
+	else
+	  systemSize.setText("#MAP ERROR");
+
+	if (system.getPosition() != null)
+	  systemPos.setText(system.getPosition().toString());
+	else
+	  systemPos.setText("#MAP ERROR");
+
+	// TODO: Rework this to use the KD-Tree from the SolarSystem to poll total number of player (claim) owned objects.
+	int pops = 0;
+	for (int n = 0; n < system.getUnits().size(); n++) {
+	  pops++;
+	}
+	for (int n = 0; n < system.getStructures().size(); n++) {
+	  pops++;
+	}
+	systemPopulation.setText(String.valueOf(pops));
+	systemExploration.setText(String.valueOf(system.getExploration()));
   }
 
+  // TODO: Change this to an overlay
   private void setupProfileDialoge() {
 
 	Table profile_leftTop = new Table();
+	profile_leftTop.setFillParent(true);
 	// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
 	Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
 	Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
@@ -290,46 +338,45 @@ public class HexMapScreen extends R2Screen {
 	profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
 
 	closeProfile.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		profileDialog.remove();
 	  }
 	});
-
   }
 
   private void setupListeners() {
-
 	enterSystem.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		Statics stats = new Statics();
+		// if (system != null)
+		// GameCore.getInstance().setScreen(new SolMapScreen(system));
 		GameCore.getInstance().setScreen(new SolMapScreen(stats.getSystem()));
 	  }
 	});
 
 	research.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 	  }
+	});
 
+	alliance.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+	  }
+	});
+
+	contacts.addListener(new ClickListener() {
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+	  }
+	});
+
+	news.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 	  }
 	});
 
 	profile.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		profileDialog = new Dialog("User Profile", Assets.UI_SKIN);
+		profileDialog = new Dialog("User Profile", Assets.R2_UI_SKIN);
 		profileDialog.setSize(450, 300);
 		profileDialog.setPosition((Values.NEW_WIDTH / 2) - (Values.NEW_WIDTH / 4), (Values.NEW_HEIGHT / 2)
 			- (Values.NEW_HEIGHT / 4));
@@ -339,10 +386,6 @@ public class HexMapScreen extends R2Screen {
 	});
 
 	menu.addListener(new ClickListener() {
-	  public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-		return true;
-	  }
-
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		MainMenuOverlay overlay = new MainMenuOverlay();
 		GameCore.getInstance().addOverlay(overlay);
@@ -353,44 +396,51 @@ public class HexMapScreen extends R2Screen {
 
   private void initializeFrames() {
 	/** Initialize Buttons */
-	profile = new TextButton("Profile", Assets.R2_UI_SKIN);
 	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
+	news = new TextButton("News", Assets.R2_UI_SKIN);
 
+	contacts = new TextButton("Contacts", Assets.R2_UI_SKIN);
+	alliance = new TextButton("Alliance", Assets.R2_UI_SKIN);
 	research = new TextButton("Research", Assets.R2_UI_SKIN);
+	profile = new TextButton("Profile", Assets.R2_UI_SKIN);
 	enterSystem = new TextButton("Enter Solar System", Assets.R2_UI_SKIN);
 
-	// /** Initialize Lables */
-	// title = new Label(Values.SUPERTITLE + ": " + Values.VERSION_NUMBER, Assets.R2_UI_SKIN);
-	// title.setAlignment(Align.center);
-	// title.setFontScaleX(1.2f);
-	// title.setFontScaleY(1.1f);
-	// title.setColor(Color.MAGENTA);
+	if (playerName == "")
+	  welcome = new TextButton("Welcome: " + "#ERROR", Assets.R2_UI_SKIN);
+	else
+	  welcome = new TextButton("Welcome: " + playerName, Assets.R2_UI_SKIN);
+	welcome.setDisabled(true);
 
-	welcome = new Label("Welcome: " + playerName, Assets.R2_UI_SKIN);
-	welcome.setFontScale(1.5f);
-	welcome.setAlignment(Align.center);
-
-	/** Initialize right navigation */
+	/** Initialise right navigation */
 	naviRight = new Table();
 	naviRight.setFillParent(true);
 	naviRight.top().right();
 
-	/** Initialize left navigation */
+	/** Initialise left navigation */
 	naviLeft = new Table();
 	naviLeft.setFillParent(true);
 	naviLeft.top().left();
 
-	/** Initialize center top label */
-	centerTop = new Table();
+	/** Initialise centre top label */
+	centerTop = new Table(Assets.R2_UI_SKIN);
 	centerTop.setFillParent(true);
 	centerTop.center().top();
+	centerTop.setX(-155f);
 
-	/** Initialize the solar system info table */
-	systemInfo = new Table();
-	systemInfo.setFillParent(true);
-	systemInfo.center().right();
-	systemInfo.setX(-50);
-	systemInfo.setY(175);
+	/** Initialise the solar system info table */
+	systemInfo = new Table(Assets.R2_UI_SKIN);
+	// systemInfo.setFillParent(true);
+	// Dialog infoContainer = new Dialog("Selected System Information", Assets.R2_UI_SKIN);
+	// infoContainer.add(systemInfo);
+	// systemInfo.center().right();
+	// systemInfo.setX(-50f);
+	// systemInfo.setY(175f);
+	systemInfo.setWidth(300f);
+	systemInfo.setHeight(200f);
+	systemInfo.setPosition(Values.HEX_MAP_BASE_OFFSET.x + Values.HEX_MAP_BASE_SIZE.x
+		+ Values.R2_UI_PIXEL_PAD_SMALL, Values.HEX_MAP_BASE_OFFSET.y);
+	systemInfo.setBackground("default-window");
+	systemInfo.align(Align.top);
 
 	/** Adding tables to stage */
 	stage.addActor(naviLeft);
@@ -402,47 +452,48 @@ public class HexMapScreen extends R2Screen {
 
   private void setupLayout() {
 	/** Setting up the right navigation */
-	naviRight.add(research).width(Values.SIZE_UI_BUTTON_NAVIGON);
-	naviRight.add(profile).width(Values.SIZE_UI_BUTTON_NAVIGON);
+	naviRight.add(research).width(Values.SIZE_UI_BUTTON_NAVIGON).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
+	naviRight.add(contacts).width(Values.SIZE_UI_BUTTON_NAVIGON).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
+	naviRight.add(alliance).width(Values.SIZE_UI_BUTTON_NAVIGON).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
+	naviRight.add(research).width(Values.SIZE_UI_BUTTON_NAVIGON).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
+	naviRight.add(profile).width(Values.SIZE_UI_BUTTON_NAVIGON).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 	naviRight.row();
 
 	/** Setting up the left navigation */
 	naviLeft.add(menu).width(Values.R2_UI_SIZES_BUTTON_WIDTH_CONTENT)
 		.height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
+	naviLeft.add(news).width(Values.R2_UI_SIZES_BUTTON_WIDTH_CONTENT)
+		.height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
-	/** Setting up the center top label table */
+	/** Setting up the centre top label table */
 	// centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
 	// centerTop.row();
-	centerTop.add(welcome).width(Values.SIZE_UI_FIELD_CONTENT);
+	centerTop.add(welcome).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 	centerTop.row();
 
 	/** Setting up the system info table **/
 
-	Label tempLabel1, tempLabel2;
+	Label tempLabel1;
 
-	tempLabel1 = new Label("Solar System", Assets.R2_UI_SKIN);
-	tempLabel1.setColor(Color.MAGENTA);
+	tempLabel1 = new Label("Selected System Information:", Assets.R2_UI_SKIN);
+	tempLabel1.setColor(Color.PINK);
 
-	tempLabel2 = new Label("Information", Assets.R2_UI_SKIN);
-	tempLabel2.setColor(Color.MAGENTA);
-
-	systemInfo.add(tempLabel1);
-	systemInfo.add(tempLabel2);
+	systemInfo.add(tempLabel1).colspan(2);
 	systemInfo.row();
 	systemInfo.add(new Label("Owner: ", Assets.R2_UI_SKIN));
-	systemInfo.add(new Label("KateTheAwesome", Assets.R2_UI_SKIN));
+	systemInfo.add(systemOwner = new Label("Null", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(new Label("Size: ", Assets.R2_UI_SKIN));
-	systemInfo.add(new Label("Something", Assets.R2_UI_SKIN));
+	systemInfo.add(systemSize = new Label("Null", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(new Label("Coordinates: ", Assets.R2_UI_SKIN));
-	systemInfo.add(new Label("545-101", Assets.R2_UI_SKIN));
+	systemInfo.add(systemPos = new Label("NaN - NaN", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(new Label("Units: ", Assets.R2_UI_SKIN));
-	systemInfo.add(new Label("42", Assets.R2_UI_SKIN));
+	systemInfo.add(systemPopulation = new Label("NaN", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(new Label("Exploration: ", Assets.R2_UI_SKIN));
-	systemInfo.add(new Label("100%", Assets.R2_UI_SKIN));
+	systemInfo.add(systemExploration = new Label("NaN", Assets.R2_UI_SKIN));
 	systemInfo.row();
 	systemInfo.add(enterSystem).width(Values.SIZE_UI_FIELD_CONTENT).colspan(2);
 	systemInfo.row();
@@ -453,7 +504,6 @@ public class HexMapScreen extends R2Screen {
 	selectorTable.setPosition(Values.HEX_MAP_BASE_OFFSET.x + 300, Values.HEX_MAP_BASE_OFFSET.y - 10);
 	selectorTable.add(systemSelector);
 	stage.addActor(selectorTable);
-
   }
 
 }
