@@ -102,24 +102,7 @@ public class HexMapScreen extends R2Screen {
   public HexMapScreen(String playerName) {
 	this.setTitle();
 	this.playerName = playerName;
-
-	// this.fetchGalaxyMap();
   }
-
-  /** TODO: This should be moved to be a server call! */
-  // private void fetchGalaxyMap() {
-  // SAXReader reader = new SAXReader();
-  // MapParser parser = new MapParser();
-  // Document doc;
-  // try {
-  // doc = reader
-  // .read("/Users/AreusAstarte/Documents/Projekte/RandomRobots/Game Development/SpaceGame/Framework/res/MapDemo.xml");
-  // parser.readXML(doc.getRootElement());
-  // } catch (DocumentException e) {
-  // return;
-  // }
-  // galaxyMap = parser.getGalaxyMap();
-  // }
 
   /** Sets the Window title */
   private void setTitle() {
@@ -146,7 +129,6 @@ public class HexMapScreen extends R2Screen {
 	uiCam.setToOrtho(false, width, hight);
 	uiCam.update();
 
-	Statics sweet = new Statics();
 	Random r = new Random(System.currentTimeMillis());
 	TextureRegion[] regions = new TextureRegion[2];
 	regions[0] = Assets.R2_TILES_WHITE;
@@ -197,8 +179,8 @@ public class HexMapScreen extends R2Screen {
 	/** Initialising Tables, Items and Groups */
 	this.setupLayout();
 
-	/** Setting up the button listeners */
-	// this.setupListeners();
+	/** Setup bottom right selection window */
+	this.selectionBox();
 
 	mapCamController = new HexMapCameraController(this, mapCam, r2HexRenderer);
 	multiplexer.addProcessor(stage);
@@ -260,90 +242,6 @@ public class HexMapScreen extends R2Screen {
 	r2HexRenderer.dispose();
   }
 
-  /** Updates the selection focus solar system */
-  public void updateFocus(SolarSystem system) {
-	this.system = system;
-	StringBuilder sb = new StringBuilder();
-
-	sb.append("Currently selected System: ");
-	if (system.getPosition() != null)
-	  sb.append(system.getPosition());
-	else
-	  sb.append("Unknown");
-
-	sb.append(" — Owner: ");
-
-	if (system.getClaim() != null)
-	  sb.append(system.getClaim().getName());
-	else
-	  sb.append("Unknown");
-
-	sb.append(" — Star Type: ");
-
-	if (system.getStar() != null)
-	  if (system.getStar().getType() != null)
-		sb.append(system.getStar().getType());
-	  else
-		sb.append("Unknown");
-	else
-	  sb.append("Unknown");
-
-	systemSelector.setText(sb.toString());
-
-	if (system.getClaim() != null)
-	  systemOwner.setText(system.getClaim().getName() + " | "
-		  + (system.getClaim().getAlliance() != null ? system.getClaim().getAlliance().getName() : "Unknown"));
-	else
-	  systemOwner.setText("Unknown" + " | " + "Unknown");
-
-	if (system.getStar() != null)
-	  systemSize.setText(system.getStar().getType().toString());
-	else
-	  systemSize.setText("#MAP ERROR");
-
-	if (system.getPosition() != null)
-	  systemPos.setText(system.getPosition().toString());
-	else
-	  systemPos.setText("#MAP ERROR");
-
-	// TODO: Rework this to use the KD-Tree from the SolarSystem to poll total number of player (claim) owned objects.
-	int pops = 0;
-	for (int n = 0; n < system.getUnits().size(); n++) {
-	  pops++;
-	}
-	for (int n = 0; n < system.getStructures().size(); n++) {
-	  pops++;
-	}
-	systemPopulation.setText(String.valueOf(pops));
-	systemExploration.setText(String.valueOf(system.getExploration()));
-  }
-
-  // TODO: Change this to an overlay
-  private void setupProfileDialoge() {
-
-	Table profile_leftTop = new Table();
-	profile_leftTop.setFillParent(true);
-	// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
-	Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
-	Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
-	profile_leftTop.add(lalalal);
-
-	profile_leftTop.add(profilePicture).top().center();
-	profileDialog.add(profile_leftTop);
-
-	Table profile_bottomButton = new Table();
-	profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
-	profileDialog.add(profile_bottomButton).right().bottom();
-	TextButton closeProfile = new TextButton("Close", Assets.R2_UI_SKIN);
-	profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
-
-	closeProfile.addListener(new ClickListener() {
-	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		profileDialog.remove();
-	  }
-	});
-  }
-
   private void setupListeners() {
 	enterSystem.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -381,7 +279,28 @@ public class HexMapScreen extends R2Screen {
 		profileDialog.setPosition((Values.NEW_WIDTH / 2) - (Values.NEW_WIDTH / 4), (Values.NEW_HEIGHT / 2)
 			- (Values.NEW_HEIGHT / 4));
 		stage.addActor(profileDialog);
-		setupProfileDialoge();
+
+		Table profile_leftTop = new Table();
+		profile_leftTop.setFillParent(true);
+		// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
+		Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
+		Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
+		profile_leftTop.add(lalalal);
+
+		profile_leftTop.add(profilePicture).top().center();
+		profileDialog.add(profile_leftTop);
+
+		Table profile_bottomButton = new Table();
+		profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
+		profileDialog.add(profile_bottomButton).right().bottom();
+		TextButton closeProfile = new TextButton("Close", Assets.R2_UI_SKIN);
+		profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
+
+		closeProfile.addListener(new ClickListener() {
+		  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			profileDialog.remove();
+		  }
+		});
 	  }
 	});
 
@@ -395,7 +314,7 @@ public class HexMapScreen extends R2Screen {
   }
 
   private void initializeFrames() {
-	/** Initialize Buttons */
+	/** Initialise Buttons */
 	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
 	news = new TextButton("News", Assets.R2_UI_SKIN);
 
@@ -427,27 +346,52 @@ public class HexMapScreen extends R2Screen {
 	centerTop.center().top();
 	centerTop.setX(-155f);
 
-	/** Initialise the solar system info table */
-	systemInfo = new Table(Assets.R2_UI_SKIN);
-	// systemInfo.setFillParent(true);
-	// Dialog infoContainer = new Dialog("Selected System Information", Assets.R2_UI_SKIN);
-	// infoContainer.add(systemInfo);
-	// systemInfo.center().right();
-	// systemInfo.setX(-50f);
-	// systemInfo.setY(175f);
-	systemInfo.setWidth(300f);
-	systemInfo.setHeight(200f);
-	systemInfo.setPosition(Values.HEX_MAP_BASE_OFFSET.x + Values.HEX_MAP_BASE_SIZE.x
-		+ Values.R2_UI_PIXEL_PAD_SMALL, Values.HEX_MAP_BASE_OFFSET.y);
-	systemInfo.setBackground("default-window");
-	systemInfo.align(Align.top);
-
 	/** Adding tables to stage */
 	stage.addActor(naviLeft);
 	stage.addActor(naviRight);
 	stage.addActor(centerTop);
-	stage.addActor(systemInfo);
+  }
 
+  private void selectionBox() {
+	Table table = new Table(Assets.R2_UI_SKIN);
+	table.setPosition(Values.HEX_MAP_BASE_OFFSET.x + Values.HEX_MAP_BASE_SIZE.x + Values.R2_UI_PIXEL_PAD_SMALL,
+		Values.HEX_MAP_BASE_OFFSET.y);
+	table.setSize(300f, 200f);
+	table.setBackground("default-window");
+
+	table.add(new Label("Owner: ", Assets.R2_UI_SKIN)).left().padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.add(systemOwner = new Label("Null", Assets.R2_UI_SKIN)).prefWidth(999)
+		.padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.row();
+	table.add(new Label("Size: ", Assets.R2_UI_SKIN)).expandX().left().padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.add(systemSize = new Label("Null", Assets.R2_UI_SKIN)).prefWidth(999)
+		.padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.row();
+	table.add(new Label("Coordinates: ", Assets.R2_UI_SKIN)).left().padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.add(systemPos = new Label("NaN - NaN", Assets.R2_UI_SKIN)).prefWidth(999)
+		.padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.row();
+	table.add(new Label("Units: ", Assets.R2_UI_SKIN)).left().padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.add(systemPopulation = new Label("NaN", Assets.R2_UI_SKIN)).prefWidth(999)
+		.padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.row();
+	table.add(new Label("Exploration: ", Assets.R2_UI_SKIN)).left().padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.add(systemExploration = new Label("NaN", Assets.R2_UI_SKIN)).prefWidth(999)
+		.padLeft(Values.R2_UI_PIXEL_PAD_TINY);
+	table.row();
+	table.add(enterSystem).width(Values.SIZE_UI_FIELD_CONTENT).colspan(2);
+
+	Label title = new Label("Currently selected Solarsystem", Assets.R2_UI_SKIN);
+	title.setColor(Color.PINK);
+	Table nested = new Table(Assets.R2_UI_SKIN);
+	nested.align(Align.center);
+	nested.setPosition(Values.HEX_MAP_BASE_OFFSET.x + Values.HEX_MAP_BASE_SIZE.x + Values.R2_UI_PIXEL_PAD_SMALL,
+		Values.HEX_MAP_BASE_OFFSET.y + (table.getHeight() / 2) - (title.getHeight() / 2) + 3f);
+	nested.setSize(300f, 200f);
+	nested.add(title).top();
+
+	stage.addActor(table);
+	stage.addActor(nested);
   }
 
   private void setupLayout() {
@@ -466,44 +410,97 @@ public class HexMapScreen extends R2Screen {
 		.height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 
 	/** Setting up the centre top label table */
-	// centerTop.add(title).width(Values.SIZE_UI_FIELD_CONTENT);
-	// centerTop.row();
 	centerTop.add(welcome).height(Values.R2_UI_SIZES_BUTTON_HEIGHT_CONTENT);
 	centerTop.row();
 
-	/** Setting up the system info table **/
-
-	Label tempLabel1;
-
-	tempLabel1 = new Label("Selected System Information:", Assets.R2_UI_SKIN);
-	tempLabel1.setColor(Color.PINK);
-
-	systemInfo.add(tempLabel1).colspan(2);
-	systemInfo.row();
-	systemInfo.add(new Label("Owner: ", Assets.R2_UI_SKIN));
-	systemInfo.add(systemOwner = new Label("Null", Assets.R2_UI_SKIN));
-	systemInfo.row();
-	systemInfo.add(new Label("Size: ", Assets.R2_UI_SKIN));
-	systemInfo.add(systemSize = new Label("Null", Assets.R2_UI_SKIN));
-	systemInfo.row();
-	systemInfo.add(new Label("Coordinates: ", Assets.R2_UI_SKIN));
-	systemInfo.add(systemPos = new Label("NaN - NaN", Assets.R2_UI_SKIN));
-	systemInfo.row();
-	systemInfo.add(new Label("Units: ", Assets.R2_UI_SKIN));
-	systemInfo.add(systemPopulation = new Label("NaN", Assets.R2_UI_SKIN));
-	systemInfo.row();
-	systemInfo.add(new Label("Exploration: ", Assets.R2_UI_SKIN));
-	systemInfo.add(systemExploration = new Label("NaN", Assets.R2_UI_SKIN));
-	systemInfo.row();
-	systemInfo.add(enterSystem).width(Values.SIZE_UI_FIELD_CONTENT).colspan(2);
-	systemInfo.row();
-
 	// TODO: Make this pretty!
-	Table selectorTable = new Table();
-	systemSelector = new Label("", Assets.R2_UI_SKIN);
-	selectorTable.setPosition(Values.HEX_MAP_BASE_OFFSET.x + 300, Values.HEX_MAP_BASE_OFFSET.y - 10);
-	selectorTable.add(systemSelector);
-	stage.addActor(selectorTable);
+	Table table = new Table();
+	table.setFillParent(true);
+	table.bottom().left();
+	table.setX(Values.R2_UI_PIXEL_PAD_TINY);
+	table.setY(Values.R2_UI_PIXEL_PAD_TINY);
+	systemSelector = new Label("No Solarsystem currently selected. Move the mouse of the map to change that",
+		Assets.R2_UI_SKIN);
+	table.add(systemSelector);
+	stage.addActor(table);
+  }
+
+  /** Updates the selection focus solar system */
+  public void updateHover(SolarSystem hovered) {
+	if (hovered == null) {
+	  systemSelector.setText("No solar system currently selected. Move your mouse across the map to change that.");
+	  return;
+	}
+	StringBuilder sb = new StringBuilder();
+	sb.append("Currently selected System: ");
+	if (hovered.getPosition() != null)
+	  sb.append(hovered.getPosition());
+	else
+	  sb.append("Unknown");
+
+	sb.append(" — Owner: ");
+
+	if (hovered.getClaim() != null)
+	  sb.append(hovered.getClaim().getName());
+	else
+	  sb.append("Unknown");
+
+	sb.append(" — Star Type: ");
+
+	if (hovered.getStar() != null)
+	  if (hovered.getStar().getType() != null)
+		sb.append(hovered.getStar().getType());
+	  else
+		sb.append("Unknown");
+	else
+	  sb.append("Unknown");
+
+	systemSelector.setText(sb.toString());
+  }
+
+  /**
+   * Updates the selection window in the bottom right of the screen. If system == null default values will be displayed.
+   * 
+   * @param system
+   *          The selected solar system on the map
+   */
+  public void updateWindow(SolarSystem system) {
+	this.system = system;
+
+	if (system != null)
+	  systemExploration.setText(String.valueOf(system.getExploration()));
+	else
+	  systemExploration.setText("NaN");
+
+	if (system != null && system.getClaim() != null)
+	  systemOwner.setText(system.getClaim().getName() + " | "
+		  + (system.getClaim().getAlliance() != null ? system.getClaim().getAlliance().getName() : "Unknown"));
+	else
+	  systemOwner.setText("Null" + " | " + "Null");
+
+	if (system != null && system.getStar() != null)
+	  systemSize.setText(system.getStar().getType().toString());
+	else
+	  systemSize.setText("NaN");
+
+	if (system != null && system.getPosition() != null)
+	  systemPos.setText(system.getPosition().toString());
+	else
+	  systemPos.setText("NaN");
+
+	if (system != null && system.getUnits() != null && system.getStructures() != null) {
+	  // TODO: Rework this to use the KD-Tree from the SolarSystem to poll total number of player (claim) owned objects.
+	  int pops = 0;
+	  for (int n = 0; n < system.getUnits().size(); n++) {
+		pops++;
+	  }
+	  for (int n = 0; n < system.getStructures().size(); n++) {
+		pops++;
+	  }
+	  systemPopulation.setText(String.valueOf(pops));
+	}
+	else
+	  systemPopulation.setText("NaN");
   }
 
 }

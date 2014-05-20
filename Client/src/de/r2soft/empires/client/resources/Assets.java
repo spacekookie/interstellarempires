@@ -34,18 +34,25 @@ public class Assets {
    * ############### HEX TILES TEXTURES ###############
    */
 
+  @Deprecated
   private static final TextureAtlas R2_ATLAS_TILES = new TextureAtlas(
 	  Gdx.files.internal("r2_graphics/maps/galaxy/_atli/galaxy_tiles.atlas"));
+
+  private static final TextureAtlas R2_ATLAS_TILES_V2 = new TextureAtlas(
+	  Gdx.files.internal("r2_graphics/maps/galaxy/_atli/r2_galaxymap_v2.atlas"));
+
   /** Blue (Friendly/ Ally) map tile for the Galaxy Map */
-  public static final TextureRegion R2_TILES_BLUE = R2_ATLAS_TILES.findRegion("hextile_blue");
+  public static final TextureRegion R2_TILES_BLUE = R2_ATLAS_TILES_V2.findRegion("hextile_blue");
   /** Green (Player) map tile for the Galaxy Map */
-  public static final TextureRegion R2_TILES_GREEN = R2_ATLAS_TILES.findRegion("hextile_green");
+  public static final TextureRegion R2_TILES_GREEN = R2_ATLAS_TILES_V2.findRegion("hextile_green");
   /** Red (Hostile) map tile for the Galaxy Map */
-  public static final TextureRegion R2_TILES_RED = R2_ATLAS_TILES.findRegion("hextile_red");
+  public static final TextureRegion R2_TILES_RED = R2_ATLAS_TILES_V2.findRegion("hextile_red");
   /** White (Neutral) map tile for the Galaxy Map */
-  public static final TextureRegion R2_TILES_WHITE = R2_ATLAS_TILES.findRegion("hextile_white");
+  public static final TextureRegion R2_TILES_WHITE = R2_ATLAS_TILES_V2.findRegion("hextile_white");
   /** Purple (Swarm-Infected) map tile for the Galaxy Map */
-  public static final TextureRegion R2_TILES_PURPLE = R2_ATLAS_TILES.findRegion("hextile_purple");
+  public static final TextureRegion R2_TILES_PURPLE = R2_ATLAS_TILES_V2.findRegion("hextile_purple");
+  /** Slection Box */
+  public static final TextureRegion R2_TILES_SELECTOR = R2_ATLAS_TILES_V2.findRegion("hextile_selector");
 
   /*
    * ############### USER INTERFACE IMPORTS ###############
@@ -57,7 +64,8 @@ public class Assets {
 
   /** New default UI Skin for the entire application. */
   public static final Skin R2_UI_SKIN = new Skin(Gdx.files.internal("r2_graphics/ui/skin/uiskin.json"));
-  private static final TextureAtlas V2_BACKGROUNDS = new TextureAtlas(Gdx.files.internal("gui/graphics/back.atlas"));
+  private static final TextureAtlas V2_BACKGROUNDS = new TextureAtlas(
+	  Gdx.files.internal("gui/graphics/back.atlas"));
 
   /** A stolen background for the game. WILL NEED TO BE REPLACED! */
   public static final TextureRegion V2_BACKGROUND = V2_BACKGROUNDS.findRegion("spacebackgroundtemp");
@@ -65,7 +73,8 @@ public class Assets {
   /*
    * ############### SOLAR SYSTEM ICONS ###############
    */
-  private static final TextureAtlas R2_ATLAS_SOLAR = new TextureAtlas(Gdx.files.internal("r2_graphics/maps/solar/_atli/solar_icons.atlas"));
+  private static final TextureAtlas R2_ATLAS_SOLAR = new TextureAtlas(
+	  Gdx.files.internal("r2_graphics/maps/solar/_atli/solar_icons.atlas"));
   /** Red Dwarf Star */
   public static final TextureRegion R2_SOLAR_STAR_REDDWARF = R2_ATLAS_SOLAR.findRegion("star_red_dwarf");
   /** Red Giant Star */
@@ -138,11 +147,16 @@ public class Assets {
    */
 
   /** Atlas imports */
-  private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(Gdx.files.internal("map/prot-map-tiles.pack"));
-  private static final TextureAtlas INITIAL_MAP_SOLAR = new TextureAtlas(Gdx.files.internal("solar/prot-solarsystem-icons.pack"));
-  private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(Gdx.files.internal("gui/prot-selected.atlas"));
-  private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(Gdx.files.internal("map/adds/prot-tile-additions.atlas"));
-  private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(Gdx.files.internal("ships/basic-ships.pack"));
+  private static final TextureAtlas INITIAL_MAP_HEX = new TextureAtlas(
+	  Gdx.files.internal("map/prot-map-tiles.pack"));
+  private static final TextureAtlas INITIAL_MAP_SOLAR = new TextureAtlas(
+	  Gdx.files.internal("solar/prot-solarsystem-icons.pack"));
+  private static final TextureAtlas INITIAL_UI_SELECTION = new TextureAtlas(
+	  Gdx.files.internal("gui/prot-selected.atlas"));
+  private static final TextureAtlas INITIAL_MAP_ADDITIONS = new TextureAtlas(
+	  Gdx.files.internal("map/adds/prot-tile-additions.atlas"));
+  private static final TextureAtlas INITIAL_BASIC_UNITS = new TextureAtlas(
+	  Gdx.files.internal("ships/basic-ships.pack"));
 
   /** Selection box for units and planets */
   public static final TextureRegion GUI_FRAME_SELECTION = INITIAL_UI_SELECTION.findRegion("selected");
@@ -159,22 +173,28 @@ public class Assets {
   public static final TextureRegion TILE_HEX_PLAYER = INITIAL_MAP_HEX.findRegion("prot-map-tile-player");
 
   /** System contains player fleet */
-  public static final TextureRegion TILE_ADD_FLEET_PLAYER = INITIAL_MAP_ADDITIONS.findRegion("prot-tile-fleet-player");
+  public static final TextureRegion TILE_ADD_FLEET_PLAYER = INITIAL_MAP_ADDITIONS
+	  .findRegion("prot-tile-fleet-player");
   /** System contains friendly fleet */
-  public static final TextureRegion TILE_ADD_FLEET_FRIENDLY = INITIAL_MAP_ADDITIONS.findRegion("prot-tile-fleet-allied");
+  public static final TextureRegion TILE_ADD_FLEET_FRIENDLY = INITIAL_MAP_ADDITIONS
+	  .findRegion("prot-tile-fleet-allied");
   /** System contains hostile fleet */
-  public static final TextureRegion TILE_ADD_FLEET_ENEMY = INITIAL_MAP_ADDITIONS.findRegion("prot-tile-fleet-hostile");
+  public static final TextureRegion TILE_ADD_FLEET_ENEMY = INITIAL_MAP_ADDITIONS
+	  .findRegion("prot-tile-fleet-hostile");
   /** System contains player station */
-  public static final TextureRegion TILE_ADD_STATION_PLAYER = INITIAL_MAP_ADDITIONS.findRegion("prot-tile-station");
+  public static final TextureRegion TILE_ADD_STATION_PLAYER = INITIAL_MAP_ADDITIONS
+	  .findRegion("prot-tile-station");
   /** The tile addition size used for position and size */
   public static final float SIZE_TILE_ADD_SIZE = 20;
 
   /** Fleet regions */
 
   /** Player owned fighter fleet */
-  public static final TextureRegion FLEET_FIGHTER_PLAYER = INITIAL_MAP_SOLAR.findRegion("prot-fleet-fighter-player");
+  public static final TextureRegion FLEET_FIGHTER_PLAYER = INITIAL_MAP_SOLAR
+	  .findRegion("prot-fleet-fighter-player");
   /** Hostile fighter fleet */
-  public static final TextureRegion FLEET_FIGHTER_ENEMY = INITIAL_MAP_SOLAR.findRegion("prot-fleet-fighter-hostile");
+  public static final TextureRegion FLEET_FIGHTER_ENEMY = INITIAL_MAP_SOLAR
+	  .findRegion("prot-fleet-fighter-hostile");
   /** Allied fighter fleet */
   public static final TextureRegion FLEET_FIGHTER_FRIEND = INITIAL_MAP_SOLAR.findRegion("prot-fleet-fighter-ally");
 
@@ -192,8 +212,8 @@ public class Assets {
    * 
    * Class O: 40'000K Class B: 20'000K Class A: 10'000K Class F: 7'500K Class G: 5'500K Class K: 4'500K Class M: 3'000K
    * 
-   * Size magnitudes: 15: Neutron Stars 13: Brown Dwarfs 10: Red Dwarfs 8: Yellow Dwarfs 5: Pretty green stars 0: Red giants/ (Main
-   * sequence: teal giants) -5: Blue Giants, Red Super-giants -10: Super big ass stars (Red and blue)
+   * Size magnitudes: 15: Neutron Stars 13: Brown Dwarfs 10: Red Dwarfs 8: Yellow Dwarfs 5: Pretty green stars 0: Red
+   * giants/ (Main sequence: teal giants) -5: Blue Giants, Red Super-giants -10: Super big ass stars (Red and blue)
    */
 
   /** Brown dwarf star */

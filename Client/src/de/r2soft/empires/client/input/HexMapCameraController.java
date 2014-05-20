@@ -36,7 +36,7 @@ public class HexMapCameraController extends InputAdapter {
   private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
   private final OrthographicCamera camera;
-  private Vector2 zoomLimits = new Vector2(0.65f, 1.45f);
+  private final Vector2 zoomLimits = new Vector2(0.65f, 1.45f);
   private final Vector3 curr = new Vector3();
   private final Vector3 last = new Vector3(-1, -1, -1);
   private final Vector3 delta = new Vector3();
@@ -54,9 +54,18 @@ public class HexMapCameraController extends InputAdapter {
 	this.parent = parent;
   }
 
+  public HexMapCameraController(int[] params) {
+	camera = new OrthographicCamera();
+  }
+
   @Override
   public boolean mouseMoved(int screenX, int screenY) {
-	
+	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
+	camera.unproject(tmp);
+	SolarSystem system = null;
+	system = renderer.getTileWithPos(tmp.x, tmp.y);
+	parent.updateHover(system);
+
 	return false;
   }
 
@@ -65,6 +74,7 @@ public class HexMapCameraController extends InputAdapter {
 	Vector3 tmp = new Vector3(screenX * sclx, screenY * scly, 0);
 	camera.unproject(tmp);
 	SolarSystem system = null;
+
 	try {
 	  system = renderer.getTileWithPos(tmp.x, tmp.y);
 	}
@@ -72,10 +82,10 @@ public class HexMapCameraController extends InputAdapter {
 	  logger.debug("Click range out of bounds of map range!");
 	}
 	finally {
-	  if (system != null)
-		parent.updateFocus(system);
+	  parent.updateWindow(system);
+	  renderer.updateFocus(system);
 	}
-	return false;
+	return true;
   }
 
   @Override
