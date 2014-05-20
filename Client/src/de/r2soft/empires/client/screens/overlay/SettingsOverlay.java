@@ -34,7 +34,7 @@ public class SettingsOverlay extends R2Overlay {
   private Preferences prefs;
 
   /** Preferences */
-  private CheckBox intro, music, fullscreen, hexagonDebug;
+  private CheckBox intro, music, fullscreen, hexagonDebug, colourblind;
 
   /** Credits */
   private Label katharinaHead, leanderHead, steveHead, julieHead;
@@ -74,6 +74,7 @@ public class SettingsOverlay extends R2Overlay {
 	music = new CheckBox("Play Background Music", Assets.R2_UI_SKIN);
 	fullscreen = new CheckBox("Use Fullscreen (Experimental)", Assets.R2_UI_SKIN);
 	hexagonDebug = new CheckBox("Render debug frames around hexagon-tiles", Assets.R2_UI_SKIN);
+	colourblind = new CheckBox("Use Colour-blind mode (Experimental)", Assets.R2_UI_SKIN);
 
 	this.checkCurrentSettings();
 
@@ -125,7 +126,7 @@ public class SettingsOverlay extends R2Overlay {
 	primary.add(leander);
 	primary.row();
 
-	primary.add();
+	primary.add(colourblind).left();
 	primary.add(steveHead);
 	primary.row();
 
@@ -163,6 +164,9 @@ public class SettingsOverlay extends R2Overlay {
 	if (prefs.contains(Values.PREFERENCE_USE_HEXAGON_DEBUGGING))
 	  hexagonDebug.setChecked(prefs.getBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING));
 
+	if (prefs.contains(Values.PREFERENCE_USE_COLOURBLIND_MODE))
+	  colourblind.setChecked(prefs.getBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE));
+
   }
 
   private void makeListeners() {
@@ -186,6 +190,7 @@ public class SettingsOverlay extends R2Overlay {
 	prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, music.isChecked());
 	prefs.putBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN, fullscreen.isChecked());
 	prefs.putBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING, hexagonDebug.isChecked());
+	prefs.putBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE, colourblind.isChecked());
 	prefs.flush();
   }
 

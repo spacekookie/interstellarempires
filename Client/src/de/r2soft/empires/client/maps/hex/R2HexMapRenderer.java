@@ -19,6 +19,7 @@ package de.r2soft.empires.client.maps.hex;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -33,7 +34,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -73,8 +73,12 @@ public class R2HexMapRenderer implements Disposable {
   /** Holds the Map data to be rendered */
   private R2HexMap map;
 
+  /** Currently focused solar system to render the selection box */
+  private SolarSystem currentFocus = null;
+  private boolean renderFrame = false;
+  private Vector2 frameCoodinates = new Vector2(-111, -111);
+
   /** Map that links a HexCell instance that contains SolarSystem information to a polygon in the map world. */
-  private Map<Polygon, R2HexCell> bounds;
   private Map<Array<Vector2>, R2HexCell> vectorBounds;
 
   /** Vertices for rendering */
@@ -84,16 +88,12 @@ public class R2HexMapRenderer implements Disposable {
   /** SpriteBatch for rendering the tiles */
   private SpriteBatch batch;
 
-  /** An array of integers to define the rendering parameters of the map */
-  private int[] params;
-  private boolean useParams = false;
-
-  /** Initializes renderer with default scale size */
+  /** Initialises renderer with default scale size */
   public R2HexMapRenderer(R2HexMap map) {
 	this(map, 1f);
   }
 
-  /** Initializes renderer with new Spritebatch */
+  /** Initialises renderer with new SpriteBatch */
   public R2HexMapRenderer(R2HexMap map, float scale) {
 	this(map, scale, new SpriteBatch());
   }
@@ -101,7 +101,6 @@ public class R2HexMapRenderer implements Disposable {
   /** Recommended constructor. Takes a map, unit scale and SpriteBatch. Default scale is 1f */
   public R2HexMapRenderer(R2HexMap map, float scale, SpriteBatch batch) {
 	this.viewBounds = new Rectangle();
-	bounds = new HashMap<Polygon, R2HexCell>();
 	vectorBounds = new HashMap<Array<Vector2>, R2HexCell>();
 	debugRenderer = new ShapeRenderer();
 	this.unitScale = scale;
@@ -123,32 +122,6 @@ public class R2HexMapRenderer implements Disposable {
   }
 
   /**
-   * Injects a new parameter array into the renderer, compares and logs the changes and invalidates the resources stack
-   * for the next update
-   */
-  public void injectParameters(int[] params) {
-	StringBuilder brownie = new StringBuilder();
-	Arrays.sort(this.params);
-	Arrays.sort(params);
-
-	if (!Arrays.equals(this.params, params)) {
-	  for (int c = 0; c < params.length; c++) {
-		if (this.params[c] != params[c])
-		  brownie.append("Parameter " + this.params[c] + " changed to " + params[c] + "\n ");
-	  }
-	  brownie.append("\n");
-	  logger.debug(brownie.toString());
-	  this.params = params;
-	  logger.debug("Parameter swap complete. Invalidating resources and flushing rendering stack NOW!");
-	  this.invalidate();
-	}
-	else {
-	  logger.info("Parameter sets were exactly the same! WHY DID YOU DO THIS? INVALIDATION IS NOT CALLED!");
-	}
-
-  }
-
-  /**
    * Triggers the rendering of the Hexagon-Map. Inject rendering parameters into object before calling {@link #render()}
    * to use Parameter Rendering. Try to avoid switching between vanilla to parameter rendering as it flushes all
    * resources stored in {@link #batch}
@@ -156,6 +129,12 @@ public class R2HexMapRenderer implements Disposable {
   public void render() {
 	// CLEARS ALL BOUNDS FROM MAP BEFORE RENDERING
 	vectorBounds.clear();
+
+	// Clear the Selection frame
+	renderFrame = false;
+	frameCoodinates.set(-111, -111);
+
+	// TODO: Replace colour values with shader and custom R2Colour object.
 	final Color bc = batch.getColor();
 	final float color = Color.toFloatBits(bc.r, bc.g, bc.b, bc.a);
 
@@ -205,6 +184,8 @@ public class R2HexMapRenderer implements Disposable {
 		final Vector2 b = new Vector2(x1, y2);
 		final Vector2 c = new Vector2(x2, y2);
 		final Vector2 d = new Vector2(x2, y1);
+		final Vector2 e = new Vector2(-1, -1);
+		final Vector2 f = new Vector2(-1, -1);
 
 		spaceVertex[0] = x1;
 		spaceVertex[1] = y1;
@@ -244,6 +225,13 @@ public class R2HexMapRenderer implements Disposable {
 
 		batch.begin();
 		batch.draw(region, x, y);
+
+		if (currentFocus != null)
+		  if (cell.getSystem().equals(currentFocus)) {
+			frameCoodinates.set(x, y);
+			renderFrame = true;
+		  }
+
 		batch.end();
 
 		vectorBounds.put(new Array<Vector2>(new Vector2[] { a, b, c, d }), cell);
@@ -254,15 +242,18 @@ public class R2HexMapRenderer implements Disposable {
 			  c.y + (regionHeight / 2), d.x, d.y + (regionHeight / 2) });
 		  debugRenderer.end();
 		}
-		// TODO: use texture with vertices instead of TextureRegion?
-		// batch.draw(new Texture, spriteVertices, offset, count);
 	  }
 	}
-  }
 
-  public HexCell getCellWithLocation(float xi, float yi) {
-
-	return null;
+	/* Rest of the rendering loop: */
+	if (renderFrame) {
+	  Gdx.gl.glLineWidth(5);
+	  debugRenderer.begin(ShapeType.Line);
+	  debugRenderer.setColor(155, 155, 155, 255);
+	  debugRenderer.rect(frameCoodinates.x, frameCoodinates.y, tileX, tileY);
+	  debugRenderer.end();
+	  Gdx.gl.glLineWidth(1);
+	}
   }
 
   /** Invalidates batch and flushes all resources */
@@ -288,14 +279,6 @@ public class R2HexMapRenderer implements Disposable {
 
   public void setUnitScale(float unitScale) {
 	this.unitScale = unitScale;
-  }
-
-  public boolean isUseParams() {
-	return useParams;
-  }
-
-  public void setUseParams(boolean useParams) {
-	this.useParams = useParams;
   }
 
   public void setTileSize(float x, float y) {
@@ -334,6 +317,10 @@ public class R2HexMapRenderer implements Disposable {
 
   public R2HexMap getMap() {
 	return map;
+  }
+
+  public void updateFocus(SolarSystem currentFocus) {
+	this.currentFocus = currentFocus;
   }
 
 }

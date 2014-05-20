@@ -49,6 +49,7 @@ public class Values {
   public static final String PREFERENCE_SAVED_USER_PW = "saved_user_pw_hash";
   public static final String PREFERENCE_LAUNCH_FULLSCREEN = "launch_as_fullscreen_app";
   public static final String PREFERENCE_USE_HEXAGON_DEBUGGING = "use-hexagons-as-debugging-sample-batch";
+  public static final String PREFERENCE_USE_COLOURBLIND_MODE = "use-colourblind-mode-for-game-renderer";
 
   /* Local player data from login */
 
