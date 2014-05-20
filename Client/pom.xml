@@ -34,6 +34,13 @@
 			<version>Alpha-1.2</version>
 		</dependency>
 
+		<!-- Change version number when updating the framework! -->
+		<dependency>
+			<groupId>de.r2soft.engines.r2d</groupId>
+			<artifactId>R2DEngine</artifactId>
+			<version>0.1</version>
+		</dependency>
+
 		<!-- LIBGDX CORE -->
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
