@@ -1,5 +1,0 @@
-INDEX VERSION 1.3+/Users/SpaceKookie/Documents/Projects/R2Soft/InterstellarEmpires/Game/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-2117348655.index
-3625728525.index
-3228460296.index
-2229361844.index
