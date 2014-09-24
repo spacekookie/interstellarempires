@@ -23,22 +23,30 @@ import org.apache.log4j.Logger;
 import de.r2soft.empires.framework.map.SolarSystem;
 
 /**
- * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for critters and stars.
+ * Basic game object. Contains Name, mass and position. Is invulnerable, can't be interacted with or claimed. Use for
+ * critters and stars.
  * 
  * @author Katharina
  * 
  */
 public abstract class BaseObject {
-
   protected Logger logger = Logger.getLogger(getClass().getName());
+  protected long id;
+
+  public long getId() {
+	return id;
+  }
+
+  public void setId(long id) {
+	this.id = id;
+  }
 
   private Vector2D position;
   private SolarSystem container;
   private double mass;
   private String name;
+  private boolean infested;
 
-  @Deprecated
-  private Category category;
   private Type type;
 
   public String getName() {
@@ -55,35 +63,36 @@ public abstract class BaseObject {
   public static enum Type {
 
 	/* Basic Planes */
-	FIGHTER_I, FIGHTER_II, BOMBER_I,
+	SHIPS_FIGHTER_I, SHIPS_FIGHTER_II, SHIPS_BOMBER_I,
 
 	/* Stars */
 	STAR_BROWN_DWARF, STAR_RED_DWARF, STAR_RED_GIANT, STAR_BLUE_DWARF, STAR_BLUE_GIANT, STAR_BLACK_HOLE,
 
 	/* Planets */
-	EARTH, VULCANIC, ICE, GAS_GIANT, GAS_DWARF, ROCK, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
+	PLANET_EARTHY, PLANET_FLAMY, PLANET_ICY, PLANET_GASSY, PLANET_ROCKY, ASTEROID_SINGLE, ASTEROID_BELT, COMET,
+
+	/* Moons */
+	MOON_ROCKY, MOON_ICY, MOON_FLAMY,
+
+	/** Means a habitable moon that can be colonized without great costs */
+	MOON_WATERY,
 
 	/* Structures */
-	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL, MILITARY_LARGE, RESEARCH_BASE_SMALL,
+	STRUC_IHUB, STRUC_FACTORY_SMALL, STRUC_FACTORY_CAPITAL, STRUC_MILITARY_SMALL, STRUC_MILITARY_LARGE, STRUC_RESEARCH_BASE_SMALL,
 
 	/* Weapons */
-	LASER_I, GATLING_I, MISSILES_I,
+	WEAPONS_LASER_I, WEAPONS_GATLING_I, WEAPONS_MISSILES_I,
 
 	/* Propulsions */
-	ROCKET_ENGINE_I, ION_ENGINE_I, TRAVERSE_DRIVE_I,
+	PROPULSION_ROCKET_ENGINE_I, PROPULSION_ION_ENGINE_I, PROPULSION_TRAVERSE_DRIVE_I, PROPULSION_STANDARD_FTL_I,
 
 	/* Deserts */
-	SPACE_PUDDING,
+	SPACE_KOOKIE,
 
 	/* Slot Types */
 	SLOT_HIGH, SLOT_MEDIUM, SLOT_LOW,
 	// High power=Weapons, Medium power = Defense, Low power = Utility.
-  }
 
-  /** Slowly phase it out! */
-  @Deprecated
-  public static enum Category {
-	SHIP, FLEET, PLANET, STRUCTURE, STAR, SYSTEM;
   }
 
   public Vector2D getPosition() {
@@ -110,14 +119,6 @@ public abstract class BaseObject {
 	this.type = type;
   }
 
-  public void setCategory(Category category) {
-	this.category = category;
-  }
-
-  public Category getCategory() {
-	return category;
-  }
-
   /** Returns the SolarSystem instance that contains this Object */
   public SolarSystem getContainer() {
 	return container;
@@ -126,6 +127,14 @@ public abstract class BaseObject {
   /** Call this on SolarSystem change for ships and during object creation. */
   public void setContainer(SolarSystem container) {
 	this.container = container;
+  }
+
+  public void setInfested(boolean infested) {
+	this.infested = infested;
+  }
+
+  public boolean isInfested() {
+	return infested;
   }
 
 }

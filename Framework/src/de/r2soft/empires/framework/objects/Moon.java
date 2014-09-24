@@ -19,7 +19,7 @@
 package de.r2soft.empires.framework.objects;
 
 import de.r2soft.empires.framework.planetary.Orbit;
-import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
+import de.r2soft.empires.framework.planetary.Orbit.ORBITALTYPE;
 
 /**
  * A basic moon that orbits a parent planet
@@ -28,25 +28,26 @@ import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
  * 
  */
 public class Moon extends OrbitalObject {
+	private Planet parent;
 
-  public Moon(Planet parent) {
-	super.setOrbitalParent(parent);
-	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getOrbitalParent()));
-  }
+	@Deprecated
+	public Moon(Planet parent) {
+		super.setOrbitalParent(parent);
+		super.setOrbit(new Orbit(ORBITALTYPE.CIRCULAR, getOrbitalR(), getOrbitalParent()));
+	}
 
-  private Planet parent;
+	public Moon(Orbit orbit) {
+		super.setOrbit(orbit);
+		super.getOrbit().setSelf(this);
+		this.parent = (Planet) orbit.getParent();
+	}
 
-  public Moon(Orbit orbit) {
-	super.setOrbit(orbit);
-	this.parent = (Planet) orbit.getParent();
-  }
+	public Planet getParent() {
+		return parent;
+	}
 
-  public Planet getParent() {
-	return parent;
-  }
-
-  public void setParent(Planet parent) {
-	this.parent = parent;
-  }
+	public void setParent(Planet parent) {
+		this.parent = parent;
+	}
 
 }

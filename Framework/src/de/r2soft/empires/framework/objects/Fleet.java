@@ -19,6 +19,7 @@
 package de.r2soft.empires.framework.objects;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import de.r2soft.empires.framework.ai.Admiral;
@@ -32,111 +33,125 @@ import de.r2soft.empires.framework.ai.Admiral.CommandType;
  */
 public class Fleet extends MovableObject {
 
-  @Deprecated
-  public static enum FleetSize {
-	TINY, SMALL, MEDIUM, LARGE, MASSIVE;
-  }
+	private int count;
+	private Set<Ship> units;
+	private Admiral admiral;
 
-  private int count;
-  private Set<Ship> units;
-  private Admiral admiral;
-
-  public Fleet(Set<Ship> units) {
-	this.count = units.size();
-	this.units = units;
-  }
-
-  /** Create a fleet from a single ship */
-  public Fleet(Ship unit) {
-	this.count = 1;
-	this.units = new HashSet<Ship>();
-	units.add(unit);
-  }
-
-  public Fleet(Ship[] ships) {
-	this.units = new HashSet<Ship>();
-	this.count = ships.length;
-
-	for (Ship s : ships) {
-	  units.add(s);
+	public Fleet(Set<Ship> units) {
+		this.count = units.size();
+		this.units = units;
 	}
-  }
 
-  /**
-   * Don't use this anymore!
-   * 
-   * Determines what icon size will be used for rendering.
-   * 
-   * @return enum for fleet SIZE.
-   */
-  @Deprecated
-  public FleetSize getFleetSize() {
-	if (count < 10)
-	  return FleetSize.TINY;
-	if (count < 25)
-	  return FleetSize.SMALL;
-	if (count < 50)
-	  return FleetSize.MEDIUM;
-	if (count < 100)
-	  return FleetSize.LARGE;
-	if (count < 500)
-	  return FleetSize.MASSIVE;
-	else
-	  return null;
-  }
-
-  /** Add existing fleet to this one */
-  public void addUnits(Set<Ship> newUnits) {
-
-	for (Ship u : newUnits) {
-	  units.add(u);
-	  count++;
+	/** Create a fleet from a single ship */
+	public Fleet(Ship unit) {
+		this.count = 1;
+		this.units = new HashSet<Ship>();
+		units.add(unit);
 	}
-  }
 
-  /** Add single unit to this fleet */
-  public void addUnit(Ship unit) {
-	units.add(unit);
-	count++;
-  }
+	public Fleet(Ship[] ships) {
+		this.units = new HashSet<Ship>();
+		this.count = ships.length;
 
-  /** Remove a specific unit from the fleet */
-  public void removeUnit(Ship unit) {
-	units.remove(unit);
-	count--;
-  }
-
-  public void removeUnits(Set<Ship> units) {
-	for (Ship u : units) {
-	  this.units.remove(u);
-	  count--;
+		for (Ship s : ships) {
+			units.add(s);
+		}
 	}
-  }
 
-  public int getCount() {
-	return count;
-  }
+	/** Add existing fleet to this one */
+	public void addUnits(Set<Ship> newUnits) {
 
-  public void setCount(int count) {
-	this.count = count;
-  }
+		for (Ship u : newUnits) {
+			units.add(u);
+			count++;
+		}
+	}
 
-  public Set<Ship> getUnits() {
-	return units;
-  }
+	/** Add single unit to this fleet */
+	public void addUnit(Ship unit) {
+		units.add(unit);
+		count++;
+	}
 
-  public boolean hasAdmiral() {
-	return admiral != null ? true : false;
-  }
+	/** Remove a specific unit from the fleet */
+	public void removeUnit(Ship unit) {
+		units.remove(unit);
+		count--;
+	}
 
-  public Admiral getAdmiral() {
-	return admiral;
-  }
+	public void removeUnits(Set<Ship> units) {
+		for (Ship u : units) {
+			this.units.remove(u);
+			count--;
+		}
+	}
 
-  public void setAdmiral(String name, CommandType type) {
-	if (admiral == null)
-	  admiral = new Admiral(name, type);
-	else
-	  logger.info("There was already an admiral attached to this fleet");
-  }
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	/**
+	 * Gets the units from the fleet.
+	 * 
+	 * @return Either {@link Ship} or a {@link HashSet} of {@link Ship}
+	 */
+	public Object getUnits() {
+		Iterator<Ship> u = units.iterator();
+		if (!u.hasNext())
+			logger.info("NO SHIPS IN FLEET. CALLING GC!");
+		Ship ship = u.next();
+		if (u.hasNext())
+			return units;
+		else
+			return ship;
+	}
+
+	/** Get the entire Set of Ships */
+	public Set<Ship> getUnits(int i) {
+		return units;
+	}
+
+	/** Returns a single unit if the fleet size == 1 */
+	public Ship getSingleUnit() {
+		Iterator<Ship> iterator = units.iterator();
+		if (!iterator.hasNext()) {
+			logger.info("There are no ships in collection");
+			return null;
+		}
+		Ship temp = iterator.next();
+		if (iterator.hasNext())
+			logger.error("COLLECTION HAS MORE THAN ONE ITEM");
+		return temp;
+
+	}
+
+	public boolean hasAdmiral() {
+		return admiral != null ? true : false;
+	}
+
+	public Admiral getAdmiral() {
+		return admiral;
+	}
+
+	public void setAdmiral(String name, CommandType type) {
+		if (admiral == null)
+			admiral = new Admiral(name, type);
+		else
+			logger.info("There was already an admiral attached to this fleet");
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Fleet)
+			if (((Fleet) o).getUnits().equals(this.getUnits()))
+				return true;
+			else
+				return false;
+		else
+			return false;
+	}
 }

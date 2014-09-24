@@ -25,77 +25,77 @@ import com.badlogic.gdx.math.Vector3;
 
 public class GestureHandler implements GestureListener {
 
-  private OrthographicCamera camera;
-  private InputHandler handler;
+	private OrthographicCamera camera;
+	private InputHandler handler;
 
-  float scale = 1;
-  final Vector3 curr = new Vector3();
-  final Vector3 last = new Vector3(-1, -1, -1);
-  final Vector3 delta = new Vector3();
+	float scale = 1;
+	final Vector3 curr = new Vector3();
+	final Vector3 last = new Vector3(-1, -1, -1);
+	final Vector3 delta = new Vector3();
 
-  public GestureHandler(OrthographicCamera camera, InputHandler handler) {
-	this.camera = camera;
-	this.handler = handler;
-  }
+	public GestureHandler(OrthographicCamera camera, InputHandler handler) {
+		this.camera = camera;
+		this.handler = handler;
+	}
 
-  @Override
-  public boolean touchDown(float x, float y, int pointer, int button) {
-	return false;
-  }
+	@Override
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		return false;
+	}
 
-  @Override
-  public boolean tap(float x, float y, int count, int button) {
-	return false;
-  }
+	@Override
+	public boolean tap(float x, float y, int count, int button) {
+		return false;
+	}
 
-  @Override
-  public boolean longPress(float x, float y) {
-	return false;
-  }
+	@Override
+	public boolean longPress(float x, float y) {
+		return false;
+	}
 
-  @Override
-  public boolean fling(float velocityX, float velocityY, int button) {
-	return false;
-  }
+	@Override
+	public boolean fling(float velocityX, float velocityY, int button) {
+		return false;
+	}
 
-  @Override
-  public boolean pan(float x, float y, float deltaX, float deltaY) {
-	if (handler.isDragged())
-	  return false;
+	@Override
+	public boolean pan(float x, float y, float deltaX, float deltaY) {
+		if (handler.isDragged())
+			return false;
 
-	delta.set(deltaX, deltaY, 0);
-	delta.scl(camera.zoom);
-	camera.position.sub(delta.x, delta.y, 0);
-	return true;
+		delta.set(deltaX, deltaY, 0);
+		delta.scl(camera.zoom);
+		camera.position.sub(delta.x, delta.y, 0);
+		return true;
 
-  }
+	}
 
-  @Override
-  public boolean panStop(float x, float y, int pointer, int button) {
-	return false;
-  }
+	@Override
+	public boolean zoom(float initialDistance, float distance) {
+		if (handler.isDragged())
+			return false;
 
-  @Override
-  public boolean zoom(float initialDistance, float distance) {
-	if (handler.isDragged())
-	  return false;
+		float ratio = initialDistance / distance;
+		camera.zoom = scale * ratio;
 
-	float ratio = initialDistance / distance;
-	camera.zoom = scale * ratio;
+		return true;
+	}
 
-	return true;
-  }
+	public void changeZoom(float zoom) {
 
-  public void changeZoom(float zoom) {
+		camera.zoom = zoom;
+		camera.update();
 
-	camera.zoom = zoom;
-	camera.update();
+	}
 
-  }
+	@Override
+	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+		return false;
+	}
 
-  @Override
-  public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-	return false;
-  }
+	@Override
+	public boolean panStop(float arg0, float arg1, int arg2, int arg3) {
+		return false;
+	}
 
 }

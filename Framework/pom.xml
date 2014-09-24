@@ -4,7 +4,7 @@
 
 	<groupId>de.r2soft.empires.framework</groupId>
 	<artifactId>Framework</artifactId>
-	<version>Alpha-1.1</version>
+	<version>Alpha-1.2</version>
 	<packaging>jar</packaging>
 
 	<name>Framework</name>
@@ -15,54 +15,75 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.12.6</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.javaml</groupId>
+			<artifactId>JavaML</artifactId>
+			<version>0.1.7</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/javaml-0.1.7/javaml-0.1.7.jar</systemPath>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<version>4.4</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math</artifactId>
 			<version>2.2</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.50</version>
+			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcpkix-jdk15on</artifactId>
 			<version>1.47</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
 			<version>1.0</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+			<scope>compile</scope>
 		</dependency>
 
 
@@ -70,5 +91,16 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
