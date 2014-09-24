@@ -18,12 +18,97 @@
 
 package de.r2soft.empires.server.core;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
+import com.esotericsoftware.minlog.Log;
+
+import de.r2soft.empires.server.core.Network.RegisterName;
+import de.r2soft.empires.server.core.Network.ServerMessage;
+import de.r2soft.empires.server.core.Network.UpdateNames;
+
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
 public class ServerMain {
+	private Server server;
 
-  public static void main(String[] args) {
+	public ServerMain() throws IOException {
+		server = new Server() {
+			protected Connection newConnection() {
+				return new ServerConnection();
 
-  }
+			}
+		};
+
+		Network.register(server);
+
+		server.addListener(new Listener() {
+
+			public void received(Connection c, Object obj) {
+				ServerConnection connection = (ServerConnection) c;
+
+				if (obj instanceof RegisterName) {
+
+					if (connection.name != null)
+						return;
+
+					String name = ((RegisterName) obj).name;
+					if (name == null)
+						return;
+					name = name.trim();
+
+					if (name.length() == 0)
+						return;
+
+					connection.name = name;
+
+					ServerMessage message = new ServerMessage();
+					message.text = name + " connected.";
+					server.sendToAllExceptTCP(connection.getID(), message);
+					updateNames();
+					return;
+				}
+			}
+
+			public void disconnected(Connection c) {
+				ServerConnection connection = (ServerConnection) c;
+				if (connection.name != null) {
+					// Announce to everyone that someone (with a registered name) has left.
+					ServerMessage message = new ServerMessage();
+					message.text = connection.name + " disconnected.";
+					server.sendToAllTCP(message);
+					updateNames();
+				}
+			}
+
+		});
+	}
+
+	private void updateNames() {
+		Connection[] connections = server.getConnections();
+		ArrayList<String> names = new ArrayList<String>(connections.length);
+
+		for (int i = connections.length - 1; i >= 0; i--) {
+			ServerConnection connection = (ServerConnection) connections[i];
+			names.add(connection.name);
+		}
+
+		UpdateNames updatedNames = new UpdateNames();
+		updatedNames.names = (String[]) names.toArray(new String[names.size()]);
+		server.sendToAllTCP(updatedNames);
+
+	}
+
+	static class ServerConnection extends Connection {
+		public String name;
+	}
+
+	public static void main(String[] args) throws IOException {
+		Log.set(Log.LEVEL_DEBUG);
+		new ServerMain();
+	}
 }
