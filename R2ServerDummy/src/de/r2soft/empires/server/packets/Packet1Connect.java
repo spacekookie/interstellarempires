@@ -16,34 +16,13 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.core;
-
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.EndPoint;
+package de.r2soft.empires.server.packets;
 
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class Network {
-	static public final int port = 54555;
+public class Packet1Connect extends Packet {
 
-	static public void register(EndPoint endPoint) {
-		Kryo kryo = endPoint.getKryo();
-		kryo.register(RegisterName.class);
-		kryo.register(String[].class);
-		kryo.register(UpdateNames.class);
-		kryo.register(ServerMessage.class);
-	}
+	public String name;
 
-	static public class RegisterName {
-		public String name;
-	}
-
-	static public class UpdateNames {
-		public String[] names;
-	}
-
-	static public class ServerMessage {
-		public String text;
-	}
 }
