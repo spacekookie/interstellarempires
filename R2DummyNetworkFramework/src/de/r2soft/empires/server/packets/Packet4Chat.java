@@ -17,9 +17,10 @@
  ######################################################################### */
 
 package de.r2soft.empires.server.packets;
+
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class Packet2Line extends Packet{
-	public String line;
+public class Packet4Chat extends Packet {
+	public String username, message;
 }

@@ -21,8 +21,6 @@ package de.r2soft.empires.server.packets;
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class Packet1Connect extends Packet {
-
-	public String name;
-
+public class Packet2ClientConnected extends Packet {
+	public String clientName;
 }
