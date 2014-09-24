@@ -16,3 +16,5 @@ Framework/bin
 ClientCore/bin
 Client/core/target
 .metadata
+R2DummyNetworkFramework/bin
+R2ClientDummy/bin
