@@ -21,38 +21,39 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import de.r2soft.empires.framework.objects.factory.UnitFactory;
 import de.r2soft.empires.framework.planetary.Orbit;
-import de.r2soft.empires.framework.planetary.Orbit.ORBIT_TYPE;
+import de.r2soft.empires.framework.planetary.Orbit.ORBITALTYPE;
 import de.r2soft.empires.framework.players.Player;
 
 public class OrbitalStructure extends OrbitalObject {
 
-  /** The type of station */
-  public static enum StationType {
-	IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL;
-  }
-
-  private UnitFactory factory;
-
-  public OrbitalStructure(Category category, StationType type, Player claim, Vector2D position) {
-	super.setCategory(category);
-
-	/** Should the structure have a unit factory? */
-	if (type.equals(StationType.FACTORY_SMALL) || type.equals(StationType.FACTORY_CAPITAL) || type.equals(StationType.MILITARY_SMALL)) {
-	  factory = new UnitFactory(claim, this);
+	/** The type of station */
+	public static enum StationType {
+		IHUB, FACTORY_SMALL, FACTORY_CAPITAL, MILITARY_SMALL;
 	}
 
-	super.setClaim(claim);
-	super.setPosition(position);
-	super.setOrbit(new Orbit(ORBIT_TYPE.CIRCULAR, getOrbitalR(), this, getOrbitalParent()));
-  }
+	private UnitFactory factory;
 
-  /** Check if the structure has a UnitFactory */
-  public boolean hasFactory() {
-	return factory == null ? false : true;
-  }
+	public OrbitalStructure(StationType type, Player claim, Vector2D position) {
 
-  /** @return UnitFactory if exists. Can be null */
-  public UnitFactory getFactory() {
-	return hasFactory() ? factory : null;
-  }
+		/** Should the structure have a unit factory? */
+		if (type.equals(StationType.FACTORY_SMALL) || type.equals(StationType.FACTORY_CAPITAL)
+				|| type.equals(StationType.MILITARY_SMALL)) {
+			factory = new UnitFactory(claim, this);
+		}
+
+		super.setClaim(claim);
+		super.setPosition(position);
+		super.setOrbit(new Orbit(ORBITALTYPE.CIRCULAR, getOrbitalR(), getOrbitalParent()));
+		super.getOrbit().setSelf(this);
+	}
+
+	/** Check if the structure has a UnitFactory */
+	public boolean hasFactory() {
+		return factory == null ? false : true;
+	}
+
+	/** @return UnitFactory if exists. Can be null */
+	public UnitFactory getFactory() {
+		return hasFactory() ? factory : null;
+	}
 }

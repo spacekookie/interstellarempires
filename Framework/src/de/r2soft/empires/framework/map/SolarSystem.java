@@ -20,14 +20,16 @@ package de.r2soft.empires.framework.map;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.log4j.Logger;
 
+import de.r2soft.empires.framework.objects.BaseObject;
 import de.r2soft.empires.framework.objects.Fleet;
+import de.r2soft.empires.framework.objects.Moon;
 import de.r2soft.empires.framework.objects.OrbitalStructure;
 import de.r2soft.empires.framework.objects.Planet;
 import de.r2soft.empires.framework.objects.Ship;
 import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.objects.Star.StarType;
 import de.r2soft.empires.framework.players.Player;
 
 /**
@@ -45,10 +47,14 @@ public class SolarSystem {
   private Player claim;
   private Set<Planet> planets;
   private Set<Fleet> units;
+  private Set<Moon> moons;
+
   private Set<OrbitalStructure> structures;
   private Star star;
   private double radius;
   private boolean explored;
+  private int exploration = 0; // default is 0%
+  private ObjectTree<BaseObject> objectPositions;
 
   /** @return: Systems (x,y) id on haxmap */
   public GalaxyPosition getPosition() {
@@ -56,7 +62,7 @@ public class SolarSystem {
   }
 
   /**
-   * Do you really want to do this?
+   * Sets the galaxy position of a solarsystem during creation. MUST NOT BE CALLED OUTSIDE MAP GENERATION
    * 
    * @param id
    *          system id on map.
@@ -71,6 +77,12 @@ public class SolarSystem {
 	if (claim == null)
 	  logger.info("Why not use the base constructor next time?");
 	this.claim = claim;
+
+	// Tree Demo
+	objectPositions.insert(new Vector2D(10, 10), new Fleet(new HashSet<Ship>()));
+	BaseObject object = objectPositions.nearest(new Vector2D(10, 10));
+	objectPositions.move(new Vector2D(10, 10), new Vector2D(20, 20));
+
   }
 
   /** Constructor ONLY taking in a star. Raw system */
@@ -102,50 +114,14 @@ public class SolarSystem {
    * @param radius
    *          the radius of the solar system
    */
-  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units, Set<OrbitalStructure> structures, Star star) {
+  public SolarSystem(GalaxyPosition pos, Player claim, Set<Planet> planets, Set<Fleet> units,
+	  Set<OrbitalStructure> structures, Star star) {
 	this.pos = pos;
 	this.claim = claim;
 	this.planets = planets;
 	this.units = units;
 	this.structures = structures;
 	this.star = star;
-	if (star != null)
-	  this.radius = createRadius(star.getClassification());
-	else
-	  System.out.println("FATAL ERROR CREATING SOLAR SYSTEM. STAR INFORMATION NEEDED!");
-  }
-
-  private float createRadius(StarType type) {
-
-	switch (type) {
-	case BROWNDWARF:
-	  return 140f;
-
-	case REDDWARF:
-	  return 230f;
-
-	case WHITEDWARF:
-	  return 100f;
-
-	case REDGIANT:
-	  return 280f;
-
-	case BLUEGIANT:
-	  return 280f;
-
-	case NEUTRON:
-	  return 100f;
-
-	case BLACKHOLE:
-	  return 250f;
-
-	case GIANTSPACEPUDDING:
-	  return 300f;
-
-	  /** If there was a horrible error */
-	default:
-	  return 0;
-	}
   }
 
   /** @return: the systems radius for rendering and calculations. */
@@ -253,4 +229,50 @@ public class SolarSystem {
 	this.planets = planets;
   }
 
+  public Set<OrbitalStructure> getStructures() {
+	return structures;
+  }
+
+  public void setStructures(Set<OrbitalStructure> structures) {
+	this.structures = structures;
+  }
+
+  public Set<Moon> getMoons() {
+	return moons;
+  }
+
+  /** Redo this */
+  public void setMoons(Set<Moon> moons) {
+	this.moons = moons;
+  }
+
+  /** Not like this will be called very often. Will you be able to create and destroy moons? */
+  public void updateMoons() {
+	for (Planet planet : planets)
+	  for (Moon moon : planet.getMoons())
+		if (!moons.contains(moon))
+		  moons.add(moon);
+  }
+
+  public void setExploration(int ex) {
+	if (ex <= 100)
+	  this.exploration = ex;
+  }
+
+  public void incrementExploration(int factor) {
+	int temp = this.exploration;
+	if (factor == 0)
+	  temp++;
+	else
+	  temp += factor;
+	if (temp <= 100)
+	  this.exploration = temp;
+	else
+	  return;
+
+  }
+
+  public int getExploration() {
+	return exploration;
+  }
 }

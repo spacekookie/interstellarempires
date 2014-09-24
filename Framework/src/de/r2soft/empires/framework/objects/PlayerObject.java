@@ -18,11 +18,12 @@
 package de.r2soft.empires.framework.objects;
 
 import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.players.Sociable;
 
 /**
  * 
- * Basic player object that can be claimed and interacted with. Not move. Has Shields and armour and can engage in combat. Is extended by
- * Planetary Object and OrbitalObject
+ * Basic player object that can be claimed and interacted with. Not move. Has Shields and armour and
+ * can engage in combat. Is extended by Planetary Object and OrbitalObject
  * 
  * @author ***REMOVED***
  * 
@@ -31,61 +32,62 @@ import de.r2soft.empires.framework.players.Player;
  */
 public abstract class PlayerObject extends BaseObject {
 
-  private Player claim;
-  private long combatID;
-  private int hp, shields, armour;
+	private Player claim;
+	private long combatID;
+	private int hp, shields, armour;
 
-  /**
-   * The amount of armour that the units attack can punch through. If the enemy armour value is too high this unit will not do any damage.
-   */
-  private int punch;
+	/**
+	 * The amount of armour that the units attack can punch through. If the enemy armour value is too
+	 * high this unit will not do any damage.
+	 */
+	private int punch;
 
-  public Player getClaim() {
-	return claim;
-  }
+	public Player getClaim() {
+		return claim;
+	}
 
-  public void setClaim(Player claim) {
-	this.claim = claim;
-  }
+	public void setClaim(Player player) {
+		this.claim = player;
+	}
 
-  public long getCombatID() {
-	return combatID;
-  }
+	public long getCombatID() {
+		return combatID;
+	}
 
-  public void setCombatID(long id) {
-	this.combatID = id;
-  }
+	public void setCombatID(long id) {
+		this.combatID = id;
+	}
 
-  public int getHp() {
-	return hp;
-  }
+	public int getHp() {
+		return hp;
+	}
 
-  public void setHp(int hp) {
-	this.hp = hp;
-  }
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
 
-  public int getArmour() {
-	return armour;
-  }
+	public int getArmour() {
+		return armour;
+	}
 
-  public void setArmour(int armour) {
-	this.armour = armour;
-  }
+	public void setArmour(int armour) {
+		this.armour = armour;
+	}
 
-  public int getPunch() {
-	return punch;
-  }
+	public int getPunch() {
+		return punch;
+	}
 
-  public void setPunch(int punch) {
-	this.punch = punch;
-  }
+	public void setPunch(int punch) {
+		this.punch = punch;
+	}
 
-  public int getShields() {
-	return shields;
-  }
+	public int getShields() {
+		return shields;
+	}
 
-  public void setShields(int shields) {
-	this.shields = shields;
-  }
+	public void setShields(int shields) {
+		this.shields = shields;
+	}
 
 }
