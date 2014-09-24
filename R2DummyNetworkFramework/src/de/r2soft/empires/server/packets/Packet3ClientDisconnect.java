@@ -17,9 +17,10 @@
  ######################################################################### */
 
 package de.r2soft.empires.server.packets;
+
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet {
-
+public class Packet3ClientDisconnect extends Packet {
+	public String clientName;
 }

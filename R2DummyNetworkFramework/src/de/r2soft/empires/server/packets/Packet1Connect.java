@@ -17,9 +17,10 @@
  ######################################################################### */
 
 package de.r2soft.empires.server.packets;
+
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet2Line extends Packet{
-	public String line;
+public class Packet1Connect extends Packet {
+	public String userame;
 }

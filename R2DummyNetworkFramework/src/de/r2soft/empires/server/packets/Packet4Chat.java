@@ -21,8 +21,6 @@ package de.r2soft.empires.server.packets;
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet1Connect extends Packet {
-
-	public String name;
-
+public class Packet4Chat extends Packet {
+	public String username, message;
 }
