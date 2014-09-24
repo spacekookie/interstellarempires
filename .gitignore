@@ -14,3 +14,6 @@ TestRealm/bin
 Server/bin
 Framework/bin
 ClientCore/bin
+R2DummyNetworkFramework/bin
+R2ServerDummy/bin
+R2ClientDummy/bin
