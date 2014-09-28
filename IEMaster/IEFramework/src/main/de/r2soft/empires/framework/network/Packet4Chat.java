@@ -16,10 +16,11 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
+package de.r2soft.empires.framework.network;
+
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class Packet {
-
+public class Packet4Chat extends Packet {
+	public String username, message;
 }
