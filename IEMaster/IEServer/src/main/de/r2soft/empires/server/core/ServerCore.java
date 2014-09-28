@@ -19,6 +19,7 @@
 package de.r2soft.empires.server.core;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +38,8 @@ public class ServerCore {
   private static ServerCore instance;
   private Scanner input;
 
-  public Thread server, physics, db, combat;
+  public KryoThread server;
+  public Thread physics, db, combat;
   private Timer scheduler;
 
   public static ServerCore getInstance() {
@@ -49,7 +51,7 @@ public class ServerCore {
   private ServerCore() {
 	input = new Scanner(System.in);
 
-	server = new ServerThread();
+	server = new KryoThread();
 	server.start();
 
 	physics = new PhysicsThread();
@@ -97,18 +99,28 @@ public class ServerCore {
 	@Override
 	public void run() {
 	  System.out.println("[MASTER]: Beginning update cycle #" + cycle);
-	  ServerCore.instance.server.run();
 	  ServerCore.instance.physics.run();
-	  cycle++;
-	}
+	  try {
+		Thread.sleep(750);
+	  }
+	  catch (InterruptedException e) {
+		System.out.println("[MASTER]: FATAL TASK SCHEDULING FAILURE!\n");
+		System.out.println(e.toString());
+		return;
+	  }
+	  finally {
+		PhysicsThread.yield();
 
+		cycle++;
+	  }
+	}
   }
 
-  class ServerThread extends Thread {
+  class KryoThread extends Thread {
 	private final Server self;
 	PhysicsThread physics;
 
-	public ServerThread() {
+	public KryoThread() {
 	  System.out.println("=== Welcome to the " + Constants.NAME + " version " + Constants.VERSION + " ===");
 	  self = new Server();
 	  this.physics = (PhysicsThread) physics;
@@ -120,13 +132,6 @@ public class ServerCore {
 
 	@Override
 	public void run() {
-	  System.out.println("[KRYONET]: Starting Server.");
-	  self.run(); // Doesn't return!
-	}
-
-	@Override
-	public void start() {
-	  super.start();
 	  try {
 		System.out.print("[KRYONET]: Binding ports TCP:" + Constants.PORT_TCP + " and UDP:" + Constants.PORT_UDP
 			+ "...");
@@ -139,6 +144,19 @@ public class ServerCore {
 		// this.interrupt();
 		e.printStackTrace();
 	  }
+	  System.out.println("[KRYONET]: Starting Server.");
+	  self.run(); // Doesn't return!
+	  System.out.println("[KRYONET]: Server was terinated. Is this right?");
+	}
+
+	@Override
+	public void start() {
+	  super.start();
+	}
+
+	/** Pushes changes to all active connections */
+	public void push(HashSet<Object> objects) {
+
 	}
 
 	@Override

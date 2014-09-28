@@ -21,24 +21,6 @@ package de.r2soft.empires.server.core;
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class PhysicsThread extends Thread {
-
-  @Override
-  public void start() {
-	System.out.print("[Physics]: Building entity tree...");
-
-	// TODO: Load all physics instances here.
-
-	System.out.println("[DONE]");
-
-	System.out.println("[Physics]: This is now a daemon thread.");
-	setDaemon(true);
-	super.start();
-  }
-
-  @Override
-  public void run() {
-	System.out.println("[Physics]: I am still alive!");
-  }
+public class DatabaseThread extends Thread {
 
 }
