@@ -16,11 +16,11 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
+package de.r2soft.empires.framework.network;
 
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet1Connect extends Packet {
-	public String userame;
+public class Packet2ClientConnected extends Packet {
+	public String clientName;
 }
