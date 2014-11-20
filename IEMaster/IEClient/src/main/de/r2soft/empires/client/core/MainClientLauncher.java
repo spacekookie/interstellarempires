@@ -38,7 +38,9 @@ public class MainClientLauncher {
 	cfg.title = Values.SUPERTITLE + " - " + Values.VERSION_NUMBER;
 
 	// TODO: This throws an NPE if no argument is passed
-	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
+	/**
+	 * checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3)
+	 */
 	if (args[0] == "--fullscreen") {
 	  cfg.fullscreen = true;
 	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -66,7 +68,8 @@ public class MainClientLauncher {
 	// TODO: FIX THIS
 	// if (System.getProperty("os.name").equals("Mac OS X")) {
 	// Application app = Application.getApplication();
-	// Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
+	// Image image =
+	// Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
 	// app.setDockIconImage(image);
 	// }
 
