@@ -22,9 +22,12 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -34,13 +37,14 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
+import de.r2soft.empires.client.util.Server;
 
 public class LoginScreen extends R2Screen {
 
   /** UI elements */
   private Stage stage;
-  private Table intro, outro;
-  private TextField userField, passField;
+  private Table intro, outro, server;
+  private TextField userField, passField, serverField;
   private TextButton login, menu, back;
   private CheckBox saveUser, savePw;
   private Preferences prefs;
@@ -52,6 +56,7 @@ public class LoginScreen extends R2Screen {
 	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 	login = new TextButton("LOGIN", Assets.R2_UI_SKIN);
 	passField = new TextField("", Assets.R2_UI_SKIN);
+	serverField = new TextField("localhost:42002", Assets.R2_UI_SKIN);
 	userField = new TextField("", Assets.R2_UI_SKIN);
 	saveUser = new CheckBox("Save username?", Assets.R2_UI_SKIN);
 	savePw = new CheckBox("Save Password?", Assets.R2_UI_SKIN);
@@ -80,8 +85,12 @@ public class LoginScreen extends R2Screen {
 
 	intro = new Table();
 	intro.setFillParent(true);
+
 	outro = new Table();
 	outro.setFillParent(true);
+
+	server = new Table();
+	server.setFillParent(true);
 
 	// Exiting the game
 	menu = new TextButton("Main Menu", Assets.R2_UI_SKIN);
@@ -106,9 +115,32 @@ public class LoginScreen extends R2Screen {
 	intro.add(savePw).left();
 	intro.row();
 
+	/** Populate the server list */
+	SelectBox<Server> serverList = new SelectBox<Server>(Assets.R2_UI_SKIN);
+	serverList.setItems(fetchServers());
+
+	Label serverTitle = new Label("Select a server:", Assets.R2_UI_SKIN);
+
+	server.add(serverTitle).left();
+	server.row();
+	server.add(serverList).left();
+
+	server.center().bottom();
+	server.setY(Gdx.graphics.getHeight() / 6);
+
 	stage.addActor(outro);
 	stage.addActor(intro);
+	stage.addActor(server);
 
+  }
+
+  private Server[] fetchServers() {
+	Server[] servers = new Server[3];
+	servers[0] = new Server("Personal", "localhost", 52666L);
+	servers[1] = new Server("Official", "empires.2rsoftworks.de/world1", 52666L);
+	servers[2] = new Server("Friends", "ie.delicious.kiwi", 12333L);
+
+	return servers;
   }
 
   private void setupListeners() {
@@ -168,7 +200,8 @@ public class LoginScreen extends R2Screen {
 	name_clear = userField.getText().toString();
 	password_clear = passField.getText().toString();
 
-	// TODO: Properly hash the password, store it in the client hashed and also use the hashed
+	// TODO: Properly hash the password, store it in the client hashed and
+	// also use the hashed
 	// version to send to the server!
 	String hash = password_clear;
 
