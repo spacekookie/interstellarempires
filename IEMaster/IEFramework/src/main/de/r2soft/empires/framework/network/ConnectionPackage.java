@@ -18,15 +18,15 @@
 
 package de.r2soft.empires.framework.network;
 
+import de.r2soft.empires.framework.players.Player;
+
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
 public class ConnectionPackage extends Package {
-  private enum TYPE {
-	CONNECT, DISCONNECT, REFRESH, DROP;
-  }
 
-  public ConnectionPackage(float seed, TYPE type) {
+  public ConnectionPackage(Player player) {
 
   }
+
 }

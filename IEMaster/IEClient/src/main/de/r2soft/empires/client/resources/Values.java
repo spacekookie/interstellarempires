@@ -50,6 +50,7 @@ public class Values {
   public static final String PREFERENCE_LAUNCH_FULLSCREEN = "launch_as_fullscreen_app";
   public static final String PREFERENCE_USE_HEXAGON_DEBUGGING = "use-hexagons-as-debugging-sample-batch";
   public static final String PREFERENCE_USE_COLOURBLIND_MODE = "use-colourblind-mode-for-game-renderer";
+  public static final String PREFERENCE_LIST_SERVERS = "store-server-list-as-array";
 
   /* Local player data from login */
 

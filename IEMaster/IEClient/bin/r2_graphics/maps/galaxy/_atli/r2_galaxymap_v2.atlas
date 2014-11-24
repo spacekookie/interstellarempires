@@ -1,0 +1,47 @@
+
+r2_galaxymap_v2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+hextile_blue
+  rotate: false
+  xy: 1, 1
+  size: 112, 98
+  orig: 112, 98
+  offset: 0, 0
+  index: -1
+hextile_green
+  rotate: false
+  xy: 115, 1
+  size: 112, 98
+  orig: 112, 98
+  offset: 0, 0
+  index: -1
+hextile_purple
+  rotate: false
+  xy: 229, 1
+  size: 112, 98
+  orig: 112, 98
+  offset: 0, 0
+  index: -1
+hextile_red
+  rotate: false
+  xy: 343, 2
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+hextile_selector
+  rotate: false
+  xy: 457, 2
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+hextile_white
+  rotate: false
+  xy: 571, 2
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
