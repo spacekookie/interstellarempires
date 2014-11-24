@@ -49,14 +49,13 @@ import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.tests.Statics;
+// import de.r2soft.empires.client.tests.Statics;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.players.Alliance;
 import de.r2soft.empires.framework.players.Player;
-import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
@@ -246,8 +245,8 @@ public class HexMapScreen extends R2Screen {
 	enterSystem.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		Statics stats = new Statics();
-		// if (system != null)
-		// GameCore.getInstance().setScreen(new SolMapScreen(system));
+		if (system != null)
+		  GameCore.getInstance().setScreen(new SolMapScreen(system));
 		GameCore.getInstance().setScreen(new SolMapScreen(stats.getSystem()));
 	  }
 	});

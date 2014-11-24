@@ -1,9 +1,12 @@
+configurations { provided }
+
 sourceSets {
 	main.java.srcDir "src/main"
 	test.java.srcDir "src/test"
 }
 
 repositories {
+	maven { url "https://clojars.org/repo/" }
 	flatDir {
 	    dirs 'lib'
 	}
@@ -20,13 +23,13 @@ dependencies {
 	compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
 	compile group: 'org.apache.commons', name: 'commons-math3', version: '2.2'
 		
-	// Networking & Security
+	// PICK ONE!
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.50'
 	compile group: 'org.bouncycastle', name: 'bcmail-jdk15', version: '1.46'
-
-	 // Kryo Library
-	compile group: 'kryonet', name: 'kryonet-all', version: '2.21'
-
+	
+	/** KryoNet serialisation library */
+	compile group: 'kryonet', name: 'kryonet-all', version: '2.+'
+		
 	// Google Java extentions
 	compile group:'com.google.guava', name:'guava', version:'18.0'
 		

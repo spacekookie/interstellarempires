@@ -1,5 +1,5 @@
 /* #########################################################################
- * Copyright (c) ${year} RANDOM ROBOT SOFTWORKS
+ * Copyright (c) 2014 RANDOM ROBOT SOFTWORKS
  * (See @authors file)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,21 +18,9 @@
 
 package de.r2soft.empires.framework.network;
 
-import com.esotericsoftware.jsonbeans.Json;
-import com.esotericsoftware.jsonbeans.Json.Serializable;
-import com.esotericsoftware.jsonbeans.JsonValue;
-
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public abstract class Package implements Serializable {
-  private float ID;
+public abstract class Package {
 
-  @Override
-  public void read(Json arg0, JsonValue arg1) {
-  }
-
-  @Override
-  public void write(Json arg0) {
-  }
 }
