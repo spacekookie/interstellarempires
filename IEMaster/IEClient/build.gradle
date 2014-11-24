@@ -1,28 +1,41 @@
-sourceCompatibility = 1.8
+import org.apache.tools.ant.filters.*
 
-sourceSets.main.java.srcDirs = [ "src/main/" ]
-sourceSets.test.java.srcDirs = [ "src/test/" ]
-sourceSets.assetsDir = [ "assets" ]
+sourceCompatibility = 1.7
+
+sourceSets.main.java.srcDirs = [ "src/main" ]
+sourceSets.test.java.srcDirs = [ "src/test" ]
+
+sourceSets.main.resources.srcDirs = ['assets']
+// assetsDir = [ "assets/" ]
 repositories {
     mavenLocal()
-    
     mavenCentral()
+
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
 
 /** Information about the application and dependencies */
-gdxVersion = '1.0.1'
-appName = 'Interstellar Empires'
-version = 'Alpha-1.3'
+ext.gdxVersion = '1.0.1'
+ext.appName = 'Interstellar Empires'
+ext.version = 'Alpha-1.3'
 
 project.ext.mainClassName = "de.r2soft.empires.client.core.MainClientLauncher"
 project.ext.assetsDir = new File("./assets");
+
+processResources {
+    filter ReplaceTokens, tokens: [
+        "project.name": "FUNNY TITLE"
+    ]
+}
 
 /** DEPENDENCIES SECTION */
 
 dependencies {
     compile project(':IEFramework')
+    
+    /** Commons Commandline arguments */
+    compile "commons-cli:commons-cli:1.2"
 
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"

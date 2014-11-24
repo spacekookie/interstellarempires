@@ -19,6 +19,11 @@ package de.r2soft.empires.client.core;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -37,20 +42,19 @@ public class MainClientLauncher {
 	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 	cfg.title = Values.SUPERTITLE + " - " + Values.VERSION_NUMBER;
 
-	// TODO: This throws an NPE if no argument is passed
-	/** checks if game should be launched in full screen (EXPERIMENTAL AS OF ALPHA 1.3) */
-	if (args[0] == "--fullscreen") {
-	  cfg.fullscreen = true;
+	final Options gameOptions = new Options();
+	// gameOptions.addOption("fullscreen", false, "Launch as fullscreen");
+
+	if (gameOptions.hasOption("fullscreen")) {
+	  System.out.println("Attempting to launch as fullscreen Application. This is experimental as of 1.3+");
 	  GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	  int width = gd.getDisplayMode().getWidth();
-	  int height = gd.getDisplayMode().getHeight();
 
-	  cfg.width = width;
-	  cfg.height = height;
+	  cfg.width = gd.getDisplayMode().getWidth();
+	  cfg.height = gd.getDisplayMode().getHeight();
+	  cfg.fullscreen = true;
 
-	  Values.NEW_WIDTH = width;
-	  Values.NEW_HEIGHT = height;
-
+	  Values.NEW_WIDTH = cfg.width;
+	  Values.NEW_HEIGHT = cfg.height;
 	}
 	else {
 	  cfg.fullscreen = false;
@@ -61,14 +65,6 @@ public class MainClientLauncher {
 	cfg.useGL30 = true;
 	cfg.resizable = false;
 	cfg.initialBackgroundColor = Color.BLACK;
-
-	/** Sets the Application Icon for different operating systems */
-	// TODO: FIX THIS
-	// if (System.getProperty("os.name").equals("Mac OS X")) {
-	// Application app = Application.getApplication();
-	// Image image = Toolkit.getDefaultToolkit().getImage("assets/icons/launcher.png");
-	// app.setDockIconImage(image);
-	// }
 
 	new LwjglApplication(GameCore.getInstance(), cfg);
   }

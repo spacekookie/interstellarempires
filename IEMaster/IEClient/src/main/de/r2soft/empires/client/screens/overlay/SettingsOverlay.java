@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import de.r2soft.empires.client.core.GameCore;
 import de.r2soft.empires.client.graphics.R2Overlay;
 import de.r2soft.empires.client.resources.Assets;
+import de.r2soft.empires.client.resources.SettingsInterface;
 import de.r2soft.empires.client.resources.Values;
 
 /**
@@ -31,7 +32,7 @@ public class SettingsOverlay extends R2Overlay {
   private Table primary;
   private TextButton back, apply;
   private Label title;
-  private Preferences prefs;
+  // private Preferences prefs;
 
   /** Preferences */
   private CheckBox intro, music, fullscreen, hexagonDebug, colourblind;
@@ -42,7 +43,7 @@ public class SettingsOverlay extends R2Overlay {
 
   public SettingsOverlay() {
 	super(new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())));
-	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
+	// prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 
 	reinforce();
   }
@@ -152,20 +153,20 @@ public class SettingsOverlay extends R2Overlay {
   }
 
   private void checkCurrentSettings() {
-	if (prefs.contains(Values.PREFERENCE_SKIP_INTRO))
-	  intro.setChecked(prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO));
+	if (SettingsInterface.getInstance().contains(Values.PREFERENCE_SKIP_INTRO))
+	  intro.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_SKIP_INTRO));
 
-	if (prefs.contains(Values.PREFERENCE_PLAY_MUSIC))
-	  music.setChecked(prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC));
+	if (SettingsInterface.getInstance().contains(Values.PREFERENCE_PLAY_MUSIC))
+	  music.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_PLAY_MUSIC));
 
-	if (prefs.contains(Values.PREFERENCE_LAUNCH_FULLSCREEN))
-	  fullscreen.setChecked(prefs.getBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN));
+	if (SettingsInterface.getInstance().contains(Values.PREFERENCE_LAUNCH_FULLSCREEN))
+	  fullscreen.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN));
 
-	if (prefs.contains(Values.PREFERENCE_USE_HEXAGON_DEBUGGING))
-	  hexagonDebug.setChecked(prefs.getBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING));
+	if (SettingsInterface.getInstance().contains(Values.PREFERENCE_USE_HEXAGON_DEBUGGING))
+	  hexagonDebug.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING));
 
-	if (prefs.contains(Values.PREFERENCE_USE_COLOURBLIND_MODE))
-	  colourblind.setChecked(prefs.getBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE));
+	if (SettingsInterface.getInstance().contains(Values.PREFERENCE_USE_COLOURBLIND_MODE))
+	  colourblind.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE));
 
   }
 
@@ -186,12 +187,12 @@ public class SettingsOverlay extends R2Overlay {
   }
 
   private void updateSettings() {
-	prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, intro.isChecked());
-	prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, music.isChecked());
-	prefs.putBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN, fullscreen.isChecked());
-	prefs.putBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING, hexagonDebug.isChecked());
-	prefs.putBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE, colourblind.isChecked());
-	prefs.flush();
+	SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_SKIP_INTRO, intro.isChecked());
+	SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_PLAY_MUSIC, music.isChecked());
+	SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_LAUNCH_FULLSCREEN, fullscreen.isChecked());
+	SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_USE_HEXAGON_DEBUGGING, hexagonDebug.isChecked());
+	SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_USE_COLOURBLIND_MODE, colourblind.isChecked());
+	SettingsInterface.getInstance().flush();
   }
 
   @Override
