@@ -16,11 +16,19 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
+package de.r2soft.empires.server.utils;
 
 /**
+ * Class with constant values such as port ranges and versions.
+ * 
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet3ClientDisconnect extends Packet {
-	public String clientName;
+public class Constants {
+  public static final String NAME = "Interstellar Empires Public Game Server";
+  public static final String VERSION = "Alpha-1.0";
+
+  // TODO: Register these ports on iana.org!
+  public static final Integer PORT_TCP = 10052;
+  public static final Integer PORT_UDP = 10053;
+
 }

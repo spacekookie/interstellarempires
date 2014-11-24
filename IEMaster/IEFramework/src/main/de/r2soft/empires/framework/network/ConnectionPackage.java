@@ -16,11 +16,17 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
+package de.r2soft.empires.framework.network;
 
 /**
  * @author ***REMOVED*** <***REMOVED***>
  */
-public class Packet4Chat extends Packet {
-	public String username, message;
+public class ConnectionPackage extends Package {
+  private enum TYPE {
+	CONNECT, DISCONNECT, REFRESH, DROP;
+  }
+
+  public ConnectionPackage(float seed, TYPE type) {
+
+  }
 }
