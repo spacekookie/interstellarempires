@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="src" path="/IEFramework"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
 	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
+	<classpathentry kind="src" path="/IEFramework" exported="true"/>
+	<classpathentry sourcepath="/home/spacekookie/.gradle/caches/modules-2/files-2.1/junit/junit/4.8.2/cccca612a66b8387c399be31d69daf000de2ac9e/junit-4.8.2-sources.jar" kind="lib" path="/home/spacekookie/.gradle/caches/modules-2/files-2.1/junit/junit/4.8.2/c94f54227b08100974c36170dcb53329435fe5ad/junit-4.8.2.jar" exported="true"/>
 </classpath>

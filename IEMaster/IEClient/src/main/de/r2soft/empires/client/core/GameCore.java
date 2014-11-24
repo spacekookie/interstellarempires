@@ -21,8 +21,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 
+import de.r2soft.empires.client.resources.SettingsInterface;
 import de.r2soft.empires.client.resources.Values;
-import de.r2soft.empires.client.screens.utilities.IntroductionScreen;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
 
 /**
@@ -34,7 +34,6 @@ import de.r2soft.empires.client.screens.utilities.LoginScreen;
 public class GameCore extends R2Core {
 
   private Music music;
-  private Preferences prefs;
   private static GameCore game = null;
 
   private GameCore() {
@@ -53,7 +52,7 @@ public class GameCore extends R2Core {
 
   /** Called every frame to check if something needs to be changed (Screen resolution/ music/ etc.) */
   public void update() {
-	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC)) {
+	if (SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_PLAY_MUSIC)) {
 	  if (!music.isPlaying()) {
 		music.play();
 		music.setLooping(true);
@@ -71,13 +70,18 @@ public class GameCore extends R2Core {
 	super.create();
 
 	music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music/intro_music.mp3"));
-	prefs = Gdx.app.getPreferences(Values.PREFERENCE_FILE_NAME);
 
-	if (!prefs.contains(Values.PREFERENCE_PLAY_MUSIC))
-	  prefs.putBoolean(Values.PREFERENCE_PLAY_MUSIC, true);
+	if (!SettingsInterface.getInstance().contains(Values.PREFERENCE_PLAY_MUSIC))
+	  SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_PLAY_MUSIC, true);
 
-	if (!prefs.contains(Values.PREFERENCE_SKIP_INTRO))
-	  prefs.putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
+	if (!SettingsInterface.getInstance().contains(Values.PREFERENCE_SKIP_INTRO))
+	  SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
+
+	if (!SettingsInterface.getInstance().containsList(Values.PREFERENCE_LIST_SERVERS)) {
+	  String[] servers = new String[1];
+	  servers[0] = "Ergosphere (Official):empires.2rsoftworks.de/ergosphere:52001:52011";
+	  SettingsInterface.getInstance().putList(servers, Values.PREFERENCE_LIST_SERVERS);
+	}
 
 	// setScreen(new SolMapScreen(null));
 
@@ -96,7 +100,7 @@ public class GameCore extends R2Core {
   @Override
   public void dispose() {
 	super.dispose();
-	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
+	if (SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.stop();
   }
 
@@ -109,14 +113,14 @@ public class GameCore extends R2Core {
   public void pause() {
 	super.pause();
 
-	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
+	if (SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.pause();
   }
 
   @Override
   public void resume() {
 	super.resume();
-	if (prefs.getBoolean(Values.PREFERENCE_PLAY_MUSIC))
+	if (SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_PLAY_MUSIC))
 	  music.play();
   }
 

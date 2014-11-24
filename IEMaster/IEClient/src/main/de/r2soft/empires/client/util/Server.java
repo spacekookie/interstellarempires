@@ -18,20 +18,43 @@
 
 package de.r2soft.empires.client.util;
 
+import lombok.Data;
+
 /**
  * @author spacekookie
  */
-public class Server {
+public @Data class Server {
   private String name, url;
-  private long port;
+  private int portTCP, portUDP;
+  private boolean empty = false;
 
-  public Server(String name, String url, long port) {
+  public Server(String name, String url, int port, int port2) {
 	this.name = name;
 	this.url = url;
-	this.port = port;
+	this.portTCP = port;
+	this.portUDP = port2;
+  }
+
+  public Server(boolean empty) {
+	this.empty = empty;
+  }
+
+  public Server(String complete) {
+	String[] tmp = complete.split("\\:");
+	this.name = tmp[0];
+	this.url = tmp[1];
+	this.portTCP = Integer.parseInt(tmp[2]);
+	this.portUDP = Integer.parseInt(tmp[3]);
+  }
+
+  public String toCompactString() {
+	return name + ":" + url + ":" + portTCP + ":" + portUDP;
   }
 
   public String toString() {
-	return name + ":      " + url + ":" + port;
+	if (empty)
+	  return "Server-List empty";
+	return name + ":      " + url + ":" + portTCP + "/" + portUDP;
   }
+
 }

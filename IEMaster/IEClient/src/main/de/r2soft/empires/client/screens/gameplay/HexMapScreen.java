@@ -48,15 +48,14 @@ import de.r2soft.empires.client.maps.hex.R2HexMapRenderer;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.Values;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
+import de.r2soft.empires.client.tests.Statics;
 // import de.r2soft.empires.client.tests.Statics;
 import de.r2soft.empires.framework.map.GalaxyMap;
 import de.r2soft.empires.framework.map.GalaxyPosition;
 import de.r2soft.empires.framework.map.SolarSystem;
 import de.r2soft.empires.framework.objects.BaseObject.Type;
 import de.r2soft.empires.framework.objects.Star;
-import de.r2soft.empires.framework.players.Alliance;
 import de.r2soft.empires.framework.players.Player;
-import de.r2soft.empires.framework.types.Allegience.Allegiance;
 
 /**
  * Re-Make of the main menu screen with new camera view port and UI. Published for Prototype version 1.2
@@ -245,10 +244,10 @@ public class HexMapScreen extends R2Screen {
   private void setupListeners() {
 	enterSystem.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		// Statics stats = new Statics();
-		// if (system != null)
-		// GameCore.getInstance().setScreen(new SolMapScreen(system));
-		// GameCore.getInstance().setScreen(new SolMapScreen(stats.getSystem()));
+		Statics stats = new Statics();
+		if (system != null)
+		  GameCore.getInstance().setScreen(new SolMapScreen(system));
+		GameCore.getInstance().setScreen(new SolMapScreen(stats.getSystem()));
 	  }
 	});
 
@@ -273,35 +272,35 @@ public class HexMapScreen extends R2Screen {
 	});
 
 	profile.addListener(new ClickListener() {
-		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-			profileDialog = new Dialog("User Profile", Assets.R2_UI_SKIN);
-			profileDialog.setSize(450, 300);
-			profileDialog.setPosition((Values.NEW_WIDTH / 2) - (Values.NEW_WIDTH / 4), (Values.NEW_HEIGHT / 2)
-				- (Values.NEW_HEIGHT / 4));
-			stage.addActor(profileDialog);
+	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		profileDialog = new Dialog("User Profile", Assets.R2_UI_SKIN);
+		profileDialog.setSize(450, 300);
+		profileDialog.setPosition((Values.NEW_WIDTH / 2) - (Values.NEW_WIDTH / 4), (Values.NEW_HEIGHT / 2)
+			- (Values.NEW_HEIGHT / 4));
+		stage.addActor(profileDialog);
 
-			Table profile_leftTop = new Table();
-			profile_leftTop.setFillParent(true);
-			// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
-			Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
-			Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
-			profile_leftTop.add(lalalal);
+		Table profile_leftTop = new Table();
+		profile_leftTop.setFillParent(true);
+		// TODO: KILL THIS WITH FIRE IN A BURNING BLAZE OF DESTRUCTION AND HORROR!!!
+		Image profilePicture = new Image(new Texture(Gdx.files.internal("gui/users.png")));
+		Label lalalal = new Label("This is a label", Assets.R2_UI_SKIN);
+		profile_leftTop.add(lalalal);
 
-			profile_leftTop.add(profilePicture).top().center();
-			profileDialog.add(profile_leftTop);
+		profile_leftTop.add(profilePicture).top().center();
+		profileDialog.add(profile_leftTop);
 
-			Table profile_bottomButton = new Table();
-			profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
-			profileDialog.add(profile_bottomButton).right().bottom();
-			TextButton closeProfile = new TextButton("Close", Assets.R2_UI_SKIN);
-			profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
+		Table profile_bottomButton = new Table();
+		profile_bottomButton.setSize(Values.OLD_WIDTH / 2, Values.OLD_HEIGHT / 2);
+		profileDialog.add(profile_bottomButton).right().bottom();
+		TextButton closeProfile = new TextButton("Close", Assets.R2_UI_SKIN);
+		profile_bottomButton.add(closeProfile).width(Values.SIZE_UI_BUTTON_NAVIGON);
 
-			closeProfile.addListener(new ClickListener() {
-				public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				profileDialog.remove();
-				}
-			});
-		}
+		closeProfile.addListener(new ClickListener() {
+		  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			profileDialog.remove();
+		  }
+		});
+	  }
 	});
 
 	menu.addListener(new ClickListener() {
