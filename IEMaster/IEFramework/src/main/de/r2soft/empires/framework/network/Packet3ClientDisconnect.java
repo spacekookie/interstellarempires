@@ -16,7 +16,7 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
+package de.r2soft.empires.framework.network;
 
 /**
  * @author Katharina Fey <kookie@spacekookie.de>

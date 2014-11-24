@@ -25,11 +25,11 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
-import de.r2soft.empires.server.packets.Packet;
-import de.r2soft.empires.server.packets.Packet1Connect;
-import de.r2soft.empires.server.packets.Packet2ClientConnected;
-import de.r2soft.empires.server.packets.Packet3ClientDisconnect;
-import de.r2soft.empires.server.packets.Packet4Chat;
+import de.r2soft.empires.framework.network.Packet;
+import de.r2soft.empires.framework.network.Packet1Connect;
+import de.r2soft.empires.framework.network.Packet2ClientConnected;
+import de.r2soft.empires.framework.network.Packet3ClientDisconnect;
+import de.r2soft.empires.framework.network.Packet4Chat;
 
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
