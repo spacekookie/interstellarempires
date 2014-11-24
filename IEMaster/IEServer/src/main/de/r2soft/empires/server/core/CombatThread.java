@@ -16,11 +16,10 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.server.packets;
-
+package de.r2soft.empires.server.core;
 /**
  * @author Katharina Fey <kookie@spacekookie.de>
  */
-public class Packet1Connect extends Packet {
-	public String userame;
+public class CombatThread extends Thread {
+
 }
