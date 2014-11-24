@@ -54,7 +54,7 @@ public class GravityTest extends Game {
 
   private OrthographicCamera camera;
   private SpriteBatch batch;
-  private Body planet, star;
+  private Body planet, planet2, star;
   private InputHandler handler;
   private GestureHandler gestures;
   private CameraController cam;
@@ -65,7 +65,8 @@ public class GravityTest extends Game {
 
   @Override
   public void create() {
-	planet = new Body(TYPE.PLANET, new R2Float(300, 300));
+	planet = new Body(TYPE.PLANET, new R2Float(250, 300));
+	planet2 = new Body(TYPE.PLANET, new R2Float(300, 300));
 	star = new Body(TYPE.STAR, new R2Float(600, 300));
 
 	camera = new OrthographicCamera();
@@ -90,10 +91,15 @@ public class GravityTest extends Game {
 
 	world = new PhysicsWorld(handler, camera);
 	((ParentBody) star.getBody()).addChild((OrbitalBody) planet.getBody());
+	((ParentBody) star.getBody()).addChild((OrbitalBody) planet2.getBody());
+
 	((OrbitalBody) planet.getBody()).setOrbitalParent((ParentBody) star.getBody());
+	((OrbitalBody) planet2.getBody()).setOrbitalParent((ParentBody) star.getBody());
 	star.getBody().setMass(R2P.R2_PHYSICS_MASS_FUN_MASSIVE);
 	planet.getBody().setMass(R2P.R2_PHYSICS_MASS_FUN_ROCK);
+	planet2.getBody().setMass(R2P.R2_PHYSICS_MASS_FUN_ROCK);
 	world.addChild(planet.getBody());
+	world.addChild(planet2.getBody());
 	world.addChild(star.getBody());
 
   }

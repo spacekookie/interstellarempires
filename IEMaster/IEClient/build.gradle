@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.*
+
 sourceCompatibility = 1.7
 
 sourceSets.main.java.srcDirs = [ "src/main" ]
@@ -21,10 +23,19 @@ ext.version = 'Alpha-1.3'
 project.ext.mainClassName = "de.r2soft.empires.client.core.MainClientLauncher"
 project.ext.assetsDir = new File("./assets");
 
+processResources {
+    filter ReplaceTokens, tokens: [
+        "project.name": "FUNNY TITLE"
+    ]
+}
+
 /** DEPENDENCIES SECTION */
 
 dependencies {
     compile project(':IEFramework')
+    
+    /** Commons Commandline arguments */
+    compile "commons-cli:commons-cli:1.2"
 
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"

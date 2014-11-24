@@ -82,8 +82,8 @@ public class MainMenuOverlay extends R2Overlay {
 	exit.addListener(new ClickListener() {
 
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		Gdx.app.exit();
 		logout();
+		Gdx.app.exit();
 	  }
 	});
 
