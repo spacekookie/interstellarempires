@@ -34,81 +34,83 @@ import de.r2soft.empires.server.core.Network.UpdateNames;
  * @author Katharina Fey <kookie@spacekookie.de>
  */
 public class ServerMain {
-	private Server server;
+  private Server server;
 
-	public ServerMain() throws IOException {
-		server = new Server() {
-			protected Connection newConnection() {
-				return new ServerConnection();
+  public ServerMain() throws IOException {
+	server = new Server() {
+	  protected Connection newConnection() {
+		return new ServerConnection();
 
-			}
-		};
+	  }
+	};
+	server.start();
+	server.bind(Network.PORT_TCP, Network.PORT_UDP);
+	System.out.println("Server started successfully.");
 
-		Network.register(server);
+	Network.register(server);
 
-		server.addListener(new Listener() {
+	server.addListener(new Listener() {
 
-			public void received(Connection c, Object obj) {
-				ServerConnection connection = (ServerConnection) c;
+	  public void received(Connection c, Object obj) {
+		ServerConnection connection = (ServerConnection) c;
 
-				if (obj instanceof RegisterName) {
+		if (obj instanceof RegisterName) {
 
-					if (connection.name != null)
-						return;
+		  if (connection.name != null)
+			return;
 
-					String name = ((RegisterName) obj).name;
-					if (name == null)
-						return;
-					name = name.trim();
+		  String name = ((RegisterName) obj).name;
+		  if (name == null)
+			return;
+		  name = name.trim();
 
-					if (name.length() == 0)
-						return;
+		  if (name.length() == 0)
+			return;
 
-					connection.name = name;
+		  connection.name = name;
 
-					ServerMessage message = new ServerMessage();
-					message.text = name + " connected.";
-					server.sendToAllExceptTCP(connection.getID(), message);
-					updateNames();
-					return;
-				}
-			}
-
-			public void disconnected(Connection c) {
-				ServerConnection connection = (ServerConnection) c;
-				if (connection.name != null) {
-					// Announce to everyone that someone (with a registered name) has left.
-					ServerMessage message = new ServerMessage();
-					message.text = connection.name + " disconnected.";
-					server.sendToAllTCP(message);
-					updateNames();
-				}
-			}
-
-		});
-	}
-
-	private void updateNames() {
-		Connection[] connections = server.getConnections();
-		ArrayList<String> names = new ArrayList<String>(connections.length);
-
-		for (int i = connections.length - 1; i >= 0; i--) {
-			ServerConnection connection = (ServerConnection) connections[i];
-			names.add(connection.name);
+		  ServerMessage message = new ServerMessage();
+		  message.text = name + " connected.";
+		  server.sendToAllExceptTCP(connection.getID(), message);
+		  updateNames();
+		  return;
 		}
+	  }
 
-		UpdateNames updatedNames = new UpdateNames();
-		updatedNames.names = (String[]) names.toArray(new String[names.size()]);
-		server.sendToAllTCP(updatedNames);
+	  public void disconnected(Connection c) {
+		ServerConnection connection = (ServerConnection) c;
+		if (connection.name != null) {
+		  // Announce to everyone that someone (with a registered name) has left.
+		  ServerMessage message = new ServerMessage();
+		  message.text = connection.name + " disconnected.";
+		  server.sendToAllTCP(message);
+		  updateNames();
+		}
+	  }
+	});
+  }
 
+  private void updateNames() {
+	Connection[] connections = server.getConnections();
+	ArrayList<String> names = new ArrayList<String>(connections.length);
+
+	for (int i = connections.length - 1; i >= 0; i--) {
+	  ServerConnection connection = (ServerConnection) connections[i];
+	  names.add(connection.name);
 	}
 
-	static class ServerConnection extends Connection {
-		public String name;
-	}
+	UpdateNames updatedNames = new UpdateNames();
+	updatedNames.names = (String[]) names.toArray(new String[names.size()]);
+	server.sendToAllTCP(updatedNames);
 
-	public static void main(String[] args) throws IOException {
-		Log.set(Log.LEVEL_DEBUG);
-		new ServerMain();
-	}
+  }
+
+  static class ServerConnection extends Connection {
+	public String name;
+  }
+
+  public static void main(String[] args) throws IOException {
+	Log.set(Log.LEVEL_DEBUG);
+	new ServerMain();
+  }
 }

@@ -138,8 +138,11 @@ public class ServerManageOverlay extends R2Overlay {
 
 	resetServers.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		String[] servers = new String[1];
-		servers[0] = "Ergosphere (Official):empires.2rsoftworks.de/ergosphere:52001:52011";
+		String[] servers = new String[2];
+
+		// TODO: Move this information to a "VALUES" file.
+		servers[0] = "Ergosphere (Official):empires.2rsoftworks.de/ergosphere:10052:10053";
+		servers[1] = "Local (Personal):localhost:10052:10053";
 		SettingsInterface.getInstance().putList(servers, Values.PREFERENCE_LIST_SERVERS);
 
 		// buildServerList(); // Trigger fetch from database

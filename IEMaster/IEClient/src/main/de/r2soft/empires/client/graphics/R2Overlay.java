@@ -28,6 +28,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
  * An overlay to be placed over the screen stack of a game. Will handle camera and stage logic in this class. Sub-actors
@@ -50,8 +52,33 @@ public abstract class R2Overlay extends R2Screen {
   /** Stage to handle all UI items for an overlay in the stack */
   protected Stage stage;
 
+  /** Main default table to hold most UI children on overlay */
+  protected Table main;
+
+  /**
+   * You should use {@link #R2Overlay(Stage, Skin)} instead as it is the preferred constructor.
+   * 
+   * @param stage
+   */
+  @Deprecated
   public R2Overlay(Stage stage) {
+	this(stage, null);
+  }
+
+  /**
+   * Preferred constructor for an overlay. It initialises itself with a stage and also a default UI skin to be used for
+   * the table parent.
+   * 
+   * @param stage
+   *          Stage to hold children. Can be passed down from Screen.
+   * @param uiskin
+   *          Default UI skin for {@link #main} Table to hold.
+   */
+  public R2Overlay(Stage stage, Skin uiskin) {
 	this.stage = stage;
+	main = new Table(uiskin);
+	main.setFillParent(true); // Just check this. It makes sense in 99% of cases.
+	stage.addActor(main);
 	renderer = new ShapeRenderer();
 	this.camera = (OrthographicCamera) stage.getCamera();
   }
@@ -74,6 +101,11 @@ public abstract class R2Overlay extends R2Screen {
 
   public void disableAdditionalAlpha() {
 	overlay = false;
+  }
+
+  /** Clears all sub actors from this table. Useful for Overlay repaints. */
+  public void clearTable() {
+	main.clear();
   }
 
   @Override

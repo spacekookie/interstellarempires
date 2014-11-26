@@ -20,6 +20,8 @@ package de.r2soft.empires.client.networking;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import com.esotericsoftware.kryonet.Client;
 
 import de.r2soft.empires.client.util.Server;
@@ -32,6 +34,7 @@ import de.r2soft.empires.client.util.Server;
  * @author Katharina Fey <kookie@spacekookie.de>
  */
 public class ConnectionHandler {
+  private static Logger logger = Logger.getLogger(ConnectionHandler.class.getSimpleName());
   private static ConnectionHandler self;
   private Client client;
 
@@ -57,14 +60,24 @@ public class ConnectionHandler {
 	return false;
   }
 
-  public boolean connect(Server server) {
+  public void connect(Server server) {
 	try {
-	  client.connect(5000, server.getUrl(), server.getPortTCP(), server.getPortUDP() + 1);
-	  return true;
+	  System.out.println("Attempting to connect to: " + server.getUrl() + " " + server.getPortTCP() + "/"
+		  + server.getPortUDP());
+	  client.connect(5000, server.getUrl(), server.getPortTCP(), server.getPortUDP());
 	}
 	catch (IOException e) {
-	  e.printStackTrace();
-	  return false;
+	  logger.error("Server " + server.toCompactString() + " is currently not available!");
+	  return;
 	}
+  }
+
+  public void stopConnection() {
+	client.close();
+  }
+
+  public void logout() {
+	client.sendTCP(null); // Send signout package.
+	client.close();
   }
 }
