@@ -18,11 +18,8 @@
 package de.r2soft.empires.client.screens.utilities;
 
 import org.apache.log4j.Logger;
-import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.MD5;
-import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.SHA1;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -32,19 +29,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import de.r2soft.empires.client.core.GameCore;
-import de.r2soft.empires.client.graphics.R2Overlay;
+import de.r2soft.empires.client.graphics.R2Dialogue;
+import de.r2soft.empires.client.graphics.R2Dialogue.DialogueType;
 import de.r2soft.empires.client.graphics.R2Screen;
 import de.r2soft.empires.client.resources.Assets;
 import de.r2soft.empires.client.resources.SettingsInterface;
 import de.r2soft.empires.client.resources.Values;
-import de.r2soft.empires.client.screens.gameplay.HexMapScreen;
+import de.r2soft.empires.client.screens.overlay.LoginStatusOverlay;
 import de.r2soft.empires.client.screens.overlay.MainMenuOverlay;
 import de.r2soft.empires.client.screens.overlay.ServerManageOverlay;
 import de.r2soft.empires.client.util.Server;
@@ -59,6 +55,7 @@ public class LoginScreen extends R2Screen {
   private TextField userField, passField;
   private TextButton login, menu, back, manageServers;
   private CheckBox saveUser, savePw;
+  private SelectBox<Server> serverList;
 
   /** Background stuff */
   private String name_clear, password_clear;
@@ -80,11 +77,6 @@ public class LoginScreen extends R2Screen {
 	  passField.setText(SettingsInterface.getInstance().getString(Values.PREFERENCE_SAVED_USER_PW));
 	  savePw.setChecked(SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_SAVE_USERNAME));
 	}
-  }
-
-  @Override
-  public void show() {
-
   }
 
   @Override
@@ -152,6 +144,7 @@ public class LoginScreen extends R2Screen {
   public void render(float delta) {
 	stage.act(delta);
 	stage.draw();
+	Table.drawDebug(stage);
 
 	/* Disables savePW if saveUser is off */
 	if (!saveUser.isChecked())
@@ -179,6 +172,13 @@ public class LoginScreen extends R2Screen {
 
   private void scheduleLogin() {
 	name_clear = userField.getText().toString();
+	System.out.println(name_clear);
+
+	if (name_clear.equals("")) {
+	  stage.addActor(R2Dialogue.factory("Missing User", null, DialogueType.ERROR));
+	  // R2Dialogue.make(stage, "Missing password", null, DialogueType.ERROR);
+	  return;
+	}
 	password_clear = passField.getText().toString();
 
 	String hash = password_clear;
@@ -199,7 +199,12 @@ public class LoginScreen extends R2Screen {
 
 	Values.initPlayer(name_clear);
 
-	GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
+	GameCore.getInstance().addOverlay(new LoginStatusOverlay(serverList.getSelected(), Values.PLAYER));
+
+	// System.out.println("Attempting to connect to: " + serverList.getSelected());
+	// ConnectionHandler.getInstance().connect(serverList.getSelected());
+
+	// GameCore.getInstance().setScreen(new HexMapScreen(name_clear));
   }
 
   @Override
@@ -244,7 +249,7 @@ public class LoginScreen extends R2Screen {
 	intro.row();
 
 	/** Populate the server list */
-	SelectBox<Server> serverList = new SelectBox<Server>(Assets.R2_UI_SKIN);
+	serverList = new SelectBox<Server>(Assets.R2_UI_SKIN);
 	serverList.setItems(fetchServers());
 
 	serverTitle = new Label("Select a server:", Assets.R2_UI_SKIN);

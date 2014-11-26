@@ -31,14 +31,14 @@ public class PhysicsThread extends Thread {
 
 	System.out.println("[DONE]");
 
-	System.out.println("[Physics]: This is now a daemon thread.");
 	setDaemon(true);
+	System.out.println("[Physics]: This is now a daemon thread.");
 	super.start();
   }
 
   @Override
   public void run() {
-	System.out.println("[Physics]: I am still alive!");
+	// System.out.println("[Physics]: I am still alive!");
   }
 
 }

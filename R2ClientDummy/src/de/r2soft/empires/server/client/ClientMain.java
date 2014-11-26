@@ -52,6 +52,9 @@ public class ClientMain implements ActionListener {
   private static final JTextField textField = new JTextField(25);
   private static final JButton sendButton = new JButton("Send");
 
+  public static final Integer PORT_TCP = 10052;
+  public static final Integer PORT_UDP = 10053;
+
   private final Scanner scanner = new Scanner(System.in);
   Client client;
 
@@ -62,7 +65,7 @@ public class ClientMain implements ActionListener {
 	client.start();
 
 	try {
-	  client.connect(5000, "127.0.0.1", 23900, 23901);
+	  client.connect(5000, "localhost", PORT_TCP, PORT_UDP);
 	}
 	catch (IOException e) {
 	  JOptionPane.showMessageDialog(null, "Server is not reachable. Can not connect!");

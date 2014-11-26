@@ -28,7 +28,8 @@ dependencies {
 	compile group: 'org.bouncycastle', name: 'bcmail-jdk15', version: '1.46'
 	
 	/** KryoNet serialisation library */
-	compile group: 'kryonet', name: 'kryonet-all', version: '2.+'
+	// compile group: 'kryonet', name: 'kryonet-all', version: '2.21'
+	compile files('lib/kryonet/kryonet-2.21-debug.jar')
 		
 	// Google Java extentions
 	compile group:'com.google.guava', name:'guava', version:'18.0'

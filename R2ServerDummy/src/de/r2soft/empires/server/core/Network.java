@@ -25,25 +25,27 @@ import com.esotericsoftware.kryonet.EndPoint;
  * @author ***REMOVED*** <***REMOVED***>
  */
 public class Network {
-	static public final int port = 54555;
+  static public final int port = 54555;
+  public static final Integer PORT_TCP = 10052;
+  public static final Integer PORT_UDP = 10053;
 
-	static public void register(EndPoint endPoint) {
-		Kryo kryo = endPoint.getKryo();
-		kryo.register(RegisterName.class);
-		kryo.register(String[].class);
-		kryo.register(UpdateNames.class);
-		kryo.register(ServerMessage.class);
-	}
+  static public void register(EndPoint endPoint) {
+	Kryo kryo = endPoint.getKryo();
+	kryo.register(RegisterName.class);
+	kryo.register(String[].class);
+	kryo.register(UpdateNames.class);
+	kryo.register(ServerMessage.class);
+  }
 
-	static public class RegisterName {
-		public String name;
-	}
+  static public class RegisterName {
+	public String name;
+  }
 
-	static public class UpdateNames {
-		public String[] names;
-	}
+  static public class UpdateNames {
+	public String[] names;
+  }
 
-	static public class ServerMessage {
-		public String text;
-	}
+  static public class ServerMessage {
+	public String text;
+  }
 }

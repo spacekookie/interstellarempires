@@ -23,6 +23,7 @@ import com.badlogic.gdx.audio.Music;
 
 import de.r2soft.empires.client.resources.SettingsInterface;
 import de.r2soft.empires.client.resources.Values;
+import de.r2soft.empires.client.screens.utilities.IntroductionScreen;
 import de.r2soft.empires.client.screens.utilities.LoginScreen;
 
 /**
@@ -78,17 +79,16 @@ public class GameCore extends R2Core {
 	  SettingsInterface.getInstance().putBoolean(Values.PREFERENCE_SKIP_INTRO, true);
 
 	if (!SettingsInterface.getInstance().containsList(Values.PREFERENCE_LIST_SERVERS)) {
-	  String[] servers = new String[1];
-	  servers[0] = "Ergosphere (Official):empires.2rsoftworks.de/ergosphere:52001:52011";
+	  String[] servers = new String[2];
+	  servers[0] = "Ergosphere (Official):empires.2rsoftworks.de/ergosphere:10052:10053";
+	  servers[1] = "Local (Personal):localhost:10052:10053";
 	  SettingsInterface.getInstance().putList(servers, Values.PREFERENCE_LIST_SERVERS);
 	}
 
-	// setScreen(new SolMapScreen(null));
-
-	// if (!prefs.getBoolean(Values.PREFERENCE_SKIP_INTRO))
-	// setScreen(new IntroductionScreen());
-	// else
-	setScreen(new LoginScreen());
+	if (!SettingsInterface.getInstance().getBoolean(Values.PREFERENCE_SKIP_INTRO))
+	  setScreen(new IntroductionScreen());
+	else
+	  setScreen(new LoginScreen());
   }
 
   @Override
