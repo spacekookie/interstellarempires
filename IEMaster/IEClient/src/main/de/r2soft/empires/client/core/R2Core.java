@@ -121,7 +121,7 @@ public class R2Core implements ApplicationListener {
 
   /**
    * Try to avoid use of this method as it can remove an overlay from the middle of a stack. Use
-   * {@link #removeOverlay(boolean)} instead!
+   * {@link #removeOverlay()} instead and don't fuck around with mid-overlay removal!
    */
   @Deprecated
   public void removeOverlay(R2Overlay overlay) {

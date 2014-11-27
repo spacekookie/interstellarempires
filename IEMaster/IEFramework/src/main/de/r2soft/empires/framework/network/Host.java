@@ -18,9 +18,40 @@
 
 package de.r2soft.empires.framework.network;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 /**
- * @author Katharina Fey <kookie@spacekookie.de>
+ * @author Katharina Fey
  */
-public class Packet3ClientDisconnect extends Packet {
-	public String clientName;
+@EqualsAndHashCode(callSuper = false)
+public @Data class Host {
+  private String domain;
+  private IP caller;
+
+  public Host() {
+
+  }
+
+  public Host(String domain, IP caller) {
+	this.domain = domain;
+	this.caller = caller;
+  }
+
+  @Getter
+  public static class IP {
+	private int a, b, c, d;
+
+	public IP() {
+
+	}
+
+	public IP(int a, int b, int c, int d) {
+	  this.a = a;
+	  this.b = b;
+	  this.c = c;
+	  this.d = d;
+	}
+  }
 }

@@ -18,122 +18,120 @@
 
 package de.r2soft.empires.client.graphics;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import de.r2soft.empires.client.types.Colour;
 
 public class R2Dialogue extends Dialog {
+  public static enum DialogueType {
+	ERROR("Error"), HINT("Hint"), FRIENDLY("Message"), QUESTION("Verify");
 
-  public static Table factory() {
-	return null;
+	private final String name;
+
+	private DialogueType(String s) {
+	  name = s;
+	}
   }
 
-  public R2Dialogue(String title, Skin skin) {
-	super(title, skin);
-	init();
+  /** Preferred sizes to be overwritten */
+  private float w = 0, h = 0;
+  private String[] contents;
+  private Skin skin;
+
+  public R2Dialogue(String title, Skin skin, DialogueType type) {
+	this(title, null, skin, type);
   }
 
-  private void init() {
-	padTop(50f);
-	getButtonTable().defaults().height(75f);
-	setModal(true);
-	setResizable(false);
+  public R2Dialogue(String title, String[] contents, Skin skin, DialogueType type) {
+	super(type.toString() + ": " + title, skin);
+
+	/** Saving additional info */
+	this.contents = contents;
+	this.skin = skin;
+
+	init(type);
+  }
+
+  public void setLongContent(String content) {
+	Label l = new Label(content, this.skin);
+	l.setWrap(true);
+	l.setWidth(w);
+	super.text(l);
+  }
+
+  /**
+   * Adds a text button to the button table.
+   *
+   * @param listener
+   *          the input listener that will be attached to the button.
+   */
+  public R2Dialogue button(String buttonText, InputListener listener) {
+	TextButton button = new TextButton(buttonText, skin);
+	button.addListener(listener);
+	button(button);
+	return this;
+  }
+
+  /**
+   * Positions the Dialogue at the centre of the game screen.
+   * 
+   * @return instance of self for method chaining.
+   */
+  public R2Dialogue center() {
+	float xc = Gdx.graphics.getWidth() / 2;
+	float yc = Gdx.graphics.getHeight() / 2;
+	xc -= getWidth() / 2;
+	yc -= getHeight() / 2;
+	setPosition(xc, yc);
+	return this;
+  }
+
+  private void init(DialogueType type) {
+	super.padTop(60); // set padding on top of the dialog title
+	super.getButtonTable().defaults().height(50); // set buttons height
+	super.getButtonTable().defaults().width(150);
+	super.setModal(true);
+	super.setMovable(false);
+	super.setResizable(false);
+	this.setSize(350f, 175f);
+
+	if (type == DialogueType.ERROR)
+	  setColor(Colour.RED);
+
+	if (type == DialogueType.QUESTION)
+	  setColor(Colour.YELLOW);
+
+	if (type == DialogueType.FRIENDLY || type == DialogueType.HINT)
+	  setColor(Colour.GREEN);
+
+	if (contents != null) {
+	  StringBuilder sb = new StringBuilder();
+	  for (String s : contents)
+		sb.append(s + "\n");
+	  super.text(new Label(sb.toString(), skin));
+	}
+  }
+
+  @Override
+  public void setSize(float w, float h) {
+	super.setSize(w, h);
+	this.w = w;
+	this.h = h;
   }
 
   @Override
   public float getPrefWidth() {
-	// force dialog width
-	return 480f;
+	return (w == 0) ? 350f : w;
   }
 
   @Override
   public float getPrefHeight() {
-	// force dialog height
-	return 240f;
+	return (h == 0) ? 180f : h;
   }
-
 }
-
-/**
- * A compact and well formatted Dialogue for small hints and message texts using the default UI skin set in the
- * application config.
- * 
- * @author Katharina Fey
- */
-// public class R2Dialogue extends Actor {
-// public static enum DialogueType {
-// ERROR("Error"), HINT("Hint"), FRIENDLY("Message"), QUESTION("Verify");
-//
-// private final String name;
-//
-// private DialogueType(String s) {
-// name = s;
-// }
-//
-// public String toString() {
-// return name;
-// }
-//
-// }
-//
-// private TextButton success, fail;
-// private String title;
-// private DialogueType type;
-// private String[] contents;
-// private Table master, inner;
-//
-// public static Table factory(String title, String[] contents, DialogueType type) {
-// return new R2Dialogue(title, contents, type).master;
-// }
-//
-// private R2Dialogue(String title, String[] contents, DialogueType type) {
-// this.contents = contents;
-// this.title = title;
-// this.type = type;
-//
-// Dialog slave = new Dialog(type.toString() + ": " + title, Assets.R2_UI_SKIN);
-// slave.setWidth(500f);
-// // slave.setFillParent(true);
-// // slave.setMovable(false);
-//
-// master = new Table();
-//
-// // Inner table holding the UI references
-// inner = new Table();
-// inner.setFillParent(true);
-// inner.left();
-//
-// if (contents != null)
-// for (String s : contents) {
-// inner.add(new Label(s, Assets.R2_UI_SKIN));
-// inner.row();
-// }
-//
-// switch (type) {
-// case ERROR:
-//
-// break;
-//
-// default:
-// break;
-// }
-//
-// success = new TextButton("OK", Assets.R2_UI_SKIN);
-// inner.add(success);
-// inner.debug();
-// System.out.println(inner.getChildren());
-// inner.add();
-//
-// // inner.setPosition(Gdx.graphics.getWidth() / 2 - (300), Gdx.graphics.getHeight() / 2 - (125));
-//
-// slave.add(inner);
-//
-// // TODO: Fix this! FIX THIS NOW!
-// // master.setSize(350, 150);
-// // master.setFillParent(true);
-// // master.setPosition(Gdx.graphics.getWidth() / 2 - (300), Gdx.graphics.getHeight() / 2 - (125));
-//
-// master.add(slave);
-//
-// }
-// }

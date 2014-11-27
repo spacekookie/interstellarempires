@@ -33,7 +33,7 @@ public class Values {
   public static int NEW_WIDTH = OLD_WIDTH;
   public static int NEW_HEIGHT = OLD_HEIGHT;
   public static String SUPERTITLE = "Interstellar Empires";
-  public static String VERSION_NUMBER = "Alpha 1.3.2";
+  public static String VERSION_NUMBER = "Alpha 1.3.4";
   public static final String SCREENTITLE_SETTINGS = "Settings";
   public static final String SCREENTITLE_HOME = "Galaxy Map";
   public static final String SCREENTITLE_LOGIN = "Login";

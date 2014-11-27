@@ -19,8 +19,8 @@
 package de.r2soft.empires.framework.network;
 
 /**
- * @author Katharina Fey <kookie@spacekookie.de>
+ * @author Katharina Fey
  */
-public class Packet4Chat extends Packet {
-	public String username, message;
+public class HandshakePackage extends Package {
+
 }

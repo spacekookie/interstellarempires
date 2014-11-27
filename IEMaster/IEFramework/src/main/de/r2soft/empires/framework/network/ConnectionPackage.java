@@ -18,15 +18,30 @@
 
 package de.r2soft.empires.framework.network;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import de.r2soft.empires.framework.players.Player;
 
 /**
- * @author Katharina Fey <kookie@spacekookie.de>
+ * Initial connection package to send the player name and Host information to the server.
+ * 
+ * @author Katharina Fey
  */
-public class ConnectionPackage extends Package {
+// Why is this needed?
+@EqualsAndHashCode(callSuper = false)
+public @Data class ConnectionPackage extends Package {
+  private String player;
+  private Host host;
+  private String serverNameResponse;
+  private long serverKeyResponse;
 
-  public ConnectionPackage(Player player) {
+  public ConnectionPackage() {
 
+  }
+
+  public ConnectionPackage(String player, Host host) {
+	this.player = player;
+	this.host = host;
   }
 
 }
