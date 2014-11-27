@@ -17,28 +17,30 @@
  ######################################################################### */
 package de.r2soft.empires.client.types;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * Advanced colour object to store hexadecimal colour values in it. It is also using the correct spelling of the word
  * "colour" that Americans have butchered for the last 250 years. You're welcome England!
  * 
  * @author: ***REMOVED*** <***REMOVED***>
  */
-public class R2Colour {
+public class Colour extends Color {
 
-  public static final R2Colour CLEAR = new R2Colour(0, 0, 0, 0);
-  public static final R2Colour WHITE = new R2Colour(1, 1, 1, 1);
-  public static final R2Colour BLACK = new R2Colour(0, 0, 0, 1);
-  public static final R2Colour RED = new R2Colour(1, 0, 0, 1);
-  public static final R2Colour GREEN = new R2Colour(0, 1, 0, 1);
-  public static final R2Colour BLUE = new R2Colour(0, 0, 1, 1);
-  public static final R2Colour LIGHT_GRAY = new R2Colour(0.75f, 0.75f, 0.75f, 1);
-  public static final R2Colour GRAY = new R2Colour(0.5f, 0.5f, 0.5f, 1);
-  public static final R2Colour DARK_GRAY = new R2Colour(0.25f, 0.25f, 0.25f, 1);
-  public static final R2Colour PINK = new R2Colour(1, 0.68f, 0.68f, 1);
-  public static final R2Colour ORANGE = new R2Colour(1, 0.78f, 0, 1);
-  public static final R2Colour YELLOW = new R2Colour(1, 1, 0, 1);
-  public static final R2Colour MAGENTA = new R2Colour(1, 0, 1, 1);
-  public static final R2Colour CYAN = new R2Colour(0, 1, 1, 1);
+  public static final Colour CLEAR = new Colour(0, 0, 0, 0);
+  public static final Colour WHITE = new Colour(1, 1, 1, 1);
+  public static final Colour BLACK = new Colour(0, 0, 0, 1);
+  public static final Colour RED = new Colour(1, 0, 0, 1);
+  public static final Colour GREEN = new Colour(0, 1, 0, 1);
+  public static final Colour BLUE = new Colour(0, 0, 1, 1);
+  public static final Colour LIGHT_GRAY = new Colour(0.75f, 0.75f, 0.75f, 1);
+  public static final Colour GRAY = new Colour(0.5f, 0.5f, 0.5f, 1);
+  public static final Colour DARK_GRAY = new Colour(0.25f, 0.25f, 0.25f, 1);
+  public static final Colour PINK = new Colour(1, 0.68f, 0.68f, 1);
+  public static final Colour ORANGE = new Colour(1, 0.78f, 0, 1);
+  public static final Colour YELLOW = new Colour(1, 1, 0, 1);
+  public static final Colour MAGENTA = new Colour(1, 0, 1, 1);
+  public static final Colour CYAN = new Colour(0, 1, 1, 1);
 
   private float r, g, b, a;
 
@@ -47,8 +49,9 @@ public class R2Colour {
    * 
    * @param hexcode
    */
-  public R2Colour(int hexcode) {
-
+  @Deprecated
+  public Colour(int hexcode) {
+	super(hexcode);
   }
 
   /**
@@ -59,8 +62,8 @@ public class R2Colour {
    * @param b
    * @param a
    */
-  @Deprecated
-  public R2Colour(float r, float g, float b, float a) {
+  public Colour(float r, float g, float b, float a) {
+	super(r, g, b, a);
 	this.r = r;
 	this.g = g;
 	this.b = b;

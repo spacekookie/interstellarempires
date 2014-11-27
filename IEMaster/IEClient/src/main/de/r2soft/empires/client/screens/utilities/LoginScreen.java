@@ -102,9 +102,20 @@ public class LoginScreen extends R2Screen {
 	return servers;
   }
 
+  private void clearListeners() {
+	back.clearListeners();
+	login.clearListeners();
+	menu.clearListeners();
+	manageServers.clearListeners();
+	savePw.clearListeners();
+  }
+
   private void setupListeners() {
+	this.clearListeners();
+
 	manageServers.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		super.touchUp(event, x, y, pointer, button);
 		GameCore.getInstance().addOverlay(new ServerManageOverlay());
 
 	  }
@@ -121,12 +132,14 @@ public class LoginScreen extends R2Screen {
 
 	login.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		super.touchUp(event, x, y, pointer, button);
 		scheduleLogin();
 	  }
 	});
 
 	menu.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		super.touchUp(event, x, y, pointer, button);
 		MainMenuOverlay overlay = new MainMenuOverlay();
 		GameCore.getInstance().addOverlay(overlay);
 
@@ -135,16 +148,17 @@ public class LoginScreen extends R2Screen {
 
 	back.addListener(new ClickListener() {
 	  public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		super.touchUp(event, x, y, pointer, button);
 		GameCore.getInstance().setScreen(new IntroductionScreen());
 	  }
 	});
 
+	// System.out.println(menu.getListeners());
   }
 
   public void render(float delta) {
 	stage.act(delta);
 	stage.draw();
-	Table.drawDebug(stage);
 
 	/* Disables savePW if saveUser is off */
 	if (!saveUser.isChecked())
@@ -172,14 +186,33 @@ public class LoginScreen extends R2Screen {
 
   private void scheduleLogin() {
 	name_clear = userField.getText().toString();
-	System.out.println(name_clear);
+	password_clear = passField.getText().toString();
 
 	if (name_clear.equals("")) {
-	  stage.addActor(R2Dialogue.factory("Missing User", null, DialogueType.ERROR));
-	  // R2Dialogue.make(stage, "Missing password", null, DialogueType.ERROR);
+	  String[] con = new String[] { "The username field was empty.", "Please provide a username to login!" };
+	  final R2Dialogue m = new R2Dialogue("Missing User", con, Assets.R2_UI_SKIN, DialogueType.ERROR).center();
+	  m.button("OK", new ClickListener() {
+		public void touchUp(InputEvent arg0, float arg1, float arg2, int arg3, int arg4) {
+		  m.remove();
+		  setupListeners();
+		}
+	  });
+	  stage.addActor(m);
 	  return;
 	}
-	password_clear = passField.getText().toString();
+	/** Display the Dialogue to indicate that the password was missing */
+	else if (password_clear.equals("")) {
+	  String[] con = new String[] { "The password field was empty.", "Please provide a password to login!" };
+	  final R2Dialogue m = new R2Dialogue("Missing Password", con, Assets.R2_UI_SKIN, DialogueType.ERROR).center();
+	  m.button("OK", new ClickListener() {
+		public void touchUp(InputEvent arg0, float arg1, float arg2, int arg3, int arg4) {
+		  m.remove();
+		  setupListeners();
+		}
+	  });
+	  stage.addActor(m);
+	  return;
+	}
 
 	String hash = password_clear;
 
@@ -199,7 +232,9 @@ public class LoginScreen extends R2Screen {
 
 	Values.initPlayer(name_clear);
 
-	GameCore.getInstance().addOverlay(new LoginStatusOverlay(serverList.getSelected(), Values.PLAYER));
+	LoginStatusOverlay lso = new LoginStatusOverlay(serverList.getSelected(), Values.PLAYER);
+	GameCore.getInstance().addOverlay(lso);
+	lso.start();
 
 	// System.out.println("Attempting to connect to: " + serverList.getSelected());
 	// ConnectionHandler.getInstance().connect(serverList.getSelected());

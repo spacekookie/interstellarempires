@@ -23,8 +23,8 @@ import lombok.EqualsAndHashCode;
 
 import com.esotericsoftware.kryonet.Connection;
 
-import de.r2soft.empires.ergosphere.Host.IP;
-import de.r2soft.empires.framework.players.Player;
+import de.r2soft.empires.framework.network.Host;
+import de.r2soft.empires.framework.network.Host.IP;
 
 /**
  * @author ***REMOVED***
@@ -32,7 +32,7 @@ import de.r2soft.empires.framework.players.Player;
 
 @EqualsAndHashCode(callSuper = false)
 public @Data class ServerConnection extends Connection {
-  private Player player;
+  private String player;
   private Host host;
   private long conTime;
 

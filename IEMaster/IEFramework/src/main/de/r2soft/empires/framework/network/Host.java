@@ -16,12 +16,11 @@
  * limitations under the License.
  ######################################################################### */
 
-package de.r2soft.empires.ergosphere;
+package de.r2soft.empires.framework.network;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author ***REMOVED***
@@ -31,6 +30,10 @@ public @Data class Host {
   private String domain;
   private IP caller;
 
+  public Host() {
+
+  }
+
   public Host(String domain, IP caller) {
 	this.domain = domain;
 	this.caller = caller;
@@ -39,6 +42,10 @@ public @Data class Host {
   @Getter
   public static class IP {
 	private int a, b, c, d;
+
+	public IP() {
+
+	}
 
 	public IP(int a, int b, int c, int d) {
 	  this.a = a;

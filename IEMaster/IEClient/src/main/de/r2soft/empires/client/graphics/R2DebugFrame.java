@@ -25,7 +25,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 
-import de.r2soft.empires.client.types.R2Colour;
+import de.r2soft.empires.client.types.Colour;
 
 /**
  * A debug frame actor for the stage that draws a rectangle around the given coordinates.
@@ -36,7 +36,7 @@ import de.r2soft.empires.client.types.R2Colour;
 public class R2DebugFrame extends Actor implements Disposable {
 
   private Vector2 size, pos;
-  private R2Colour color;
+  private Colour color;
   private ShapeRenderer renderer;
 
   {
@@ -54,7 +54,7 @@ public class R2DebugFrame extends Actor implements Disposable {
   }
 
   /** Creating new debug frame on screen with custom colour */
-  public R2DebugFrame(float width, float hight, float x, float y, R2Colour color) {
+  public R2DebugFrame(float width, float hight, float x, float y, Colour color) {
 	this.size.x = width;
 	this.size.y = hight;
 	this.pos.x = x;
