@@ -1,6 +1,6 @@
 import org.apache.tools.ant.filters.*
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 sourceSets.main.java.srcDirs = [ "src/main" ]
 sourceSets.test.java.srcDirs = [ "src/test" ]
