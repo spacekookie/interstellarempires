@@ -1,0 +1,10 @@
+dependencies {
+	compile project(':Framework')
+}
+sourceCompatibility = 1.8
+
+sourceSets.main.java.srcDirs = [ "src/main" ]
+// sourceSets.test.java.srcDirs = [ "src/test" ]
+
+ext.appName = 'Ergosphere Game Server'
+ext.version = 'Alpha-1.0'
