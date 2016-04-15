@@ -1,5 +1,5 @@
 dependencies {
-	compile project(':IEFramework')
+	compile project(':Framework')
 }
 sourceCompatibility = 1.7
 
