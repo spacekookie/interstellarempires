@@ -17,15 +17,21 @@ repositories {
 }
 
 /** Information about the application and dependencies */
-ext.gdxVersion = '1.9'
-ext.appName = 'Interstellar Empires'
-ext.version = '0.4'
+ext {
+  appName = 'Interstellar Empires'
+  gdxVersion = '1.9.3'
+  superUIVersion = '1.0-rc1'
+  box2DLightsVersion = '1.4'
+  ashleyVersion = '1.7.0'
+  aiVersion = '1.7.0'
 
-project.ext.mainClassName = "de.r2soft.empires.client.core.MainClientLauncher"
-project.ext.assetsDir = new File("./assets");
+  version = '0.4a'
+}
+
+project.ext.mainClassName = "io.lonelyrobot.empires.cl.gl.Launcher"
+project.ext.assetsDir = new File("assets");
 
 /** DEPENDENCIES SECTION */
-
 dependencies {
 
   /* Include client network layer */
@@ -33,6 +39,31 @@ dependencies {
 
   /* Include shared game framework */
   compile project(':GameFramework')
+  
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
+  
+  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+  compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+  compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+
+  compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
+  compile "com.kotcrab.vis:vis-ui:0.9.4"
+  compile "com.kotcrab.vis:vis-runtime:0.3.0"
+
+  compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.0"
+  compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.2"
+  compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.2"
+
+  compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+  compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+  compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
 }
 
 /** Packaging task */
