@@ -1,0 +1,55 @@
+// import org.apache.tools.ant.filters.*
+
+sourceCompatibility = 1.8
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = [ "test/" ]
+
+sourceSets.main.resources.srcDirs = ['assets']
+// assetsDir = [ "assets/" ]
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+  maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+}
+
+/** Information about the application and dependencies */
+ext.gdxVersion = '1.9'
+ext.appName = 'Interstellar Empires'
+ext.version = '0.4'
+
+project.ext.mainClassName = "de.r2soft.empires.client.core.MainClientLauncher"
+project.ext.assetsDir = new File("./assets");
+
+// processResources {
+//   filter ReplaceTokens, tokens: [ "project.name": "IEGlClient" ]
+// }
+
+/** DEPENDENCIES SECTION */
+
+dependencies {
+
+  /* Include client network layer */
+  compile project(':ClNetworking')
+
+  /* Include shared game framework */
+  compile project(':GameFramework')
+}
+
+/** Packaging task */
+jar {
+  exclude "META-INF/*.SF"
+  exclude "META-INF/*.DSA"
+  exclude "META-INF/*.RSA"
+
+  manifest.attributes "Main-Class": project.mainClassName
+  build.dependsOn classes
+
+  from files(sourceSets.main.output.classesDir);
+  from files(sourceSets.main.output.resourcesDir);
+  from { configurations.compile.collect { zipTree(it) } }
+  from files(project.assetsDir);
+}
