@@ -24,10 +24,6 @@ ext.version = '0.4'
 project.ext.mainClassName = "de.r2soft.empires.client.core.MainClientLauncher"
 project.ext.assetsDir = new File("./assets");
 
-// processResources {
-//   filter ReplaceTokens, tokens: [ "project.name": "IEGlClient" ]
-// }
-
 /** DEPENDENCIES SECTION */
 
 dependencies {
