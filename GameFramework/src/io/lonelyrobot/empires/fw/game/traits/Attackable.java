@@ -1,7 +1,7 @@
-package io.lonelyrobot.empires.fw.game.obj;
+package io.lonelyrobot.empires.fw.game.traits;
 
 /**
- * This is a trait that marks an object as attackable. This means multiple things. First,
+ * This is a trait that marks an object as attackable. That means multiple things. First,
  * it needs to be assigned a combat ID for the AI tracking and target selection to work.
  * Secondly, it means that it can be destroyed via conventional methods (fleet combat/
  * first strike combat). There is an attack method that an object needs to implement which

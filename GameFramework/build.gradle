@@ -4,15 +4,12 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.test.java.srcDirs = [ "test/" ]
 
 dependencies {
-// compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+  compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
 
-//	Project Lomok
-// compile group:'org.projectlombok', name: 'lombok', version:'1.14.8'
-
-// // Apache Commons stuff
-// compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
-// compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
-// compile group: 'org.apache.commons', name: 'commons-math3', version: '2.2'
+  /** Apache commons libraries that are useful to have **/
+  compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+  compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
+  compile group: 'org.apache.commons', name: 'commons-math3', version: '2.2'
 
 // // PICK ONE!
 // compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.50'
