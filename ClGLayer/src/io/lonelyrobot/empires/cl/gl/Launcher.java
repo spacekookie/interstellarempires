@@ -25,7 +25,7 @@ package io.lonelyrobot.empires.cl.gl;
  * 
  * This is only one of possible (future) clients.
  * 
- * @author ***REMOVED*** 'spacekookie' Fey
+ * @author Katharina 'spacekookie' Fey
  */
 public class Launcher {
 
