@@ -18,6 +18,9 @@
 
 package io.lonelyrobot.empires.cl.gl;
 
+import io.lonelyrobot.empires.fw.game.obj.BaseObject;
+import io.lonelyrobot.empires.fw.game.obj.Ship;
+
 /**
  * Main launcher class that handles platform dependant code like setting icons, getting
  * screen resolution and setting up backend and front-end components to create the game.
@@ -31,5 +34,7 @@ public class Launcher {
   public static void main(String args[]) {
 
     /** First handle cmdline arguments */
+    BaseObject s = new BaseObject();
+
   }
 }

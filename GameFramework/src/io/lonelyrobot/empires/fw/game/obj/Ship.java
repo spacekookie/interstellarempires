@@ -51,6 +51,7 @@ public class Ship extends BaseObject implements Ownable, Movable, Attackable {
 
   @Override
   public double speed() {
+
     return 0;
   }
 
@@ -60,6 +61,8 @@ public class Ship extends BaseObject implements Ownable, Movable, Attackable {
   }
 
   @Override
-  public void move(Vector2D offset) {}
+  public void move(Vector2D offset) {
+    Movable.move(this, offset);
+  }
 
 }

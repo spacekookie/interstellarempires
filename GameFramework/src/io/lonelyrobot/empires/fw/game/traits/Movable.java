@@ -20,6 +20,8 @@ package io.lonelyrobot.empires.fw.game.traits;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
+import io.lonelyrobot.empires.fw.game.obj.BaseObject;
+
 /**
  * This is a trait that marks an object as movable. That means that any child object has
  * functions to be moved from external inputs (not the internal movement of, say, a
@@ -48,7 +50,5 @@ public interface Movable {
    */
   public void move(Vector2D offset);
 
-  static void move(Object o, Vector2D offset) {
-
-  }
+  public static void move(BaseObject baseObject, Vector2D offset) {}
 }
