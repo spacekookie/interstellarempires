@@ -38,22 +38,24 @@ import lombok.Getter;
  */
 public @Data class BaseObject {
 
-  public void foobar() {
-
-  }
-
   /** Combat variables that are important for all objects */
   protected @Getter double health;
   protected @Getter double armour;
   protected @Getter double shields;
+  protected @Getter long combatID;
 
   /** How long can a ship deal with radiation/ boarding */
   protected @Getter int crew;
   protected @Getter double radResistence;
 
-  /** Movement & positioning related */
+  /** To be able to map it to a system */
   protected @Getter MapCoordinate galaxyPos;
+
+  /** Fields regarding movement traits */
+  protected @Getter Vector2D trajectory;
   protected @Getter Vector2D solPos;
+  protected @Getter double speed;
+  protected @Getter double fuel;
   protected @Getter double mass;
 
   /** Other miscelanious fields */

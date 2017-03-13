@@ -36,33 +36,52 @@ import io.lonelyrobot.empires.fw.game.traits.Ownable;
  */
 public class Ship extends BaseObject implements Ownable, Movable, Attackable {
 
-  @Override
-  public long combatID() {
-    return 0;
+  public Ship() {
+
   }
 
   @Override
-  public void attack(double damage) {}
-
-  @Override
-  public Vector2D trajectory() {
-    return null;
-  }
-
-  @Override
-  public double speed() {
-
-    return 0;
-  }
-
-  @Override
-  public double fuel() {
-    return 0;
+  public void attack(double damage) {
+    Attackable.attack(this, damage);
   }
 
   @Override
   public void move(Vector2D offset) {
     Movable.move(this, offset);
+  }
+
+  /*************************
+   * 
+   * Functions that map interface accessors to the {@link #BaseObject} owned super fields.
+   * 
+   *************************/
+
+  public double speed() {
+    return super.speed;
+  }
+
+  public void speed(double s) {
+    super.speed = s;
+  }
+
+  public double fuel() {
+    return super.fuel;
+  }
+
+  public void fuel(double f) {
+    super.fuel = f;
+  }
+
+  public Vector2D trajectory() {
+    return super.trajectory;
+  }
+
+  public void trajectory(Vector2D t) {
+    super.trajectory = t;
+  }
+
+  public long combatID() {
+    return super.combatID;
   }
 
 }

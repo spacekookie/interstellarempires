@@ -18,6 +18,8 @@
 
 package io.lonelyrobot.empires.fw.game.traits;
 
+import io.lonelyrobot.empires.fw.game.obj.BaseObject;
+
 /**
  * This is a trait that marks an object as attackable. That means multiple things. First,
  * it needs to be assigned a combat ID for the AI tracking and target selection to work.
@@ -55,7 +57,15 @@ public interface Attackable {
    * @param o
    * @param damage
    */
-  static void attack(Object o, double damage) {
+  static void attack(BaseObject o, double damage) {
+
+    if (!(o instanceof Attackable))
+      return;
+
+    Attackable a = (Attackable) o;
+    long id = a.combatID();
+
     // TODO: Implement combat maths here
+    a.attack(damage);
   }
 }

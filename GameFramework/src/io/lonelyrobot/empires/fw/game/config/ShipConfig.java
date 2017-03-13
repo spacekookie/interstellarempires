@@ -16,22 +16,16 @@
  * 
  ######################################################################### */
 
-package io.lonelyrobot.empires.cl.gl;
-
-import io.lonelyrobot.empires.fw.game.obj.BaseObject;
-import io.lonelyrobot.empires.fw.game.obj.Ship;
+package io.lonelyrobot.empires.fw.game.config;
 
 /**
- * Main launcher class that handles platform dependant code like setting icons, getting
- * screen resolution and setting up backend and front-end components to create the game.
+ * This class represents a configuration file that describes a single ship. That includes
+ * all combat and movement stats as well as price, required technologies and so forth. The
+ * configurations are stored in the {@link #ConfigManager()} for easy lookup of ship types
+ * to create new {@link #Ship()} objects during gameplay quickly.
  * 
- * This is only one of possible (future) clients.
- * 
- * @author Katharina 'spacekookie' Fey
+ * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
-public class Launcher {
+public class ShipConfig {
 
-  public static void main(String args[]) {
-
-  }
 }

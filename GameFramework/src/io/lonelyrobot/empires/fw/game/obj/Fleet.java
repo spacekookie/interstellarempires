@@ -64,4 +64,13 @@ public class Fleet extends BaseObject implements Ownable, Movable, Attackable {
   @Override
   public void move(Vector2D offset) {}
 
+  @Override
+  public void trajectory(Vector2D t) {}
+
+  @Override
+  public void speed(double s) {}
+
+  @Override
+  public void fuel(double f) {}
+
 }

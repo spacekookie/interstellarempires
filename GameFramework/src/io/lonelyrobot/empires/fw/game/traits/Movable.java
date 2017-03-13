@@ -37,11 +37,17 @@ public interface Movable {
   /** @return current trajectory */
   public Vector2D trajectory();
 
+  public void trajectory(Vector2D t);
+
   /** @return current speed */
   public double speed();
 
+  public void speed(double s);
+
   /** @return current fuel levels */
   public double fuel();
+
+  public void fuel(double f);
 
   /**
    * Moves the object by an offset to the current position.
@@ -50,5 +56,11 @@ public interface Movable {
    */
   public void move(Vector2D offset);
 
-  public static void move(BaseObject baseObject, Vector2D offset) {}
+  public static void move(BaseObject object, Vector2D offset) {
+    if (!(object instanceof Movable))
+      return;
+
+    Movable m = (Movable) object;
+
+  }
 }
