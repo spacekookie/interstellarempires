@@ -19,9 +19,8 @@
 package io.lonelyrobot.empires.cl.gl;
 
 /**
- * Main launcher class that handles platform dependant code like setting icons,
- * getting screen resolution and setting up backend and front-end components to
- * create the game.
+ * Main launcher class that handles platform dependant code like setting icons, getting
+ * screen resolution and setting up backend and front-end components to create the game.
  * 
  * This is only one of possible (future) clients.
  * 
@@ -29,9 +28,8 @@ package io.lonelyrobot.empires.cl.gl;
  */
 public class Launcher {
 
-	public static void main(String args[]) {
+  public static void main(String args[]) {
 
-		/** First handle cmdline arguments */
-		
-	}
+    /** First handle cmdline arguments */
+  }
 }
