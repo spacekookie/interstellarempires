@@ -20,6 +20,8 @@ package io.lonelyrobot.empires.fw.game.config;
 
 import java.io.File;
 
+import io.lonelyrobot.empires.fw.game.utils.Logger;
+
 /**
  * This is a static class which is responsible for reading in config files (on client and
  * server side) and providing the framework with a coherent source of stats and data to
@@ -43,13 +45,13 @@ public abstract class ConfigManager {
 
     /** First check if we're already setup */
     if (ConfigManager.setup) {
-      // TODO: Log a warning
+      Logger.warn("ConfigManager was previously already setup!");
       return;
     }
 
     /** Check that our path scoping hasn't failed us */
     if (!new File(path).exists()) {
-      // TODO: Log an error
+      Logger.error("Autoscoped path '" + path + "' did not exist!");
       return;
     }
 
