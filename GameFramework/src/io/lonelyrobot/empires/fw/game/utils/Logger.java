@@ -151,7 +151,7 @@ public abstract class Logger {
 
   /*****************************************************************/
 
-  public void debug(String msg) {
+  public static void debug(String msg) {
     if (!setup)
       return;
 
@@ -161,7 +161,7 @@ public abstract class Logger {
       mapping.get(LEVEL.DEBUG).log(msg);
   }
 
-  public void info(String msg) {
+  public static void info(String msg) {
     if (!setup)
       return;
 
@@ -171,7 +171,7 @@ public abstract class Logger {
       mapping.get(LEVEL.INFO).log(msg);
   }
 
-  public void warn(String msg) {
+  public static void warn(String msg) {
     if (!setup)
       return;
 
@@ -181,7 +181,7 @@ public abstract class Logger {
       mapping.get(LEVEL.WARN).log(msg);
   }
 
-  public void error(String msg) {
+  public static void error(String msg) {
     if (!setup)
       return;
 
@@ -191,7 +191,7 @@ public abstract class Logger {
       mapping.get(LEVEL.ERROR).log(msg);
   }
 
-  public void fatal(String msg) {
+  public static void fatal(String msg) {
     if (!setup)
       return;
 
@@ -201,7 +201,7 @@ public abstract class Logger {
       mapping.get(LEVEL.FATAL).log(msg);
   }
 
-  public void apocalypse(String msg) {
+  public static void apocalypse(String msg) {
     if (!setup)
       return;
 
