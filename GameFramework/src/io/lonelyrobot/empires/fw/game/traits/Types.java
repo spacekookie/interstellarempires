@@ -2,6 +2,11 @@ package io.lonelyrobot.empires.fw.game.traits;
 
 public class Types {
 
+  /**
+   * Star types for easy classification and matching from config files. Additional data
+   * about star-types (such as baseline radiation output or gravity well radius) can be
+   * read from the game config files.
+   */
   public enum Stars {
 
     /** Run of the mill dwarves */
@@ -18,7 +23,7 @@ public class Types {
   }
 
   public enum Planetoids {
-    
+
   }
 
   public enum Nebulae {

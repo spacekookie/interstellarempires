@@ -22,14 +22,36 @@ import io.lonelyrobot.empires.fw.game.traits.Celestial;
 import io.lonelyrobot.empires.fw.game.traits.Orbitable;
 import io.lonelyrobot.empires.fw.game.traits.Ownable;
 import io.lonelyrobot.empires.fw.game.traits.Types;
+import lombok.Data;
 
 /**
+ * A star is at the center of a solar system although not neccessarily at location (0, 0).
+ * It has an impact on the gravity of it's system as well as output different radiation
+ * zones into the core of the system.
+ * 
+ * Stars are classified as different types that are defined in {@link Types.Stars} with
+ * further comments attached to them.
  * 
  * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
-public class Star implements Celestial, Ownable, Orbitable {
+public @Data class Star implements Celestial, Ownable, Orbitable {
+
+  private double mass;
 
   public Star(Types.Stars type) {
 
+  }
+
+  /**
+   * This function calculates the range impact on the gravity well of a solarsystem from
+   * this star alone. Calculations can be done in this function to benefit game balance
+   * without making too much physical sense.
+   * 
+   * In the end, a double number in Mm is returned to be used elsewhere.
+   * 
+   * @return double in Mm
+   */
+  public double getGravity() {
+    return mass;
   }
 }

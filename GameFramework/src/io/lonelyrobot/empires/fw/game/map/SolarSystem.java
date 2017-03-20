@@ -27,6 +27,7 @@ import io.lonelyrobot.empires.fw.game.obj.BaseObject;
 import io.lonelyrobot.empires.fw.game.obj.Star;
 import io.lonelyrobot.empires.fw.game.traits.Celestial;
 import io.lonelyrobot.empires.fw.game.traits.Types;
+import io.lonelyrobot.empires.fw.game.utils.Logger;
 import io.lonelyrobot.empires.fw.game.utils.Tree2D;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -80,7 +81,7 @@ public class SolarSystem {
    * @param location
    *          The relative location in the galaxy for internal reference
    */
-  public SolarSystem(Types.Stars stars[], double size, MapCoordinate location) {
+  public SolarSystem(Types.Stars stars[], MapCoordinate location) {
 
     /** Create new stars based on the types provided */
     Set<Star> tmpStars = new HashSet<>();
@@ -88,9 +89,15 @@ public class SolarSystem {
       tmpStars.add(new Star(s));
 
     // FIXME: Correctly calculate orbits for multi-star systems
-    this.stars.insert(tmpStars.iterator().next(), new Vector2D(0, 0));
-    this.radius = size;
+    Star main = tmpStars.iterator().next();
+    this.stars.insert(main, new Vector2D(0, 0));
     this.location = location;
+
+    /** Calculating the gravity well radius of the system */
+    // FIXME: Do this **right**
+    this.radius = main.getGravity();
+
+    Logger.info("Created new solar system at " + location + " successfully...");
   }
 
 }
