@@ -20,6 +20,7 @@ package io.lonelyrobot.empires.fw.game.obj;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
+import io.lonelyrobot.empires.fw.game.config.ShipConfig;
 import io.lonelyrobot.empires.fw.game.traits.Attackable;
 import io.lonelyrobot.empires.fw.game.traits.Movable;
 import io.lonelyrobot.empires.fw.game.traits.Ownable;
@@ -36,7 +37,7 @@ import io.lonelyrobot.empires.fw.game.traits.Ownable;
  */
 public class Ship extends BaseObject implements Ownable, Movable, Attackable {
 
-  public Ship() {
+  public Ship(ShipConfig cfg) {
 
   }
 

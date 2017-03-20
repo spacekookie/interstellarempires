@@ -25,7 +25,6 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import io.lonelyrobot.empires.fw.game.map.MapCoordinate;
 import io.lonelyrobot.empires.fw.game.modules.ModuleSlot;
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * This is a base object in the game that is the parent of pretty much every parent
@@ -39,26 +38,28 @@ import lombok.Getter;
 public @Data class BaseObject {
 
   /** Combat variables that are important for all objects */
-  protected @Getter double health;
-  protected @Getter double armour;
-  protected @Getter double shields;
-  protected @Getter long combatID;
+  protected double health;
+  protected double armour;
+  protected double shields;
+  protected long combatID;
 
   /** How long can a ship deal with radiation/ boarding */
-  protected @Getter int crew;
-  protected @Getter double radResistence;
+  protected int crew;
+  protected double radResistence;
 
   /** To be able to map it to a system */
-  protected @Getter MapCoordinate galaxyPos;
+  protected MapCoordinate galaxyPos;
 
   /** Fields regarding movement traits */
-  protected @Getter Vector2D trajectory;
-  protected @Getter Vector2D solPos;
-  protected @Getter double speed;
-  protected @Getter double fuel;
-  protected @Getter double mass;
+  protected BaseObject orbitalParent;
+  protected Vector2D trajectory;
+  protected boolean anchored;
+  protected Vector2D solPos;
+  protected double speed;
+  protected double fuel;
+  protected double mass;
 
   /** Other miscelanious fields */
-  protected @Getter Set<ModuleSlot> slots;
-  protected @Getter String name;
+  protected Set<ModuleSlot> slots;
+  protected String name;
 }

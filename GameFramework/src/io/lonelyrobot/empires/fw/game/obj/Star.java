@@ -16,31 +16,20 @@
  * 
  ######################################################################### */
 
-package io.lonelyrobot.empires.fw.game.config;
+package io.lonelyrobot.empires.fw.game.obj;
 
-import lombok.Data;
+import io.lonelyrobot.empires.fw.game.traits.Celestial;
+import io.lonelyrobot.empires.fw.game.traits.Orbitable;
+import io.lonelyrobot.empires.fw.game.traits.Ownable;
+import io.lonelyrobot.empires.fw.game.traits.Types;
 
 /**
- * This class represents a configuration file that describes a single ship. That includes
- * all combat and movement stats as well as price, required technologies and so forth. The
- * configurations are stored in the {@link #ConfigManager()} for easy lookup of ship types
- * to create new {@link #Ship()} objects during gameplay quickly.
  * 
  * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
-public @Data class ShipConfig {
-  private double health;
-  private double armour;
-  private double shields;
-  private double combatID;
+public class Star implements Celestial, Ownable, Orbitable {
 
-  private double crew;
-  private double radResistence;
+  public Star(Types.Stars type) {
 
-  private double acceleration;
-  private double fuelCapacity;
-
-  private double mass;
-  private String label;
-
+  }
 }

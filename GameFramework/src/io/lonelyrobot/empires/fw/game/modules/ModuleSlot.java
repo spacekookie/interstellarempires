@@ -18,6 +18,25 @@
 
 package io.lonelyrobot.empires.fw.game.modules;
 
+/**
+ * 
+ * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
+ */
 public class ModuleSlot {
+  public static enum SLOT_TYPE {
+    /** Small utility modules */
+    S,
 
+    /** Medium utility and weapon modules */
+    M,
+
+    /** Armour upgrades or large weapons */
+    L,
+
+    /** Large battleship weaponry */
+    XL,
+
+    /** Capital and super-capital weaponry */
+    CAPITAL
+  }
 }
