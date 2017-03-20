@@ -25,7 +25,9 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import io.lonelyrobot.empires.fw.game.obj.BaseObject;
 import io.lonelyrobot.empires.fw.game.obj.Star;
+import io.lonelyrobot.empires.fw.game.traits.Attackable;
 import io.lonelyrobot.empires.fw.game.traits.Celestial;
+import io.lonelyrobot.empires.fw.game.traits.Movable;
 import io.lonelyrobot.empires.fw.game.traits.Types;
 import io.lonelyrobot.empires.fw.game.utils.Logger;
 import io.lonelyrobot.empires.fw.game.utils.Tree2D;
@@ -100,4 +102,63 @@ public class SolarSystem {
     Logger.info("Created new solar system at " + location + " successfully...");
   }
 
+  /**
+   * Steps the solar system a single update cycle forward. Updates all units inside
+   * itself, calculates new orbital positions and removes invalid (dead) objects from
+   * object trees.
+   * 
+   * Is passed a delta-time between this update and the last one to smoothen certain
+   * computations to take heavy server load delays into account.
+   * 
+   * @param delta
+   */
+  public void update(double delta) {
+    Logger.debug("Stepping solar system " + location);
+  }
+
+  /**
+   * Moves a unit inside the solar system and updates all references accordingly to avoid
+   * future collision errors.
+   * 
+   * @param bo
+   *          Object to be moved
+   * @param offset
+   *          Positional offset to be applied to the object
+   */
+  public void moveUnit(BaseObject bo, Vector2D offset) {
+
+    if (!(bo instanceof Movable)) {
+      Logger.error("Failed to move unmovable object!");
+      return;
+    }
+
+    /** Update position reference in 2D search tree */
+    Vector2D curr = playerTree.get(bo);
+    playerTree.move(bo, curr.add(offset));
+
+    /** Then update the object-own position reference */
+    Logger.debug("[" + bo.getName() + "] Moving object by " + offset);
+    ((Movable) bo).move(offset);
+  }
+
+  /**
+   * A simple utility function that attacks a specific object inside this solar system.
+   * This could either be as part of a fleet operation (large scale fight) or because of a
+   * single strike or even environmental effects.
+   * 
+   * @param target
+   *          The object to be dealt damage to
+   * @param damage
+   *          The amount of damage being dealt
+   */
+  public void attackUnit(BaseObject target, double damage) {
+
+    if (!(target instanceof Attackable)) {
+      Logger.error("Failed to attack non-attackable object!");
+      return;
+    }
+
+    Logger.debug("[" + target.getName() + "] Applying " + damage + " damage");
+    ((Attackable) target).attack(damage);
+  }
 }
