@@ -21,7 +21,10 @@ package io.lonelyrobot.empires.fw.game.players;
 import java.util.Map;
 
 /**
- *
+ * An Alliance is a group of {@link Player}s that agree to not kill each other and kill
+ * other people first instead.
+ * 
+ * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
 public class Alliance extends Sociable {
   private Map<Player, Role> members;

@@ -27,8 +27,7 @@ import lombok.Getter;
  * Additional information can be provided to draw an avatar or determine the players
  * gender.
  * 
- * @author spacekookie
- *
+ * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
 public class Player extends Sociable {
 
