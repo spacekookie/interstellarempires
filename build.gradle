@@ -5,6 +5,8 @@ subprojects {
   repositories {
     mavenCentral()
     mavenLocal()
+    
+    maven { url "http://streamreasoning.org/maven/" }
   }
 
   dependencies {

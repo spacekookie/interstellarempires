@@ -11,6 +11,9 @@ dependencies {
   compile group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
   compile group: 'org.apache.commons', name: 'commons-math3', version: '2.2'
 
+  compile "net.sourceforge:javaml:0.1.7"
+  // compile group: 'net.sourceforge', name:'javaml', version: '0.1.7'
+
 // // PICK ONE!
 // compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.50'
 // compile group: 'org.bouncycastle', name: 'bcmail-jdk15', version: '1.46'

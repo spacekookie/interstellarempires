@@ -18,6 +18,12 @@
 
 package io.lonelyrobot.empires.cl.gl;
 
-public class CoreClient {
-	
+import com.badlogic.gdx.Game;
+
+public class CoreClient extends Game {
+
+  @Override
+  public void create() {
+
+  }
 }

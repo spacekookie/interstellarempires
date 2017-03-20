@@ -18,8 +18,14 @@
 
 package io.lonelyrobot.empires.cl.gl;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 import io.lonelyrobot.empires.fw.game.obj.BaseObject;
 import io.lonelyrobot.empires.fw.game.obj.Ship;
+import io.lonelyrobot.empires.fw.game.utils.Tree2D;
 
 /**
  * Main launcher class that handles platform dependant code like setting icons, getting
@@ -32,6 +38,10 @@ import io.lonelyrobot.empires.fw.game.obj.Ship;
 public class Launcher {
 
   public static void main(String args[]) {
+    LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+    config.width = 1280;
+    config.height = 720;
 
+    new LwjglApplication(new CoreClient(), config);
   }
 }
