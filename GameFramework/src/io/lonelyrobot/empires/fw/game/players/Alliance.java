@@ -20,6 +20,9 @@ package io.lonelyrobot.empires.fw.game.players;
 
 import java.util.Map;
 
-public class Alliance {
+/**
+ *
+ */
+public class Alliance extends Sociable {
   private Map<Player, Role> members;
 }

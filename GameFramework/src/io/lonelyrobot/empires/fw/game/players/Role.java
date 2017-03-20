@@ -18,6 +18,14 @@
 
 package io.lonelyrobot.empires.fw.game.players;
 
-public class Role {
+import lombok.Getter;
 
+/**
+ * A role can be created by Alliance leaders to limit te access scope of members to
+ * tactical and logistical assets of the Alliance.
+ * 
+ * 
+ */
+public class Role {
+  private @Getter String name;
 }

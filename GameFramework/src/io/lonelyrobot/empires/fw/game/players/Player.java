@@ -18,6 +18,29 @@
 
 package io.lonelyrobot.empires.fw.game.players;
 
-public class Player {
+import java.util.Set;
 
+import lombok.Getter;
+
+/**
+ * This class represents a player in game with all of their standings and relationships.
+ * Additional information can be provided to draw an avatar or determine the players
+ * gender.
+ * 
+ * @author spacekookie
+ *
+ */
+public class Player extends Sociable {
+
+  /** Crucial for gameplay */
+  private @Getter String username;
+  private @Getter Alliance alliance;
+
+  /** Optional for populating the player profile */
+  private @Getter String first, last;
+  private @Getter String gender;
+  private @Getter Byte[] avatar;
+
+  /** Keep a private contact book in here too */
+  private Set<Sociable> contacts;
 }
