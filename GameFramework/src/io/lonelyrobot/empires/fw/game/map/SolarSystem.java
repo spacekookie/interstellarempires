@@ -18,9 +18,6 @@
 
 package io.lonelyrobot.empires.fw.game.map;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import io.lonelyrobot.empires.fw.game.obj.BaseObject;
@@ -57,7 +54,7 @@ public class SolarSystem {
   private MapCoordinate location;
 
   /** A list of stars (because there are binary star systems */
-  private @Getter Tree2D<Star> stars;
+  private @Getter Star star;
 
   /** Quick lookup tree for Celestial types */
   private @Getter Tree2D<Celestial> celestials;
@@ -69,7 +66,6 @@ public class SolarSystem {
   private @Getter double radius;
 
   { /** Intialiser block independant of constructor */
-    stars = new Tree2D<>();
     celestials = new Tree2D<>();
     playerTree = new Tree2D<>();
   }
@@ -86,18 +82,12 @@ public class SolarSystem {
   public SolarSystem(Types.Stars stars[], MapCoordinate location) {
 
     /** Create new stars based on the types provided */
-    Set<Star> tmpStars = new HashSet<>();
-    for (Types.Stars s : stars)
-      tmpStars.add(new Star(s));
-
-    // FIXME: Correctly calculate orbits for multi-star systems
-    Star main = tmpStars.iterator().next();
-    this.stars.insert(main, new Vector2D(0, 0));
+    this.star = new Star(stars[0]);
     this.location = location;
 
     /** Calculating the gravity well radius of the system */
     // FIXME: Do this **right**
-    this.radius = main.getGravity();
+    this.radius = star.getGravity();
 
     Logger.info("Created new solar system at " + location + " successfully...");
   }
@@ -114,6 +104,11 @@ public class SolarSystem {
    */
   public void update(double delta) {
     Logger.debug("Stepping solar system " + location);
+
+    /** First we step every orbital around their parent */
+    
+
+    /** Then we update ship positions accordingly */
   }
 
   /**
