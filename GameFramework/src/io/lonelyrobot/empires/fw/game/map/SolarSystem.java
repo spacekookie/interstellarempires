@@ -79,10 +79,10 @@ public class SolarSystem {
    * @param location
    *          The relative location in the galaxy for internal reference
    */
-  public SolarSystem(Types.Stars stars[], MapCoordinate location) {
+  public SolarSystem(Star star, MapCoordinate location) {
 
     /** Create new stars based on the types provided */
-    this.star = new Star(stars[0]);
+    this.star = star;
     this.location = location;
 
     /** Calculating the gravity well radius of the system */
@@ -91,6 +91,8 @@ public class SolarSystem {
 
     Logger.info("Created new solar system at " + location + " successfully...");
   }
+
+  float angle = 0f;
 
   /**
    * Steps the solar system a single update cycle forward. Updates all units inside
@@ -105,8 +107,8 @@ public class SolarSystem {
   public void update(double delta) {
     Logger.debug("Stepping solar system " + location);
 
-    /** First we step every orbital around their parent */
-    
+    /** First step all orbital objects around their parents. */
+    star.updateOrbits(new Vector2D(0, 0));
 
     /** Then we update ship positions accordingly */
   }
@@ -155,5 +157,9 @@ public class SolarSystem {
 
     Logger.debug("[" + target.getName() + "] Applying " + damage + " damage");
     ((Attackable) target).attack(damage);
+  }
+
+  public void addUnit(BaseObject unit, Vector2D position) {
+
   }
 }

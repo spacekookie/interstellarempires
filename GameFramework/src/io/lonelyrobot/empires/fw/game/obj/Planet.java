@@ -18,6 +18,9 @@
 
 package io.lonelyrobot.empires.fw.game.obj;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+import io.lonelyrobot.empires.fw.game.map.OrbitData;
 import io.lonelyrobot.empires.fw.game.traits.Celestial;
 import io.lonelyrobot.empires.fw.game.traits.Orbitable;
 import io.lonelyrobot.empires.fw.game.traits.Ownable;
@@ -26,6 +29,16 @@ import io.lonelyrobot.empires.fw.game.traits.Ownable;
  * 
  * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
-public class Planet implements Celestial, Ownable, Orbitable {
+public class Planet extends BaseObject implements Celestial, Ownable, Orbitable {
+
+  public Planet(Star parent, float orbitRadius, Vector2D position) {
+
+    /** Setup planet with all required fields now */
+    super.orbit = new OrbitData();
+    orbit.setParent(parent);
+    orbit.setRadius(orbitRadius);
+
+    super.setSolPos(position);
+  }
 
 }

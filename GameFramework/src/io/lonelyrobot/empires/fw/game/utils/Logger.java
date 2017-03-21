@@ -114,6 +114,8 @@ public abstract class Logger {
     if (combined) {
       if (combine != null) {
         setup = true;
+
+        Logger.debug("Logger validation successful");
         return true;
       }
     } else {
@@ -141,6 +143,7 @@ public abstract class Logger {
 
         if (error == 0) {
           setup = true;
+          Logger.debug("Logger validation successful");
           return true;
         }
       }

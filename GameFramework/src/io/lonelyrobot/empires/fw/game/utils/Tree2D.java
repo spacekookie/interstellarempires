@@ -66,6 +66,10 @@ public class Tree2D<T> implements Iterable<T> {
     tree.delete(pos.toArray());
   }
 
+  public Vector2D get(T item) {
+    return map.get(item);
+  }
+
   /**
    * 
    * @param item

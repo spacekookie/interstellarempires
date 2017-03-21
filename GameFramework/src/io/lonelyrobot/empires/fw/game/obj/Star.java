@@ -18,6 +18,10 @@
 
 package io.lonelyrobot.empires.fw.game.obj;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import io.lonelyrobot.empires.fw.game.map.OrbitData;
 import io.lonelyrobot.empires.fw.game.traits.Celestial;
 import io.lonelyrobot.empires.fw.game.traits.Orbitable;
 import io.lonelyrobot.empires.fw.game.traits.Ownable;
@@ -34,12 +38,10 @@ import lombok.Data;
  * 
  * @author Katharina 'spacekookie' Fey <kookie@spacekookie.de>
  */
-public @Data class Star implements Celestial, Ownable, Orbitable {
-
-  private double mass;
+public @Data class Star extends BaseObject implements Celestial, Ownable, Orbitable {
 
   public Star(Types.Stars type) {
-
+    super.orbit = new OrbitData();
   }
 
   /**

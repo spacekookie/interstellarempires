@@ -57,10 +57,13 @@ public interface Movable {
   public void move(Vector2D offset);
 
   public static void move(BaseObject object, Vector2D offset) {
+
+    /** Check if not called with invalid payload */
     if (!(object instanceof Movable))
       return;
 
-    Movable m = (Movable) object;
-
+    /** Position is actually held on BaseObject */
+    Vector2D pos = object.getSolPos();
+    object.setSolPos(pos.add(offset));
   }
 }

@@ -34,4 +34,12 @@ import lombok.Getter;
  */
 public class MapCoordinate {
   private @Getter Vector2D position;
+
+  public MapCoordinate(int x, int y) {
+    this.position = new Vector2D(x, y);
+  }
+
+  public String toString() {
+    return "Sol [" + ((int) position.getX()) + " | " + ((int) position.getY()) + "]";
+  }
 }

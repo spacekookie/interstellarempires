@@ -23,6 +23,7 @@ import java.util.Set;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import io.lonelyrobot.empires.fw.game.map.MapCoordinate;
+import io.lonelyrobot.empires.fw.game.map.OrbitData;
 import io.lonelyrobot.empires.fw.game.map.SolarSystem;
 import io.lonelyrobot.empires.fw.game.modules.ModuleSlot;
 import io.lonelyrobot.empires.fw.game.traits.Orbitable;
@@ -55,8 +56,7 @@ public @Data class BaseObject {
   protected SolarSystem parent;
 
   /** Fields regarding movement traits */
-  protected BaseObject orbitalParent;
-  protected Set<BaseObject> orbitalChildren;
+  protected OrbitData orbit;
 
   protected Vector2D trajectory;
   protected boolean anchored;
@@ -77,22 +77,38 @@ public @Data class BaseObject {
    * 
    * @param parentOffset
    */
-  public void updateOrbits(Vector2D parentOffset, double radius, double step) {
+  public void updateOrbits(Vector2D parentOffset) {
+    Vector2D offset = new Vector2D(0, 0);
 
-    /** Calculate own offset */
-    Vector2D offset = Tools.computeOrbit(orbitalParent.getSolPos(), radius, solPos, step);
+    if (orbit != null && orbit.getParent() != null) {
 
-    /** Add the parent offset on top */
-    offset.add(parentOffset);
+      Vector2D p = orbit.getParent().getSolPos();
 
-    /** Apply position to self */
-    this.setSolPos(offset);
+      /** Calculate own offset */
+      double x = p.getX() + orbit.getRadius() * Math.cos(orbit.getStep());
+      double y = p.getY() + orbit.getRadius() * Math.sin(orbit.getStep());
+
+      orbit.setStep(orbit.getStep() + orbit.getStepSpeed());
+
+      Vector2D newPos = new Vector2D(x, y);
+      newPos.add(parentOffset);
+      // offset.add(new Vector2D(x, y));
+
+      /** Add the parent offset on top */
+      // offset.add(parentOffset);
+
+      offset.add(newPos);
+
+      /** Apply position to self */
+      this.setSolPos(newPos);
+
+    }
 
     /** Only propagate orbital offsets if self is Orbitable */
     if (!(this instanceof Orbitable))
       return;
 
     /** Call function for all children with the new (accumilated) offset */
-    Tools.safe(orbitalChildren).forEach((i) -> i.updateOrbits(offset, radius, step));
+    Tools.safe(orbit.getChildren()).forEach((i) -> i.updateOrbits(offset));
   }
 }
