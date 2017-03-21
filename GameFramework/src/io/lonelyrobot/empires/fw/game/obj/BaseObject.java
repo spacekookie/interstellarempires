@@ -23,7 +23,10 @@ import java.util.Set;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import io.lonelyrobot.empires.fw.game.map.MapCoordinate;
+import io.lonelyrobot.empires.fw.game.map.SolarSystem;
 import io.lonelyrobot.empires.fw.game.modules.ModuleSlot;
+import io.lonelyrobot.empires.fw.game.traits.Orbitable;
+import io.lonelyrobot.empires.fw.game.utils.Tools;
 import lombok.Data;
 
 /**
@@ -49,9 +52,12 @@ public @Data class BaseObject {
 
   /** To be able to map it to a system */
   protected MapCoordinate galaxyPos;
+  protected SolarSystem parent;
 
   /** Fields regarding movement traits */
   protected BaseObject orbitalParent;
+  protected Set<BaseObject> orbitalChildren;
+
   protected Vector2D trajectory;
   protected boolean anchored;
   protected Vector2D solPos;
@@ -62,4 +68,31 @@ public @Data class BaseObject {
   /** Other miscelanious fields */
   protected Set<ModuleSlot> slots;
   protected String name;
+
+  /**
+   * This function is called recursively from the {@link Star}, updating it's children
+   * with an offset of {0, 0}. These children then move themselves according to the
+   * position of their parent and then pass this offset to their children. These children
+   * move themselves by the offset and then calculate their additional offset.
+   * 
+   * @param parentOffset
+   */
+  public void updateOrbits(Vector2D parentOffset, double radius, double step) {
+
+    /** Calculate own offset */
+    Vector2D offset = Tools.computeOrbit(orbitalParent.getSolPos(), radius, solPos, step);
+
+    /** Add the parent offset on top */
+    offset.add(parentOffset);
+
+    /** Apply position to self */
+    this.setSolPos(offset);
+
+    /** Only propagate orbital offsets if self is Orbitable */
+    if (!(this instanceof Orbitable))
+      return;
+
+    /** Call function for all children with the new (accumilated) offset */
+    Tools.safe(orbitalChildren).forEach((i) -> i.updateOrbits(offset, radius, step));
+  }
 }
